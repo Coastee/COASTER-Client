@@ -10,8 +10,7 @@ interface InfoStepProps {
 }
 
 const InfoStep = ({ onNext }: InfoStepProps) => {
-  const { handleInfoChange, info, isNickNameError, isBirthError } =
-    useInfoForm();
+  const { handleInfoChange, info, isNickNameError, isBirthError } = useInfoForm();
 
   const isButtonDisabled = !info.name || isNickNameError || isBirthError;
 
@@ -24,7 +23,7 @@ const InfoStep = ({ onNext }: InfoStepProps) => {
         name: info.name,
         nickName: info.nickName,
         birth: formatDate(info.birth),
-      })
+      }),
     );
 
     onNext();
@@ -33,11 +32,7 @@ const InfoStep = ({ onNext }: InfoStepProps) => {
   return (
     <form onSubmit={handleSubmit} css={{ zIndex: 1 }}>
       <AuthContainer title={TITLE.PROFILE} desc={DESC.BASIC_INFO}>
-        <Input
-          placeholder={PLACEHOLDER.NAME}
-          onChange={(e) => handleInfoChange(e, "name")}
-          value={info.name}
-        />
+        <Input placeholder={PLACEHOLDER.NAME} onChange={(e) => handleInfoChange(e, "name")} value={info.name} />
         <Input
           placeholder={PLACEHOLDER.NICKNAME}
           onChange={(e) => handleInfoChange(e, "nickName")}
