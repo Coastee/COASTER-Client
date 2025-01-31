@@ -5,10 +5,12 @@ import { SUPPORTING_TEXT } from "@/pages/SignupPage/constants/supportingText";
 type InfoFormKeys = "name" | "nickName" | "birth";
 
 export const useInfoForm = () => {
+  const formData = JSON.parse(sessionStorage.getItem("signup") || "{}");
+
   const [info, setInfo] = useState({
-    name: "",
-    nickName: "",
-    birth: "",
+    name: formData.name || "",
+    nickName: formData.nickName || "",
+    birth: formData.birth || "",
   });
 
   const [nickNameSupportingText, setNickNameSupportingText] = useState("");
@@ -35,7 +37,7 @@ export const useInfoForm = () => {
   }, []);
 
   const handleBirthMessage = useCallback((birth: string) => {
-    if (birth.length !== 8) {
+    if (birth.length !== 10) {
       setBirthSupportingText(SUPPORTING_TEXT.BIRTH);
 
       return SUPPORTING_TEXT.BIRTH;
@@ -45,7 +47,7 @@ export const useInfoForm = () => {
   const isNickNameError =
     info.nickName.length > 0 &&
     (info.nickName.length < 2 || info.nickName.length > 10);
-  const isBirthError = info.birth.length > 0 && info.birth.length !== 8;
+  const isBirthError = info.birth.length > 0 && info.birth.length !== 10;
 
   useEffect(() => {
     handleNickNameMessage(info.nickName);

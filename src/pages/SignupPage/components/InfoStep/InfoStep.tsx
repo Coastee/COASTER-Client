@@ -15,32 +15,49 @@ const InfoStep = ({ onNext }: InfoStepProps) => {
 
   const isButtonDisabled = !info.name || isNickNameError || isBirthError;
 
-  return (
-    <AuthContainer title={TITLE.PROFILE} desc={DESC.BASIC_INFO}>
-      <Input
-        placeholder={PLACEHOLDER.NAME}
-        onChange={(e) => handleInfoChange(e, "name")}
-        value={info.name}
-      />
-      <Input
-        placeholder={PLACEHOLDER.NICKNAME}
-        onChange={(e) => handleInfoChange(e, "nickName")}
-        value={info.nickName}
-        isError={isNickNameError}
-        supportingText={SUPPORTING_TEXT.NICKNAME}
-      />
-      <Input
-        placeholder={PLACEHOLDER.BIRTH}
-        onChange={(e) => handleInfoChange(e, "birth")}
-        value={formatDate(info.birth)}
-        isError={isBirthError}
-        supportingText={SUPPORTING_TEXT.BIRTH}
-      />
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-      <Button onClick={onNext} disabled={isButtonDisabled}>
-        다음
-      </Button>
-    </AuthContainer>
+    sessionStorage.setItem(
+      "signup",
+      JSON.stringify({
+        name: info.name,
+        nickName: info.nickName,
+        birth: formatDate(info.birth),
+      })
+    );
+
+    onNext();
+  };
+
+  return (
+    <form onSubmit={handleSubmit} css={{ zIndex: 1 }}>
+      <AuthContainer title={TITLE.PROFILE} desc={DESC.BASIC_INFO}>
+        <Input
+          placeholder={PLACEHOLDER.NAME}
+          onChange={(e) => handleInfoChange(e, "name")}
+          value={info.name}
+        />
+        <Input
+          placeholder={PLACEHOLDER.NICKNAME}
+          onChange={(e) => handleInfoChange(e, "nickName")}
+          value={info.nickName}
+          isError={isNickNameError}
+          supportingText={SUPPORTING_TEXT.NICKNAME}
+        />
+        <Input
+          placeholder={PLACEHOLDER.BIRTH}
+          onChange={(e) => handleInfoChange(e, "birth")}
+          value={formatDate(info.birth)}
+          isError={isBirthError}
+          supportingText={SUPPORTING_TEXT.BIRTH}
+        />
+
+        <Button type="submit" disabled={isButtonDisabled}>
+          다음
+        </Button>
+      </AuthContainer>
+    </form>
   );
 };
 
