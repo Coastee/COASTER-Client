@@ -24,7 +24,7 @@ export const sectionStyle = (size: "medium" | "large") => css`
   padding: 5rem 7.8rem 5rem 6rem;
 
   justify-content: space-between;
-  gap: 16rem;
+  gap: ${size === "large" ? "5.5rem" : "16rem"};
 
   border-radius: 2.5rem;
 
