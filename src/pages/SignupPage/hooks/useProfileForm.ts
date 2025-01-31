@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 type FormKeys = "belonging" | "introduction";
 
@@ -10,15 +10,18 @@ export const useProfileForm = () => {
     introduction: formData.introduction || "",
   });
 
-  const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    key: FormKeys
-  ) => {
-    setForm((prev) => ({
-      ...prev,
-      [key]: e.target.value,
-    }));
-  };
+  const handleFormChange = useCallback(
+    (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      key: FormKeys
+    ) => {
+      setForm((prev) => ({
+        ...prev,
+        [key]: e.target.value,
+      }));
+    },
+    []
+  );
 
   return {
     form,

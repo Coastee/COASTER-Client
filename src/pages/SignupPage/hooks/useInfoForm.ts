@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { SUPPORTING_TEXT } from "@/pages/SignupPage/constants/supportingText";
+import { formatDate } from "@/pages/SignupPage/utils/date";
 
 type InfoFormKeys = "name" | "nickName" | "birth";
 
@@ -47,7 +48,8 @@ export const useInfoForm = () => {
   const isNickNameError =
     info.nickName.length > 0 &&
     (info.nickName.length < 2 || info.nickName.length > 10);
-  const isBirthError = info.birth.length > 0 && info.birth.length !== 10;
+  const isBirthError =
+    info.birth.length > 0 && formatDate(info.birth).length !== 10;
 
   useEffect(() => {
     handleNickNameMessage(info.nickName);
