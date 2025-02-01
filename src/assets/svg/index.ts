@@ -1,6 +1,8 @@
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ChatIcon } from "./ChatIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
+export { default as DmIcon } from "./DmIcon";
+export { default as EditIcon } from "./EditIcon";
 export { default as GoogleIcon } from "./GoogleIcon";
 export { default as HomeIcon } from "./HomeIcon";
 export { default as KakaoIcon } from "./KakaoIcon";
