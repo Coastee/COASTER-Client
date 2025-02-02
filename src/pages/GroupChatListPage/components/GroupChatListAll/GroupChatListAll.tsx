@@ -1,5 +1,5 @@
 import { RotateLogoIcon } from "@/assets/svg";
-import { CHAT_ROOMS_DUMMY } from "@/dummy/chatRoomsDummy";
+import { CHAT_ROOMS_DUMMY } from "@/constants/chatRoomsDummy";
 import * as s from "./GroupChatListAll.styles";
 
 const GroupChatListAll = () => {

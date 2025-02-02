@@ -1,5 +1,5 @@
 import { RotateLogoIcon } from "@/assets/svg";
-import { COFFEE_CHAT_LIST_DUMMY } from "@/dummy/coffeeChatListDummy";
+import { COFFEE_CHAT_LIST_DUMMY } from "@/constants/coffeeChatListDummy";
 import { formatDate, formatTime } from "@/utils/dateTime";
 import * as s from "./CoffeeChatList.styles";
 
