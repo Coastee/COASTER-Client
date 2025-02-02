@@ -17,7 +17,7 @@ const CoffeeChatList = () => {
             <div css={s.infoLayoutStyle}>
               <div css={s.titleLayoutStyle}>
                 <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
-                <p css={s.listTitleStyle}>{chat.title}</p>
+                <h1 css={s.listTitleStyle}>{chat.title}</h1>
               </div>
               <div css={s.detailLayoutStyle}>
                 <p css={s.detailText}>

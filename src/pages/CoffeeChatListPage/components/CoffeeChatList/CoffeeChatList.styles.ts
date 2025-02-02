@@ -87,6 +87,7 @@ export const listTitleStyle = css`
 
   ${theme.font.body1};
   color: ${theme.color.white};
+  font-weight: 500;
 `;
 
 export const listUsersStyle = css`
