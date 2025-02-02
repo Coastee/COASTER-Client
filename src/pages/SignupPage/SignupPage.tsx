@@ -40,7 +40,10 @@ const SignupPage = () => {
           {/* 임의로 serverId 부여 */}
           <InterestStep
             onPrev={() => Funnel.setStep("step3")}
-            onNext={() => navigate("/:1/home")}
+            onNext={() => {
+              navigate("/:1/home");
+              sessionStorage.clear();
+            }}
           />
         </Funnel.Step>
       </Funnel>
