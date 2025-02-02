@@ -10,16 +10,22 @@ export const useUrlForm = () => {
     setUrls((prev) => [...prev, ""]);
   }, []);
 
-  const handleChange = useCallback(
-    (index: number, value: string) => {
-      setUrls((prev) => prev.map((url, i) => (i === index ? value : url)));
+  const handleChange = useCallback((index: number, value: string) => {
+    setUrls((prev: string[]) => {
+      let updatedUrls = prev.map((url, i) => (i === index ? value : url));
 
-      const prev = JSON.parse(sessionStorage.getItem("signup") || "{}");
+      if (updatedUrls.every((url) => url === "")) {
+        updatedUrls = [""];
+      }
 
-      sessionStorage.setItem("signup", JSON.stringify({ ...prev, urls }));
-    },
-    [urls],
-  );
+      sessionStorage.setItem(
+        "signup",
+        JSON.stringify({ ...formData, urls: updatedUrls })
+      );
+
+      return updatedUrls;
+    });
+  }, []);
 
   return {
     urls,

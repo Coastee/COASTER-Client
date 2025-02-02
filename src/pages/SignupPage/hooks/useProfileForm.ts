@@ -1,3 +1,7 @@
+import {
+  type signUpFormTypes,
+  defaultSignUpFormValues,
+} from "@/pages/SignupPage/types/signupFormTypes";
 import { useCallback, useState } from "react";
 
 type FormKeys = "belonging" | "introduction";
@@ -6,28 +10,34 @@ export const useProfileForm = () => {
   const formData = JSON.parse(sessionStorage.getItem("signup") || "{}");
 
   const [form, setForm] = useState({
-    belonging: formData.belonging || "",
-    introduction: formData.introduction || "",
+    ...defaultSignUpFormValues,
+    ...formData,
   });
 
   const handleFormChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: FormKeys) => {
-      setForm((prev) => ({
-        ...prev,
-        [key]: e.target.value,
-      }));
+    (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      key: FormKeys
+    ) => {
+      setForm((prev: signUpFormTypes) => {
+        const updatedForm = {
+          ...prev,
+          [key]: e.target.value,
+        };
 
-      const prev = JSON.parse(sessionStorage.getItem("signup") || "{}");
+        sessionStorage.setItem(
+          "signup",
+          JSON.stringify({
+            ...updatedForm,
+            belonging: updatedForm.belonging,
+            introduction: updatedForm.introduction,
+          })
+        );
 
-      const data = {
-        ...prev,
-        belonging: form.belonging,
-        introduction: form.introduction,
-      };
-
-      sessionStorage.setItem("signup", JSON.stringify(data));
+        return updatedForm;
+      });
     },
-    [form.belonging, form.introduction],
+    []
   );
 
   return {

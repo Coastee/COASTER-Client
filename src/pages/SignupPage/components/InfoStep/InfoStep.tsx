@@ -10,40 +10,35 @@ interface InfoStepProps {
 }
 
 const InfoStep = ({ onNext }: InfoStepProps) => {
-  const { handleInfoChange, info, isNickNameError, isBirthError } = useInfoForm();
+  const { handleInfoChange, form, isNickNameError, isBirthError } =
+    useInfoForm();
 
-  const isButtonDisabled = !info.name || isNickNameError || isBirthError;
+  const isButtonDisabled = !form.name || isNickNameError || isBirthError;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    sessionStorage.setItem(
-      "signup",
-      JSON.stringify({
-        name: info.name,
-        nickName: info.nickName,
-        birth: formatDate(info.birth),
-      }),
-    );
-
     onNext();
   };
 
   return (
     <form onSubmit={handleSubmit} css={{ zIndex: 1 }}>
       <AuthContainer title={TITLE.PROFILE} desc={DESC.BASIC_INFO}>
-        <Input placeholder={PLACEHOLDER.NAME} onChange={(e) => handleInfoChange(e, "name")} value={info.name} />
+        <Input
+          placeholder={PLACEHOLDER.NAME}
+          onChange={(e) => handleInfoChange(e, "name")}
+          value={form.name}
+        />
         <Input
           placeholder={PLACEHOLDER.NICKNAME}
           onChange={(e) => handleInfoChange(e, "nickName")}
-          value={info.nickName}
+          value={form.nickName}
           isError={isNickNameError}
           supportingText={SUPPORTING_TEXT.NICKNAME}
         />
         <Input
           placeholder={PLACEHOLDER.BIRTH}
           onChange={(e) => handleInfoChange(e, "birth")}
-          value={formatDate(info.birth)}
+          value={formatDate(form.birth)}
           isError={isBirthError}
           supportingText={SUPPORTING_TEXT.BIRTH}
         />

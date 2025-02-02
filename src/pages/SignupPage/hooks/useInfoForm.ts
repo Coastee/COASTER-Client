@@ -1,46 +1,45 @@
 import { SUPPORTING_TEXT } from "@/pages/SignupPage/constants/supportingText";
+import {
+  type signUpFormTypes,
+  defaultSignUpFormValues,
+} from "@/pages/SignupPage/types/signUpFormTypes";
 import { formatDate } from "@/pages/SignupPage/utils/date";
 import { useCallback, useEffect, useState } from "react";
-
-type InfoFormKeys = "name" | "nickName" | "birth";
 
 export const useInfoForm = () => {
   const formData = JSON.parse(sessionStorage.getItem("signup") || "{}");
 
-  const [info, setInfo] = useState({
-    name: formData.name || "",
-    nickName: formData.nickName || "",
-    birth: formData.birth || "",
+  const [form, setForm] = useState({
+    ...defaultSignUpFormValues,
+    ...formData,
   });
 
   const [nickNameSupportingText, setNickNameSupportingText] = useState("");
   const [birthSupportingText, setBirthSupportingText] = useState("");
 
   const handleInfoChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, key: InfoFormKeys) => {
-      const { value } = e.target;
-
-      setInfo((prev) => ({
+    (e: React.ChangeEvent<HTMLInputElement>, key: keyof signUpFormTypes) => {
+      setForm((prev: signUpFormTypes) => ({
         ...prev,
-        [key]: value,
+        [key]: e.target.value,
       }));
 
       sessionStorage.setItem(
         "signup",
         JSON.stringify({
-          name: info.name,
-          nickName: info.nickName,
-          birth: formatDate(info.birth),
-        }),
+          ...form,
+          name: form.name,
+          nickName: form.nickName,
+          birth: formatDate(form.birth),
+        })
       );
     },
-    [info.birth, info.name, info.nickName],
+    [form]
   );
 
   const handleNickNameMessage = useCallback((nickName: string) => {
     if (nickName.length < 2 || nickName.length > 10) {
       setNickNameSupportingText(SUPPORTING_TEXT.NICKNAME);
-
       return SUPPORTING_TEXT.NICKNAME;
     }
   }, []);
@@ -48,25 +47,27 @@ export const useInfoForm = () => {
   const handleBirthMessage = useCallback((birth: string) => {
     if (formatDate(birth).length !== 10) {
       setBirthSupportingText(SUPPORTING_TEXT.BIRTH);
-
       return SUPPORTING_TEXT.BIRTH;
     }
   }, []);
 
-  const isNickNameError = info.nickName.length > 0 && (info.nickName.length < 2 || info.nickName.length > 10);
+  const isNickNameError =
+    form.nickName.length > 0 &&
+    (form.nickName.length < 2 || form.nickName.length > 10);
 
-  const isBirthError = info.birth.length > 0 && formatDate(info.birth).length !== 10;
+  const isBirthError =
+    form.birth.length > 0 && formatDate(form.birth).length !== 10;
 
   useEffect(() => {
-    handleNickNameMessage(info.nickName);
-  }, [info.nickName, handleNickNameMessage]);
+    handleNickNameMessage(form.nickName);
+  }, [form.nickName, handleNickNameMessage]);
 
   useEffect(() => {
-    handleBirthMessage(info.birth);
-  }, [info.birth, handleBirthMessage]);
+    handleBirthMessage(form.birth);
+  }, [form.birth, handleBirthMessage]);
 
   return {
-    info,
+    form,
     handleInfoChange,
     handleNickNameMessage,
     handleBirthMessage,
