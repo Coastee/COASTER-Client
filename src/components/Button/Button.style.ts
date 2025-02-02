@@ -60,6 +60,14 @@ export const variantStyles: Record<
     }
   `,
 
+  tertiary: css`
+    background-color: ${theme.color.dark2};
+
+    &:hover {
+      background-color: ${theme.color.dark1};
+    }
+  `,
+
   text: css`
     ${textBaseStyle};
     text-decoration: underline;
