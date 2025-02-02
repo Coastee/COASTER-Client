@@ -5,7 +5,6 @@ import {
   type ForwardedRef,
   type TextareaHTMLAttributes,
   forwardRef,
-  useState,
 } from "react";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -20,20 +19,11 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       id,
       value = "",
       maxLength,
+      onChange,
       ...props
     }: TextareaProps,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
-    const [text, setText] = useState(value.toString());
-    const [count, setCount] = useState(text.length);
-
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setText(e.target.value);
-      setCount(e.target.value.length);
-
-      props.onChange?.(e);
-    };
-
     return (
       <div css={s.wrapperStyle(isError)}>
         <textarea
@@ -42,15 +32,17 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={id}
           ref={ref}
           maxLength={maxLength}
-          value={text}
-          onChange={handleChange}
+          value={value}
+          onChange={onChange}
           tabIndex={0}
           {...props}
         />
         {maxLength && (
           <div css={s.countStyle}>
-            <p css={{ color: `${theme.color.primaryBlue2}` }}>{count}</p> /
-            {maxLength}
+            <p css={{ color: `${theme.color.primaryBlue2}` }}>
+              {value.toString().length}
+            </p>
+            / {maxLength}
           </div>
         )}
       </div>

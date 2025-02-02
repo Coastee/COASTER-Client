@@ -19,12 +19,12 @@ export const sectionStyle = (size: "medium" | "large") => css`
   display: flex;
 
   width: 81rem;
-  height: ${size === "large" ? "58.7rem" : "43rem"};
+  height: ${size === "large" ? "58.7rem" : "44rem"};
 
   padding: 5rem 7.8rem 5rem 6rem;
 
   justify-content: space-between;
-  gap: 5rem;
+  gap: ${size === "large" ? "5.5rem" : "16rem"};
 
   border-radius: 2.5rem;
 
@@ -63,19 +63,21 @@ export const descStyle = css`
 export const childrenStyle = (size: "medium" | "large") => css`
   display: flex;
 
+  padding-top: ${size === "large" ? "3rem" : "7.1rem"};
+
   flex-direction: column;
   flex-grow: 1;
-  gap: 1.8rem;
-
   align-items: flex-end;
 
-  padding-top: ${size === "large" ? "3rem" : "7.1rem"};
+  gap: 2rem;
 `;
 
 export const sideStyle = css`
   display: flex;
 
+  width: 16rem;
+
   flex-direction: column;
-  flex-grow: 1;
+
   gap: 2.1rem;
 `;
