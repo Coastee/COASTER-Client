@@ -12,7 +12,7 @@ const CoffeeChatListAll = () => {
             <img src={chat.imgSrc} alt="썸네일" css={s.thumbnailImgStyle} />
             <div css={s.infoLayoutStyle}>
               <div css={s.titleLayoutStyle}>
-                <RotateLogoIcon width={20} style={{ minWidth: "2rem" }} />
+                <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
                 <p css={s.listTitleStyle}>{chat.title}</p>
               </div>
               <div css={s.detailLayoutStyle}>

@@ -9,7 +9,7 @@ const GroupChatListAll = () => {
         <li key={chat.id} css={s.listItemStyle}>
           <div css={s.infoLayoutStyle}>
             <div css={s.textLayoutStyle}>
-              <RotateLogoIcon width={20} style={{ minWidth: "2rem" }} />
+              <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
               <h1 css={s.listTitleStyle}>{chat.title}</h1>
               <p css={s.circle} />
               <p css={s.listUsersStyle}>
