@@ -61,3 +61,9 @@ export const imgStyle = css`
 
   object-fit: cover;
 `;
+
+export const circleStyle = css`
+  color: ${theme.color.gray1};
+
+  ${theme.font.body2}
+`;
