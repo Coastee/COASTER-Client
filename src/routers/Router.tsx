@@ -1,4 +1,5 @@
 import App from "@/App";
+import { GroupChatListPage } from "@/pages/GroupChatListPage/GroupChatListPage";
 import { HomePage } from "@/pages/HomePage/HomePage";
 import MyPage from "@/pages/MyPage/MyPage";
 import OnBoardingPage from "@/pages/OnboardingPage/OnboardingPage";
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/",
+    path: "/:serverId",
     element: <App />,
     children: [
       {
@@ -29,15 +30,19 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "/:serverId/home/group-chat-list",
+        element: <GroupChatListPage />,
+      },
+      {
+        path: "/:serverId/home/coffee-chat-list",
+        element: <GroupChatListPage />,
+      },
+      {
         path: "/:serverId/group-chat",
         element: <HomePage />,
       },
       {
-        path: "/:serverId/offline-meeting",
-        element: <HomePage />,
-      },
-      {
-        path: "/dm",
+        path: "/:serverId/coffee-chat",
         element: <HomePage />,
       },
       {
@@ -45,5 +50,9 @@ export const router = createBrowserRouter([
         element: <MyPage />,
       },
     ],
+  },
+  {
+    path: "/dm",
+    element: <HomePage />,
   },
 ]);
