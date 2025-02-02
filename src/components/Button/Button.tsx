@@ -8,11 +8,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ variant = "primary", children, ...props }: ButtonProps) => {
   return (
-    <button
-      type="button"
-      css={[buttonStyle, variantStyles[variant]]}
-      {...props}
-    >
+    <button type="button" css={[buttonStyle, variantStyles[variant]]} {...props}>
       {children}
     </button>
   );
