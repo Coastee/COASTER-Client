@@ -50,11 +50,6 @@ export const oneLineIntroStyle = css`
 
 export const introStyle = css`
   max-width: 58rem;
-  height: 5.1rem;
-
-  overflow: scroll;
-
-  scroll-behavior: smooth;
 
   color: ${theme.color.gray1};
 
