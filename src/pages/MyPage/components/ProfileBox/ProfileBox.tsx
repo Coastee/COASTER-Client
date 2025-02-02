@@ -1,6 +1,6 @@
 import { DmIcon, EditIcon } from "@/assets/svg";
 import { Button } from "@/components";
-import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.style";
+import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 
 const ProfileBox = () => {

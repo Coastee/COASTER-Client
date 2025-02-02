@@ -33,7 +33,7 @@ const MenuHeader = () => {
               onClick={() => handleNavigate(menu.path)}
             >
               <menu.icon />
-              <span>{menu.name}</span>
+              <span css={{ whiteSpace: "nowrap" }}>{menu.name}</span>
             </button>
           );
         })}
