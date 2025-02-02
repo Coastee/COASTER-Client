@@ -10,6 +10,11 @@ export const wrapperStyle = css`
 `;
 
 export const titleStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 0.7rem;
+
   ${theme.font.title3};
 `;
 
