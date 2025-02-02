@@ -1,5 +1,6 @@
 import App from "@/App";
-import { GroupChatListPage } from "@/pages/GroupChatListPage/GroupChatListPage";
+import CoffeeChatListPage from "@/pages/CoffeeChatListPage/CoffeeChatListPage";
+import GroupChatListPage from "@/pages/GroupChatListPage/GroupChatListPage";
 import { HomePage } from "@/pages/HomePage/HomePage";
 import MyPage from "@/pages/MyPage/MyPage";
 import OnBoardingPage from "@/pages/OnboardingPage/OnboardingPage";
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/:serverId/home/coffee-chat-list",
-        element: <GroupChatListPage />,
+        element: <CoffeeChatListPage />,
       },
       {
         path: "/:serverId/group-chat",

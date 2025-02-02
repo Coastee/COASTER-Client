@@ -1,7 +1,7 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-import * as baseStyle from "@/components/GroupChatList/GroupChatList.styles";
+import * as baseStyle from "../GroupChatList/GroupChatList.styles";
 
 export const listContainerStyle = css`
   ${baseStyle.listContainerStyle};

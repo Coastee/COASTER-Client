@@ -1,5 +1,6 @@
-import { GroupChatList, TitleContainer } from "@/components";
-import CoffeeChatList from "@/components/CoffeeChatList/CoffeeChatList";
+import { TitleContainer } from "@/components";
+import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
+import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
 

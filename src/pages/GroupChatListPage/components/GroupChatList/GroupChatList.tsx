@@ -1,7 +1,7 @@
 import { RotateLogoIcon } from "@/assets/svg";
 import Divider from "@/components/Divider/Divider";
-import * as s from "@/components/GroupChatList/GroupChatList.styles";
 import { CHAT_ROOMS_DUMMY } from "@/dummy/chatRoomsDummy";
+import * as s from "./GroupChatList.styles";
 
 const GroupChatList = () => {
   return (
