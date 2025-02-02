@@ -9,8 +9,7 @@ interface InterestStepProps {
 }
 
 const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
-  const { interests, handleCheckboxChange, handleReset } =
-    useInterestSelection();
+  const { interests, handleCheckboxChange, handleReset } = useInterestSelection();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,26 +22,14 @@ const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
 
   return (
     <form onSubmit={handleSubmit} css={{ zIndex: 1 }}>
-      <AuthContainer
-        title={TITLE.PROFILE}
-        desc={DESC.INTEREST_INFO}
-        size="large"
-      >
-        <Button
-          variant="text"
-          css={{ textDecoration: "none" }}
-          onClick={handleReset}
-        >
+      <AuthContainer title={TITLE.PROFILE} desc={DESC.INTEREST_INFO} size="large">
+        <Button variant="text" css={{ textDecoration: "none" }} onClick={handleReset}>
           초기화
         </Button>
         <div css={s.boxWrapperStyle}>
           {INTERESTS.map((field) => (
             <label key={field} htmlFor={field} css={s.boxLayoutStyle}>
-              <CheckBox
-                id={field}
-                isChecked={interests.includes(field)}
-                onChange={() => handleCheckboxChange(field)}
-              />
+              <CheckBox id={field} isChecked={interests.includes(field)} onChange={() => handleCheckboxChange(field)} />
               <span css={s.labelStyle}>{field}</span>
             </label>
           ))}
@@ -55,7 +42,7 @@ const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
             선택 안 함
           </Button>
           <Button type="submit" disabled={interests.length === 0}>
-            다음
+            완료
           </Button>
         </div>
       </AuthContainer>
