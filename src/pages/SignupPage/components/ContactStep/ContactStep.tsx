@@ -17,9 +17,6 @@ const ContactStep = ({ onPrev, onNext }: ContactStepProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const prev = JSON.parse(sessionStorage.getItem("signup") || "{}");
-    sessionStorage.setItem("signup", JSON.stringify({ ...prev, urls }));
-
     onNext();
   };
 
@@ -37,12 +34,7 @@ const ContactStep = ({ onPrev, onNext }: ContactStepProps) => {
             />
           ))}
         </div>
-        <PlusIcon
-          width={16}
-          height={16}
-          css={{ cursor: "pointer", flexShrink: "0" }}
-          onClick={handleAddInput}
-        />
+        <PlusIcon width={16} height={16} css={{ cursor: "pointer", flexShrink: "0" }} onClick={handleAddInput} />
         <div css={s.btnLayoutStyle}>
           <Button variant="tertiary" onClick={onPrev}>
             이전

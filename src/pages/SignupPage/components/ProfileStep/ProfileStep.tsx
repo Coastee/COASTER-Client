@@ -14,16 +14,6 @@ const ProfileStep = ({ onPrev, onNext }: ProfileStepProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const prev = JSON.parse(sessionStorage.getItem("signup") || "{}");
-
-    const data = {
-      ...prev,
-      belonging: form.belonging,
-      introduction: form.introduction,
-    };
-
-    sessionStorage.setItem("signup", JSON.stringify(data));
-
     onNext();
   };
 

@@ -16,14 +16,26 @@ export const useInfoForm = () => {
   const [nickNameSupportingText, setNickNameSupportingText] = useState("");
   const [birthSupportingText, setBirthSupportingText] = useState("");
 
-  const handleInfoChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, key: InfoFormKeys) => {
-    const { value } = e.target;
+  const handleInfoChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, key: InfoFormKeys) => {
+      const { value } = e.target;
 
-    setInfo((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  }, []);
+      setInfo((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+
+      sessionStorage.setItem(
+        "signup",
+        JSON.stringify({
+          name: info.name,
+          nickName: info.nickName,
+          birth: formatDate(info.birth),
+        }),
+      );
+    },
+    [info.birth, info.name, info.nickName],
+  );
 
   const handleNickNameMessage = useCallback((nickName: string) => {
     if (nickName.length < 2 || nickName.length > 10) {
@@ -34,7 +46,7 @@ export const useInfoForm = () => {
   }, []);
 
   const handleBirthMessage = useCallback((birth: string) => {
-    if (birth.length !== 10) {
+    if (formatDate(birth).length !== 10) {
       setBirthSupportingText(SUPPORTING_TEXT.BIRTH);
 
       return SUPPORTING_TEXT.BIRTH;

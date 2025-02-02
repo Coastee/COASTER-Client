@@ -14,9 +14,6 @@ const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const prev = JSON.parse(sessionStorage.getItem("signup") || "{}");
-    sessionStorage.setItem("signup", JSON.stringify({ ...prev, interests }));
-
     onNext();
   };
 
