@@ -36,7 +36,7 @@ export const descLayoutStyle = css`
   display: inline-flex;
 
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
 
   overflow: hidden;
   white-space: nowrap;
