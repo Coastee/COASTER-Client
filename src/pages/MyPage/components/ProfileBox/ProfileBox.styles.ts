@@ -16,7 +16,7 @@ export const layoutStyle = css`
   flex-direction: column;
   gap: 0.95rem;
 
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0 0 1rem 1rem;
 
   background-color: ${theme.color.dark3};
 `;
@@ -33,7 +33,7 @@ export const linkStyle = css`
   width: 3.3rem;
   height: 3.3rem;
 
-  border-radius: 8px;
+  border-radius: 0.8rem;
 
   background: ${theme.color.dark2};
 `;
@@ -50,11 +50,8 @@ export const oneLineIntroStyle = css`
 
 export const introStyle = css`
   max-width: 58rem;
-  height: 5.1rem;
 
-  overflow: scroll;
-
-  scroll-behavior: smooth;
+  color: ${theme.color.gray1};
 
   ${theme.font.body2};
 `;
@@ -69,7 +66,7 @@ export const profileImgStyle = css`
   height: 10rem;
 
   border: 4px solid ${theme.color.dark3};
-  border-radius: 12px;
+  border-radius: 1.2rem;
 
   object-fit: cover;
 `;
@@ -92,7 +89,7 @@ export const editBtnStyle = css`
 
   gap: 0.8rem;
 
-  border-radius: 7px;
+  border-radius: 0.7rem;
 
   background-color: rgba(43, 51, 64, 0.5);
 
@@ -104,4 +101,11 @@ export const editBtnStyle = css`
 
     transition: 0.2s ease-in-out;
   }
+`;
+
+export const rowStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 1.4rem;
 `;

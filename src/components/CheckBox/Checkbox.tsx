@@ -8,7 +8,15 @@ interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
 const CheckBox = ({ id, isChecked, onChange, ...props }: CheckBoxProps) => {
   return (
     <div css={s.boxWrapperStyle}>
-      <input type="checkbox" id={id} css={s.checkboxStyle} onChange={onChange} aria-checked={isChecked} {...props} />
+      <input
+        type="checkbox"
+        id={id}
+        css={s.checkboxStyle}
+        onChange={onChange}
+        checked={isChecked}
+        aria-checked={isChecked}
+        {...props}
+      />
     </div>
   );
 };

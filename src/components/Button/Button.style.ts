@@ -26,6 +26,9 @@ export const buttonStyle = css`
   &:hover {
     scale: 1.02;
   }
+
+  &:disabled {
+  }
 `;
 
 const textBaseStyle = css`
@@ -54,6 +57,14 @@ export const variantStyles: Record<
 
     &:hover {
       background-color: ${theme.color.dark2};
+    }
+  `,
+
+  tertiary: css`
+    background-color: ${theme.color.dark2};
+
+    &:hover {
+      background-color: ${theme.color.dark1};
     }
   `,
 

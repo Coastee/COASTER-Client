@@ -1,9 +1,10 @@
 import { MenuHeader, ServerHeader } from "@/components";
+import { css } from "@emotion/react";
 import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div css={{ display: "flex" }}>
+    <div css={layoutStyle}>
       <ServerHeader />
       <MenuHeader />
       <Outlet />
@@ -12,3 +13,7 @@ const App = () => {
 };
 
 export default App;
+
+const layoutStyle = css`
+  display: flex;
+`;

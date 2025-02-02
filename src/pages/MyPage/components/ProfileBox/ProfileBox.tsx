@@ -6,24 +6,16 @@ import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 const ProfileBox = () => {
   return (
     <section css={s.wrapperStyle}>
-      <img
-        src={DUMMY_PROFILE.backgroundImg}
-        alt="프로필 배경"
-        css={s.backgroundImgStyle}
-      />
+      <img src={DUMMY_PROFILE.backgroundImg} alt="프로필 배경" css={s.backgroundImgStyle} />
       <button type="button" css={s.editBtnStyle}>
         <EditIcon width={16} height={15} />
         편집하기
       </button>
-      <img
-        src={DUMMY_PROFILE.profileImg}
-        alt="프로필"
-        css={s.profileImgStyle}
-      />
+      <img src={DUMMY_PROFILE.profileImg} alt="프로필" css={s.profileImgStyle} />
       <div css={s.layoutStyle}>
-        <div css={{ display: "flex", gap: "1.4rem" }}>
+        <div css={s.rowStyle}>
           <h1 css={s.nameStyle}>{DUMMY_PROFILE.name}</h1>
-          <Button css={{ padding: "0.6rem 1rem" }}>
+          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
           </Button>
