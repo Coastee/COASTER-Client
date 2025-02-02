@@ -6,7 +6,6 @@ export const listContainerStyle = css`
   grid-template-columns: repeat(auto-fit, minmax(33%, auto));
 
   width: 100%;
-  width: 100%;
   min-width: 73rem;
 
   padding: 1.3rem 0;
@@ -29,6 +28,8 @@ export const listItemStyle = css`
   padding: 0.4rem 1.6rem 0.8rem 1.6rem;
 
   width: 100%;
+
+  cursor: pointer;
 `;
 
 export const infoLayoutStyle = css`
@@ -68,6 +69,11 @@ export const detailText = css`
 
   ${theme.font.body3};
   font-weight: 400;
+
+  :nth-child(4) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const listTitleStyle = css`

@@ -1,136 +1,74 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
+import * as baseStyle from "../CoffeeChatList/CoffeeChatList.styles";
 
 export const listContainerStyle = css`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(33%, auto));
+  ${baseStyle.listContainerStyle};
+  grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
 
-  width: 100%;
-  width: 100%;
-  min-width: 73rem;
+  gap: 1.3rem;
 
-  padding: 1.3rem 0;
+  padding: 0;
 
-  box-sizing: content-box;
+  min-width: 24.2rem;
+
+  background-color: transparent;
+`;
+
+export const listItemStyle = css`
+  ${baseStyle.listItemStyle};
+
+  row-gap: 0;
+
+  padding: 0;
+
+  min-width: 21.6rem;
+`;
+
+export const infoLayoutStyle = css`
+  ${baseStyle.infoLayoutStyle};
+
+  padding: 1.7rem 1.5rem;
+
+  height: 12rem;
 
   border-radius: 1rem;
 
   background: ${theme.color.dark3};
 `;
 
-export const listItemStyle = css`
-  display: flex;
-
-  flex-direction: column;
-  justify-content: space-between;
-
-  row-gap: 1.3rem;
-
-  padding: 0.4rem 1.6rem 0.8rem 1.6rem;
-
-  width: 100%;
-`;
-
-export const infoLayoutStyle = css`
-  display: flex;
-
-  flex-direction: column;
-  flex-shrink: 0;
-
-  height: 8.4rem;
-`;
-
 export const titleLayoutStyle = css`
-  display: flex;
-
-  align-items: center;
-
-  gap: 0.9rem;
-
-  padding-bottom: 0.6rem;
+  ${baseStyle.titleLayoutStyle};
 `;
 
 export const detailLayoutStyle = css`
-  display: flex;
-
-  align-items: center;
-
-  gap: 0.7rem;
-
-  padding-bottom: 0.9rem;
-  padding-left: 0.4rem;
-
-  white-space: nowrap;
+  ${baseStyle.detailLayoutStyle};
 `;
 
 export const detailText = css`
-  color: ${theme.color.gray3};
-
-  ${theme.font.body3};
-  font-weight: 400;
+  ${baseStyle.detailText};
 `;
 
 export const listTitleStyle = css`
-  display: -webkit-box;
-
-  overflow: hidden;
-
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-
-  ${theme.font.body1};
-  color: ${theme.color.white};
+  ${baseStyle.listTitleStyle};
 `;
 
 export const listUsersStyle = css`
-  ${theme.font.body2};
-  color: ${theme.color.gray1};
-  font-weight: 400;
-  white-space: nowrap;
+  ${baseStyle.listUsersStyle};
 `;
 
 export const listDescStyle = css`
-  display: -webkit-box;
-
-  overflow: hidden;
-
-  padding-left: 0.4rem;
-
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-
-  ${theme.font.body2};
-  color: ${theme.color.gray1};
-  font-weight: 400;
+  ${baseStyle.listDescStyle};
 `;
 
 export const circle = css`
-  width: 0.4rem;
-  min-width: 0.4rem;
-  height: 0.4rem;
-
-  border-radius: 50%;
-
-  background-color: #d9d9d9;
+  ${baseStyle.circle};
 `;
 
 export const thumbnailImgStyle = css`
-  overflow: hidden;
-
-  width: 100%;
-  height: 100%;
-
-  border-radius: 10px;
-
-  object-fit: cover;
+  ${baseStyle.thumbnailImgStyle};
 `;
 
 export const verticalLineStyle = css`
-  padding: 0 1.3rem;
-
-  height: 100%;
-
-  border-left: 1px solid #414e5f;
+  ${baseStyle.verticalLineStyle};
 `;

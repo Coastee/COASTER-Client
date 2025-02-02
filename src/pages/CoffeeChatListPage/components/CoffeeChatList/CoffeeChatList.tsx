@@ -6,18 +6,14 @@ import * as s from "./CoffeeChatList.styles";
 const CoffeeChatList = () => {
   return (
     <ul css={s.listContainerStyle}>
-      {COFFEE_CHAT_LIST_DUMMY.slice(0, 3).map((chat, idx) => (
+      {COFFEE_CHAT_LIST_DUMMY.slice(0, 3).map((chat) => (
         <>
           <li
             key={chat.id}
             css={s.listItemStyle}
             style={{ borderRight: "1px solid #414e5f" }}
           >
-            <img
-              src={chat.imgSrc}
-              alt="예시 이미지"
-              css={s.thumbnailImgStyle}
-            />
+            <img src={chat.imgSrc} alt="썸네일" css={s.thumbnailImgStyle} />
             <div css={s.infoLayoutStyle}>
               <div css={s.titleLayoutStyle}>
                 <RotateLogoIcon width={20} style={{ minWidth: "2rem" }} />

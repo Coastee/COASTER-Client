@@ -2,7 +2,7 @@ import { TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
 import { useState } from "react";
 import * as s from "./CoffeeChatListPage.styles";
-import CoffeeChatList from "./components/CoffeeChatList/CoffeeChatList";
+import CoffeeChatListAll from "./components/CoffeeChatListAll/CoffeeChatListAll";
 
 const CoffeeChatListPage = () => {
   const [sortingOption, setSortingOption] = useState(SORTING_OPTIONS[0]);
@@ -15,7 +15,7 @@ const CoffeeChatListPage = () => {
         sortingOption={sortingOption}
         setSortingOption={setSortingOption}
       >
-        <CoffeeChatList />
+        <CoffeeChatListAll />
       </TitleContainer>
     </div>
   );
