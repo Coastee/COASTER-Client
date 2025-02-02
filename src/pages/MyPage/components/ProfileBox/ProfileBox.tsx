@@ -15,7 +15,7 @@ const ProfileBox = () => {
       <div css={s.layoutStyle}>
         <div css={s.rowStyle}>
           <h1 css={s.nameStyle}>{DUMMY_PROFILE.name}</h1>
-          <Button css={{ padding: "0.6rem 1rem" }}>
+          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
           </Button>
