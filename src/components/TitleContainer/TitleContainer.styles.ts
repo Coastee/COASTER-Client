@@ -3,7 +3,9 @@ import { css } from "@emotion/react";
 
 export const titleContainerStyle = css`
   display: flex;
+
   flex-direction: column;
+
   gap: 0.9rem;
 `;
 
@@ -23,6 +25,10 @@ export const sortingStyle = css`
   align-items: end;
 
   margin-left: auto;
+
+  button {
+    padding: 1.3rem 1rem 0.7rem 1rem;
+  }
 `;
 
 export const titleStyle = css`
