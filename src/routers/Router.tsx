@@ -25,6 +25,20 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/dm",
+        element: <HomePage />,
+      },
+      {
+        path: "/mypage",
+        element: <MyPage />,
+      },
+    ],
+  },
+  {
     path: "/:serverId",
     element: <App />,
     children: [
@@ -48,14 +62,6 @@ export const router = createBrowserRouter([
         path: "/:serverId/coffee-chat",
         element: <HomePage />,
       },
-      {
-        path: "/mypage",
-        element: <MyPage />,
-      },
     ],
-  },
-  {
-    path: "/dm",
-    element: <HomePage />,
   },
 ]);
