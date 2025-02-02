@@ -56,6 +56,8 @@ export const introStyle = css`
 
   scroll-behavior: smooth;
 
+  color: ${theme.color.gray1};
+
   ${theme.font.body2};
 `;
 
@@ -104,4 +106,11 @@ export const editBtnStyle = css`
 
     transition: 0.2s ease-in-out;
   }
+`;
+
+export const rowStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 1.4rem;
 `;
