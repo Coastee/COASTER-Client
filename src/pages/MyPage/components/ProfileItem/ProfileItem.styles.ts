@@ -35,12 +35,22 @@ export const nameStyle = css`
 export const descLayoutStyle = css`
   display: inline-flex;
 
+  max-width: 28rem;
+
   align-items: center;
   gap: 0.6rem;
 
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+export const carrerStyle = css`
+  color: ${theme.color.gray1};
+
+  ${theme.font.body2};
+
+  white-space: nowrap;
 `;
 
 export const descStyle = css`

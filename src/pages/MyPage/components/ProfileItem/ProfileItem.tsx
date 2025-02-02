@@ -19,11 +19,11 @@ const ProfileItem = ({ data }: ProfileItemProps) => {
         <div css={s.itemLayoutStyle}>
           <h2 css={s.nameStyle}>{data.name}</h2>
           <div css={s.descLayoutStyle}>
-            <p css={[s.descStyle, { maxWidth: "10rem" }]}>{data.intro}</p>
+            <p css={s.carrerStyle}>{data.experience}년차</p>
             <p css={s.circleStyle}>·</p>
-            <p css={s.descStyle}>{data.experience}년차</p>
+            <p css={s.carrerStyle}>{data.role}</p>
             <p css={s.circleStyle}>·</p>
-            <p css={s.descStyle}>{data.role}</p>
+            <p css={s.descStyle}>{data.intro}</p>
           </div>
         </div>
       </div>
