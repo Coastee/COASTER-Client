@@ -4,7 +4,7 @@ import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/Gr
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
 
-export const HomePage = () => {
+const HomePage = () => {
   const navigate = useNavigate();
 
   return (
@@ -30,3 +30,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;

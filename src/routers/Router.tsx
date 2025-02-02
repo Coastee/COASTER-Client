@@ -1,10 +1,12 @@
 import App from "@/App";
-import CoffeeChatListPage from "@/pages/CoffeeChatListPage/CoffeeChatListPage";
-import GroupChatListPage from "@/pages/GroupChatListPage/GroupChatListPage";
-import { HomePage } from "@/pages/HomePage/HomePage";
-import MyPage from "@/pages/MyPage/MyPage";
-import OnBoardingPage from "@/pages/OnboardingPage/OnboardingPage";
-import SignupPage from "@/pages/SignupPage/SignupPage";
+import {
+  CoffeeChatListPage,
+  GroupChatListPage,
+  HomePage,
+  MyPage,
+  OnboardingPage,
+  SignupPage,
+} from "@/pages";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -14,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <OnBoardingPage />,
+        element: <OnboardingPage />,
       },
       {
         path: "/signup",
