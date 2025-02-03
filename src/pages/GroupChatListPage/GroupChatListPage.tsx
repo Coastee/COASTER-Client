@@ -1,4 +1,4 @@
-import { TitleContainer } from "@/components";
+import { Search, TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
 import { useState } from "react";
 import * as s from "./GroupChatListPage.styles";
@@ -9,6 +9,7 @@ const GroupChatListPage = () => {
 
   return (
     <div css={s.containerStyle}>
+      <Search />
       <TitleContainer
         title="그룹 채팅방"
         sortingOptions={SORTING_OPTIONS}

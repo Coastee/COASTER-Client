@@ -1,4 +1,4 @@
-import { TitleContainer } from "@/components";
+import { Search, TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
 import { useState } from "react";
 import * as s from "./CoffeeChatListPage.styles";
@@ -9,6 +9,7 @@ const CoffeeChatListPage = () => {
 
   return (
     <div css={s.containerStyle}>
+      <Search />
       <TitleContainer
         title="오프라인 커피챗"
         sortingOptions={SORTING_OPTIONS}

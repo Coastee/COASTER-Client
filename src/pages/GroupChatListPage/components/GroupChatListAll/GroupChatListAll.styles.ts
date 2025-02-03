@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import * as baseStyle from "../GroupChatList/GroupChatList.styles";
 
-export const listContainerStyle = css`
+export const listContainerStyle = (itemsCount: number) => css`
   ${baseStyle.listContainerStyle};
 
   display: grid;
@@ -15,6 +15,11 @@ export const listContainerStyle = css`
   border-radius: 0;
 
   background-color: transparent;
+
+  ${itemsCount === 1 &&
+  css`
+    grid-template-columns: repeat(1, 1fr);
+  `}
 
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
