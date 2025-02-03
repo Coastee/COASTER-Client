@@ -8,10 +8,13 @@ export const containerStyle = css`
 
 export const hashTagListStyle = css`
   display: flex;
+  flex-wrap: wrap;
 
   align-items: center;
 
+  overflow: hidden;
+
   gap: 1rem;
 
-  /* border: 1px solid red; */
+  max-height: 3.1rem;
 `;
