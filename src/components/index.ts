@@ -8,3 +8,4 @@ export { default as MenuHeader } from "./MenuHeader/MenuHeader";
 export { default as ServerHeader } from "./ServerHeader/ServerHeader";
 export { default as Textarea } from "./Textarea/Textarea";
 export { default as TitleContainer } from "./TitleContainer/TitleContainer";
+export { default as SearchBar } from "./SearchBar/SearchBar";
