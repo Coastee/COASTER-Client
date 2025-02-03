@@ -40,5 +40,5 @@ export const titleStyle = css`
 `;
 
 export const contentStyle = css`
-  padding-right: 1rem;
+  /* padding-right: 1rem; */
 `;
