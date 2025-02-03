@@ -1,12 +1,9 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const listContainerStyle = css`
+export const listContainerStyle = (itemsCount: number = 0) => css`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33%, auto));
-
-  width: 100%;
-  min-width: 73rem;
 
   padding: 1.3rem 0;
 
@@ -15,6 +12,16 @@ export const listContainerStyle = css`
   border-radius: 1rem;
 
   background: ${theme.color.dark3};
+
+  ${itemsCount !== undefined &&
+  css`
+    width: ${itemsCount === 1
+      ? "21.6rem"
+      : itemsCount === 2
+      ? "43.2rem"
+      : "auto"};
+    min-width: ${itemsCount === 3 ? "73rem" : ""};
+  `}
 `;
 
 export const listItemStyle = css`

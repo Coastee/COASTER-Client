@@ -1,17 +1,28 @@
 import { RotateLogoIcon } from "@/assets/svg";
+import { NoDataContainer } from "@/components";
 import { COFFEE_CHAT_LIST_DUMMY } from "@/constants/coffeeChatListDummy";
 import { formatDate, formatTime } from "@/utils/dateTime";
 import * as s from "./CoffeeChatList.styles";
 
 const CoffeeChatList = () => {
+  const items = COFFEE_CHAT_LIST_DUMMY.slice(0, 3);
+  const itemsCount = items.length;
+
   return (
-    <ul css={s.listContainerStyle}>
-      {COFFEE_CHAT_LIST_DUMMY.slice(0, 3).map((chat) => (
-        <>
+    <ul css={s.listContainerStyle(itemsCount)}>
+      {itemsCount === 0 ? (
+        <NoDataContainer id="no-coffee-chat" height="25.1rem" />
+      ) : (
+        items.map((chat, idx) => (
           <li key={chat.id}>
             <article
               css={s.listItemStyle}
-              style={{ borderRight: "1px solid #414e5f" }}
+              style={{
+                borderRight:
+                  itemsCount > 1 && idx < itemsCount - 1
+                    ? "1px solid #414e5f"
+                    : "none",
+              }}
             >
               <img src={chat.imgSrc} alt="썸네일" css={s.thumbnailImgStyle} />
               <div css={s.infoLayoutStyle}>
@@ -23,7 +34,6 @@ const CoffeeChatList = () => {
                   <p css={s.detailText}>
                     {`${formatDate(chat.date)}${"  "}${formatTime(chat.time)}`}
                   </p>
-
                   <p css={s.circle} />
                   <p css={s.detailText}>방장 {chat.owner}</p>
                   <p css={s.detailText}>
@@ -34,8 +44,8 @@ const CoffeeChatList = () => {
               </div>
             </article>
           </li>
-        </>
-      ))}
+        ))
+      )}
     </ul>
   );
 };
