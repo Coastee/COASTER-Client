@@ -1,4 +1,4 @@
-import { HomeIcon, CoffeeIcon, ChatIcon } from "../assets/svg"; // 임시 아이콘
+import { ChatIcon, CoffeeIcon, HomeIcon } from "../assets/svg"; // 임시 아이콘
 
 export const MENU = [
   {
@@ -14,9 +14,9 @@ export const MENU = [
     path: "group-chat",
   },
   {
-    id: "offline-meeting",
-    name: "오프라인 모임",
+    id: "coffee-chat",
+    name: "커피챗",
     icon: CoffeeIcon,
-    path: "offline-meeting",
+    path: "coffee-chat",
   },
 ];
