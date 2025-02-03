@@ -1,4 +1,4 @@
-import { SearchBar, TitleContainer } from "@/components";
+import { Search, TitleContainer } from "@/components";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ const HomePage = () => {
 
   return (
     <div css={s.containerStyle}>
-      <SearchBar />
+      <Search />
       <TitleContainer
         title="그룹 채팅방"
         textButton="전체보기"

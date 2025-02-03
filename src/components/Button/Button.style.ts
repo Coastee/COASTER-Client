@@ -83,4 +83,23 @@ export const variantStyles: Record<
       scale: 1;
     }
   `,
+
+  hashtag: css`
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 17px;
+
+    border-radius: 1rem;
+
+    background-color: ${theme.color.dark3};
+
+    ${theme.font.body3};
+    color: ${theme.color.gray3};
+    font-weight: 400;
+  `,
 };
