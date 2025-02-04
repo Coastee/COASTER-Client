@@ -69,6 +69,11 @@ export const detailLayoutStyle = css`
   padding-left: 0.4rem;
 
   white-space: nowrap;
+
+  p:nth-of-type(4) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const detailText = css`
@@ -76,11 +81,6 @@ export const detailText = css`
 
   ${theme.font.body3};
   font-weight: 400;
-
-  :nth-child(4) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 `;
 
 export const listTitleStyle = css`
