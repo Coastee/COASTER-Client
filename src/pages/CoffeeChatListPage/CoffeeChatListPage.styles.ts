@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 
-export const containerStyle = css`
+export const layoutStyle = css`
   display: flex;
   flex-direction: column;
 
   row-gap: 4rem;
 
-  padding: 4.2rem 9.8rem 6.8rem 3.2rem;
+  padding: 4.2rem 9.8rem 6.8rem 4.2rem;
 
   overflow-y: scroll;
 

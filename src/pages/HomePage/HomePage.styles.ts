@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const containerStyle = css`
+export const layoutStyle = css`
   display: flex;
   flex-direction: column;
 
