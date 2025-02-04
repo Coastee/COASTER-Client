@@ -11,7 +11,7 @@ const CoffeeChatListAll = () => {
   return (
     <div>
       {itemsCount === 0 ? (
-        <NoDataContainer id="no-coffee-chat" height="25.1rem" />
+        <NoDataContainer id="NO_COFFEE_CHAT" height="25.1rem" />
       ) : (
         <ul css={s.listContainerStyle(itemsCount)}>
           {items.map((chat) => (

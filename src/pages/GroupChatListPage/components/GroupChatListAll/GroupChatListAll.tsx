@@ -10,7 +10,7 @@ const GroupChatListAll = () => {
   return (
     <div>
       {itemsCount === 0 ? (
-        <NoDataContainer id="no-coffee-chat" height="25.1rem" />
+        <NoDataContainer id="NO_GROUP_CHAT" height="25.1rem" />
       ) : (
         <ul css={s.listContainerStyle(itemsCount)}>
           {items.map((chat) => (
