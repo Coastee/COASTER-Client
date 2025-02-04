@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const containerStyle = css`
+export const searchLayoutStyle = css`
   display: flex;
   flex-direction: column;
   row-gap: 1.2rem;
