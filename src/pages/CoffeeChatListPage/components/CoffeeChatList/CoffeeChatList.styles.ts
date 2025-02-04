@@ -24,10 +24,16 @@ export const listContainerStyle = (itemsCount: number = 0) => css`
   `}
 `;
 
-export const listItemStyle = css`
+export const listItemStyle = ({
+  itemsCount,
+  idx,
+}: {
+  itemsCount: number;
+  idx: number;
+}) => css`
   display: flex;
-
   flex-direction: column;
+
   justify-content: space-between;
 
   row-gap: 1.3rem;
@@ -35,6 +41,10 @@ export const listItemStyle = css`
   padding: 0.4rem 1.6rem 0.8rem 1.6rem;
 
   width: 100%;
+
+  border-right: ${itemsCount > 1 && idx < itemsCount - 1
+    ? "1px solid #414e5f"
+    : "none"};
 
   cursor: pointer;
 `;

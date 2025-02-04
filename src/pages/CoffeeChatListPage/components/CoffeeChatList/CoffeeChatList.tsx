@@ -15,15 +15,7 @@ const CoffeeChatList = () => {
       ) : (
         items.map((chat, idx) => (
           <li key={chat.id}>
-            <article
-              css={s.listItemStyle}
-              style={{
-                borderRight:
-                  itemsCount > 1 && idx < itemsCount - 1
-                    ? "1px solid #414e5f"
-                    : "none",
-              }}
-            >
+            <article css={s.listItemStyle({ itemsCount, idx })}>
               <img src={chat.imgSrc} alt="썸네일" css={s.thumbnailImgStyle} />
               <div css={s.infoLayoutStyle}>
                 <div css={s.titleLayoutStyle}>
