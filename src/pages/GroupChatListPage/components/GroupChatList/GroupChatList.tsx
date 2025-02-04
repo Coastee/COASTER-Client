@@ -14,32 +14,31 @@ const GroupChatList = () => {
         <NoDataContainer id="no-group-chat" height="20.8rem" />
       ) : (
         <ul css={s.listContainerStyle}>
-          {CHAT_ROOMS_DUMMY.slice(0, 3).map((chat, idx) => (
-            <>
-              <li key={chat.id}>
-                <article css={s.listItemStyle}>
-                  <div css={s.infoLayoutStyle}>
-                    <div css={s.textLayoutStyle}>
-                      <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
-                      <h1 css={s.listTitleStyle}>{chat.title}</h1>
-                      <p css={s.circle} />
-                      <p css={s.listUsersStyle}>
-                        {chat.currentUsers}/{chat.maxUsers}명
-                      </p>
-                    </div>
-                    <p css={s.listDescStyle}>{chat.desc}</p>
+          {items.map((chat, idx) => (
+            <li key={chat.id}>
+              <article css={s.listItemStyle}>
+                <div css={s.infoLayoutStyle}>
+                  <div css={s.textLayoutStyle}>
+                    <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
+                    <h1 css={s.listTitleStyle}>{chat.title}</h1>
+                    <p css={s.circle} />
+                    <p css={s.listUsersStyle}>
+                      {chat.currentUsers}/{chat.maxUsers}명
+                    </p>
                   </div>
-                  <img
-                    src={chat.imgSrc}
-                    alt="그룹 채팅 썸네일"
-                    css={s.thumbnailImgStyle}
-                  />
-                </article>
-              </li>
+                  <p css={s.listDescStyle}>{chat.desc}</p>
+                </div>
+                <img
+                  src={chat.imgSrc}
+                  alt="그룹 채팅 썸네일"
+                  css={s.thumbnailImgStyle}
+                />
+              </article>
+
               {itemsCount > 1 && idx < itemsCount - 1 && (
                 <Divider css={s.DividerStyle} />
               )}
-            </>
+            </li>
           ))}
         </ul>
       )}
