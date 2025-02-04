@@ -19,13 +19,15 @@ export const listContainerStyle = (itemsCount?: number) => css`
 `;
 
 export const listItemStyle = css`
-  ${baseStyle.listItemStyle};
+  display: flex;
+  flex-direction: column;
 
-  row-gap: 0;
+  justify-content: space-between;
 
-  padding: 0;
-
+  width: 100%;
   min-width: 21.6rem;
+
+  cursor: pointer;
 `;
 
 export const infoLayoutStyle = css`
