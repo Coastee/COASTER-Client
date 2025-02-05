@@ -39,6 +39,4 @@ export const titleStyle = css`
   white-space: nowrap;
 `;
 
-export const contentStyle = css`
-  padding-right: 1rem;
-`;
+export const contentStyle = css``;

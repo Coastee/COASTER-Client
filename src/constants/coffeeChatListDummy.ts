@@ -1,5 +1,4 @@
 import rotateLogoImg from "../assets/img/rotateLogoImg.png";
-
 export interface CoffeeChatListTypes {
   id: number;
   title: string;
@@ -12,7 +11,7 @@ export interface CoffeeChatListTypes {
   imgSrc: string;
 }
 
-export const COFFEE_CHAT_LIST_DUMMY = [
+export const COFFEE_CHAT_LIST_DUMMY: CoffeeChatListTypes[] = [
   {
     id: 1,
     title: "강남 프엔 번개 모임 강남 프엔 번개 모임",

@@ -1,12 +1,9 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const listContainerStyle = css`
+export const listContainerStyle = (itemsCount: number = 0) => css`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33%, auto));
-
-  width: 100%;
-  min-width: 73rem;
 
   padding: 1.3rem 0;
 
@@ -15,12 +12,28 @@ export const listContainerStyle = css`
   border-radius: 1rem;
 
   background: ${theme.color.dark3};
+
+  ${itemsCount !== undefined &&
+  css`
+    width: ${itemsCount === 1
+      ? "21.6rem"
+      : itemsCount === 2
+      ? "43.2rem"
+      : "auto"};
+    min-width: ${itemsCount === 3 ? "73rem" : ""};
+  `}
 `;
 
-export const listItemStyle = css`
+export const listItemStyle = ({
+  itemsCount,
+  idx,
+}: {
+  itemsCount: number;
+  idx: number;
+}) => css`
   display: flex;
-
   flex-direction: column;
+
   justify-content: space-between;
 
   row-gap: 1.3rem;
@@ -28,6 +41,10 @@ export const listItemStyle = css`
   padding: 0.4rem 1.6rem 0.8rem 1.6rem;
 
   width: 100%;
+
+  border-right: ${itemsCount > 1 && idx < itemsCount - 1
+    ? "1px solid #414e5f"
+    : "none"};
 
   cursor: pointer;
 `;
@@ -62,6 +79,11 @@ export const detailLayoutStyle = css`
   padding-left: 0.4rem;
 
   white-space: nowrap;
+
+  p:nth-of-type(4) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const detailText = css`
@@ -69,11 +91,6 @@ export const detailText = css`
 
   ${theme.font.body3};
   font-weight: 400;
-
-  :nth-child(4) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 `;
 
 export const listTitleStyle = css`

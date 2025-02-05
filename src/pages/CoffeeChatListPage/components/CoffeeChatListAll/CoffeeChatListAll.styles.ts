@@ -2,27 +2,32 @@ import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 import * as baseStyle from "../CoffeeChatList/CoffeeChatList.styles";
 
-export const listContainerStyle = css`
-  ${baseStyle.listContainerStyle};
-  grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
+export const listContainerStyle = (itemsCount?: number) => css`
+  display: grid;
+
+  box-sizing: content-box;
+
+  border-radius: 1rem;
+
+  grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
 
   gap: 1.3rem;
 
   padding: 0;
 
-  min-width: 24.2rem;
-
   background-color: transparent;
 `;
 
 export const listItemStyle = css`
-  ${baseStyle.listItemStyle};
+  display: flex;
+  flex-direction: column;
 
-  row-gap: 0;
+  justify-content: space-between;
 
-  padding: 0;
-
+  width: 100%;
   min-width: 21.6rem;
+
+  cursor: pointer;
 `;
 
 export const infoLayoutStyle = css`

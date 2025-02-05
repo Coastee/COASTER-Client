@@ -9,7 +9,7 @@ export interface DropdownOptionTypes {
   imgSrc: string;
 }
 
-export const CHAT_ROOMS_DUMMY = [
+export const CHAT_ROOMS_DUMMY: DropdownOptionTypes[] = [
   {
     id: 1,
     title: "강남 프엔 번개 모임 강남 프엔 번개 모임",
