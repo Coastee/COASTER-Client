@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 
 export const sectionStyle = css`
   position: relative;
+
   display: flex;
   flex-direction: column;
 
@@ -15,8 +16,6 @@ export const sectionStyle = css`
 
   row-gap: 3.4rem;
 
-  /* width: 100%; */
-
   border-radius: 2.5rem;
 
   background-color: ${theme.color.dark3};
@@ -25,30 +24,37 @@ export const sectionStyle = css`
 export const textLayoutStyle = css`
   display: flex;
   flex-direction: column;
+
   align-items: center;
+
   row-gap: 0.9rem;
 `;
 
 export const titleLayoutStyle = css`
   position: relative;
+
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
 `;
 
 export const titleStyle = css`
   padding: 0 0.2rem;
+
+  z-index: 1;
+
   ${theme.font.body2};
   font-weight: 600;
-  z-index: 1;
 `;
 
 export const underBarStyle = css`
   position: absolute;
-  bottom: 0; /* title 아래로 위치 */
+
+  bottom: 0;
   left: 0;
-  width: 100%; /* 전체 너비로 확장 */
+
+  width: 100%;
   height: 0.5rem;
+
   background-color: ${theme.color.primaryBlue2};
 `;
 export const descStyle = css`
