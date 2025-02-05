@@ -11,12 +11,19 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const [keyword, setKeyword] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
 
   return (
     <>
-      <Modal title={title} currentUsers={currentUsers} maxUsers={maxUsers} />
+      <Modal
+        title={title}
+        currentUsers={currentUsers}
+        maxUsers={maxUsers}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      />
       <div css={s.layoutStyle}>
         <SearchLayout
           keyword={keyword}

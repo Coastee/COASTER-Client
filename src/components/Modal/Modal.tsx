@@ -7,6 +7,8 @@ export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   currentUsers?: number;
   maxUsers?: number;
   extraButton?: ReactNode;
+  isVisible: boolean;
+  setIsVisible: (value: boolean) => void;
   children?: ReactNode;
 }
 
@@ -15,11 +17,19 @@ const Modal = ({
   currentUsers,
   maxUsers,
   extraButton,
+  isVisible,
+  setIsVisible,
   children,
   ...props
 }: ModalProps) => {
+  const handleClose = () => {
+    setIsVisible(false);
+  };
+
+  if (!isVisible) return null;
+
   return (
-    <div css={s.layoutStyle} {...props}>
+    <div css={s.layoutStyle} {...props} onClick={handleClose}>
       <div css={s.modalStyle}>
         <header css={s.modalHeaderStyle}>
           <div css={s.headerTextStyle}>
@@ -35,7 +45,11 @@ const Modal = ({
           </div>
           <div css={s.headerButtonsStyle}>
             {extraButton}
-            <CloseIcon width={43} css={s.closeIconStyle} />
+            <CloseIcon
+              width={43}
+              css={s.closeIconStyle}
+              onClick={handleClose}
+            />
           </div>
         </header>
         <div css={s.modalContentStyle}>{children}</div>
