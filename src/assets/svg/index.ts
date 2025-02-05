@@ -1,5 +1,6 @@
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ChatIcon } from "./ChatIcon";
+export { default as CloseIcon } from "./CloseIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
 export { default as DmIcon } from "./DmIcon";
 export { default as EditIcon } from "./EditIcon";
