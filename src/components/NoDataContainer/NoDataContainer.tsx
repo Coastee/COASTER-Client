@@ -23,7 +23,7 @@ const NoDataContainer = ({ id, height }: AuthContainerProps) => {
     >
       <img
         src={noDataBackground}
-        css={s.backgroudStyle}
+        css={s.backgroundStyle}
         alt="데이터 없을 때 배경"
       />
       <RotateLogoIcon width={50} />

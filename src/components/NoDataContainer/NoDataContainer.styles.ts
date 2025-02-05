@@ -56,7 +56,7 @@ export const descStyle = css`
   font-weight: 400;
 `;
 
-export const backgroudStyle = css`
+export const backgroundStyle = css`
   position: absolute;
 
   padding: 1.2rem 5.2rem;
