@@ -24,10 +24,14 @@ const Modal = ({
         <header css={s.modalHeaderStyle}>
           <div css={s.headerTextStyle}>
             <h1 css={s.titleStyle}>{title}</h1>
-            <p css={s.circleStyle}> · </p>
-            <p css={s.userCountStyle}>
-              {currentUsers}/{maxUsers}명
-            </p>
+            {currentUsers !== undefined && maxUsers !== undefined && (
+              <>
+                <p css={s.circleStyle}> · </p>
+                <p css={s.userCountStyle}>
+                  {currentUsers}/{maxUsers}명
+                </p>
+              </>
+            )}
           </div>
           <div css={s.headerButtonsStyle}>
             {extraButton}
