@@ -5,11 +5,11 @@ export const layoutStyle = css`
   top: 0;
   left: 0;
 
+  z-index: 1;
+
   display: flex;
 
   align-items: flex-start;
-
-  z-index: 1;
 
   width: 100%;
   height: 100vh;
@@ -21,6 +21,8 @@ export const modalStyle = css`
   position: absolute;
   top: 0;
   right: 0;
+
+  z-index: 2;
 
   display: flex;
   flex-direction: column;
@@ -84,7 +86,7 @@ export const modalContentStyle = css`
   padding: 1.6rem;
 `;
 
-export const closeIconStyle = css`
+export const headerIconStyle = css`
   flex-shrink: 0;
 
   padding: 1rem;

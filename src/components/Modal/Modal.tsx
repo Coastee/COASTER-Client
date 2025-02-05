@@ -30,7 +30,11 @@ const Modal = ({
 
   return (
     <div css={s.layoutStyle} {...props} onClick={handleClose}>
-      <div css={s.modalStyle}>
+      <div
+        css={s.modalStyle}
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <header css={s.modalHeaderStyle}>
           <div css={s.headerTextStyle}>
             <h1 css={s.titleStyle}>{title}</h1>
@@ -44,10 +48,10 @@ const Modal = ({
             )}
           </div>
           <div css={s.headerButtonsStyle}>
-            {extraButton}
+            {extraButton && <div css={s.headerIconStyle}>{extraButton}</div>}
             <CloseIcon
               width={43}
-              css={s.closeIconStyle}
+              css={s.headerIconStyle}
               onClick={handleClose}
             />
           </div>
