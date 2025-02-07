@@ -1,21 +1,33 @@
+import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { NoDataContainer } from "@/components";
 import Divider from "@/components/Divider/Divider";
-import { CHAT_ROOMS_DUMMY } from "@/constants/chatRoomsDummy";
+import type { HomeGetDummyTypes } from "@/pages/HomePage/types/homeDataTypes";
 import * as s from "./GroupChatList.styles";
 
-const GroupChatList = () => {
-  const items = CHAT_ROOMS_DUMMY.slice(0, 3);
-  const itemsCount = items.length;
+type GroupChatListProps = {
+  data: HomeGetDummyTypes["groupChatRoom"];
+  handleItemClick: (id: string) => void;
+};
+
+const GroupChatList = ({ data, handleItemClick }: GroupChatListProps) => {
+  const { pageInfo, chatRoomList } = data;
+  const itemCount = pageInfo.size;
 
   return (
     <>
-      {itemsCount === 0 ? (
+      {itemCount === 0 ? (
         <NoDataContainer id="NO_GROUP_CHAT" height="20.8rem" />
       ) : (
         <ul css={s.listContainerStyle}>
-          {items.map((chat, idx) => (
-            <li key={chat.id}>
+          {chatRoomList.map((chat, idx) => (
+            <li
+              key={chat.id}
+              onClick={() => handleItemClick(chat.id.toString())}
+              onKeyDown={(e) => {
+                e.key === "Enter" && handleItemClick(chat.id.toString());
+              }}
+            >
               <article css={s.listItemStyle}>
                 <div css={s.infoLayoutStyle}>
                   <div css={s.textLayoutStyle}>
@@ -23,19 +35,19 @@ const GroupChatList = () => {
                     <h1 css={s.listTitleStyle}>{chat.title}</h1>
                     <p css={s.circle} />
                     <p css={s.listUsersStyle}>
-                      {chat.currentUsers}/{chat.maxUsers}명
+                      {chat.currentCount}/{chat.maxCount}명
                     </p>
                   </div>
-                  <p css={s.listDescStyle}>{chat.desc}</p>
+                  <p css={s.listDescStyle}>{chat.content}</p>
                 </div>
                 <img
-                  src={chat.imgSrc}
+                  src={chat.thumbnail || rotateLogoImg}
                   alt="그룹 채팅 썸네일"
                   css={s.thumbnailImgStyle}
                 />
               </article>
 
-              {itemsCount > 1 && idx < itemsCount - 1 && (
+              {itemCount > 1 && idx < itemCount - 1 && (
                 <Divider css={s.DividerStyle} />
               )}
             </li>

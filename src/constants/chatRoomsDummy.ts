@@ -1,15 +1,15 @@
 import rotateLogoImg from "../assets/img/rotateLogoImg.png";
 
-export interface DropdownOptionTypes {
+export interface chatRooomPreviewTypes {
   id: number;
   title: string;
   currentUsers: number;
   maxUsers: number;
   desc: string;
-  imgSrc: string;
+  imgSrc: string | null;
 }
 
-export const CHAT_ROOMS_DUMMY: DropdownOptionTypes[] = [
+export const CHAT_ROOMS_DUMMY: chatRooomPreviewTypes[] = [
   {
     id: 1,
     title: "강남 프엔 번개 모임 강남 프엔 번개 모임",

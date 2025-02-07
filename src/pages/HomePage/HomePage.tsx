@@ -1,6 +1,7 @@
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import { hashTagsDummy } from "@/constants/hashTagsDummy";
+import { HOME_DUMMY } from "@/constants/homeDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import { useState } from "react";
@@ -14,6 +15,19 @@ const HomePage = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
+  const { hashTagList, meetingChatRoom, groupChatRoom, notice, chat, ...rest } =
+    HOME_DUMMY;
+
+
+  const [isVisible, setIsVisible] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState<string | undefined>(
+    undefined
+  );
+
+  const handleItemClick = (id: string) => {
+    setSelectedItemId(id);
+    setIsVisible(true);
+  };
 
   return (
     <>
@@ -37,7 +51,7 @@ const HomePage = () => {
             navigate("./group-chat-list");
           }}
         >
-          <GroupChatList />
+          <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick}/>
         </TitleContainer>
         <TitleContainer
           title="오프라인 커피챗"
