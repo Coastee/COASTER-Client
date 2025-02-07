@@ -1,4 +1,4 @@
-import { Modal, SearchLayout, TitleContainer } from "@/components";
+import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
@@ -11,13 +11,13 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const [keyword, setKeyword] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
 
   return (
     <>
-      <Modal
+      <SideModal
         title={title}
         currentUsers={currentUsers}
         maxUsers={maxUsers}
