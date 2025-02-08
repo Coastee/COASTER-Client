@@ -3,14 +3,17 @@ import { SORTING_OPTIONS } from "@/constants/dropdown";
 import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import { useState } from "react";
 import * as s from "./GroupChatListPage.styles";
+import AddGroupChatModal from "./components/AddGroupChatModal/AddGroupChatModal";
 import GroupChatListAll from "./components/GroupChatListAll/GroupChatListAll";
 
 const GroupChatListPage = () => {
   const [sortingOption, setSortingOption] = useState(SORTING_OPTIONS[0]);
   const [keyword, setKeyword] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <div css={s.layoutStyle}>
+      <AddGroupChatModal isVisible={isVisible} setIsVisible={setIsVisible} />
       <SearchLayout
         keyword={keyword}
         setKeyword={setKeyword}
