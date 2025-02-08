@@ -12,7 +12,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const [keyword, setKeyword] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
   const { hashTagList, meetingChatRoom, groupChatRoom, notice, chat, ...rest } =
