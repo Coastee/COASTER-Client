@@ -29,7 +29,8 @@ const SideModal = ({
   if (!isVisible) return null;
 
   return (
-    <div css={s.layoutStyle} {...props} onClick={handleClose}>
+    // biome-ignore lint/a11y/useSemanticElements: Ignore dialog role warning
+    <div role="dialog" css={s.layoutStyle} {...props} onClick={handleClose}>
       <div
         css={s.modalStyle}
         onClick={(e) => e.stopPropagation()}
