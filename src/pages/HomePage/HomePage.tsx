@@ -18,8 +18,6 @@ const HomePage = () => {
   const { hashTagList, meetingChatRoom, groupChatRoom, notice, chat, ...rest } =
     HOME_DUMMY;
 
-
-  const [isVisible, setIsVisible] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<string | undefined>(
     undefined
   );
@@ -51,7 +49,10 @@ const HomePage = () => {
             navigate("./group-chat-list");
           }}
         >
-          <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick}/>
+          <GroupChatList
+            data={groupChatRoom}
+            handleItemClick={handleItemClick}
+          />
         </TitleContainer>
         <TitleContainer
           title="오프라인 커피챗"
