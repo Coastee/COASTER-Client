@@ -8,6 +8,6 @@ export { default as MenuHeader } from "./MenuHeader/MenuHeader";
 export { default as NoDataContainer } from "./NoDataContainer/NoDataContainer";
 export { default as SearchLayout } from "./SearchLayout/SearchLayout";
 export { default as ServerHeader } from "./ServerHeader/ServerHeader";
+export { default as SideModal } from "./SideModal/SideModal";
 export { default as Textarea } from "./Textarea/Textarea";
 export { default as TitleContainer } from "./TitleContainer/TitleContainer";
-

@@ -1,12 +1,15 @@
 import { RotateLogoIcon } from "@/assets/svg";
 import { Button, Input } from "@/components";
-import { hashTagsDummy } from "@/constants/hashTagsDummy";
+// import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import * as s from "./SearchLayout.styles";
 
 interface SearchLayoutProps {
   keyword: string;
   setKeyword: (value: string) => void;
-  hashTagData: string[];
+  hashTagData: {
+    id: number;
+    content: string;
+  }[];
 }
 
 const SearchLayout = ({
@@ -23,7 +26,7 @@ const SearchLayout = ({
         onChange={(e) => setKeyword(e.target.value)}
       />
       <ul css={s.hashTagListStyle}>
-        {hashTagsDummy.map((tag) => (
+        {hashTagData.map((tag) => (
           <li key={tag.id}>
             <Button variant="hashtag" onClick={() => setKeyword(tag.content)}>
               {tag.content}
