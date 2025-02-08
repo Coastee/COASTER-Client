@@ -1,4 +1,3 @@
-import { inputStyle } from "@/components/Input/Input.styles";
 import * as s from "@/components/Textarea/Textarea.styles";
 import { theme } from "@/styles/theme/theme";
 import {
@@ -9,6 +8,7 @@ import {
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   isError?: boolean;
+  variant?: "default" | "modalSingleLine" | "modalMultiLine";
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -19,15 +19,16 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       id,
       value = "",
       maxLength,
-      onChange,
+      onChange = () => {},
+      variant = "default",
       ...props
     }: TextareaProps,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
     return (
-      <div css={s.wrapperStyle(isError)}>
+      <div css={s.variantWrapperStyles[variant](isError)}>
         <textarea
-          css={[inputStyle, s.textareaStyle]}
+          css={s.variantTextareaStyles[variant]}
           placeholder={placeholder}
           id={id}
           ref={ref}
