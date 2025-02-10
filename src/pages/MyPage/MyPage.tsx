@@ -8,11 +8,10 @@ const MyPage = () => {
     <div css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
         <ProfileBox />
-        <RecommendedProfiles />
+        <CareerList />
       </div>
-      <CareerList />
+      <RecommendedProfiles />
     </div>
   );
 };
-
 export default MyPage;

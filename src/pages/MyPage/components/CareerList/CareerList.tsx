@@ -6,10 +6,10 @@ import { careerData } from "@/pages/MyPage/constants/dummy";
 
 const CareerList = () => {
   return (
-    <div>
-      <div css={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <>
+      <div css={s.layoutStyle}>
         <h1 css={s.titleStyle}>나의 경력</h1>
-        <Button variant="secondary" css={{ border: "none", padding: "0.6rem 1rem" }}>
+        <Button variant="secondary" size="medium" css={{ border: "none" }}>
           <EditIcon width={16} height={15} />
           경력 편집하기
         </Button>
@@ -19,7 +19,7 @@ const CareerList = () => {
           <CareerBox key={`${index}-${career.title}`} {...career} />
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 
