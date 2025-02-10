@@ -25,28 +25,33 @@ export const layoutStyle = css`
 `;
 
 export const titleLayoutStyle = css`
-display: flex;
+  display: flex;
 
-gap: 1rem;
+  margin-left: 1.3rem;
 
-margin-left: 1.3rem;
-
-align-items: center;
+  gap: 1rem;
+  align-items: center;
 `;
 
 export const titleStyle = css`
   font-weight: 500;
   ${theme.font.body1};
+
+  white-space: nowrap;
 `;
 
 export const periodStyle = css`
   color: ${theme.color.gray1};
 
   ${theme.font.body2};
+
+  white-space: nowrap;
 `;
 
 export const itemStyle = css`
   ${theme.font.body2};
+
+  white-space: nowrap;
 `;
 
 export const listLayoutStyle = css`
