@@ -6,3 +6,10 @@ export const titleStyle = css`
 
   ${theme.font.title3}
 `;
+
+export const listStyle = css`
+ display: flex;
+
+ flex-direction: column;
+ gap: 1.3rem;
+`;
