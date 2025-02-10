@@ -12,7 +12,7 @@ const CareerBox = ({ title, period, descriptions }: CareerBoxProps) => {
   return (
     <section css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
-        <div css={{ display: "flex", gap: "1rem", alignItems: "center", marginLeft: "1.3rem" }}>
+        <div css={s.titleLayoutStyle}>
           <RotateLogoIcon width={15} height={13} css={{ flexShrink: "0" }} />
           <h1 css={s.titleStyle}>{title}&nbsp;&nbsp;&nbsp;·</h1>
         </div>

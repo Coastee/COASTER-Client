@@ -24,6 +24,16 @@ export const layoutStyle = css`
   gap: 1.3rem;
 `;
 
+export const titleLayoutStyle = css`
+display: flex;
+
+gap: 1rem;
+
+margin-left: 1.3rem;
+
+align-items: center;
+`;
+
 export const titleStyle = css`
   font-weight: 500;
   ${theme.font.body1};
