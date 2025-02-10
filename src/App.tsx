@@ -16,4 +16,6 @@ export default App;
 
 const layoutStyle = css`
   display: flex;
+  
+  overflow: hidden;
 `;

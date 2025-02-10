@@ -6,7 +6,7 @@ export const layoutStyle = css`
 
   row-gap: 4rem;
 
-  padding: 4.2rem 5rem 6.8rem 4.2rem;
+  padding: 4.2rem 9.8rem 6.8rem 4.2rem;
 
   overflow-y: scroll;
 

@@ -1,8 +1,12 @@
 import App from "@/App";
-import { HomePage } from "@/pages/HomePage/HomePage";
-import MyPage from "@/pages/MyPage/MyPage";
-import OnBoardingPage from "@/pages/OnboardingPage/OnboardingPage";
-import SignupPage from "@/pages/SignupPage/SignupPage";
+import {
+  CoffeeChatListPage,
+  GroupChatListPage,
+  HomePage,
+  MyPage,
+  OnboardingPage,
+  SignupPage,
+} from "@/pages";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -12,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <OnBoardingPage />,
+        element: <OnboardingPage />,
       },
       {
         path: "/signup",
@@ -25,24 +29,38 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/:serverId/home",
-        element: <HomePage />,
-      },
-      {
-        path: "/:serverId/group-chat",
-        element: <HomePage />,
-      },
-      {
-        path: "/:serverId/offline-meeting",
-        element: <HomePage />,
-      },
-      {
         path: "/dm",
         element: <HomePage />,
       },
       {
         path: "/mypage",
         element: <MyPage />,
+      },
+    ],
+  },
+  {
+    path: "/:serverId",
+    element: <App />,
+    children: [
+      {
+        path: "/:serverId/home",
+        element: <HomePage />,
+      },
+      {
+        path: "/:serverId/home/group-chat-list",
+        element: <GroupChatListPage />,
+      },
+      {
+        path: "/:serverId/home/coffee-chat-list",
+        element: <CoffeeChatListPage />,
+      },
+      {
+        path: "/:serverId/group-chat",
+        element: <HomePage />,
+      },
+      {
+        path: "/:serverId/coffee-chat",
+        element: <HomePage />,
       },
     ],
   },
