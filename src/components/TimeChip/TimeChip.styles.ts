@@ -1,13 +1,13 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const timeWrapperStyle = css`
+export const timeWrapperStyle = (size: "medium" | "large") => css`
   display: flex;
 
   width: fit-content;
   height: fit-content;
 
-  padding: 0.2rem 0.8rem;
+  padding: ${size === "medium" ? "0.2rem 0.8rem" : "0.6rem 1.4rem"};
 
   justify-content: center;
   align-items: center;
@@ -17,5 +17,5 @@ export const timeWrapperStyle = css`
 
   color: ${theme.color.gray1};
 
-  ${theme.font.body3};
+  ${size === "medium" ? theme.font.body3 : theme.font.body1};
 `;

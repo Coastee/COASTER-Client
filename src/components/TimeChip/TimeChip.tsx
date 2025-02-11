@@ -1,7 +1,12 @@
 import * as s from "@components/TimeChip/TimeChip.styles";
 
-const TimeChip = ({ time }: { time: string }) => {
-  return <span css={s.timeWrapperStyle}>{time}</span>;
+interface TimeChipProps {
+  time: string;
+  size?: "medium" | "large";
+}
+
+const TimeChip = ({ time, size = "medium" }: TimeChipProps) => {
+  return <span css={s.timeWrapperStyle(size)}>{time}</span>;
 };
 
 export default TimeChip;
