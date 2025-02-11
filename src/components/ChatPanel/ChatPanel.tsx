@@ -11,11 +11,11 @@ interface ChatPanelProps {
 const ChatPanel = ({ isUser, message, time, isDM }: ChatPanelProps) => {
   return (
     <div css={s.wrapperStyle(isUser)}>
-      {isUser && <TimeChip time={time} />}
+      {isUser && isDM && <TimeChip time={time} />}
       <div css={s.messageWrapperStyle(isUser)}>
         <p css={s.messageStyle}>{message}</p>
       </div>
-      {!isUser && <TimeChip time={time} />}
+      {!isUser && isDM && <TimeChip time={time} />}
     </div>
   );
 };
