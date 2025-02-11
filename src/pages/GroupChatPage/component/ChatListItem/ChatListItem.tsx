@@ -13,16 +13,16 @@ const ChatListItem = ({ name }: { name: string }) => {
   return (
     <li css={s.listWrapperStyle}>
       <div css={s.layoutStyle}>
-        <RotateLogoIcon width={14} height={12} />
+        <RotateLogoIcon width={14} height={12} css={{ flexShrink: "0" }} />
         {name}
       </div>
       <StarIcon
         width={18}
         height={18}
         fill={isMarked ? `${theme.color.primaryBlue2}` : "transparent"}
-        stroke={`${theme.color.dark1}`}
+        stroke={isMarked ? `${theme.color.primaryBlue2}` : `${theme.color.dark1}`}
         onClick={toggle}
-        css={{ cursor: "pointer" }}
+        css={{ flexShrink: "0", cursor: "pointer" }}
       />
     </li>
   );
