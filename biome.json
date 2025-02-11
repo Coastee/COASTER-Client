@@ -21,6 +21,7 @@
   },
   "linter": {
     "enabled": true,
+    "ignore": ["src/assets/svg/*"],
     "rules": {
       "recommended": true,
       "correctness": {
