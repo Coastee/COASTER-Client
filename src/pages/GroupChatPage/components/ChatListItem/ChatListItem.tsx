@@ -12,10 +12,10 @@ const ChatListItem = ({ name }: { name: string }) => {
 
   return (
     <li css={s.listWrapperStyle}>
-      <div css={s.layoutStyle}>
+      <span css={s.layoutStyle}>
         <RotateLogoIcon width={14} height={12} css={{ flexShrink: "0" }} />
         {name}
-      </div>
+      </span>
       <StarIcon
         width={18}
         height={18}

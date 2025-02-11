@@ -18,8 +18,8 @@ const ChatRoom = () => {
   }, []);
 
   return (
-    <div css={s.wrapperStyle}>
-      <div css={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <section css={s.wrapperStyle}>
+      <header css={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div css={s.titleLayoutStyle}>
           <RotateLogoIcon width={25} height={22} />
           {/* 임시 더미 */}
@@ -27,7 +27,7 @@ const ChatRoom = () => {
           <TimeChip size="large" time="11/2 (월) 18:30" />
         </div>
         <HamburgerIcon width={23} height={15} style={{ cursor: "pointer" }} onClick={() => {}} />
-      </div>
+      </header>
       <div css={s.scrollStyle} ref={scrollRef}>
         {DUMMY_CHAT_MESSAGES.map((chat, index) => (
           <div key={`${index}-${chat.time}`} css={s.layoutStyle(chat.isUser)}>
@@ -44,7 +44,7 @@ const ChatRoom = () => {
         ))}
       </div>
       <Input placeholder={PLACEHOLDER.CHAT} rightIcon={<SendIcon width={14} height={14} />} />
-    </div>
+    </section>
   );
 };
 
