@@ -31,11 +31,13 @@ export const titleStyle = css`
 `;
 
 export const listStyle = css`
-  max-height: 19.2rem;
+  max-height: 20rem;
 
-  padding: 0.4rem 0.6rem;
+  padding: 0.5rem 0.6rem;
 
   border-radius: 1rem;
 
   background-color: ${theme.color.dark3};
+
+  overflow-y: auto;
 `;
