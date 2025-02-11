@@ -1,6 +1,6 @@
 import { RotateLogoIcon, StarIcon } from "@/assets/svg";
+import * as s from "@/pages/GroupChatPage/components/ChatListItem/ChatListItem.styles";
 import { theme } from "@/styles/theme/theme";
-import * as s from "@pages/GroupChatPage/component/ChatListItem/ChatListItem.styles";
 import { useState } from "react";
 
 const ChatListItem = ({ name }: { name: string }) => {
