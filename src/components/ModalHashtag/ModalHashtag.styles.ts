@@ -2,11 +2,10 @@ import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
 export const hashtagLayoutStyle = css`
-  display: inline-flex; /* 내부 콘텐츠 크기에 맞게 */
+  display: inline-flex;
   align-items: center;
   position: relative;
 `;
-
 
 export const hashtagStyle = css`
   display: flex;
@@ -35,5 +34,6 @@ export const deleteStyle = css`
   position: absolute;
   top: 0;
   right: 0;
-  transform: translate(30%, -30%); 
+
+  transform: translate(30%, -30%);
 `;
