@@ -1,20 +1,11 @@
-import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import ChatInfoList from "@/pages/GroupChatPage/components/ChatInfoList/ChatInfoList";
-import { DUMMY_CHAT_MESSAGES } from "@/pages/GroupChatPage/constants/dummy";
+import ChatRoom from "@/pages/GroupChatPage/components/ChatRoom/ChatRoom";
 
 const GroupChatPage = () => {
   return (
-    <div css={{ width: "100%" }}>
+    <div css={{ width: "100%", display: "flex" }}>
       <ChatInfoList name="남다은" />
-      {DUMMY_CHAT_MESSAGES.map((chat, index) => (
-        <ChatPanel
-          key={`${index}-${chat.time}`}
-          isUser={chat.isUser}
-          message={chat.message}
-          time={chat.time}
-          isDM={false}
-        />
-      ))}
+      <ChatRoom />
     </div>
   );
 };
