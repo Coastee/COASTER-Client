@@ -1,21 +1,22 @@
 import * as s from "@/components/ChatPanel/ChatPanel.style";
+import TimeChip from "@/components/TimeChip/TimeChip";
 
 interface ChatPanelProps {
   isUser: boolean;
   message: string;
   time: string;
+  isDM: boolean;
 }
 
-const ChatPanel = ({ isUser, message, time }: ChatPanelProps) => {
+const ChatPanel = ({ isUser, message, time, isDM }: ChatPanelProps) => {
   return (
-    <>
-      <div css={s.wrapperStyle(isUser)}>
+    <div css={s.wrapperStyle(isUser)}>
+      {isUser && <TimeChip time={time} />}
+      <div css={s.messageWrapperStyle(isUser)}>
         <p css={s.messageStyle}>{message}</p>
       </div>
-      <div css={s.timeWrapperStyle(isUser)}>
-        <p css={s.timeStyle}>{time}</p>
-      </div>
-    </>
+      {!isUser && <TimeChip time={time} />}
+    </div>
   );
 };
 
