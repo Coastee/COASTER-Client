@@ -5,6 +5,7 @@ export { default as CoffeeIcon } from "./CoffeeIcon";
 export { default as DmIcon } from "./DmIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as GoogleIcon } from "./GoogleIcon";
+export { default as HamburgerIcon } from "./HamburgerIcon";
 export { default as HomeIcon } from "./HomeIcon";
 export { default as KakaoIcon } from "./KakaoIcon";
 export { default as Logo1Icon } from "./Logo1Icon";

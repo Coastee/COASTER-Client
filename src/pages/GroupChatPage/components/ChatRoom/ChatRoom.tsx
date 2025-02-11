@@ -1,4 +1,4 @@
-import { SendIcon } from "@/assets/svg";
+import { HamburgerIcon, RotateLogoIcon, SendIcon } from "@/assets/svg";
 import { Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import TimeChip from "@/components/TimeChip/TimeChip";
@@ -19,6 +19,15 @@ const ChatRoom = () => {
 
   return (
     <div css={s.wrapperStyle}>
+      <div css={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div css={s.titleLayoutStyle}>
+          <RotateLogoIcon width={25} height={22} />
+          {/* 임시 더미 */}
+          <h1 css={s.titleStyle}>강남 오프라인</h1>
+          <TimeChip size="large" time="11/2 (월) 18:30" />
+        </div>
+        <HamburgerIcon width={23} height={15} style={{ cursor: "pointer" }} onClick={() => {}} />
+      </div>
       <div css={s.scrollStyle} ref={scrollRef}>
         {DUMMY_CHAT_MESSAGES.map((chat, index) => (
           <div key={`${index}-${chat.time}`} css={s.layoutStyle(chat.isUser)}>

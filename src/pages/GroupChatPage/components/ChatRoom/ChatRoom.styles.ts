@@ -11,9 +11,22 @@ export const wrapperStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
-  border-radius: 2.5rem;
+  border-radius: 2.5rem 0 0 2.5rem;
 
   background-color: ${theme.color.dark3};
+`;
+
+export const titleLayoutStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 1.9rem;
+
+  white-space: nowrap;
+`;
+
+export const titleStyle = css`
+  ${theme.font.title2};
 `;
 
 export const scrollStyle = css`
