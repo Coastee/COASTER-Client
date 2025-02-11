@@ -2,9 +2,10 @@ import { Button, ModalHashtag, SideModal, Textarea } from "@/components";
 import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
+import useAddGroupChatForm from "@/pages/SignupPage/hooks/useAddGroupChatForm";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import * as s from "./AddGroupChatModal.styles";
 
 interface AddGroupChatModalProps {
@@ -16,76 +17,32 @@ const AddGroupChatModal = ({
   isVisible,
   setIsVisible,
 }: AddGroupChatModalProps) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const [request, setRequest] = useState({
     title: "",
     content: "",
     hashTags: hashTagsDummy,
   });
   const [image, setImage] = useState<File | null>(null);
-  const [hasBeenFocused, setHasBeenFocused] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
 
-  const addHashtag = (content: string) => {
-    setRequest((prev) => ({
-      ...prev,
-      hashTags: [...prev.hashTags, { id: Date.now(), content }],
-    }));
-  };
-
-  const removeHashtag = (id: number) => {
-    setRequest((prev) => ({
-      ...prev,
-      hashTags: prev.hashTags.filter((hashtag) => hashtag.id !== id),
-    }));
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setImage(selectedFile);
-    }
-  };
-
-  const handleFileDelete = () => {
-    setImage(null);
-  };
-
-  const handleFileClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setRequest((prevRequest) => ({
-      ...prevRequest,
-      title: e.target.value,
-    }));
-  };
-
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setRequest((prevRequest) => ({
-      ...prevRequest,
-      content: e.target.value,
-    }));
-  };
-
-  const handleFocus = () => {
-    if (!hasBeenFocused) {
-      setHasBeenFocused(true);
-    }
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const {
+    fileInputRef,
+    addHashtag,
+    removeHashtag,
+    setHasBeenFocused,
+    handleFileChange,
+    handleFileDelete,
+    handleFileClick,
+    handleTitleChange,
+    handleContentChange,
+    handleFocus,
+    handleBlur,
+    isError,
+  } = useAddGroupChatForm({ request, setRequest, image, setImage });
 
   const handleSubmit = () => {
     setHasBeenFocused(true);
+    setIsVisible(false);
   };
-
-  const isError = hasBeenFocused && !isFocused && request.title.length === 0;
 
   return (
     <SideModal
