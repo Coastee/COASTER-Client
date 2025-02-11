@@ -22,6 +22,7 @@ const color = {
   dark2: "#3f4b5d",
   dark3: "#2b3340",
   dark4: "#1d2229",
+  dark5: "#414E5F",
 
   // Primary
   primaryBlue0: "#b6cbff",
