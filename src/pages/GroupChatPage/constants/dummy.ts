@@ -39,4 +39,22 @@ export const DUMMY_CHAT_MESSAGES = [
     message: "좋습니다. 작업 끝나면 공유해 주세요!",
     time: "오후 2:35",
   },
+  {
+    isUser: true,
+    userName: "김철수",
+    message: "좋아요! 저는 오전에 자료 정리하고, 점심 이후에 리뷰할게요.",
+    time: "오후 2:33",
+  },
+  {
+    isUser: false,
+    userName: "이영희",
+    message: "다들 일정 확인했으니, 오후에 다시 얘기 나누죠!",
+    time: "오후 2:34",
+  },
+  {
+    isUser: false,
+    userName: "박민준",
+    message: "좋습니다. 작업 끝나면 공유해 주세요!",
+    time: "오후 2:35",
+  },
 ];

@@ -10,9 +10,21 @@ export const wrapperStyle = css`
 
   flex-direction: column;
   justify-content: space-between;
-  gap: 2.5rem;
+
+  border-radius: 2.5rem;
 
   background-color: ${theme.color.dark3};
+`;
+
+export const scrollStyle = css`
+  display: flex;
+
+  height: 62rem;
+
+  flex-direction: column;
+  gap: 2.5rem;
+
+  overflow-y: scroll;
 `;
 
 export const layoutStyle = (isUser: boolean) => css`
@@ -20,8 +32,6 @@ export const layoutStyle = (isUser: boolean) => css`
 
  justify-content: ${isUser ? "flex-end" : "flex-start"};
  gap: 1.3rem;
-
- overflow-y: scroll;
 `;
 
 export const nameBoxStyle = (isUser: boolean) => css`
