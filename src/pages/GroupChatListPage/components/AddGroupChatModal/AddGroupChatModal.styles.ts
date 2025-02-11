@@ -3,29 +3,45 @@ import { css } from "@emotion/react";
 
 export const modalContentStyle = css`
   display: flex;
+
   flex-direction: column;
   justify-content: space-between;
+
   height: calc(100vh - 14.1rem);
 `;
 
 export const contentListStyle = css`
   display: flex;
+
   flex-direction: column;
   justify-content: space-between;
+
   row-gap: 2.5rem;
+
   padding-top: 4rem;
 `;
 
 export const questionContainer = css`
   display: flex;
+
   flex-direction: column;
+
   row-gap: 1.3rem;
+
   ${theme.font.body2};
 `;
 
 export const textareaTitleStyle = css`
   ${theme.font.body1};
   font-weight: 500;
+
+  span {
+    padding-left: 0.5rem;
+
+    color: ${theme.color.primaryPink1};
+    ${theme.font.body1};
+    font-weight: 500;
+  }
 `;
 
 export const hashtagListContainer = css`
@@ -34,7 +50,7 @@ export const hashtagListContainer = css`
 
   gap: 0.8rem;
 
-  padding-bottom: 0.5rem;
+  padding: 0.5rem 0;
 `;
 
 export const fileButtonStyle = css`
@@ -110,8 +126,11 @@ export const addHashtagStyle = (fontWidth: number) => css`
 
 export const hiddenSpanStyle = css`
   visibility: hidden;
-  padding: 0.8rem 1.7rem;
+
   display: inline-block;
+
+  padding: 0.8rem 1.7rem;
+
   width: max-content;
   ${theme.font.body2};
   font-weight: 400;

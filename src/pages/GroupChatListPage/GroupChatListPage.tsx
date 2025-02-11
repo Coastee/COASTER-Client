@@ -9,7 +9,7 @@ import GroupChatListAll from "./components/GroupChatListAll/GroupChatListAll";
 const GroupChatListPage = () => {
   const [sortingOption, setSortingOption] = useState(SORTING_OPTIONS[0]);
   const [keyword, setKeyword] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   return (
     <div css={s.layoutStyle}>

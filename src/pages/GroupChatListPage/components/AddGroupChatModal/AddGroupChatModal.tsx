@@ -1,5 +1,6 @@
 import { Button, ModalHashtag, SideModal, Textarea } from "@/components";
-import { type HashTagTypes, hashTagsDummy } from "@/constants/hashTagsDummy";
+import { hashTagsDummy } from "@/constants/hashTagsDummy";
+import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
@@ -17,31 +18,74 @@ const AddGroupChatModal = ({
 }: AddGroupChatModalProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [hashTags, setHashTags] = useState<HashTagTypes[]>(hashTagsDummy);
-  const [file, setFile] = useState<File | null>(null);
+  const [request, setRequest] = useState({
+    title: "",
+    content: "",
+    hashTags: hashTagsDummy,
+  });
+  const [image, setImage] = useState<File | null>(null);
+  const [hasBeenFocused, setHasBeenFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const addHashtag = (content: string) => {
-    setHashTags([...hashTags, { id: Date.now(), content }]);
+    setRequest((prev) => ({
+      ...prev,
+      hashTags: [...prev.hashTags, { id: Date.now(), content }],
+    }));
   };
 
   const removeHashtag = (id: number) => {
-    setHashTags(hashTags.filter((hashtag) => hashtag.id !== id));
+    setRequest((prev) => ({
+      ...prev,
+      hashTags: prev.hashTags.filter((hashtag) => hashtag.id !== id),
+    }));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      setFile(selectedFile);
+      setImage(selectedFile);
     }
   };
 
   const handleFileDelete = () => {
-    setFile(null);
+    setImage(null);
   };
 
   const handleFileClick = () => {
     fileInputRef.current?.click();
   };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setRequest((prevRequest) => ({
+      ...prevRequest,
+      title: e.target.value,
+    }));
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setRequest((prevRequest) => ({
+      ...prevRequest,
+      content: e.target.value,
+    }));
+  };
+
+  const handleFocus = () => {
+    if (!hasBeenFocused) {
+      setHasBeenFocused(true);
+    }
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  const handleSubmit = () => {
+    setHasBeenFocused(true);
+  };
+
+  const isError = hasBeenFocused && !isFocused && request.title.length === 0;
 
   return (
     <SideModal
@@ -52,11 +96,19 @@ const AddGroupChatModal = ({
       <div css={s.modalContentStyle}>
         <ul css={s.contentListStyle}>
           <li css={s.questionContainer} style={{ maxWidth: "35rem" }}>
-            <h1 css={s.textareaTitleStyle}>채팅방 제목</h1>
+            <h1 css={s.textareaTitleStyle}>
+              채팅방 제목<span>*</span>
+            </h1>
             <Textarea
               placeholder="채팅방 제목을 입력해주세요."
+              isError={isError}
+              supportingText={SUPPORTING_TEXT.REQUIRED}
               maxLength={20}
               variant="modalSingleLine"
+              value={request.title}
+              onChange={handleTitleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </li>
           <li css={s.questionContainer}>
@@ -65,9 +117,11 @@ const AddGroupChatModal = ({
               placeholder="채팅방 상세 설명을 입력하세요"
               maxLength={80}
               variant="modalMultiLine"
+              value={request.content}
+              onChange={handleContentChange}
             />
             <ul css={s.hashtagListContainer}>
-              {hashTags.map((hashtag) => (
+              {request.hashTags.map((hashtag) => (
                 <li key={hashtag.id}>
                   <ModalHashtag
                     id={hashtag.id}
@@ -89,13 +143,14 @@ const AddGroupChatModal = ({
               <input
                 ref={fileInputRef}
                 type="file"
+                accept="image/*"
                 style={{ display: "none" }}
                 onChange={handleFileChange}
               />
-              {file ? `${file.name}` : "파일을 첨부하세요 (0MB 이내)"}
+              {image ? `${image.name}` : "이미지 파일을 첨부하세요 (0MB 이내)"}
             </div>
 
-            {file && (
+            {image && (
               <div css={s.editButtonListStyle}>
                 <Button variant="small" onClick={handleFileClick}>
                   수정하기
@@ -114,7 +169,9 @@ const AddGroupChatModal = ({
           </li>
         </ul>
         <div css={s.buttonContainer}>
-          <Button variant="tertiary">등록</Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            등록
+          </Button>
         </div>
       </div>
     </SideModal>
