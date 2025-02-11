@@ -38,6 +38,11 @@ export const scrollStyle = css`
   gap: 2.5rem;
 
   overflow-y: scroll;
+  scroll-behavior: smooth;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const layoutStyle = (isUser: boolean) => css`
