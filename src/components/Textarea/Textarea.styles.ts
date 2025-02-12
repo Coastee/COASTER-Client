@@ -3,8 +3,10 @@ import { css } from "@emotion/react";
 
 export const layoutStyle = (supportingText: boolean) => css`
   position: relative;
-  width: 100%;
+
   margin-bottom: ${supportingText ? "1.5rem" : "0"};
+
+  width: 100%;
 `;
 
 export const wrapperStyle = (isError: boolean) => css`
