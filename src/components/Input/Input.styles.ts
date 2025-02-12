@@ -36,7 +36,8 @@ export const wrapperStyle = (
   transition: 0.2s ease-in-out;
 
   :focus-within {
-    box-shadow: inset 0 0 0 1px ${theme.color.primaryBlue3};
+    box-shadow: inset 0 0 0 1px
+      ${isError ? theme.color.primaryPink1 : theme.color.primaryBlue3};
   }
 `;
 

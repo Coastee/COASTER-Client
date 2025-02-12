@@ -47,6 +47,9 @@ export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<
       color: ${theme.color.gray3};
       background-color: ${theme.color.dark2};
       cursor: default;
+      :hover {
+        scale: 1;
+      }
     }
   `,
 
