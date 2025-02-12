@@ -1,20 +1,17 @@
 import { useRef, useState } from "react";
 
+interface GroupChatRequest {
+  title: string;
+  content: string;
+  hashTags: Array<{ id: number; content: string }>;
+}
+
 interface UseAddGroupChatFormProps {
-  request: {
-    title: string;
-    content: string;
-    hashTags: Array<{ id: number; content: string }>;
-  };
-  setRequest: React.Dispatch<
-    React.SetStateAction<{
-      title: string;
-      content: string;
-      hashTags: Array<{ id: number; content: string }>;
-    }>
-  >;
+  request: GroupChatRequest;
+  setRequest: React.Dispatch<React.SetStateAction<GroupChatRequest>>;
   image: File | null;
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
+  maxLengths: Record<string, number>;
 }
 
 const useAddGroupChatForm = ({
@@ -22,13 +19,42 @@ const useAddGroupChatForm = ({
   setRequest,
   image,
   setImage,
+  maxLengths,
 }: UseAddGroupChatFormProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [hasBeenFocused, setHasBeenFocused] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  const [fieldFocusState, setFieldFocusState] = useState<
+    Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
+  >({});
 
-  // 해시태그 추가 임시 로직
+  const handleFocus = (field: string) => {
+    setFieldFocusState((prev) => ({
+      ...prev,
+      [field]: { hasBeenFocused: true, isFocused: true },
+    }));
+  };
+
+  const handleBlur = (field: string) => {
+    setFieldFocusState((prev) => ({
+      ...prev,
+      [field]: { ...prev[field], isFocused: false },
+    }));
+  };
+
+  const isFieldError = (field: string, value: string) => {
+    return fieldFocusState[field]?.hasBeenFocused && value.trim().length === 0;
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    const maxLength = maxLengths[field];
+    if (value.length > (maxLength ?? 20)) return;
+
+    setRequest((prevRequest) => ({
+      ...prevRequest,
+      [field]: value,
+    }));
+  };
+
   const addHashtag = (content: string) => {
     setRequest((prev) => ({
       ...prev,
@@ -50,56 +76,23 @@ const useAddGroupChatForm = ({
     }
   };
 
-  const handleFileDelete = () => {
-    setImage(null);
-  };
-
-  const handleFileClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setRequest((prevRequest) => ({
-      ...prevRequest,
-      title: e.target.value,
-    }));
-  };
-
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setRequest((prevRequest) => ({
-      ...prevRequest,
-      content: e.target.value,
-    }));
-  };
-
-  const handleFocus = () => {
-    setHasBeenFocused(true);
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
-
-  const isError = hasBeenFocused && request.title.trim().length === 0;
+  const handleFileDelete = () => setImage(null);
+  const handleFileClick = () => fileInputRef.current?.click();
 
   return {
     request,
     image,
     fileInputRef,
-    hasBeenFocused,
-    setHasBeenFocused,
-    isFocused,
+    fieldFocusState,
+    isFieldError,
+    handleInputChange,
+    handleFocus,
+    handleBlur,
     addHashtag,
     removeHashtag,
     handleFileChange,
     handleFileDelete,
     handleFileClick,
-    handleTitleChange,
-    handleContentChange,
-    handleFocus,
-    handleBlur,
-    isError,
   };
 };
 

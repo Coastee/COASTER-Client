@@ -1,4 +1,4 @@
-import { Button, ModalHashtag, SideModal, Textarea } from "@/components";
+import { Button, Input, ModalHashtag, SideModal, Textarea } from "@/components";
 import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
@@ -24,23 +24,27 @@ const AddGroupChatModal = ({
   });
   const [image, setImage] = useState<File | null>(null);
 
+  const maxLengths = {
+    title: 20,
+    content: 80,
+  };
+
   const {
     fileInputRef,
     addHashtag,
     removeHashtag,
-    setHasBeenFocused,
     handleFileChange,
     handleFileDelete,
     handleFileClick,
-    handleTitleChange,
-    handleContentChange,
+    handleInputChange,
     handleFocus,
     handleBlur,
-    isError,
-  } = useAddGroupChatForm({ request, setRequest, image, setImage });
+    isFieldError,
+  } = useAddGroupChatForm({ request, setRequest, image, setImage, maxLengths });
+
+  const isButtonDisabled = isFieldError("title", request.title);
 
   const handleSubmit = () => {
-    setHasBeenFocused(true);
     setIsVisible(false);
   };
 
@@ -56,26 +60,25 @@ const AddGroupChatModal = ({
             <h1 css={s.textareaTitleStyle}>
               채팅방 제목<span>*</span>
             </h1>
-            <Textarea
+            <Input
               placeholder="채팅방 제목을 입력해주세요."
-              isError={isError}
-              supportingText={SUPPORTING_TEXT.REQUIRED}
-              maxLength={20}
-              variant="modalSingleLine"
+              onChange={(e) => handleInputChange("title", e.target.value)}
               value={request.title}
-              onChange={handleTitleChange}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
+              onFocus={() => handleFocus("title")}
+              onBlur={() => handleBlur("title")}
+              isError={isFieldError("title", request.title)}
+              supportingText={SUPPORTING_TEXT.REQUIRED}
+              maxLength={maxLengths.title}
             />
           </li>
           <li css={s.questionContainer}>
             <h1 css={s.textareaTitleStyle}>채팅방 상세 설명</h1>
             <Textarea
               placeholder="채팅방 상세 설명을 입력하세요"
-              maxLength={80}
+              maxLength={maxLengths.content}
               variant="modalMultiLine"
               value={request.content}
-              onChange={handleContentChange}
+              onChange={(e) => handleInputChange("content", e.target.value)}
             />
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag) => (
@@ -126,7 +129,12 @@ const AddGroupChatModal = ({
           </li>
         </ul>
         <div css={s.buttonContainer}>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button
+            type="submit"
+            variant="primary"
+            onClick={handleSubmit}
+            disabled={!request.title.trim() || isButtonDisabled}
+          >
             등록
           </Button>
         </div>

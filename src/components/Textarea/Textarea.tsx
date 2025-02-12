@@ -28,13 +28,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     }: TextareaProps,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      if (maxLength && e.target.value.length > maxLength) {
-        return;
-      }
-      onChange(e);
-    };
-
     return (
       <div css={s.layoutStyle(!!supportingText && isError)}>
         <div css={s.variantWrapperStyles[variant](isError)}>
@@ -45,7 +38,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             ref={ref}
             maxLength={maxLength}
             value={value}
-            onChange={handleChange}
+            onChange={onChange}
             tabIndex={0}
             {...props}
           />
