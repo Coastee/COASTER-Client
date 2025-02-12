@@ -16,7 +16,7 @@ export const layoutStyle = css`
 
   height: 100vh;
 
-  gap: 2rem;
+  gap: 1.6rem;
 
   overflow-y: scroll;
 
