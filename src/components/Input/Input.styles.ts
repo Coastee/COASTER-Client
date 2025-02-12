@@ -60,3 +60,16 @@ export const inputStyle = css`
     color: ${theme.color.gray1};
   }
 `;
+
+export const countStyle = css`
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.2rem;
+  display: flex;
+  ${theme.font.body3};
+  color: ${theme.color.gray1};
+
+  & > p {
+    ${theme.font.body3}
+  }
+`;
