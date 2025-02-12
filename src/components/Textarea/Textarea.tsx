@@ -6,11 +6,11 @@ import {
   type TextareaHTMLAttributes,
   forwardRef,
 } from "react";
+import { inputStyle } from "../Input/Input.styles";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   isError?: boolean;
   supportingText?: string;
-  variant?: "default" | "modalSingleLine" | "modalMultiLine";
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -22,17 +22,16 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       value = "",
       supportingText,
       maxLength,
-      onChange = () => {},
-      variant = "default",
+      onChange,
       ...props
     }: TextareaProps,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
     return (
       <div css={s.layoutStyle(!!supportingText && isError)}>
-        <div css={s.variantWrapperStyles[variant](isError)}>
+        <div css={s.wrapperStyle(isError)}>
           <textarea
-            css={s.variantTextareaStyles[variant]}
+            css={[inputStyle, s.textareaStyle]}
             placeholder={placeholder}
             id={id}
             ref={ref}

@@ -76,9 +76,9 @@ const AddGroupChatModal = ({
             <Textarea
               placeholder="채팅방 상세 설명을 입력하세요"
               maxLength={maxLengths.content}
-              variant="modalMultiLine"
               value={request.content}
               onChange={(e) => handleInputChange("content", e.target.value)}
+              style={{ height: "12rem" }}
             />
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag) => (
