@@ -55,6 +55,12 @@ const font = {
     letterSpacing: "-0.44px",
   }),
 
+  title4: css({
+    fontSize: "2.24rem",
+    fontWeight: 400,
+    letterSpacing: "-0.44px",
+  }),
+
   body1: css({
     fontSize: "1.6rem",
     letterSpacing: "-0.32px",
