@@ -59,10 +59,11 @@ const AddGroupChatModal = ({
       <div css={s.modalContentStyle}>
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
-            <h1 css={s.textareaTitleStyle}>
+            <label htmlFor="title" css={s.textareaTitleStyle}>
               채팅방 제목<span>*</span>
-            </h1>
+            </label>
             <Input
+              id="title"
               placeholder="채팅방 제목을 입력해주세요."
               onChange={(e) => handleInputChange("title", e.target.value)}
               value={request.title}
@@ -74,8 +75,11 @@ const AddGroupChatModal = ({
             />
           </li>
           <li css={s.questionContainer}>
-            <h1 css={s.textareaTitleStyle}>채팅방 상세 설명</h1>
+            <label htmlFor="description" css={s.textareaTitleStyle}>
+              채팅방 상세 설명
+            </label>
             <Textarea
+              id="description"
               placeholder="채팅방 상세 설명을 입력하세요"
               maxLength={TEXT_MAX_LENGTH.content}
               value={request.content}
