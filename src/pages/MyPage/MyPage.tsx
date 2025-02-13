@@ -1,4 +1,5 @@
 import * as s from "@/pages/MyPage/MyPage.styles";
+import CareerList from "@/pages/MyPage/components/CareerList/CareerList";
 import ProfileBox from "@/pages/MyPage/components/ProfileBox/ProfileBox";
 import RecommendedProfiles from "@/pages/MyPage/components/RecommendedProfiles/RecommendedProfiles";
 
@@ -7,10 +8,10 @@ const MyPage = () => {
     <div css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
         <ProfileBox />
-        <RecommendedProfiles />
+        <CareerList />
       </div>
+      <RecommendedProfiles />
     </div>
   );
 };
-
 export default MyPage;

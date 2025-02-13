@@ -2,11 +2,14 @@ import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
 export const wrapperStyle = css`
+  position: sticky;
   display: flex;
 
-  flex-direction: column;
+  top: 4rem;
 
+  flex-direction: column;
   gap: 1.3rem;
+
 `;
 
 export const titleStyle = css`
@@ -22,7 +25,6 @@ export const listWrapperStyle = css`
   width: 41.1rem;
 
   padding: 2rem;
-
   border-radius: 10px;
 
   background-color: ${theme.color.dark3};
