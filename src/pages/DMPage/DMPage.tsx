@@ -1,6 +1,7 @@
+import ChatRoom from "@/pages/DMPage/components/ChatRoom/ChatRoom";
 import DMList from "@/pages/DMPage/components/DMList/DMList";
 import EmptyPanel from "@/pages/DMPage/components/EmptyPanel/EmptyPanel";
-import ChatRoom from "@/pages/GroupChatPage/components/ChatRoom/ChatRoom";
+
 import { useState } from "react";
 
 const DMPage = () => {

@@ -42,6 +42,8 @@ export const scrollStyle = css`
   overflow-y: scroll;
   scroll-behavior: smooth;
 
+  padding-bottom: 7rem;
+
   ::-webkit-scrollbar {
     display: none;
   }
