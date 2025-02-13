@@ -1,10 +1,10 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const wrapperStyle = css`
+export const wrapperStyle = (size: "medium" | "large") => css`
   display: flex;
-  width: 5.4rem;
-  height: 5.4rem;
+  width: ${size === "large" ? "5.4rem" : "4.3rem"};
+  height: ${size === "large" ? "5.4rem" : "4.3rem"};
 
   padding: 1rem;
 
@@ -14,6 +14,8 @@ export const wrapperStyle = css`
   border: 1px solid ${theme.color.dark1};
   border-radius: 1rem;
 
-  ${theme.font.title2};
+  background-color: ${theme.color.dark3};
+
+  ${size === "large" ? theme.font.title2 : theme.font.title4};
   font-weight: 400;
 `;
