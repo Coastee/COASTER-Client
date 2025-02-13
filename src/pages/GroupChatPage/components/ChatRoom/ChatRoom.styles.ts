@@ -16,6 +16,14 @@ export const wrapperStyle = css`
   background-color: ${theme.color.dark3};
 `;
 
+export const headerLayoutStyle = css`
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+`;
+
 export const titleLayoutStyle = css`
   display: flex;
 
@@ -60,4 +68,12 @@ export const nameBoxStyle = (isUser: boolean) => css`
   gap: 0.6rem;
 
   ${theme.font.body1};
+`;
+
+export const iconStyle = css`
+  padding: 1rem;
+
+  box-sizing: content-box;
+
+  cursor: pointer;
 `;

@@ -19,14 +19,14 @@ const ChatRoom = () => {
 
   return (
     <section css={s.wrapperStyle}>
-      <header css={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <header css={s.headerLayoutStyle}>
         <div css={s.titleLayoutStyle}>
           <RotateLogoIcon width={25} height={22} />
           {/* 임시 더미 */}
           <h1 css={s.titleStyle}>강남 오프라인</h1>
           <TimeChip size="large" time="11/2 (월) 18:30" />
         </div>
-        <HamburgerIcon width={23} height={15} style={{ cursor: "pointer" }} onClick={() => {}} />
+        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={() => {}} />
       </header>
       <div css={s.scrollStyle} ref={scrollRef}>
         {DUMMY_CHAT_MESSAGES.map((chat, index) => (
