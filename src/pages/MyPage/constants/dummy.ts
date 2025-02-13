@@ -94,3 +94,29 @@ export const PROFILE_LIST = [
     role: "시스템 보안 전문가",
   },
 ];
+
+export const careerData = [
+  {
+    title: "OpenAI",
+    period: "2023.01 - 2024.12",
+    descriptions: ["AI 모델 개발 및 최적화", "대규모 데이터 처리 및 분석", "React 기반 프론트엔드 개발"],
+  },
+  {
+    title: "Google",
+    period: "2021.06 - 2022.12",
+    descriptions: ["검색 엔진 알고리즘 개선", "클라우드 서비스 아키텍처 설계", "API 최적화 및 성능 개선"],
+  },
+  {
+    title: "Meta",
+    period: "2019.09 - 2021.05",
+    descriptions: [
+      "소셜 미디어 플랫폼 개발",
+      "UI/UX 개선 및 접근성 강화",
+      "React와 TypeScript를 활용한 웹 애플리케이션 구축",
+      "React와 TypeScript를 활용한 웹 애플리케이션 구축",
+      "React와 TypeScript를 활용한 웹 애플리케이션 구축",
+      "React와 TypeScript를 활용한 웹 애플리케이션 구축",
+      "React와 TypeScript를 활용한 웹 애플리케이션 구축",
+    ],
+  },
+];
