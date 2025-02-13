@@ -1,5 +1,5 @@
-import { Button, Input, ModalHashtag, SideModal, Textarea } from "@/components";
-import { hashTagsDummy } from "@/constants/hashTagsDummy";
+import { Button, ModalHashtag, Input, SideModal, Textarea } from "@/components";
+import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/components/constants/textMaxLength";
@@ -21,7 +21,7 @@ const AddGroupChatModal = ({
   const [request, setRequest] = useState({
     title: "",
     content: "",
-    hashTags: hashTagsDummy,
+    hashTags: HASH_TAGS_DUMMY,
   });
   const [image, setImage] = useState<File | null>(null);
 
@@ -90,7 +90,7 @@ const AddGroupChatModal = ({
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag) => (
                 <li key={hashtag.id}>
-                  <ModalHashtag
+                  <HashtagChip
                     id={hashtag.id}
                     content={hashtag.content}
                     removeHashtag={removeHashtag}

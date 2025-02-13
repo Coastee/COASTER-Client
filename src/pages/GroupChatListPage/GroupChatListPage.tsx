@@ -1,6 +1,6 @@
 import { SearchLayout, TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
-import { hashTagsDummy } from "@/constants/hashTagsDummy";
+import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { useState } from "react";
 import * as s from "./GroupChatListPage.styles";
 import AddGroupChatModal from "./components/AddGroupChatModal/AddGroupChatModal";
@@ -17,7 +17,7 @@ const GroupChatListPage = () => {
       <SearchLayout
         keyword={keyword}
         setKeyword={setKeyword}
-        hashTagData={hashTagsDummy}
+        hashTagData={HASH_TAGS_DUMMY}
       />
 
       <TitleContainer

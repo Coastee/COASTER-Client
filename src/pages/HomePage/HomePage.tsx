@@ -1,6 +1,6 @@
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
-import { hashTagsDummy } from "@/constants/hashTagsDummy";
+import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { HOME_DUMMY } from "@/constants/homeDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
@@ -40,7 +40,7 @@ const HomePage = () => {
         <SearchLayout
           keyword={keyword}
           setKeyword={setKeyword}
-          hashTagData={hashTagsDummy}
+          hashTagData={HASH_TAGS_DUMMY}
         />
         <TitleContainer
           title="그룹 채팅방"
