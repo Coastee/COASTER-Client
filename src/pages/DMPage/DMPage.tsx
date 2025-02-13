@@ -1,5 +1,13 @@
+import ChatRoom from "@/pages/DMPage/components/ChatRoom/ChatRoom";
+import DMList from "@/pages/DMPage/components/DMList/DMList";
+
 const DMPage = () => {
-  return <div></div>;
+  return (
+    <>
+      <DMList />
+      <ChatRoom />
+    </>
+  );
 };
 
 export default DMPage;
