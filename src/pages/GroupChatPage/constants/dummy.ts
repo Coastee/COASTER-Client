@@ -12,7 +12,7 @@ export const DUMMY_CHAT_MESSAGES = [
   {
     isUser: false,
     userName: "이영희",
-    message: "안녕하세요! 오늘 일정 공유해 주세요~",
+    message: "안녕하세요!\n오늘 일정 공유해 주세요~",
     time: "오후 2:31",
   },
   {
@@ -42,7 +42,7 @@ export const DUMMY_CHAT_MESSAGES = [
   {
     isUser: true,
     userName: "김철수",
-    message: "좋아요! 저는 오전에 자료 정리하고, 점심 이후에 리뷰할게요.",
+    message: "좋아요!\n저는 오전에 자료 정리하고, 점심 이후에 리뷰할게요.",
     time: "오후 2:33",
   },
   {
