@@ -4,7 +4,13 @@ import * as s from "@/pages/GroupChatPage/components/ChatListItem/ChatListItem.s
 import { theme } from "@/styles/theme/theme";
 import { useState } from "react";
 
-const ChatListItem = ({ name }: { name: string }) => {
+interface ChatListItemProps {
+  name: string;
+  index: number;
+  length: number;
+}
+
+const ChatListItem = ({ name, index, length }: ChatListItemProps) => {
   const [isMarked, setIsMarked] = useState(false);
 
   const toggle = () => {
@@ -20,7 +26,7 @@ const ChatListItem = ({ name }: { name: string }) => {
         </span>
         <StarIcon width={18} height={18} onClick={toggle} css={{ flexShrink: "0", cursor: "pointer" }} />
       </div>
-      <Divider style={{ backgroundColor: `${theme.color.dark5}` }} />
+      {length > 1 && index < length - 1 && <Divider css={{ backgroundColor: theme.color.dark5 }} />}
     </li>
   );
 };

@@ -1,6 +1,18 @@
-export const CREATED_CHAT_LIST = ["프론트엔드 스터디", "타입스크립트 마스터 그룹", "UI/UX 디자인 토론방"];
+export const CREATED_CHAT_LIST = [
+  "프론트엔드 스터디",
+  "타입스크립트 마스터 그룹",
+  "UI/UX 디자인 토론방",
+  "타입스크립트 마스터 그룹",
+  "UI/UX 디자인 토론방",
+];
 
-export const JOINED_CHAT_LIST = ["React 개발자 모임", "Next.js 프로젝트 팀", "웹 퍼포먼스 최적화 연구"];
+export const JOINED_CHAT_LIST = [
+  "React 개발자 모임",
+  "Next.js 프로젝트 팀",
+  "웹 퍼포먼스 최적화 연구",
+  "타입스크립트 마스터 그룹",
+  "UI/UX 디자인 토론방",
+];
 
 export const DUMMY_CHAT_MESSAGES = [
   {
