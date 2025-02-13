@@ -17,5 +17,7 @@ export const timeWrapperStyle = (size: "medium" | "large") => css`
 
   color: ${theme.color.gray1};
 
+  white-space: nowrap;
+
   ${size === "medium" ? theme.font.body3 : theme.font.body1};
 `;

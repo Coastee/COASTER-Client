@@ -20,5 +20,7 @@ export const messageWrapperStyle = (isUser: boolean) => css`
 `;
 
 export const messageStyle = css`
+  white-space: pre-line;
+
   ${theme.font.body2}
 `;
