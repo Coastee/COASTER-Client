@@ -112,11 +112,16 @@ const AddGroupChatModal = ({
 
             {image && (
               <div css={s.editButtonListStyle}>
-                <Button variant="small" onClick={handleFileClick}>
+                <Button
+                  variant="tertiary"
+                  size="medium"
+                  onClick={handleFileClick}
+                >
                   수정하기
                 </Button>
                 <Button
-                  variant="small"
+                  variant="tertiary"
+                  size="medium"
                   css={css`
                     color: ${theme.color.primaryPink0};
                   `}
