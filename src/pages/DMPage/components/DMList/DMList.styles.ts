@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 
 export const sectionStyle = css`
   width: 100%;
+  max-width: 46rem;
   height: 100vh;
 
   padding: 0 2.3rem 3.3rem 1.6rem;
