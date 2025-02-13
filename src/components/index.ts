@@ -11,3 +11,4 @@ export { default as ServerHeader } from "./ServerHeader/ServerHeader";
 export { default as SideModal } from "./SideModal/SideModal";
 export { default as Textarea } from "./Textarea/Textarea";
 export { default as TitleContainer } from "./TitleContainer/TitleContainer";
+export { default as UserBox } from "./UserBox/UserBox";
