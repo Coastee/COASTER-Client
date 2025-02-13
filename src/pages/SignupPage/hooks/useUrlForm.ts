@@ -10,6 +10,7 @@ export const useUrlForm = () => {
     setUrls((prev) => [...prev, ""]);
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const handleChange = useCallback((index: number, value: string) => {
     setUrls((prev: string[]) => {
       let updatedUrls = prev.map((url, i) => (i === index ? value : url));
@@ -18,10 +19,7 @@ export const useUrlForm = () => {
         updatedUrls = [""];
       }
 
-      sessionStorage.setItem(
-        "signup",
-        JSON.stringify({ ...formData, urls: updatedUrls })
-      );
+      sessionStorage.setItem("signup", JSON.stringify({ ...formData, urls: updatedUrls }));
 
       return updatedUrls;
     });

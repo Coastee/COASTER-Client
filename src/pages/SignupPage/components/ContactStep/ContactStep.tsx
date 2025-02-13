@@ -26,7 +26,6 @@ const ContactStep = ({ onPrev, onNext }: ContactStepProps) => {
         <div css={s.urlLayoutStyle}>
           {urls?.map((url, index) => (
             <Input
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               key={index}
               placeholder={PLACEHOLDER.URL}
               value={url}
