@@ -54,6 +54,17 @@ export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<
     }
   `,
 
+  small: css`
+    padding: 0.6rem 1rem;
+
+    border-radius: 0.7rem;
+
+    background-color: ${theme.color.dark2};
+
+    ${theme.font.body2};
+    color: ${theme.color.white};
+  `,
+
   tertiary: css`
     background-color: ${theme.color.dark2};
 
