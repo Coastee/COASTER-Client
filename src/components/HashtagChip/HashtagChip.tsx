@@ -1,12 +1,12 @@
 import { CloseCircleIcon } from "@/assets/svg";
-import type { HashTagTypes } from "@/constants/hashTagsDummy";
-import * as s from "./ModalHashtag.styles";
+import type { HashTagTypes } from "@/pages/HomePage/types/homeDataTypes";
+import * as s from "./HashtagChip.styles";
 
-interface ModalHashtagProps extends HashTagTypes {
+interface HashtagChipProps extends HashTagTypes {
   removeHashtag: (id: number) => void;
 }
 
-const ModalHashtag = ({ id, content, removeHashtag }: ModalHashtagProps) => {
+const HashtagChip = ({ id, content, removeHashtag }: HashtagChipProps) => {
   return (
     <div css={s.hashtagLayoutStyle}>
       <button
@@ -23,4 +23,4 @@ const ModalHashtag = ({ id, content, removeHashtag }: ModalHashtagProps) => {
   );
 };
 
-export default ModalHashtag;
+export default HashtagChip;

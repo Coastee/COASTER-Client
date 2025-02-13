@@ -1,4 +1,4 @@
-import { Button, ModalHashtag, Input, SideModal, Textarea } from "@/components";
+import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
