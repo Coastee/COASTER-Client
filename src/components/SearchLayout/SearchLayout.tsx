@@ -28,7 +28,7 @@ const SearchLayout = ({
       <ul css={s.hashTagListStyle}>
         {hashTagData.map((tag) => (
           <li key={tag.id}>
-            <Button variant="hashtag" onClick={() => setKeyword(tag.content)}>
+            <Button variant="hashtag" size="semiLarge" onClick={() => setKeyword(tag.content)}>
               {tag.content}
             </Button>
           </li>

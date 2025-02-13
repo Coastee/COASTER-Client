@@ -88,13 +88,10 @@ export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<
   `,
 
   hashtag: css`
-    padding: 0.8rem 1.7rem;
-
     border-radius: 1rem;
 
     background-color: ${theme.color.dark3};
 
-    ${theme.font.body3};
     color: ${theme.color.gray3};
     font-weight: 400;
 
@@ -109,6 +106,12 @@ export const sizeStyle: Record<Required<ButtonProps>["size"], ReturnType<typeof 
     padding: 0.6rem 1rem;
 
     ${theme.font.body2}
+  `,
+
+  semiLarge: css`
+    padding: 0.8rem 1.7rem;
+
+    ${theme.font.body3};
   `,
 
   large: css`
