@@ -1,7 +1,25 @@
-import App from "@/App";
-import { CoffeeChatListPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
+import App, { layoutStyle } from "@/App";
+import { ServerHeader } from "@/components";
+import {
+  CoffeeChatListPage,
+  DMPage,
+  GroupChatListPage,
+  HomePage,
+  MyPage,
+  OnboardingPage,
+  SignupPage,
+} from "@/pages";
 import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
 import { Outlet, createBrowserRouter } from "react-router-dom";
+
+export const Layout = () => {
+  return (
+    <div css={layoutStyle}>
+      <ServerHeader />
+      <Outlet />
+    </div>
+  );
+};
 
 export const router = createBrowserRouter([
   {
@@ -20,12 +38,18 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <App />,
+    element: <Layout />,
     children: [
       {
         path: "/dm",
-        element: <HomePage />,
+        element: <DMPage />,
       },
+    ],
+  },
+  {
+    path: "/",
+    element: <App />,
+    children: [
       {
         path: "/mypage",
         element: <MyPage />,
