@@ -15,4 +15,6 @@ export const wrapperStyle = css`
   border-radius: 1rem;
 
   ${theme.font.title2}
+
+  cursor: pointer;
 `;
