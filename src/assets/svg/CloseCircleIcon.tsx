@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgCloseCircle = (props: SVGProps<SVGSVGElement>) => (
+const SvgCloseCircleIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -11,4 +11,4 @@ const SvgCloseCircle = (props: SVGProps<SVGSVGElement>) => (
     <path stroke="#fff" strokeLinecap="round" d="m6.885 13.228 7-7m-7 0 7 7" />
   </svg>
 );
-export default SvgCloseCircle;
+export default SvgCloseCircleIcon;

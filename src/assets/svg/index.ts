@@ -1,6 +1,6 @@
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ChatIcon } from "./ChatIcon";
-export { default as CloseCircle } from "./CloseCircle";
+export { default as CloseCircleIcon } from "./CloseCircleIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
 export { default as DmIcon } from "./DmIcon";

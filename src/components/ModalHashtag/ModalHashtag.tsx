@@ -1,4 +1,4 @@
-import { CloseCircle } from "@/assets/svg";
+import { CloseCircleIcon } from "@/assets/svg";
 import type { HashTagTypes } from "@/constants/hashTagsDummy";
 import * as s from "./ModalHashtag.styles";
 
@@ -14,7 +14,7 @@ const ModalHashtag = ({ id, content, removeHashtag }: ModalHashtagProps) => {
         css={s.deleteStyle}
         onClick={() => removeHashtag(id)}
       >
-        <CloseCircle width={18} />
+        <CloseCircleIcon width={18} />
       </button>
       <button type="button" css={s.hashtagStyle}>
         {content}
