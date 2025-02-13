@@ -10,8 +10,8 @@ export const addHashtagStyle = (fontWidth: number) => css`
   gap: 0.8rem;
 
   width: ${fontWidth && fontWidth > 90
-    ? Math.floor(fontWidth)
-    : 90}px !important;
+    ? fontWidth
+    : 90}px;
 
   padding: 0.8rem 1.7rem;
 
