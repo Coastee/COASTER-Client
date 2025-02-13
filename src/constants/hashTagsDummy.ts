@@ -1,8 +1,3 @@
-export interface HashTagTypes {
-  id: number;
-  content: string;
-}
-
 export const HASH_TAGS_DUMMY = [
   {
     id: 25,

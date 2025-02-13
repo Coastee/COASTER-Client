@@ -1,7 +1,4 @@
-export type HashTagTypes = {
-  id: number;
-  content: string;
-};
+import type { HashtagTypes } from "@/components/HashtagChip/types/hashtagTypes";
 
 export type UserIntroTypes = {
   headline: string;
@@ -37,7 +34,7 @@ export type ChatRoomTypes = {
   hasEntered: boolean | null;
   maxCount: number;
   currentCount: number;
-  hashTagList: HashTagTypes[];
+  hashTagList: HashtagTypes[];
 };
 
 export type PageInfoTypes = {
@@ -56,7 +53,7 @@ export type ChatTypes = {
 };
 
 export type HomeGetDummyTypes = {
-  hashTagList: HashTagTypes[];
+  hashTagList: HashtagTypes[];
   groupChatRoom: {
     pageInfo: PageInfoTypes;
     chatRoomList: ChatRoomTypes[];

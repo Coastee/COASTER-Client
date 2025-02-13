@@ -1,8 +1,8 @@
 import { CloseCircleIcon } from "@/assets/svg";
-import type { HashTagTypes } from "@/pages/HomePage/types/homeDataTypes";
+import type { HashtagTypes } from "@/components/HashtagChip/types/hashtagTypes";
 import * as s from "./HashtagChip.styles";
 
-interface HashtagChipProps extends HashTagTypes {
+interface HashtagChipProps extends HashtagTypes {
   removeHashtag: (id: number) => void;
 }
 
