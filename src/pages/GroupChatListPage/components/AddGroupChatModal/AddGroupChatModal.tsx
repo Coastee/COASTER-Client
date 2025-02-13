@@ -46,7 +46,8 @@ const AddGroupChatModal = ({
 
   const isButtonDisabled = isFieldError("title", request.title);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     setIsVisible(false);
   };
 
@@ -56,7 +57,7 @@ const AddGroupChatModal = ({
       isVisible={isVisible}
       setIsVisible={setIsVisible}
     >
-      <div css={s.modalContentStyle}>
+      <form css={s.modalContentStyle} onSubmit={handleSubmit}>
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <label htmlFor="title" css={s.textareaTitleStyle}>
@@ -143,13 +144,12 @@ const AddGroupChatModal = ({
           <Button
             type="submit"
             variant="primary"
-            onClick={handleSubmit}
             disabled={!request.title.trim() || isButtonDisabled}
           >
             등록
           </Button>
         </div>
-      </div>
+      </form>
     </SideModal>
   );
 };
