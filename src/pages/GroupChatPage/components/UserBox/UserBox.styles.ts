@@ -14,5 +14,6 @@ export const wrapperStyle = css`
   border: 1px solid ${theme.color.dark1};
   border-radius: 1rem;
 
-  ${theme.font.title2}
+  ${theme.font.title2};
+  font-weight: 400;
 `;
