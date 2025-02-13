@@ -4,9 +4,21 @@ import { css } from "@emotion/react";
 export const itemWrapperStyle = css`
   display: flex;
 
+  padding: 1.1rem 1.2rem;
+
   justify-content: space-between;
   align-items: center;
   gap: 1.7rem;
+
+  border-radius: 1.7rem;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${theme.color.dark3};
+
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 export const layoutStyle = css`
