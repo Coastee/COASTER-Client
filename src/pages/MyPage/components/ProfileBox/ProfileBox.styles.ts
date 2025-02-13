@@ -5,6 +5,8 @@ export const wrapperStyle = css`
   position: relative;
   display: flex;
 
+  margin-bottom: 0.6rem;
+
   flex-direction: column;
 `;
 

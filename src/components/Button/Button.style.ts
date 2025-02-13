@@ -11,11 +11,8 @@ export const buttonStyle = css`
 
   gap: 0.8rem;
 
-  padding: 1rem 2.6rem;
-
   border-radius: 10px;
 
-  ${theme.font.body1};
   font-weight: 500;
   color: ${theme.color.white};
 
@@ -38,10 +35,7 @@ const textBaseStyle = css`
   color: ${theme.color.primaryBlue1};
 `;
 
-export const variantStyles: Record<
-  Required<ButtonProps>["variant"],
-  ReturnType<typeof css>
-> = {
+export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<typeof css>> = {
   primary: css`
     background-color: ${theme.color.primaryBlue2};
 
@@ -98,5 +92,19 @@ export const variantStyles: Record<
     &:hover {
       color: ${theme.color.white};
     }
+  `,
+};
+
+export const sizeStyle: Record<Required<ButtonProps>["size"], ReturnType<typeof css>> = {
+  medium: css`
+    padding: 0.6rem 1rem;
+
+    ${theme.font.body2}
+  `,
+
+  large: css`
+    padding: 1rem 2.6rem;
+
+    ${theme.font.body1};
   `,
 };
