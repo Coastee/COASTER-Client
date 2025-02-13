@@ -1,5 +1,4 @@
 import { UserBox } from "@/components";
-import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMItem/DMItem.styles";
 
 interface DMItemProps {
@@ -19,7 +18,7 @@ const DMItem = ({ name, latestMessage, sentTime, isRead }: DMItemProps) => {
           <div css={s.contentStyle}>
             <p css={s.messageStyle(isRead)}>{latestMessage}</p>
             <div css={s.circleStyle} />
-            <p css={{ fontWeight: 400, color: `${theme.color.gray2}` }}>{sentTime}분</p>
+            <p css={s.timeStyle}>{sentTime}분</p>
           </div>
         </div>
       </div>

@@ -64,6 +64,14 @@ export const messageStyle = (isRead: boolean) => css`
   white-space: nowrap;
 `;
 
+export const timeStyle = css`
+  color: ${theme.color.gray2};
+
+  font-weight: 400;
+
+  white-space: nowrap;
+`;
+
 export const circleStyle = css`
   width: 0.4rem;
   height: 0.4rem;
@@ -77,6 +85,8 @@ export const circleStyle = css`
 export const blueCircleStyle = css`
   width: 1rem;
   height: 1rem;
+
+  flex-shrink: 0;
 
   border-radius: 100%;
 

@@ -11,6 +11,8 @@ export const wrapperStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
+  z-index: 1;
+
   border-radius: 2.5rem 0 0 2.5rem;
 
   background-color: ${theme.color.dark3};
