@@ -58,7 +58,7 @@ const AddGroupChatModal = ({
     >
       <div css={s.modalContentStyle}>
         <ul css={s.contentListStyle}>
-          <li css={s.questionContainer} style={{ maxWidth: "35rem" }}>
+          <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <h1 css={s.textareaTitleStyle}>
               채팅방 제목<span>*</span>
             </h1>
