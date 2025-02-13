@@ -1,4 +1,4 @@
-import UserBox from "@/pages/GroupChatPage/components/UserBox/UserBox";
+import { UserBox } from "@/components";
 import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMItem/DMItem.styles";
 

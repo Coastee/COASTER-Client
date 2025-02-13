@@ -1,9 +1,9 @@
 import { HamburgerIcon, RotateLogoIcon, SendIcon } from "@/assets/svg";
-import { Input } from "@/components";
+import { Input, UserBox } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import TimeChip from "@/components/TimeChip/TimeChip";
+
 import { PLACEHOLDER } from "@/constants/placeholder";
-import UserBox from "@/pages/GroupChatPage/components/UserBox/UserBox";
 import { DUMMY_CHAT_MESSAGES } from "@/pages/GroupChatPage/constants/dummy";
 import * as s from "@pages/GroupChatPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useRef } from "react";
