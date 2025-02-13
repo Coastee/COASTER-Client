@@ -2,6 +2,7 @@ import { Button, Input, ModalHashtag, SideModal, Textarea } from "@/components";
 import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
+import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/components/constants/textMaxLength";
 import useAddGroupChatForm from "@/pages/SignupPage/hooks/useAddGroupChatForm";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
@@ -24,11 +25,6 @@ const AddGroupChatModal = ({
   });
   const [image, setImage] = useState<File | null>(null);
 
-  const maxLengths = {
-    title: 20,
-    content: 80,
-  };
-
   const {
     fileInputRef,
     addHashtag,
@@ -40,7 +36,13 @@ const AddGroupChatModal = ({
     handleFocus,
     handleBlur,
     isFieldError,
-  } = useAddGroupChatForm({ request, setRequest, image, setImage, maxLengths });
+  } = useAddGroupChatForm({
+    request,
+    setRequest,
+    image,
+    setImage,
+    maxLengths: TEXT_MAX_LENGTH,
+  });
 
   const isButtonDisabled = isFieldError("title", request.title);
 
@@ -68,14 +70,14 @@ const AddGroupChatModal = ({
               onBlur={() => handleBlur("title")}
               isError={isFieldError("title", request.title)}
               supportingText={SUPPORTING_TEXT.REQUIRED}
-              maxLength={maxLengths.title}
+              maxLength={TEXT_MAX_LENGTH.title}
             />
           </li>
           <li css={s.questionContainer}>
             <h1 css={s.textareaTitleStyle}>채팅방 상세 설명</h1>
             <Textarea
               placeholder="채팅방 상세 설명을 입력하세요"
-              maxLength={maxLengths.content}
+              maxLength={TEXT_MAX_LENGTH.content}
               value={request.content}
               onChange={(e) => handleInputChange("content", e.target.value)}
               style={{ height: "12rem" }}
