@@ -6,7 +6,7 @@ export const wrapperStyle = css`
 
   width: 100%;
 
-  padding: 5.3rem 17rem 4.2rem 5rem;
+  padding: 5.3rem 4.5rem 4.2rem 4.5rem;
 
   z-index: 1;
 
@@ -22,7 +22,6 @@ export const headerStyle = css`
   display: flex;
 
   padding-bottom: 2.2rem;
-
 
   justify-content: space-between;
   align-items: center;
@@ -45,6 +44,8 @@ export const scrollStyle = css`
   display: flex;
 
   height: 62rem;
+
+  padding: 1.8rem 0 7rem 0;
 
   flex-direction: column;
   gap: 2.5rem;

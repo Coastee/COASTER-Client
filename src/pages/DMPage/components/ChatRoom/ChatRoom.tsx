@@ -37,7 +37,7 @@ const ChatRoom = () => {
       <div css={s.scrollStyle} ref={scrollRef}>
         {DM_MESSAGES.map((chat, index) => (
           <div key={`${index}-${chat.time}`} css={s.layoutStyle(chat.isUser)}>
-            {!chat.isUser && <UserBox name={chat.userName} />}
+            {!chat.isUser && <UserBox name={chat.userName} size="medium" />}
 
             <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
               <ChatPanel isUser={chat.isUser} message={chat.message} time={chat.time} isDM={true} />
