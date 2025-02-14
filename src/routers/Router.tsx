@@ -1,12 +1,6 @@
 import App from "@/App";
-import {
-  CoffeeChatListPage,
-  GroupChatListPage,
-  HomePage,
-  MyPage,
-  OnboardingPage,
-  SignupPage,
-} from "@/pages";
+import { CoffeeChatListPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
+import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -61,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "/:serverId/coffee-chat",
         element: <HomePage />,
+      },
+      {
+        path: "/:serverId/group-chat/chat",
+        element: <GroupChatPage />,
       },
     ],
   },
