@@ -3,6 +3,8 @@ export { default as ChatIcon } from "./ChatIcon";
 export { default as CloseCircleIcon } from "./CloseCircleIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
+export { default as CounterMinusIcon } from "./CounterMinusIcon";
+export { default as CounterPlusIcon } from "./CounterPlusIcon";
 export { default as DmIcon } from "./DmIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as ExitIcon } from "./ExitIcon";
