@@ -47,8 +47,13 @@ const useAddCoffeeChatForm = ({
     }));
   };
 
-  const isFieldError = (field: string, value: string) => {
-    return fieldFocusState[field]?.hasBeenFocused && value.trim().length === 0;
+  const isFieldError = (field: string, value: string, required?: string) => {
+    if (required) {
+      return (
+        fieldFocusState[field]?.hasBeenFocused && value.trim().length === 0
+      );
+    }
+    return false;
   };
 
   const handleInputChange = (field: string, value: string) => {

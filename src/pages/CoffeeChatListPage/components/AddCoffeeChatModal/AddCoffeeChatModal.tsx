@@ -77,7 +77,7 @@ const AddCoffeeChatModal = ({
               value={request.title}
               onFocus={() => handleFocus("title")}
               onBlur={() => handleBlur("title")}
-              isError={isFieldError("title", request.title)}
+              isError={isFieldError("title", request.title, "required")}
               supportingText={SUPPORTING_TEXT.REQUIRED}
               maxLength={TEXT_MAX_LENGTH.title}
             />
@@ -154,11 +154,13 @@ const AddCoffeeChatModal = ({
               <Input
                 id="location"
                 placeholder="진행할 장소를 입력하세요 (ex. 서울시 용산구 ㅇㅇ로)"
-                onChange={(e) => handleInputChange("location", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("location", e.target.value)
+                }
                 value={request.location}
                 onFocus={() => handleFocus("location")}
                 onBlur={() => handleBlur("location")}
-                isError={isFieldError("location", request.location)}
+                isError={isFieldError("location", request.location, "required")}
                 supportingText={SUPPORTING_TEXT.REQUIRED}
               />
             </div>
