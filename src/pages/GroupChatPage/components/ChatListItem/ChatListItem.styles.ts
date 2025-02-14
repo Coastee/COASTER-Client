@@ -9,6 +9,7 @@ export const listWrapperStyle = (isMarked: boolean) => css`
   padding: 1rem 0.9rem;
 
   justify-content: space-between;
+  align-items: center;
   gap: 0.7rem;
 
   border-radius: 0.5rem;

@@ -30,7 +30,7 @@ export const modalStyle = css`
   padding: 4.4rem 5.4rem 5.4rem 5.4rem;
 
   width: auto;
-  max-width: 80rem;
+  max-width: 70rem;
   min-width: 60rem;
   height: 100%;
 
@@ -82,9 +82,7 @@ export const headerButtonsStyle = css`
   gap: 3rem;
 `;
 
-export const modalContentStyle = css`
-  padding: 1.6rem;
-`;
+export const modalContentStyle = css``;
 
 export const headerIconStyle = css`
   flex-shrink: 0;

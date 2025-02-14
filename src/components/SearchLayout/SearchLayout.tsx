@@ -1,6 +1,5 @@
 import { RotateLogoIcon } from "@/assets/svg";
 import { Button, Input } from "@/components";
-// import { hashTagsDummy } from "@/constants/hashTagsDummy";
 import * as s from "./SearchLayout.styles";
 
 interface SearchLayoutProps {
@@ -28,7 +27,7 @@ const SearchLayout = ({
       <ul css={s.hashTagListStyle}>
         {hashTagData.map((tag) => (
           <li key={tag.id}>
-            <Button variant="hashtag" onClick={() => setKeyword(tag.content)}>
+            <Button variant="hashtag" size="semiLarge" onClick={() => setKeyword(tag.content)}>
               {tag.content}
             </Button>
           </li>

@@ -1,6 +1,14 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
+export const layoutStyle = (supportingText: boolean) => css`
+  position: relative;
+
+  margin-bottom: ${supportingText ? "1.5rem" : "0"};
+
+  width: 100%;
+`;
+
 export const wrapperStyle = (isError: boolean) => css`
   position: relative;
   display: flex;

@@ -1,7 +1,7 @@
 import { AuthContainer, Button, Input } from "@/components";
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { DESC, TITLE } from "@/constants/signup";
-import { SUPPORTING_TEXT } from "@/pages/SignupPage/constants/supportingText";
+import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { useInfoForm } from "@/pages/SignupPage/hooks/useInfoForm";
 import { formatDate } from "@/pages/SignupPage/utils/date";
 

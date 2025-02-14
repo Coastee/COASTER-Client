@@ -4,7 +4,7 @@ import { buttonStyle, sizeStyle, variantStyles } from "./Button.style";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "tertiary" | "text" | "sorting" | "hashtag";
-  size?: "medium" | "large";
+  size?: "medium" | "semiLarge" | "large";
 }
 
 const Button = ({ variant = "primary", size = "large", children, ...props }: ButtonProps) => {

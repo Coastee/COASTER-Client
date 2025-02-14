@@ -32,6 +32,8 @@ const color = {
   primaryPink0: "#ff9fbc",
   primaryPink1: "#ff6593",
 
+  pink2: "#d7a9b7",
+
   // etc
   yellow: "#FFD900",
   green: "#04C75B",

@@ -1,3 +1,4 @@
+import { scrollStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
@@ -40,4 +41,14 @@ export const listStyle = css`
   background-color: ${theme.color.dark3};
 
   overflow-y: auto;
+
+  ${scrollStyle}
+`;
+
+export const listWrapperStyle = css`
+  padding: 0.5rem 0.6rem;
+
+  border-radius: 1rem;
+
+  background-color: ${theme.color.dark3};
 `;
