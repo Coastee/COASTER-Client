@@ -9,7 +9,7 @@ export const supportingTextStyle = css`
 
   justify-content: flex-end;
 
-  padding-top: 0.8rem;
+  padding-top: 0.6rem;
 
   color: ${theme.color.primaryPink1};
 
