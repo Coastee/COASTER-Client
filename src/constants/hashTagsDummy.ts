@@ -1,4 +1,4 @@
-export const hashTagsDummy = [
+export const HASH_TAGS_DUMMY = [
   {
     id: 25,
     content: "#coaster",

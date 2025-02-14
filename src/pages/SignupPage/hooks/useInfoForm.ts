@@ -1,5 +1,8 @@
-import { SUPPORTING_TEXT } from "@/pages/SignupPage/constants/supportingText";
-import { defaultSignUpFormValues, type signUpFormTypes } from "@/pages/SignupPage/types/signupFormTypes";
+import { SUPPORTING_TEXT } from "@/constants/supportingText";
+import {
+  defaultSignUpFormValues,
+  type signUpFormTypes,
+} from "@/pages/SignupPage/types/signupFormTypes";
 
 import { formatDate } from "@/pages/SignupPage/utils/date";
 import { useCallback, useEffect, useState } from "react";
@@ -29,10 +32,10 @@ export const useInfoForm = () => {
           name: form.name,
           nickName: form.nickName,
           birth: formatDate(form.birth),
-        }),
+        })
       );
     },
-    [form],
+    [form]
   );
 
   const handleNickNameMessage = useCallback((nickName: string) => {
@@ -49,9 +52,12 @@ export const useInfoForm = () => {
     }
   }, []);
 
-  const isNickNameError = form.nickName.length > 0 && (form.nickName.length < 2 || form.nickName.length > 10);
+  const isNickNameError =
+    form.nickName.length > 0 &&
+    (form.nickName.length < 2 || form.nickName.length > 10);
 
-  const isBirthError = form.birth.length > 0 && formatDate(form.birth).length !== 10;
+  const isBirthError =
+    form.birth.length > 0 && formatDate(form.birth).length !== 10;
 
   useEffect(() => {
     handleNickNameMessage(form.nickName);

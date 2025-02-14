@@ -1,6 +1,6 @@
 import { SearchLayout, TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
-import { hashTagsDummy } from "@/constants/hashTagsDummy";
+import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { useState } from "react";
 import * as s from "./CoffeeChatListPage.styles";
 import CoffeeChatListAll from "./components/CoffeeChatListAll/CoffeeChatListAll";
@@ -14,7 +14,7 @@ const CoffeeChatListPage = () => {
       <SearchLayout
         keyword={keyword}
         setKeyword={setKeyword}
-        hashTagData={hashTagsDummy}
+        hashTagData={HASH_TAGS_DUMMY}
       />
       <TitleContainer
         title="오프라인 커피챗"

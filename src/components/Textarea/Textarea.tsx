@@ -1,4 +1,4 @@
-import { inputStyle } from "@/components/Input/Input.styles";
+import SupportingText from "@/components/SupportingText/SupportingText";
 import * as s from "@/components/Textarea/Textarea.styles";
 import { theme } from "@/styles/theme/theme";
 import {
@@ -6,9 +6,11 @@ import {
   type TextareaHTMLAttributes,
   forwardRef,
 } from "react";
+import { inputStyle } from "../Input/Input.styles";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   isError?: boolean;
+  supportingText?: string;
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -18,6 +20,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       placeholder,
       id,
       value = "",
+      supportingText,
       maxLength,
       onChange,
       ...props
@@ -25,25 +28,30 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
     return (
-      <div css={s.wrapperStyle(isError)}>
-        <textarea
-          css={[inputStyle, s.textareaStyle]}
-          placeholder={placeholder}
-          id={id}
-          ref={ref}
-          maxLength={maxLength}
-          value={value}
-          onChange={onChange}
-          tabIndex={0}
-          {...props}
-        />
-        {maxLength && (
-          <div css={s.countStyle}>
-            <p css={{ color: `${theme.color.primaryBlue2}` }}>
-              {value.toString().length}
-            </p>
-            / {maxLength}
-          </div>
+      <div css={s.layoutStyle(!!supportingText && isError)}>
+        <div css={s.wrapperStyle(isError)}>
+          <textarea
+            css={[inputStyle, s.textareaStyle]}
+            placeholder={placeholder}
+            id={id}
+            ref={ref}
+            maxLength={maxLength}
+            value={value}
+            onChange={onChange}
+            tabIndex={0}
+            {...props}
+          />
+          {maxLength && (
+            <div css={s.countStyle}>
+              <p css={{ color: `${theme.color.primaryBlue2}` }}>
+                {value.toString().length}
+              </p>
+              / {maxLength}
+            </div>
+          )}
+        </div>
+        {isError && supportingText && (
+          <SupportingText>{supportingText}</SupportingText>
         )}
       </div>
     );
