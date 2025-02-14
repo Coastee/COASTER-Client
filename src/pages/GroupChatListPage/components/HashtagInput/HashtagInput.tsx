@@ -16,10 +16,8 @@ const HashtagInput = ({ addHashtag }: HashtagInputProps) => {
     setValue(e.target.value);
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.nativeEvent.isComposing) return;
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      e.preventDefault();
       if (value.trim().length > 0) {
         addHashtag(toHashTag(value));
         setValue("");
@@ -40,7 +38,7 @@ const HashtagInput = ({ addHashtag }: HashtagInputProps) => {
         type="text"
         value={value}
         onChange={handleInput}
-        onKeyDown={onKeyDown}
+        onKeyUp={handleKeyUp}
         css={s.addHashtagStyle(fontWidth)}
         placeholder="#직접입력"
         ref={inputRef}
