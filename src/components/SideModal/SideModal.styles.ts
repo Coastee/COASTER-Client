@@ -44,8 +44,9 @@ export const modalHeaderStyle = css`
 
   justify-content: space-between;
   align-items: start;
-
   gap: 7rem;
+
+  padding-bottom: 1rem;
 `;
 
 export const headerTextStyle = css`

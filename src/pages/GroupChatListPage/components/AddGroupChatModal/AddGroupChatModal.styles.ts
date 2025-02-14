@@ -18,7 +18,7 @@ export const contentListStyle = css`
 
   row-gap: 2.5rem;
 
-  padding-top: 4rem;
+  padding-top: 3rem;
 `;
 
 export const questionContainer = css`
