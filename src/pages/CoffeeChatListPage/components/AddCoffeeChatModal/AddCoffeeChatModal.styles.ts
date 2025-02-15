@@ -118,6 +118,7 @@ export const dateTimeLayoutStyle = css`
 `;
 
 export const dateTimeContainerStyle = css`
+  position: relative;
   display: flex;
 
   align-items: center;
@@ -141,22 +142,9 @@ export const dateTimeContainerStyle = css`
   transition: 0.3s ease-in-out;
 
   cursor: pointer;
-`;
 
-export const timeLayoutStyle = css`
-  display: flex;
-
-  align-items: end;
-  gap: 1rem;
-
-  p {
-    padding-bottom: 0.2rem;
-
-    ${theme.font.body3};
-    font-weight: 400;
-    color: ${theme.color.gray1};
-
-    white-space: nowrap;
+  :hover {
+    box-shadow: inset 0 0 0 1px ${theme.color.primaryBlue3};
   }
 `;
 
@@ -172,45 +160,4 @@ export const buttonContainer = css`
   display: flex;
 
   justify-content: flex-end;
-`;
-
-export const addHashtagStyle = (fontWidth: number) => css`
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 0.8rem;
-
-  width: ${fontWidth && fontWidth > 90
-    ? Math.floor(fontWidth)
-    : 90}px !important;
-
-  padding: 0.8rem 1.7rem;
-
-  border-radius: 1rem;
-
-  ${theme.font.body2};
-  font-weight: 400;
-  color: ${theme.color.gray2};
-
-  background-color: #404a58;
-
-  white-space: nowrap;
-
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-`;
-
-export const hiddenSpanStyle = css`
-  visibility: hidden;
-
-  display: inline-block;
-
-  padding: 0.8rem 1.7rem;
-
-  width: max-content;
-  ${theme.font.body2};
-  font-weight: 400;
 `;

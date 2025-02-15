@@ -1,7 +1,9 @@
 import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
 import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
+
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
+import TimeDropdown from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
 import { TEXT_MAX_LENGTH } from "@/pages/CoffeeChatListPage/constants/textMaxLength";
 import useAddCoffeeChatForm from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChatForm";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
@@ -23,10 +25,10 @@ const AddCoffeeChatModal = ({
     title: "",
     description: "",
     hashTags: HASH_TAGS_DUMMY,
-    participants: 1,
-    date: "",
-    startTime: "",
-    endTime: "",
+    participants: 2,
+    date: "2025. 1. 22 (수)",
+    startTime: "오전 1 : 00",
+    endTime: "오전 1 : 00",
     location: "",
     locationDetail: "",
   });
@@ -131,17 +133,20 @@ const AddCoffeeChatModal = ({
             <div css={s.dateTimeLayoutStyle}>
               <div css={{ display: "flex", gap: "1.2rem" }}>
                 <div id="date-time" css={s.dateTimeContainerStyle}>
-                  2025. 1. 22 (수)
+                  {request.date}
                 </div>
-                <div css={s.timeLayoutStyle}>
-                  <div css={s.dateTimeContainerStyle}>오후 1 : 30</div>
-                  <p>부터</p>
-                </div>
-              </div>
-
-              <div css={s.timeLayoutStyle}>
-                <div css={s.dateTimeContainerStyle}>오후 3 : 30</div>
-                <p>까지</p>
+                <TimeDropdown
+                  type="start"
+                  setRequest={(value) =>
+                    setRequest((prev) => ({ ...prev, startTime: value }))
+                  }
+                />
+                <TimeDropdown
+                  type="end"
+                  setRequest={(value) =>
+                    setRequest((prev) => ({ ...prev, endTime: value }))
+                  }
+                />
               </div>
             </div>
           </li>
@@ -154,9 +159,7 @@ const AddCoffeeChatModal = ({
               <Input
                 id="location"
                 placeholder="진행할 장소를 입력하세요 (ex. 서울시 용산구 ㅇㅇ로)"
-                onChange={(e) =>
-                  handleInputChange("location", e.target.value)
-                }
+                onChange={(e) => handleInputChange("location", e.target.value)}
                 value={request.location}
                 onFocus={() => handleFocus("location")}
                 onBlur={() => handleBlur("location")}
