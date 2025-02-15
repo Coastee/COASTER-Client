@@ -90,6 +90,19 @@ const useAddCoffeeChatForm = ({
   const handleFileDelete = () => setImage(null);
   const handleFileClick = () => fileInputRef.current?.click();
 
+  const handleParticipantsChange = (action: "increment" | "decrement") => {
+    setRequest((prevRequest) => {
+      const newParticipants =
+        action === "increment"
+          ? prevRequest.participants + 1
+          : prevRequest.participants - 1;
+      return {
+        ...prevRequest,
+        participants: Math.max(2, newParticipants),
+      };
+    });
+  };
+
   return {
     request,
     image,
@@ -104,6 +117,7 @@ const useAddCoffeeChatForm = ({
     handleFileChange,
     handleFileDelete,
     handleFileClick,
+    handleParticipantsChange,
   };
 };
 

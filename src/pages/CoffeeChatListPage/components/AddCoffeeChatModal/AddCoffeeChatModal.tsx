@@ -42,6 +42,7 @@ const AddCoffeeChatModal = ({
     handleFileDelete,
     handleFileClick,
     handleInputChange,
+    handleParticipantsChange,
     handleFocus,
     handleBlur,
     isFieldError,
@@ -116,14 +117,24 @@ const AddCoffeeChatModal = ({
             </ul>
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
-            <label htmlFor="title" css={s.textareaTitleStyle}>
+            <label htmlFor="participants" css={s.textareaTitleStyle}>
               참여 인원<span id="required">*</span>
               <span id="sub">최소 참여 인원은 2명입니다</span>
             </label>
             <div css={s.counterStyle}>
-              <CounterMinusIcon width={33} height={33} />
-              <p>3</p>
-              <CounterPlusIcon width={33} height={33} />
+              <CounterMinusIcon
+                width={33}
+                height={33}
+                css={{ userSelect: "none" }}
+                onClick={() => handleParticipantsChange("decrement")}
+              />
+              <p>{request.participants}</p>
+              <CounterPlusIcon
+                width={33}
+                height={33}
+                css={{ userSelect: "none" }}
+                onClick={() => handleParticipantsChange("increment")}
+              />
             </div>
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
