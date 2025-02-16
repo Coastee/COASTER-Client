@@ -1,3 +1,4 @@
+import { scrollStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
@@ -11,6 +12,8 @@ export const sectionStyle = css`
   background-color: ${theme.color.dark4};
 
   overflow-y: auto;
+
+  ${scrollStyle}
 `;
 
 export const headerStyle = css`
@@ -21,8 +24,7 @@ export const headerStyle = css`
 
   width: 100%;
 
-  padding: 2.8rem 0 0 1.2rem ;
-
+  padding: 2.8rem 0 0 1.2rem;
 
   flex-direction: column;
   gap: 1.7rem;
@@ -34,7 +36,7 @@ export const headerStyle = css`
   }
 `;
 
-export const listWrapperStyle = css`
+export const listStyle = css`
   display: flex;
 
   margin-top: 17rem;
@@ -42,5 +44,4 @@ export const listWrapperStyle = css`
   flex-direction: column;
   gap: 0.6rem;
 
-  overflow-y: hidden;
 `;

@@ -26,7 +26,6 @@ export const layoutStyle = css`
 
   align-items: center;
   gap: 1.7rem;
-
 `;
 
 export const infoStyle = css`
@@ -79,7 +78,6 @@ export const circleStyle = css`
   border-radius: 100%;
 
   background-color: ${theme.color.gray2};
-
 `;
 
 export const blueCircleStyle = css`

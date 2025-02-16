@@ -2,6 +2,7 @@ import { Logo4Icon } from "@/assets/svg";
 import { Divider } from "@/components";
 import DMItem from "@/pages/DMPage/components/DMItem/DMItem";
 import { CHAT_LIST } from "@/pages/DMPage/constants/dummy";
+import { scrollStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 
@@ -13,7 +14,8 @@ const DMList = () => {
         <h1>메시지</h1>
         <Divider css={{ backgroundColor: `${theme.color.dark2}` }} />
       </header>
-      <ul css={s.listWrapperStyle}>
+
+      <ul css={[s.listStyle, scrollStyle]}>
         {CHAT_LIST.map((item, index) => (
           <DMItem key={`${item.name}-${index}`} {...item} />
         ))}
