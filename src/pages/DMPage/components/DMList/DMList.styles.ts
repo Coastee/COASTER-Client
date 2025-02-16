@@ -18,7 +18,7 @@ export const headerStyle = css`
 
   top: 0;
 
-  min-width: 43rem;
+  min-width: 39rem;
 
   padding: 2.8rem 0 0 1.2rem;
 
@@ -43,4 +43,4 @@ export const listStyle = css`
   overflow-y: auto;
 
   ${scrollStyle}
-  `;
+`;
