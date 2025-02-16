@@ -39,13 +39,23 @@ const ChatRoom = () => {
           <div key={`${index}-${chat.time}`} css={s.layoutStyle(chat.isUser)}>
             {!chat.isUser && <UserBox name={chat.userName} size="medium" />}
 
-            <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-              <ChatPanel isUser={chat.isUser} message={chat.message} time={chat.time} isDM={true} />
+            <div
+              css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}
+            >
+              <ChatPanel
+                isUser={chat.isUser}
+                message={chat.message}
+                time={chat.time}
+                isDM={true}
+              />
             </div>
           </div>
         ))}
       </div>
-      <Input placeholder={PLACEHOLDER.CHAT} rightIcon={<SendIcon width={14} height={14} />} />
+      <Input
+        placeholder={PLACEHOLDER.CHAT}
+        rightIcon={<SendIcon width={14} height={14} />}
+      />
     </section>
   );
 };

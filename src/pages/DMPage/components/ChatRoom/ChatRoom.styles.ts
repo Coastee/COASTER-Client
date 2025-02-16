@@ -5,7 +5,7 @@ export const wrapperStyle = css`
   display: flex;
 
   width: 100%;
-  min-width: 80rem;
+
   height: 100vh;
 
   padding: 5.3rem 4.5rem 4.2rem 4.5rem;
@@ -61,10 +61,10 @@ export const scrollStyle = css`
 `;
 
 export const layoutStyle = (isUser: boolean) => css`
- display: flex;
+  display: flex;
 
- justify-content: ${isUser ? "flex-end" : "flex-start"};
- gap: 1.3rem;
+  justify-content: ${isUser ? "flex-end" : "flex-start"};
+  gap: 1.3rem;
 `;
 
 export const nameBoxStyle = (isUser: boolean) => css`
