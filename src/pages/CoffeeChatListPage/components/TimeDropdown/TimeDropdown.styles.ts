@@ -35,15 +35,14 @@ export const timeTextLayoutStyle = css`
 `;
 
 export const textStyle = css`
+  margin-right: 0.4rem;
+  padding: 0.6rem 0.5rem;
+
   ${theme.font.body2};
   font-weight: 400;
   color: ${theme.color.white};
 
   white-space: nowrap;
-
-  /* border: 1px solid yellow; */
-  margin-right: 0.4rem;
-  padding: 0.6rem 0.5rem;
 `;
 
 export const dateDropdownContainerStyle = css`
