@@ -54,7 +54,8 @@ const AddCoffeeChatModal = ({
     maxLengths: TEXT_MAX_LENGTH,
   });
 
-  const isButtonDisabled = isFieldError("title", request.title);
+  const isButtonDisabled =
+    request.title.trim().length === 0 || request.location.trim().length === 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +68,13 @@ const AddCoffeeChatModal = ({
       isVisible={isVisible}
       setIsVisible={setIsVisible}
     >
-      <form css={s.modalContentStyle} onSubmit={handleSubmit}>
+      <form
+        css={s.modalContentStyle}
+        onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          e.key === "Enter" && e.preventDefault();
+        }}
+      >
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <label htmlFor="title" css={s.textareaTitleStyle}>
@@ -236,11 +243,7 @@ const AddCoffeeChatModal = ({
           </li>
         </ul>
         <div css={s.buttonContainer}>
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={!request.title.trim() || isButtonDisabled}
-          >
+          <Button type="submit" variant="primary" disabled={isButtonDisabled}>
             등록
           </Button>
         </div>
