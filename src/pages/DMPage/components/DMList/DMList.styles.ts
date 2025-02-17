@@ -37,10 +37,18 @@ export const listStyle = css`
   flex-direction: column;
   gap: 0.6rem;
 
+  padding-right: 1rem;
   margin-top: 17rem;
 
   max-height: calc(100vh - 19rem);
   overflow-y: auto;
 
   ${scrollStyle}
+
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.color.dark2};
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `;
