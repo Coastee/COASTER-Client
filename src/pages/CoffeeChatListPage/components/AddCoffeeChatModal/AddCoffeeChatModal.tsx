@@ -1,18 +1,25 @@
 import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
-import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
-import FileUploadBox from "@/components/FileUploadBox/FileUploadBox";
+import {
+  Button,
+  FileUploadBox,
+  HashtagChip,
+  HashtagInput,
+  Input,
+  SideModal,
+  Textarea,
+} from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
-import TimeDropdown from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
+import { TimeDropdown } from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
 import {
   DEFAULT_COFFEE_CHAT_VALUES,
   DEFAULT_DATE_TIME_VALUE,
   TEXT_MAX_LENGTH,
 } from "@/pages/CoffeeChatListPage/constants/coffeeChat";
 import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
+
 import type { AddCoffeeChatTypes } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
-import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { useState } from "react";
 import * as s from "./AddCoffeeChatModal.styles";
 

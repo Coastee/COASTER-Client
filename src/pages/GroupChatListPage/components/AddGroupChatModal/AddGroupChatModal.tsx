@@ -1,11 +1,17 @@
-import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
-import FileUploadBox from "@/components/FileUploadBox/FileUploadBox";
+import {
+  Button,
+  FileUploadBox,
+  HashtagChip,
+  HashtagInput,
+  Input,
+  SideModal,
+  Textarea,
+} from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
-import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
-import useAddGroupChatForm from "@/pages/GroupChatListPage/hooks/useAddGroupChatForm";
+import { useAddGroupChat } from "@/pages/GroupChatListPage/hooks/useAddGroupChat";
 import { useState } from "react";
 import * as s from "./AddGroupChatModal.styles";
 
@@ -31,7 +37,7 @@ const AddGroupChatModal = ({
   });
 
   const { handleInputChange, handleFocus, handleBlur, isFieldError } =
-    useAddGroupChatForm({
+    useAddGroupChat({
       request,
       setRequest,
       maxLengths: TEXT_MAX_LENGTH,

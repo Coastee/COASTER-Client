@@ -13,7 +13,7 @@ interface TimeDropdownProps {
   setTime: (value: string) => void;
 }
 
-const TimeDropdown = ({ type, setTime }: TimeDropdownProps) => {
+export const TimeDropdown = ({ type, setTime }: TimeDropdownProps) => {
   const [timeOptions, setTimeOptions] = useState({
     ampm: AMPM_OPTIONS[1],
     hour: HOUR_OPTIONS[type === "start" ? 0 : 1],
@@ -108,5 +108,3 @@ const TimeDropdown = ({ type, setTime }: TimeDropdownProps) => {
     </div>
   );
 };
-
-export default TimeDropdown;

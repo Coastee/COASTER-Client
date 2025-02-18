@@ -6,17 +6,17 @@ interface AddGroupChatTypes {
   hashTags: string[];
 }
 
-interface UseAddGroupChatFormProps {
+interface UseAddGroupChatProps {
   request: AddGroupChatTypes;
   setRequest: React.Dispatch<React.SetStateAction<AddGroupChatTypes>>;
   maxLengths: Record<string, number>;
 }
 
-const useAddGroupChatForm = ({
+export const useAddGroupChat = ({
   request,
   setRequest,
   maxLengths,
-}: UseAddGroupChatFormProps) => {
+}: UseAddGroupChatProps) => {
   const [fieldFocusState, setFieldFocusState] = useState<
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
@@ -58,5 +58,3 @@ const useAddGroupChatForm = ({
     handleBlur,
   };
 };
-
-export default useAddGroupChatForm;
