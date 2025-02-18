@@ -1,14 +1,15 @@
 import { useRef, useState } from "react";
+import { useHashtag } from "@/components/HashtagChip/hooks/usehashTag";
 
-interface GroupChatRequest {
+interface AddGroupChatTypes {
   title: string;
   content: string;
-  hashTags: Array<{ id: number; content: string }>;
+  hashTags: string[];
 }
 
 interface UseAddGroupChatFormProps {
-  request: GroupChatRequest;
-  setRequest: React.Dispatch<React.SetStateAction<GroupChatRequest>>;
+  request: AddGroupChatTypes;
+  setRequest: React.Dispatch<React.SetStateAction<AddGroupChatTypes>>;
   image: File | null;
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
   maxLengths: Record<string, number>;
@@ -26,6 +27,11 @@ const useAddGroupChatForm = ({
   const [fieldFocusState, setFieldFocusState] = useState<
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
+
+  const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(
+    request,
+    setRequest
+  );
 
   const handleFocus = (field: string) => {
     setFieldFocusState((prev) => ({
@@ -52,20 +58,6 @@ const useAddGroupChatForm = ({
     setRequest((prevRequest) => ({
       ...prevRequest,
       [field]: value,
-    }));
-  };
-
-  const addHashtag = (content: string) => {
-    setRequest((prev) => ({
-      ...prev,
-      hashTags: [...prev.hashTags, { id: Date.now(), content }],
-    }));
-  };
-
-  const removeHashtag = (id: number) => {
-    setRequest((prev) => ({
-      ...prev,
-      hashTags: prev.hashTags.filter((hashtag) => hashtag.id !== id),
     }));
   };
 

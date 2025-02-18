@@ -1,5 +1,4 @@
 import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
-import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
@@ -14,14 +13,20 @@ interface AddGroupChatModalProps {
   setIsVisible: (value: boolean) => void;
 }
 
+interface AddGroupChatTypes {
+  title: string;
+  content: string;
+  hashTags: string[];
+}
+
 const AddGroupChatModal = ({
   isVisible,
   setIsVisible,
 }: AddGroupChatModalProps) => {
-  const [request, setRequest] = useState({
+  const [request, setRequest] = useState<AddGroupChatTypes>({
     title: "",
     content: "",
-    hashTags: HASH_TAGS_DUMMY,
+    hashTags: [],
   });
   const [image, setImage] = useState<File | null>(null);
 
@@ -88,11 +93,10 @@ const AddGroupChatModal = ({
               style={{ height: "12rem" }}
             />
             <ul css={s.hashtagListContainer}>
-              {request.hashTags.map((hashtag) => (
-                <li key={hashtag.id}>
+              {request.hashTags.map((hashtag, idx) => (
+                <li key={idx}>
                   <HashtagChip
-                    id={hashtag.id}
-                    content={hashtag.content}
+                    content={hashtag}
                     removeHashtag={removeHashtag}
                   />
                 </li>
