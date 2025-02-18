@@ -17,3 +17,9 @@ export const DEFAULT_COFFEE_CHAT_VALUES: AddCoffeeChatTypes = {
   location: "",
   details: "",
 };
+
+export const DEFAULT_DATE_TIME_VALUE = {
+  date: "",
+  start: "오후/12/00",
+  end: "오후/1/00",
+};

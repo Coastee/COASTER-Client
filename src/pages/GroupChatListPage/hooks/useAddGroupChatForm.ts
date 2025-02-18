@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { useHashtag } from "@/components/HashtagChip/hooks/usehashTag";
+import { useState } from "react";
 
 interface AddGroupChatTypes {
   title: string;
@@ -10,28 +9,17 @@ interface AddGroupChatTypes {
 interface UseAddGroupChatFormProps {
   request: AddGroupChatTypes;
   setRequest: React.Dispatch<React.SetStateAction<AddGroupChatTypes>>;
-  image: File | null;
-  setImage: React.Dispatch<React.SetStateAction<File | null>>;
   maxLengths: Record<string, number>;
 }
 
 const useAddGroupChatForm = ({
   request,
   setRequest,
-  image,
-  setImage,
   maxLengths,
 }: UseAddGroupChatFormProps) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const [fieldFocusState, setFieldFocusState] = useState<
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
-
-  const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(
-    request,
-    setRequest
-  );
 
   const handleFocus = (field: string) => {
     setFieldFocusState((prev) => ({
@@ -61,30 +49,13 @@ const useAddGroupChatForm = ({
     }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setImage(selectedFile);
-    }
-  };
-
-  const handleFileDelete = () => setImage(null);
-  const handleFileClick = () => fileInputRef.current?.click();
-
   return {
     request,
-    image,
-    fileInputRef,
     fieldFocusState,
     isFieldError,
     handleInputChange,
     handleFocus,
     handleBlur,
-    addHashtag,
-    removeHashtag,
-    handleFileChange,
-    handleFileDelete,
-    handleFileClick,
   };
 };
 

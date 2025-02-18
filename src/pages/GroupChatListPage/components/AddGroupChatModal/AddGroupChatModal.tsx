@@ -1,10 +1,11 @@
 import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
+import FileUploadBox from "@/components/FileUploadBox/FileUploadBox";
+import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
+import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
 import useAddGroupChatForm from "@/pages/GroupChatListPage/hooks/useAddGroupChatForm";
-import { theme } from "@/styles/theme/theme";
-import { css } from "@emotion/react";
 import { useState } from "react";
 import * as s from "./AddGroupChatModal.styles";
 
@@ -28,26 +29,26 @@ const AddGroupChatModal = ({
     content: "",
     hashTags: [],
   });
-  const [image, setImage] = useState<File | null>(null);
+
+  const { handleInputChange, handleFocus, handleBlur, isFieldError } =
+    useAddGroupChatForm({
+      request,
+      setRequest,
+      maxLengths: TEXT_MAX_LENGTH,
+    });
+
+  const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(
+    request,
+    setRequest
+  );
 
   const {
+    image,
     fileInputRef,
-    addHashtag,
-    removeHashtag,
     handleFileChange,
     handleFileDelete,
     handleFileClick,
-    handleInputChange,
-    handleFocus,
-    handleBlur,
-    isFieldError,
-  } = useAddGroupChatForm({
-    request,
-    setRequest,
-    image,
-    setImage,
-    maxLengths: TEXT_MAX_LENGTH,
-  });
+  } = useFileUpload();
 
   const isButtonDisabled = isFieldError("title", request.title);
 
@@ -92,6 +93,12 @@ const AddGroupChatModal = ({
               onChange={(e) => handleInputChange("content", e.target.value)}
               style={{ height: "12rem" }}
             />
+          </li>
+          <li css={[s.questionContainer]}>
+            <div css={s.textareaTitleStyle}>
+              해시태그
+              <span>해시태그는 최대 10개까지 입력 가능합니다.</span>
+            </div>
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
                 <li key={idx}>
@@ -101,47 +108,20 @@ const AddGroupChatModal = ({
                   />
                 </li>
               ))}
-              <HashtagInput addHashtag={addHashtag} />
+              {request.hashTags.length < 10 && (
+                <HashtagInput addHashtag={addHashtag} />
+              )}
             </ul>
           </li>
           <li css={s.questionContainer} style={{ maxWidth: "35rem" }}>
             <h1 css={s.textareaTitleStyle}>사진 등록하기</h1>
-            <div
-              css={s.fileButtonStyle}
-              onClick={handleFileClick}
-              onKeyDown={handleFileClick}
-            >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-              {image ? `${image.name}` : "이미지 파일을 첨부하세요 (0MB 이내)"}
-            </div>
-
-            {image && (
-              <div css={s.editButtonListStyle}>
-                <Button
-                  variant="tertiary"
-                  size="medium"
-                  onClick={handleFileClick}
-                >
-                  수정하기
-                </Button>
-                <Button
-                  variant="tertiary"
-                  size="medium"
-                  css={css`
-                    color: ${theme.color.primaryPink0};
-                  `}
-                  onClick={handleFileDelete}
-                >
-                  삭제하기
-                </Button>
-              </div>
-            )}
+            <FileUploadBox
+              image={image}
+              fileInputRef={fileInputRef}
+              handleFileChange={handleFileChange}
+              handleFileDelete={handleFileDelete}
+              handleFileClick={handleFileClick}
+            />
           </li>
         </ul>
         <div css={s.buttonContainer}>

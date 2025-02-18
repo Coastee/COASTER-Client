@@ -1,15 +1,18 @@
 import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
 import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
+import FileUploadBox from "@/components/FileUploadBox/FileUploadBox";
+import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
+import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import TimeDropdown from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
 import {
   DEFAULT_COFFEE_CHAT_VALUES,
+  DEFAULT_DATE_TIME_VALUE,
   TEXT_MAX_LENGTH,
 } from "@/pages/CoffeeChatListPage/constants/coffeeChat";
 import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
+import type { AddCoffeeChatTypes } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
-import { theme } from "@/styles/theme/theme";
-import { css } from "@emotion/react";
 import { useState } from "react";
 import * as s from "./AddCoffeeChatModal.styles";
 
@@ -23,36 +26,34 @@ const AddCoffeeChatModal = ({
   setIsVisible,
 }: AddCoffeeChatModalProps) => {
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
-  const [dateTime, setDateTime] = useState({
-    date: "",
-    start: "오후/12/00",
-    end: "오후/1/00",
-  });
-
-  const [image, setImage] = useState<File | null>(null);
+  const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
 
   const {
-    formatDateTime,
-    fileInputRef,
-    addHashtag,
-    removeHashtag,
-    handleFileChange,
-    handleFileDelete,
-    handleFileClick,
+    isFieldError,
     handleInputChange,
-    handleMaxCountChange,
     handleFocus,
     handleBlur,
-    isFieldError,
+    handleMaxCountChange,
+    formatDateTime,
   } = useAddCoffeeChat({
     dateTime,
     setDateTime,
-    request,
     setRequest,
-    image,
-    setImage,
     maxLengths: TEXT_MAX_LENGTH,
   });
+
+  const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(
+    request,
+    setRequest
+  );
+
+  const {
+    image,
+    fileInputRef,
+    handleFileChange,
+    handleFileDelete,
+    handleFileClick,
+  } = useFileUpload();
 
   const isButtonDisabled =
     request.title.trim().length === 0 || request.location.trim().length === 0;
@@ -120,7 +121,9 @@ const AddCoffeeChatModal = ({
                   />
                 </li>
               ))}
-              <HashtagInput addHashtag={addHashtag} />
+              {request.hashTags.length < 10 && (
+                <HashtagInput addHashtag={addHashtag} />
+              )}
             </ul>
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
@@ -167,7 +170,6 @@ const AddCoffeeChatModal = ({
               </div>
             </div>
           </li>
-
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
             <label htmlFor="location" css={s.textareaTitleStyle}>
               진행 장소<span id="required">*</span>
@@ -184,7 +186,6 @@ const AddCoffeeChatModal = ({
                 supportingText={SUPPORTING_TEXT.REQUIRED}
               />
             </div>
-
             <Input
               placeholder="장소에 대한 설명을 입력하세요 (ex. 강남역 6번출구)"
               onChange={(e) => handleInputChange("details", e.target.value)}
@@ -201,42 +202,13 @@ const AddCoffeeChatModal = ({
             style={{ maxWidth: "35rem", paddingTop: "1.2rem" }}
           >
             <div css={s.textareaTitleStyle}>사진 등록하기</div>
-            <div
-              css={s.fileButtonStyle}
-              onClick={handleFileClick}
-              onKeyDown={handleFileClick}
-            >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-              {image ? `${image.name}` : "이미지 파일을 첨부하세요 (0MB 이내)"}
-            </div>
-
-            {image && (
-              <div css={s.editButtonListStyle}>
-                <Button
-                  variant="tertiary"
-                  size="medium"
-                  onClick={handleFileClick}
-                >
-                  수정하기
-                </Button>
-                <Button
-                  variant="tertiary"
-                  size="medium"
-                  css={css`
-                    color: ${theme.color.primaryPink0};
-                  `}
-                  onClick={handleFileDelete}
-                >
-                  삭제하기
-                </Button>
-              </div>
-            )}
+            <FileUploadBox
+              image={image}
+              fileInputRef={fileInputRef}
+              handleFileChange={handleFileChange}
+              handleFileDelete={handleFileDelete}
+              handleFileClick={handleFileClick}
+            />
           </li>
         </ul>
         <div css={s.buttonContainer}>

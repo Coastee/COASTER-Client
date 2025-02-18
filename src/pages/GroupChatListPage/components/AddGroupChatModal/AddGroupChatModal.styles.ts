@@ -36,11 +36,11 @@ export const textareaTitleStyle = css`
   font-weight: 500;
 
   span {
-    padding-left: 0.5rem;
+    margin-left: 0.6rem;
 
-    color: ${theme.color.primaryPink1};
-    ${theme.font.body1};
-    font-weight: 500;
+    ${theme.font.body3};
+    font-weight: 400;
+    color: ${theme.color.gray2};
   }
 `;
 
