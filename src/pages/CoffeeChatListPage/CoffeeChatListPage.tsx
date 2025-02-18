@@ -9,7 +9,7 @@ import CoffeeChatListAll from "./components/CoffeeChatListAll/CoffeeChatListAll"
 const CoffeeChatListPage = () => {
   const [sortingOption, setSortingOption] = useState(SORTING_OPTIONS[0]);
   const [keyword, setKeyword] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <div css={s.layoutStyle}>
