@@ -14,8 +14,8 @@ const App = () => {
 
 export default App;
 
-const layoutStyle = css`
+export const layoutStyle = css`
   display: flex;
-  
+
   overflow: hidden;
 `;

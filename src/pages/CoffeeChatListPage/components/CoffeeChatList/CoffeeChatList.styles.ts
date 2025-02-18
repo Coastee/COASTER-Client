@@ -1,7 +1,7 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const listContainerStyle = (itemsCount: number = 0) => css`
+export const listContainerStyle = (itemsCount = 0) => css`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33%, auto));
 
@@ -13,15 +13,13 @@ export const listContainerStyle = (itemsCount: number = 0) => css`
 
   background: ${theme.color.dark3};
 
-  ${itemsCount !== undefined &&
-  css`
-    width: ${itemsCount === 1
-      ? "21.6rem"
-      : itemsCount === 2
-      ? "43.2rem"
-      : "auto"};
+  ${
+    itemsCount !== undefined &&
+    css`
+    width: ${itemsCount === 1 ? "21.6rem" : itemsCount === 2 ? "43.2rem" : "auto"};
     min-width: ${itemsCount === 3 ? "73rem" : ""};
-  `}
+  `
+  }
 `;
 
 export const listItemStyle = ({
@@ -42,9 +40,7 @@ export const listItemStyle = ({
 
   width: 100%;
 
-  border-right: ${itemsCount > 1 && idx < itemsCount - 1
-    ? "1px solid #414e5f"
-    : "none"};
+  border-right: ${itemsCount > 1 && idx < itemsCount - 1 ? "1px solid #414e5f" : "none"};
 
   cursor: pointer;
 `;
