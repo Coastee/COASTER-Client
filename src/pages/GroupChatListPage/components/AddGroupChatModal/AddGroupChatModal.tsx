@@ -73,7 +73,7 @@ const AddGroupChatModal = ({
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <label htmlFor="title" css={s.textareaTitleStyle}>
-              채팅방 제목<span>*</span>
+              채팅방 제목<span id="required">*</span>
             </label>
             <Input
               id="title"
@@ -103,7 +103,7 @@ const AddGroupChatModal = ({
           <li css={[s.questionContainer]}>
             <div css={s.textareaTitleStyle}>
               해시태그
-              <span>해시태그는 최대 10개까지 입력 가능합니다.</span>
+              <span id="sub">해시태그는 최대 10개까지 입력 가능합니다.</span>
             </div>
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
