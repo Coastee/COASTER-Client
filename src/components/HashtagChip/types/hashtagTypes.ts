@@ -1,4 +1,4 @@
 export interface HashtagTypes {
-  id: number;
+  id?: number;
   content: string;
 }
