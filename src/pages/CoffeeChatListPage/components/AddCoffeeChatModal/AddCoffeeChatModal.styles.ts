@@ -18,10 +18,9 @@ export const contentListStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
-  row-gap: 2.5rem;
+  gap: 2.5rem;
 
-  padding-top: 3rem;
-  padding-bottom: 6rem;
+  padding: 3rem 0 6rem 0;
 `;
 
 export const questionContainer = css`
@@ -79,7 +78,7 @@ export const fileButtonStyle = css`
   text-decoration-line: underline;
   text-underline-position: from-font;
 
-  border-radius: 10px;
+  border-radius: 1rem;
   border: 1px solid ${theme.color.dark1};
 
   background-color: #2d3643;
@@ -117,7 +116,7 @@ export const dateTimeLayoutStyle = css`
   gap: 1.2rem;
 `;
 
-export const dateTimeContainerStyle = css`
+export const dateTimeContainerStyle = (isSelected: boolean) => css`
   position: relative;
   display: flex;
 
@@ -129,14 +128,13 @@ export const dateTimeContainerStyle = css`
 
   ${theme.font.body2};
   font-weight: 400;
-  color: ${theme.color.white};
+  color: ${isSelected ? theme.color.gray2 : theme.color.white};
 
   white-space: nowrap;
 
   border-radius: 1rem;
   border: 1px solid ${theme.color.dark1};
 
-  background-color: transparent;
   background-color: #2d3643;
 
   transition: 0.3s ease-in-out;
