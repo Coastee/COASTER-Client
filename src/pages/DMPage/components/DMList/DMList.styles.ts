@@ -13,12 +13,9 @@ export const sectionStyle = css`
 `;
 
 export const headerStyle = css`
-  position: fixed;
   display: flex;
 
   top: 0;
-
-  min-width: 39rem;
 
   padding: 2.8rem 0 0 1.2rem;
 
@@ -38,7 +35,7 @@ export const listStyle = css`
   gap: 0.6rem;
 
   padding-right: 1rem;
-  margin-top: 17rem;
+  margin-top: 3rem;
 
   max-height: calc(100vh - 19rem);
   overflow-y: auto;
