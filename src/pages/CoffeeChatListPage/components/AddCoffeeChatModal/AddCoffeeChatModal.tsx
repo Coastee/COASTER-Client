@@ -1,11 +1,12 @@
 import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
 import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
-
-import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import TimeDropdown from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
-import { TEXT_MAX_LENGTH } from "@/pages/CoffeeChatListPage/constants/textMaxLength";
-import useAddCoffeeChatForm from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChatForm";
+import {
+  DEFAULT_COFFEE_CHAT_VALUES,
+  TEXT_MAX_LENGTH,
+} from "@/pages/CoffeeChatListPage/constants/coffeeChat";
+import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
@@ -21,20 +22,17 @@ const AddCoffeeChatModal = ({
   isVisible,
   setIsVisible,
 }: AddCoffeeChatModalProps) => {
-  const [request, setRequest] = useState({
-    title: "",
-    description: "",
-    hashTags: HASH_TAGS_DUMMY,
-    participants: 2,
-    date: "2025. 1. 22 (수)",
-    startTime: "오전 1 : 00",
-    endTime: "오전 1 : 00",
-    location: "",
-    locationDetail: "",
+  const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
+  const [dateTime, setDateTime] = useState({
+    date: "",
+    start: "오후/12/00",
+    end: "오후/1/00",
   });
+
   const [image, setImage] = useState<File | null>(null);
 
   const {
+    formatDateTime,
     fileInputRef,
     addHashtag,
     removeHashtag,
@@ -42,11 +40,13 @@ const AddCoffeeChatModal = ({
     handleFileDelete,
     handleFileClick,
     handleInputChange,
-    handleParticipantsChange,
+    handleMaxCountChange,
     handleFocus,
     handleBlur,
     isFieldError,
-  } = useAddCoffeeChatForm({
+  } = useAddCoffeeChat({
+    dateTime,
+    setDateTime,
     request,
     setRequest,
     image,
@@ -59,6 +59,7 @@ const AddCoffeeChatModal = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    formatDateTime();
     setIsVisible(false);
   };
 
@@ -93,15 +94,15 @@ const AddCoffeeChatModal = ({
             />
           </li>
           <li css={s.questionContainer}>
-            <label htmlFor="description" css={s.textareaTitleStyle}>
+            <label htmlFor="content" css={s.textareaTitleStyle}>
               오프라인 커피챗 상세 설명
             </label>
             <Textarea
-              id="description"
+              id="content"
               placeholder="오프라인 커피챗 상세 설명을 입력하세요"
-              maxLength={TEXT_MAX_LENGTH.description}
-              value={request.description}
-              onChange={(e) => handleInputChange("description", e.target.value)}
+              maxLength={TEXT_MAX_LENGTH.content}
+              value={request.content}
+              onChange={(e) => handleInputChange("content", e.target.value)}
               style={{ height: "12rem" }}
             />
           </li>
@@ -111,11 +112,10 @@ const AddCoffeeChatModal = ({
               <span id="sub">해시태그는 최대 10개까지 입력 가능합니다.</span>
             </div>
             <ul css={s.hashtagListContainer}>
-              {request.hashTags.map((hashtag) => (
-                <li key={hashtag.id}>
+              {request.hashTags.map((hashtag, idx) => (
+                <li key={idx}>
                   <HashtagChip
-                    id={hashtag.id}
-                    content={hashtag.content}
+                    content={hashtag}
                     removeHashtag={removeHashtag}
                   />
                 </li>
@@ -133,14 +133,14 @@ const AddCoffeeChatModal = ({
                 width={33}
                 height={33}
                 css={{ userSelect: "none" }}
-                onClick={() => handleParticipantsChange("decrement")}
+                onClick={() => handleMaxCountChange("decrement")}
               />
-              <p>{request.participants}</p>
+              <p>{request.maxCount}</p>
               <CounterPlusIcon
                 width={33}
                 height={33}
                 css={{ userSelect: "none" }}
-                onClick={() => handleParticipantsChange("increment")}
+                onClick={() => handleMaxCountChange("increment")}
               />
             </div>
           </li>
@@ -150,20 +150,19 @@ const AddCoffeeChatModal = ({
             </label>
             <div css={s.dateTimeLayoutStyle}>
               <div css={{ display: "flex", gap: "1.2rem" }}>
-                <div id="date-time" css={s.dateTimeContainerStyle}>
-                  {request.date}
+                <div
+                  id="date-time"
+                  css={s.dateTimeContainerStyle(request.startDate[0] === 0)}
+                >
+                  {request.startDate[0] === 0 ? "날짜 선택" : request.startDate}
                 </div>
                 <TimeDropdown
                   type="start"
-                  setRequest={(value) =>
-                    setRequest((prev) => ({ ...prev, startTime: value }))
-                  }
+                  setTime={(time) => setDateTime({ ...dateTime, start: time })}
                 />
                 <TimeDropdown
                   type="end"
-                  setRequest={(value) =>
-                    setRequest((prev) => ({ ...prev, endTime: value }))
-                  }
+                  setTime={(time) => setDateTime({ ...dateTime, end: time })}
                 />
               </div>
             </div>
@@ -188,15 +187,13 @@ const AddCoffeeChatModal = ({
 
             <Input
               placeholder="장소에 대한 설명을 입력하세요 (ex. 강남역 6번출구)"
-              onChange={(e) =>
-                handleInputChange("locationDetail", e.target.value)
-              }
-              value={request.locationDetail}
-              onFocus={() => handleFocus("locationDetail")}
-              onBlur={() => handleBlur("locationDetail")}
-              isError={isFieldError("locationDetail", request.locationDetail)}
+              onChange={(e) => handleInputChange("details", e.target.value)}
+              value={request.details}
+              onFocus={() => handleFocus("details")}
+              onBlur={() => handleBlur("details")}
+              isError={isFieldError("details", request.details)}
               supportingText={SUPPORTING_TEXT.REQUIRED}
-              maxLength={TEXT_MAX_LENGTH.locationDetail}
+              maxLength={TEXT_MAX_LENGTH.details}
             />
           </li>
           <li

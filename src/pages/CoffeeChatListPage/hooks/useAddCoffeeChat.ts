@@ -1,37 +1,40 @@
+import { useHashtag } from "@/components/HashtagChip/hooks/usehashTag";
+import type {
+  AddCoffeeChatTypes,
+  UseAddCoffeeChatProps,
+} from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
+import { requestFormatTime } from "@/utils/dateTime";
 import { useRef, useState } from "react";
 
-interface CoffeeChatRequest {
-  title: string;
-  description: string;
-  hashTags: Array<{ id: number; content: string }>;
-  participants: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  locationDetail: string;
-}
+export const DEFAULT_COFFEE_CHAT_VALUES: AddCoffeeChatTypes = {
+  title: "",
+  content: "",
+  hashTags: [],
+  maxCount: 2,
+  startDate: [0, 0, 0, 0, 0, 0, 0],
+  endDate: [0, 0, 0, 0, 0, 0, 0],
+  location: "",
+  details: "",
+};
 
-interface UseAddCoffeeChatFormProps {
-  request: CoffeeChatRequest;
-  setRequest: React.Dispatch<React.SetStateAction<CoffeeChatRequest>>;
-  image: File | null;
-  setImage: React.Dispatch<React.SetStateAction<File | null>>;
-  maxLengths: Record<string, number>;
-}
-
-const useAddCoffeeChatForm = ({
+export const useAddCoffeeChat = ({
+  dateTime,
+  setDateTime,
   request,
   setRequest,
   image,
   setImage,
   maxLengths,
-}: UseAddCoffeeChatFormProps) => {
+}: UseAddCoffeeChatProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const [fieldFocusState, setFieldFocusState] = useState<
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
+
+  const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(
+    request,
+    setRequest
+  );
 
   const handleFocus = (field: string) => {
     setFieldFocusState((prev) => ({
@@ -56,27 +59,16 @@ const useAddCoffeeChatForm = ({
     return false;
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (
+    field: keyof AddCoffeeChatTypes,
+    value: string
+  ) => {
     const maxLength = maxLengths[field];
     if (value.length > (maxLength ?? 20)) return;
 
     setRequest((prevRequest) => ({
       ...prevRequest,
       [field]: value,
-    }));
-  };
-
-  const addHashtag = (content: string) => {
-    setRequest((prev) => ({
-      ...prev,
-      hashTags: [...prev.hashTags, { id: Date.now(), content }],
-    }));
-  };
-
-  const removeHashtag = (id: number) => {
-    setRequest((prev) => ({
-      ...prev,
-      hashTags: prev.hashTags.filter((hashtag) => hashtag.id !== id),
     }));
   };
 
@@ -90,17 +82,27 @@ const useAddCoffeeChatForm = ({
   const handleFileDelete = () => setImage(null);
   const handleFileClick = () => fileInputRef.current?.click();
 
-  const handleParticipantsChange = (action: "increment" | "decrement") => {
+  const handleMaxCountChange = (action: "increment" | "decrement") => {
     setRequest((prevRequest) => {
-      const newParticipants =
+      const count =
         action === "increment"
-          ? prevRequest.participants + 1
-          : prevRequest.participants - 1;
+          ? prevRequest.maxCount + 1
+          : prevRequest.maxCount - 1;
       return {
         ...prevRequest,
-        participants: Math.max(2, newParticipants),
+        maxCount: Math.max(2, count),
       };
     });
+  };
+
+  const formatDateTime = () => {
+    const { startDate, endDate } = requestFormatTime(dateTime);
+
+    setRequest((prev) => ({
+      ...prev,
+      startDate,
+      endDate,
+    }));
   };
 
   return {
@@ -117,8 +119,8 @@ const useAddCoffeeChatForm = ({
     handleFileChange,
     handleFileDelete,
     handleFileClick,
-    handleParticipantsChange,
+    handleMaxCountChange,
+    formatDateTime,
+    setDateTime,
   };
 };
-
-export default useAddCoffeeChatForm;

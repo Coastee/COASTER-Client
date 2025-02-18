@@ -10,13 +10,13 @@ import * as s from "./TimeDropdown.styles";
 
 interface TimeDropdownProps {
   type: "start" | "end";
-  setRequest: (value: string) => void;
+  setTime: (value: string) => void;
 }
 
-const TimeDropdown = ({ type, setRequest }: TimeDropdownProps) => {
+const TimeDropdown = ({ type, setTime }: TimeDropdownProps) => {
   const [timeOptions, setTimeOptions] = useState({
-    ampm: AMPM_OPTIONS[0],
-    hour: HOUR_OPTIONS[0],
+    ampm: AMPM_OPTIONS[1],
+    hour: HOUR_OPTIONS[type === "start" ? 0 : 1],
     minute: MINUTE_OPTIONS[0],
   });
 
@@ -29,8 +29,8 @@ const TimeDropdown = ({ type, setRequest }: TimeDropdownProps) => {
     else if (index === 2) updatedOptions.minute = value;
 
     setTimeOptions(updatedOptions);
-    const newTime = `${updatedOptions.ampm.name} ${updatedOptions.hour.name} : ${updatedOptions.minute.name}`;
-    setRequest(newTime);
+    const newTime = `${updatedOptions.ampm.name}/${updatedOptions.hour.name}/${updatedOptions.minute.name}`;
+    setTime(newTime);
     setDropdownOpen((prev) =>
       prev.map((item, i) => (i === index ? false : item))
     );
