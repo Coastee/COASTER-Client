@@ -15,6 +15,8 @@ export const useAddCoffeeChat = ({
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
 
+  const DEFAULT_MAX_LENGTH = 20;
+
   const handleFocus = (field: string) => {
     setFieldFocusState((prev) => ({
       ...prev,
@@ -43,7 +45,7 @@ export const useAddCoffeeChat = ({
     value: string
   ) => {
     const maxLength = maxLengths[field];
-    if (value.length > (maxLength ?? 20)) return;
+    if (value.length > (maxLength ?? DEFAULT_MAX_LENGTH)) return;
 
     setRequest((prevRequest) => ({
       ...prevRequest,

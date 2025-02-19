@@ -15,10 +15,13 @@ import { TimeDropdown } from "@/pages/CoffeeChatListPage/components/TimeDropdown
 import {
   DEFAULT_COFFEE_CHAT_VALUES,
   DEFAULT_DATE_TIME_VALUE,
-  TEXT_MAX_LENGTH,
 } from "@/pages/CoffeeChatListPage/constants/coffeeChat";
 import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
 
+import {
+  CHAT_FORM_FIELDS,
+  MAX_LENGTH,
+} from "@/pages/CoffeeChatListPage/constants/coffeeChat";
 import type { AddCoffeeChatTypes } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 import { useState } from "react";
 import * as s from "./AddCoffeeChatModal.styles";
@@ -32,6 +35,7 @@ const AddCoffeeChatModal = ({
   isVisible,
   setIsVisible,
 }: AddCoffeeChatModalProps) => {
+  const MAX_HASHTAG_COUNT = 10;
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
 
@@ -46,7 +50,7 @@ const AddCoffeeChatModal = ({
     dateTime,
     setDateTime,
     setRequest,
-    maxLengths: TEXT_MAX_LENGTH,
+    maxLengths: MAX_LENGTH,
   });
 
   const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(
@@ -88,28 +92,29 @@ const AddCoffeeChatModal = ({
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <label htmlFor="title" css={s.textareaTitleStyle}>
-              오프라인 커피챗 제목<span id="required">*</span>
+              {CHAT_FORM_FIELDS.title.headerTxt}
+              <span id="required">*</span>
             </label>
             <Input
               id="title"
-              placeholder="오프라인 커피챗 제목을 입력해주세요."
+              placeholder={CHAT_FORM_FIELDS.title.placeholder}
               onChange={(e) => handleInputChange("title", e.target.value)}
               value={request.title}
               onFocus={() => handleFocus("title")}
               onBlur={() => handleBlur("title")}
               isError={isFieldError("title", request.title, "required")}
               supportingText={SUPPORTING_TEXT.REQUIRED}
-              maxLength={TEXT_MAX_LENGTH.title}
+              maxLength={MAX_LENGTH.title}
             />
           </li>
           <li css={s.questionContainer}>
             <label htmlFor="content" css={s.textareaTitleStyle}>
-              오프라인 커피챗 상세 설명
+              {CHAT_FORM_FIELDS.content.headerTxt}
             </label>
             <Textarea
               id="content"
-              placeholder="오프라인 커피챗 상세 설명을 입력하세요"
-              maxLength={TEXT_MAX_LENGTH.content}
+              placeholder={CHAT_FORM_FIELDS.content.placeholder}
+              maxLength={MAX_LENGTH.content}
               value={request.content}
               onChange={(e) => handleInputChange("content", e.target.value)}
               style={{ height: "12rem" }}
@@ -117,8 +122,8 @@ const AddCoffeeChatModal = ({
           </li>
           <li css={[s.questionContainer]}>
             <div css={s.textareaTitleStyle}>
-              해시태그
-              <span id="sub">해시태그는 최대 10개까지 입력 가능합니다.</span>
+              {CHAT_FORM_FIELDS.hashtags.headerTxt}
+              <span id="sub"> {CHAT_FORM_FIELDS.hashtags.detailTxt}</span>
             </div>
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
@@ -129,35 +134,37 @@ const AddCoffeeChatModal = ({
                   />
                 </li>
               ))}
-              {request.hashTags.length < 10 && (
+              {request.hashTags.length < MAX_HASHTAG_COUNT && (
                 <HashtagInput addHashtag={addHashtag} />
               )}
             </ul>
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
             <label htmlFor="participants" css={s.textareaTitleStyle}>
-              참여 인원<span id="required">*</span>
-              <span id="sub">최소 참여 인원은 2명입니다</span>
+              {CHAT_FORM_FIELDS.maxCount.headerTxt}
+              <span id="required">*</span>
+              <span id="sub">{CHAT_FORM_FIELDS.maxCount.detailTxt}</span>
             </label>
             <div css={s.counterStyle}>
               <CounterMinusIcon
                 width={33}
                 height={33}
-                css={{ userSelect: "none" }}
+                css={{ userSelect: "none", cursor: "pointer" }}
                 onClick={() => handleMaxCountChange("decrement")}
               />
               <p>{request.maxCount}</p>
               <CounterPlusIcon
                 width={33}
                 height={33}
-                css={{ userSelect: "none" }}
+                css={{ userSelect: "none", cursor: "pointer" }}
                 onClick={() => handleMaxCountChange("increment")}
               />
             </div>
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
             <label htmlFor="date-time" css={s.textareaTitleStyle}>
-              진행 날짜 및 시간<span id="required">*</span>
+              {CHAT_FORM_FIELDS.dateTime.headerTxt}
+              <span id="required">*</span>
             </label>
             <div css={s.dateTimeLayoutStyle}>
               <div css={{ display: "flex", gap: "1.2rem" }}>
@@ -165,7 +172,9 @@ const AddCoffeeChatModal = ({
                   id="date-time"
                   css={s.dateTimeContainerStyle(request.startDate[0] === 0)}
                 >
-                  {request.startDate[0] === 0 ? "날짜 선택" : request.startDate}
+                  {request.startDate[0] === 0
+                    ? CHAT_FORM_FIELDS.dateTime.placeholder
+                    : request.startDate}
                 </div>
                 <TimeDropdown
                   type="start"
@@ -180,12 +189,12 @@ const AddCoffeeChatModal = ({
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
             <label htmlFor="location" css={s.textareaTitleStyle}>
-              진행 장소<span id="required">*</span>
+              {CHAT_FORM_FIELDS.location.headerTxt} <span id="required">*</span>
             </label>
             <div css={{ maxWidth: "35rem" }}>
               <Input
                 id="location"
-                placeholder="진행할 장소를 입력하세요 (ex. 서울시 용산구 ㅇㅇ로)"
+                placeholder={CHAT_FORM_FIELDS.location.placeholders[0]}
                 onChange={(e) => handleInputChange("location", e.target.value)}
                 value={request.location}
                 onFocus={() => handleFocus("location")}
@@ -195,21 +204,23 @@ const AddCoffeeChatModal = ({
               />
             </div>
             <Input
-              placeholder="장소에 대한 설명을 입력하세요 (ex. 강남역 6번출구)"
+              placeholder={CHAT_FORM_FIELDS.location.placeholders[1]}
               onChange={(e) => handleInputChange("details", e.target.value)}
               value={request.details}
               onFocus={() => handleFocus("details")}
               onBlur={() => handleBlur("details")}
               isError={isFieldError("details", request.details)}
               supportingText={SUPPORTING_TEXT.REQUIRED}
-              maxLength={TEXT_MAX_LENGTH.details}
+              maxLength={MAX_LENGTH.details}
             />
           </li>
           <li
             css={s.questionContainer}
             style={{ maxWidth: "35rem", paddingTop: "1.2rem" }}
           >
-            <div css={s.textareaTitleStyle}>사진 등록하기</div>
+            <div css={s.textareaTitleStyle}>
+              {CHAT_FORM_FIELDS.file.headerTxt}
+            </div>
             <FileUploadBox
               image={image}
               fileInputRef={fileInputRef}
