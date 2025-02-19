@@ -1,4 +1,4 @@
-import { SearchLayout, TitleContainer } from "@/components";
+import { AddButton, SearchLayout, TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const GroupChatListPage = () => {
   return (
     <div css={s.layoutStyle}>
       <AddGroupChatModal isVisible={isVisible} setIsVisible={setIsVisible} />
+      <AddButton setIsModalVisible={setIsVisible} />
       <SearchLayout
         keyword={keyword}
         setKeyword={setKeyword}

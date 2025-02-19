@@ -1,3 +1,4 @@
+export { default as AddButton } from "./AddButton/AddButton";
 export { default as AuthContainer } from "./AuthContainer/AuthContainer";
 export { default as Button } from "./Button/Button";
 export { default as CheckBox } from "./CheckBox/Checkbox";

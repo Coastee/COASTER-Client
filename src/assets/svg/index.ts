@@ -24,5 +24,6 @@ export { default as PlusIcon } from "./PlusIcon";
 export { default as ProfileIcon } from "./ProfileIcon";
 export { default as RotateLogoIcon } from "./RotateLogoIcon";
 export { default as SendIcon } from "./SendIcon";
+export { default as ShadowPlusIcon } from "./ShadowPlusIcon";
 export { default as StarIcon } from "./StarIcon";
 export { default as Vite } from "./Vite";
