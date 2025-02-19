@@ -77,10 +77,12 @@ export const userCountStyle = css`
   white-space: nowrap;
 `;
 
-export const headerButtonsStyle = css`
+export const headerButtonsStyle = (modalStyle: boolean) => css`
   display: flex;
 
   gap: 3rem;
+
+  ${modalStyle && "margin-right: -1rem;"}
 `;
 
 export const modalContentStyle = css``;

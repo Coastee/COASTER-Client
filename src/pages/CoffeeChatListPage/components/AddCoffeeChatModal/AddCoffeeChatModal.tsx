@@ -76,6 +76,7 @@ const AddCoffeeChatModal = ({
       title="티타임 개설하기"
       isVisible={isVisible}
       setIsVisible={setIsVisible}
+      modalStyle={{ padding: "4.4rem 4.4rem 5.4rem 5.4rem" }}
     >
       <form
         css={s.modalContentStyle}

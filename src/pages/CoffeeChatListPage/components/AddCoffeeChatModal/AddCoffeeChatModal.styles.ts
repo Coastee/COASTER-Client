@@ -1,3 +1,4 @@
+import { scrollDarkStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
@@ -7,8 +8,11 @@ export const modalContentStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
+  padding-right: 3rem;
+
   height: calc(100vh - 14.1rem);
 
+  ${scrollDarkStyle};
   overflow-y: scroll;
 `;
 

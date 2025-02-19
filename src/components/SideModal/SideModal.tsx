@@ -9,6 +9,7 @@ export interface SideModalProps extends HTMLAttributes<HTMLDivElement> {
   extraButton?: ReactNode;
   isVisible: boolean;
   setIsVisible: (value: boolean) => void;
+  modalStyle?: React.CSSProperties;
   children?: ReactNode;
 }
 
@@ -20,6 +21,7 @@ const SideModal = ({
   isVisible,
   setIsVisible,
   children,
+  modalStyle,
   ...props
 }: SideModalProps) => {
   const handleClose = () => {
@@ -33,6 +35,7 @@ const SideModal = ({
     <div role="dialog" css={s.layoutStyle} {...props} onClick={handleClose}>
       <div
         css={s.modalStyle}
+        style={modalStyle}
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
       >
@@ -48,7 +51,7 @@ const SideModal = ({
               </>
             )}
           </div>
-          <div css={s.headerButtonsStyle}>
+          <div css={s.headerButtonsStyle(!!modalStyle)}>
             {extraButton && <div css={s.headerIconStyle}>{extraButton}</div>}
             <CloseIcon
               width={43}
