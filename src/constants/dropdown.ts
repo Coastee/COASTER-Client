@@ -3,6 +3,12 @@ export interface DropdownOptionTypes {
   name: string;
 }
 
+export const SCHEDULE_FILTERING_OPTIONS = [
+  { id: "LAST_3_MONTHS", name: "3개월" },
+  { id: "LAST_6_MONTHS", name: "6개월" },
+  { id: "LAST_12_MONTHS", name: "1년 이상" },
+];
+
 export const SORTING_OPTIONS = [
   { id: "BY_LATEST", name: "최신순" },
   { id: "BY_DEADLINE", name: "마감 임박순" },

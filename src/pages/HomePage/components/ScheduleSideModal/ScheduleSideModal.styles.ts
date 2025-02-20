@@ -1,12 +1,14 @@
+import { scrollDarkStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
-import { scrollDarkStyle } from "@/styles/scrollStyle";
 
 export const titleChildrenStyle = css`
   display: flex;
 
   align-items: center;
   gap: 1.8rem;
+
+  padding-bottom: 0.6rem;
 
   h1 {
     max-width: 40rem;
@@ -20,6 +22,22 @@ export const titleChildrenStyle = css`
     ${theme.font.body1};
     font-weight: 400;
     color: ${theme.color.gray2};
+  }
+`;
+
+export const sortingStyle = css`
+  position: absolute;
+  top: 11rem;
+  right: 7rem;
+  display: flex;
+
+  flex-direction: column;
+  align-items: end;
+
+  margin-left: auto;
+
+  button {
+    padding: 1.3rem 1rem 0.7rem 1rem;
   }
 `;
 
