@@ -1,16 +1,17 @@
 import { CloseIcon } from "@/assets/svg";
+import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import type { HTMLAttributes, ReactNode } from "react";
 import * as s from "./SideModal.styles";
 
-export interface SideModalProps extends HTMLAttributes<HTMLDivElement> {
+interface ExtendedSideModalProps
+  extends SideModalProps,
+    HTMLAttributes<HTMLDivElement> {
   title?: string;
   titleChildren?: ReactNode;
   maxWidth?: string;
   currentUsers?: number;
   maxUsers?: number;
   extraButton?: ReactNode;
-  isVisible: boolean;
-  setIsVisible: (value: boolean) => void;
   modalStyle?: React.CSSProperties;
   children?: ReactNode;
 }
@@ -27,7 +28,7 @@ const SideModal = ({
   children,
   modalStyle,
   ...props
-}: SideModalProps) => {
+}: ExtendedSideModalProps) => {
   const handleClose = () => {
     setIsVisible(false);
   };

@@ -1,18 +1,11 @@
 import { RotateLogoIcon } from "@/assets/svg";
 import { SideModal } from "@/components";
+import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import ScheduleBlock from "@/pages/HomePage/components/ScheduleBlock/ScheduleBlock";
 import { SCHEDULES_DUMMY } from "@/pages/HomePage/constants/schedulesDummy";
 import * as s from "./ScheduleSideModal.styles";
 
-interface ScheduleSideModalProps {
-  isVisible: boolean;
-  setIsVisible: (value: boolean) => void;
-}
-
-const ScheduleSideModal = ({
-  isVisible,
-  setIsVisible,
-}: ScheduleSideModalProps) => {
+const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   return (
     <SideModal
       titleChildren={

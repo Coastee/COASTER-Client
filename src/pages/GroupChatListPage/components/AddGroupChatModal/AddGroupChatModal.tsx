@@ -9,16 +9,12 @@ import {
 } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
+import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
 import { useAddGroupChat } from "@/pages/GroupChatListPage/hooks/useAddGroupChat";
 import { useState } from "react";
 import * as s from "./AddGroupChatModal.styles";
-
-interface AddGroupChatModalProps {
-  isVisible: boolean;
-  setIsVisible: (value: boolean) => void;
-}
 
 interface AddGroupChatTypes {
   title: string;
@@ -26,10 +22,7 @@ interface AddGroupChatTypes {
   hashTags: string[];
 }
 
-const AddGroupChatModal = ({
-  isVisible,
-  setIsVisible,
-}: AddGroupChatModalProps) => {
+const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const [request, setRequest] = useState<AddGroupChatTypes>({
     title: "",
     content: "",
