@@ -44,8 +44,9 @@ export const modalHeaderStyle = css`
 
   justify-content: space-between;
   align-items: start;
-
   gap: 7rem;
+
+  padding-bottom: 1rem;
 `;
 
 export const headerTextStyle = css`
@@ -76,10 +77,12 @@ export const userCountStyle = css`
   white-space: nowrap;
 `;
 
-export const headerButtonsStyle = css`
+export const headerButtonsStyle = (modalStyle: boolean) => css`
   display: flex;
 
   gap: 3rem;
+
+  ${modalStyle && "margin-right: -1rem;"}
 `;
 
 export const modalContentStyle = css``;

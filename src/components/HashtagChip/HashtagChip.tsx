@@ -3,16 +3,16 @@ import type { HashtagTypes } from "@/components/HashtagChip/types/hashtagTypes";
 import * as s from "./HashtagChip.styles";
 
 interface HashtagChipProps extends HashtagTypes {
-  removeHashtag: (id: number) => void;
+  removeHashtag: (content: string) => void;
 }
 
-const HashtagChip = ({ id, content, removeHashtag }: HashtagChipProps) => {
+const HashtagChip = ({ content, removeHashtag }: HashtagChipProps) => {
   return (
     <div css={s.hashtagLayoutStyle}>
       <button
         type="button"
         css={s.deleteStyle}
-        onClick={() => removeHashtag(id)}
+        onClick={() => removeHashtag(content)}
       >
         <CloseCircleIcon width={18} />
       </button>

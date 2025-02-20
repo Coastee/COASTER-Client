@@ -1,16 +1,23 @@
-import { SearchLayout, TitleContainer } from "@/components";
+import { AddButton, SearchLayout, TitleContainer } from "@/components";
 import { SORTING_OPTIONS } from "@/constants/dropdown";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { useState } from "react";
 import * as s from "./CoffeeChatListPage.styles";
+import AddCoffeeChatModal from "./components/AddCoffeeChatModal/AddCoffeeChatModal";
 import CoffeeChatListAll from "./components/CoffeeChatListAll/CoffeeChatListAll";
 
 const CoffeeChatListPage = () => {
   const [sortingOption, setSortingOption] = useState(SORTING_OPTIONS[0]);
   const [keyword, setKeyword] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <div css={s.layoutStyle}>
+      <AddCoffeeChatModal
+        isVisible={isModalVisible}
+        setIsVisible={setIsModalVisible}
+      />
+      <AddButton setIsModalVisible={setIsModalVisible} />
       <SearchLayout
         keyword={keyword}
         setKeyword={setKeyword}

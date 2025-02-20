@@ -6,7 +6,7 @@ export const layoutStyle = (supportingText: boolean) => css`
 
   width: 100%;
 
-  margin-bottom: ${supportingText ? "1.5rem" : "0"};
+  margin-bottom: ${supportingText ? "2rem" : "0"};
 `;
 
 export const wrapperStyle = (
@@ -58,6 +58,7 @@ export const inputStyle = css`
   outline: none;
 
   ::placeholder {
+    ${theme.font.body2};
     color: ${theme.color.gray1};
   }
 `;
