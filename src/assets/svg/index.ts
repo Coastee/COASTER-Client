@@ -1,5 +1,8 @@
+export { default as Arrow } from "./Arrow";
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
+export { default as ArrowRightIcon } from "./ArrowRightIcon";
 export { default as ChatIcon } from "./ChatIcon";
+export { default as ClockSquareIcon } from "./ClockSquareIcon";
 export { default as CloseCircleIcon } from "./CloseCircleIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
@@ -8,6 +11,7 @@ export { default as CounterPlusIcon } from "./CounterPlusIcon";
 export { default as DmIcon } from "./DmIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as ExitIcon } from "./ExitIcon";
+export { default as FlagSquareIcon } from "./FlagSquareIcon";
 export { default as GoogleIcon } from "./GoogleIcon";
 export { default as HamburgerIcon } from "./HamburgerIcon";
 export { default as HomeIcon } from "./HomeIcon";

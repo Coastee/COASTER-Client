@@ -4,6 +4,7 @@ import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { HOME_DUMMY } from "@/constants/homeDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
+import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
@@ -13,6 +14,7 @@ const HomePage = () => {
 
   const [keyword, setKeyword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [isScheduleVisible, setIsScheduleVisible] = useState(true);
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
   const { hashTagList, meetingChatRoom, groupChatRoom, notice, chat, ...rest } =
@@ -29,6 +31,7 @@ const HomePage = () => {
 
   return (
     <>
+      <ScheduleSideModal isVisible={isScheduleVisible} setIsVisible={setIsScheduleVisible} />
       <SideModal
         title={title}
         currentUsers={currentUsers}
@@ -36,6 +39,7 @@ const HomePage = () => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />
+
       <div css={s.layoutStyle}>
         <SearchLayout
           keyword={keyword}
