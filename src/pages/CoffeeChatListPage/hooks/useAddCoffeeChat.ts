@@ -5,27 +5,27 @@ import type {
 import { requestFormatTime } from "@/utils/dateTime";
 import { useState } from "react";
 
+const DEFAULT_MAX_LENGTH = 20;
+
 export const useAddCoffeeChat = ({
   dateTime,
   setDateTime,
   setRequest,
   maxLengths,
 }: UseAddCoffeeChatProps) => {
-  const [fieldFocusState, setFieldFocusState] = useState<
+  const [focusedField, setFocusedField] = useState<
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
 
-  const DEFAULT_MAX_LENGTH = 20;
-
   const handleFocus = (field: string) => {
-    setFieldFocusState((prev) => ({
+    setFocusedField((prev) => ({
       ...prev,
       [field]: { hasBeenFocused: true, isFocused: true },
     }));
   };
 
   const handleBlur = (field: string) => {
-    setFieldFocusState((prev) => ({
+    setFocusedField((prev) => ({
       ...prev,
       [field]: { ...prev[field], isFocused: false },
     }));
@@ -33,9 +33,7 @@ export const useAddCoffeeChat = ({
 
   const isFieldError = (field: string, value: string, required?: string) => {
     if (required) {
-      return (
-        fieldFocusState[field]?.hasBeenFocused && value.trim().length === 0
-      );
+      return focusedField[field]?.hasBeenFocused && value.trim().length === 0;
     }
     return false;
   };
@@ -77,7 +75,6 @@ export const useAddCoffeeChat = ({
   };
 
   return {
-    fieldFocusState,
     isFieldError,
     handleInputChange,
     handleFocus,

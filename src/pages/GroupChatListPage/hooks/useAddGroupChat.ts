@@ -17,26 +17,26 @@ export const useAddGroupChat = ({
   setRequest,
   maxLengths,
 }: UseAddGroupChatProps) => {
-  const [fieldFocusState, setFieldFocusState] = useState<
+  const [focusedField, setFocusedField] = useState<
     Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
   >({});
 
   const handleFocus = (field: string) => {
-    setFieldFocusState((prev) => ({
+    setFocusedField((prev) => ({
       ...prev,
       [field]: { hasBeenFocused: true, isFocused: true },
     }));
   };
 
   const handleBlur = (field: string) => {
-    setFieldFocusState((prev) => ({
+    setFocusedField((prev) => ({
       ...prev,
       [field]: { ...prev[field], isFocused: false },
     }));
   };
 
   const isFieldError = (field: string, value: string) => {
-    return fieldFocusState[field]?.hasBeenFocused && value.trim().length === 0;
+    return focusedField[field]?.hasBeenFocused && value.trim().length === 0;
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -51,7 +51,6 @@ export const useAddGroupChat = ({
 
   return {
     request,
-    fieldFocusState,
     isFieldError,
     handleInputChange,
     handleFocus,
