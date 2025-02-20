@@ -1,5 +1,21 @@
 import type { Dispatch, SetStateAction } from "react";
 
+export type requestDateType = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number
+];
+
+export interface formDateTimeTypes {
+  date: string;
+  start: string;
+  end: string;
+}
+
 export interface UseAddCoffeeChatProps {
   dateTime: { date: string; start: string; end: string };
   setDateTime: Dispatch<
@@ -14,8 +30,8 @@ export interface AddCoffeeChatTypes {
   content: string;
   hashTags: string[];
   maxCount: number;
-  startDate: [number, number, number, number, number, number, number];
-  endDate: [number, number, number, number, number, number, number];
+  startDate: requestDateType;
+  endDate: requestDateType;
   location: string;
   details: string;
 }
