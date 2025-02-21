@@ -1,4 +1,4 @@
-import { Button, HashtagChip, Input, SideModal, Textarea } from "@/components";
+import { Button, Input, SideModal, TagChip, Textarea } from "@/components";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
@@ -90,7 +90,7 @@ const AddGroupChatModal = ({
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag) => (
                 <li key={hashtag.id}>
-                  <HashtagChip
+                  <TagChip
                     id={hashtag.id}
                     content={hashtag.content}
                     removeHashtag={removeHashtag}
