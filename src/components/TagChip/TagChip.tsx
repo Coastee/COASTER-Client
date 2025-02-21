@@ -1,12 +1,18 @@
 import { CloseCircleIcon } from "@/assets/svg";
-import type { HashtagTypes } from "@/components/HashtagChip/types/hashtagTypes";
-import * as s from "./HashtagChip.styles";
+import type { HashtagTypes } from "@/components/TagChip/types/hashtagTypes";
+import * as s from "./TagChip.styles";
 
 interface HashtagChipProps extends HashtagTypes {
+  variant?: "hashTag" | "link";
   removeHashtag: (id: number) => void;
 }
 
-const HashtagChip = ({ id, content, removeHashtag }: HashtagChipProps) => {
+const HashtagChip = ({
+  variant = "hashTag",
+  id,
+  content,
+  removeHashtag,
+}: HashtagChipProps) => {
   return (
     <div css={s.hashtagLayoutStyle}>
       <button
@@ -16,7 +22,7 @@ const HashtagChip = ({ id, content, removeHashtag }: HashtagChipProps) => {
       >
         <CloseCircleIcon width={18} />
       </button>
-      <button type="button" css={s.hashtagStyle}>
+      <button type="button" css={s.hashtagStyle(variant)}>
         {content}
       </button>
     </div>

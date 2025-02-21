@@ -165,6 +165,13 @@ export const labelStyle = css`
   font-weight: 500;
 `;
 
+export const plusBtnStyle = css`
+  padding: 1rem;
+
+  border: 1px dashed ${theme.color.dark2};
+  border-radius: 0.7rem;
+`;
+
 export const textStyle = css`
   display: flex;
 

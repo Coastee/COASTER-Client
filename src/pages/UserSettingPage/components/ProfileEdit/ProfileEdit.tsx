@@ -1,5 +1,5 @@
 import { PlusIcon } from "@/assets/svg";
-import { Button, Input, Textarea } from "@/components";
+import { Button, Input, TagChip, Textarea } from "@/components";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import * as s from "@pages/UserSettingPage/components/ProfileEdit/ProfileEdit.style";
 
@@ -31,9 +31,21 @@ const ProfileEdit = () => {
               <label htmlFor="nickname" css={s.labelStyle}>
                 링크
               </label>
-              <button type="button">
-                <PlusIcon width={14} height={14} />
-              </button>
+              <div css={{ display: "flex", gap: "0.8rem" }}>
+                <button type="button" css={s.plusBtnStyle}>
+                  <PlusIcon width={14} height={14} />
+                </button>
+                <ul>
+                  <li id="1">
+                    <TagChip
+                      id={1}
+                      variant="link"
+                      removeHashtag={() => {}}
+                      content={<PlusIcon width={14} height={14} />}
+                    />
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div css={s.fieldStyle}>
