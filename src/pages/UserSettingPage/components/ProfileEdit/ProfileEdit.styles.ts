@@ -36,43 +36,9 @@ export const layoutStyle = css`
   background-color: ${theme.color.dark3};
 `;
 
-export const linkLayoutStyle = css`
-  display: flex;
-
-  margin-left: auto;
-
-  gap: 0.8rem;
-`;
-
-export const linkStyle = css`
-  width: 3.3rem;
-  height: 3.3rem;
-
-  border-radius: 0.8rem;
-
-  background: ${theme.color.dark2};
-`;
-
-export const nameStyle = css`
-  ${theme.font.title2};
-
-  white-space: nowrap;
-`;
-
-export const oneLineIntroStyle = css`
-  ${theme.font.body1};
-`;
-
-export const introStyle = css`
-  max-width: 58rem;
-
-  color: ${theme.color.gray1};
-
-  ${theme.font.body2};
-`;
-
 export const profileImgStyle = css`
   position: absolute;
+  display: flex;
 
   top: 6.5rem;
   left: 3.5rem;
@@ -80,10 +46,30 @@ export const profileImgStyle = css`
   width: 10rem;
   height: 10rem;
 
+  justify-content: center;
+  align-items: center;
+
   border: 4px solid ${theme.color.dark3};
-  border-radius: 1.2rem;
+  border-radius: 1rem;
+
+  background-color: ${theme.color.dark3};
 
   object-fit: cover;
+
+  cursor: pointer;
+`;
+
+export const editIconStyle = css`
+  position: absolute;
+  display: flex;
+
+  top: 10rem;
+  left: 7rem;
+
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
 `;
 
 export const backgroundImgStyle = css`

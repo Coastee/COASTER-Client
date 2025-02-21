@@ -1,9 +1,15 @@
-import { PlusIcon } from "@/assets/svg";
+import { EditIcon, PlusIcon } from "@/assets/svg";
 import { Button, Input, TagChip, Textarea } from "@/components";
+import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
-import * as s from "@pages/UserSettingPage/components/ProfileEdit/ProfileEdit.style";
+import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
+import { useState } from "react";
 
 const ProfileEdit = () => {
+  const [imgUrl, setImgUrl] = useState("");
+
+  const { onImageUpload } = useImageUpload({ setImgUrl });
+
   return (
     <div css={s.pageStyle}>
       <h1>프로필 편집</h1>
@@ -14,11 +20,22 @@ const ProfileEdit = () => {
           alt="프로필 배경"
           css={s.backgroundImgStyle}
         />
-        <img
-          src={DUMMY_PROFILE.profileImg}
-          alt="프로필"
-          css={s.profileImgStyle}
-        />
+        <label htmlFor="file" css={{ height: 0 }}>
+          <img
+            src={imgUrl === "" ? DUMMY_PROFILE.profileImg : imgUrl}
+            alt="기본 프로필"
+            css={s.profileImgStyle}
+          />
+          <EditIcon width={34} height={32} css={s.editIconStyle} />
+          <input
+            type="file"
+            name="file"
+            id="file"
+            accept="image/*"
+            onChange={onImageUpload}
+            css={{ visibility: "hidden" }}
+          />
+        </label>
         <div css={s.layoutStyle}>
           <div css={s.boxLayoutStyle}>
             <div css={s.fieldStyle}>
