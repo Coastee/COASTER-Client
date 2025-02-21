@@ -1,4 +1,4 @@
-interface ScheduleBlockProps {
+export interface ScheduleBlockProps {
   id: number;
   title: string;
   location: string;
@@ -7,5 +7,3 @@ interface ScheduleBlockProps {
   startTime: string;
   endTime: string;
 }
-
-export type { ScheduleBlockProps };
