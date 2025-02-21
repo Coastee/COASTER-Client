@@ -17,6 +17,7 @@ import {
   CHAT_FORM_FIELDS,
   DEFAULT_COFFEE_CHAT_VALUES,
   DEFAULT_DATE_TIME_VALUE,
+  MAX_HASHTAG_COUNT,
   MAX_LENGTH,
 } from "@/pages/CoffeeChatListPage/constants/coffeeChat";
 import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
@@ -25,7 +26,6 @@ import { useState } from "react";
 import * as s from "./AddCoffeeChatModal.styles";
 
 const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
-  const MAX_HASHTAG_COUNT = 10;
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
 
