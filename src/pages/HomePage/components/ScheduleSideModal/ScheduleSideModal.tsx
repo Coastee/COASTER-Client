@@ -32,7 +32,7 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
         >
           <ArrowDownIcon
             width={10}
-            style={{
+            css={{
               transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
             }}
           />
