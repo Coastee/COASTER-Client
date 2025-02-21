@@ -1,5 +1,7 @@
 import type { AddCoffeeChatTypes } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 
+export const MAX_HASHTAG_COUNT = 10;
+
 export const MAX_LENGTH = {
   title: 20,
   content: 80,

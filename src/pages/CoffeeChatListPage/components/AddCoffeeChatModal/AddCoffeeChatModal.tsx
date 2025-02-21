@@ -10,32 +10,22 @@ import {
 } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
+import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { TimeDropdown } from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
 import {
+  CHAT_FORM_FIELDS,
   DEFAULT_COFFEE_CHAT_VALUES,
   DEFAULT_DATE_TIME_VALUE,
-} from "@/pages/CoffeeChatListPage/constants/coffeeChat";
-import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
-
-import {
-  CHAT_FORM_FIELDS,
+  MAX_HASHTAG_COUNT,
   MAX_LENGTH,
 } from "@/pages/CoffeeChatListPage/constants/coffeeChat";
+import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
 import type { AddCoffeeChatTypes } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 import { useState } from "react";
 import * as s from "./AddCoffeeChatModal.styles";
 
-interface AddCoffeeChatModalProps {
-  isVisible: boolean;
-  setIsVisible: (value: boolean) => void;
-}
-
-const AddCoffeeChatModal = ({
-  isVisible,
-  setIsVisible,
-}: AddCoffeeChatModalProps) => {
-  const MAX_HASHTAG_COUNT = 10;
+const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
 

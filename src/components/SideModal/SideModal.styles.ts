@@ -30,7 +30,6 @@ export const modalStyle = css`
   padding: 4.4rem 5.4rem 5.4rem 5.4rem;
 
   width: auto;
-  max-width: 70rem;
   min-width: 60rem;
   height: 100%;
 
@@ -77,12 +76,12 @@ export const userCountStyle = css`
   white-space: nowrap;
 `;
 
-export const headerButtonsStyle = (modalStyle: boolean) => css`
+export const headerButtonsStyle = css`
   display: flex;
 
   gap: 3rem;
 
-  ${modalStyle && "margin-right: -1rem;"}
+  margin-right: -1rem;
 `;
 
 export const modalContentStyle = css``;

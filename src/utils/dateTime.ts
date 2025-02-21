@@ -22,6 +22,17 @@ export const formatTime = (time: string) => {
   return `${period} ${hour12}시`;
 };
 
+export const simpleFormatDate = (date: Date) => {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+
+  return {
+    simpleDate: `${month}. ${day}`, // "2. 10"
+    dayOfWeek, // "수"
+  };
+};
+
 export const requestFormatTime = (
   dateTime: formDateTimeTypes
 ): {
