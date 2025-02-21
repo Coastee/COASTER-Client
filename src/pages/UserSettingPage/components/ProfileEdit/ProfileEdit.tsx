@@ -48,7 +48,9 @@ const ProfileEdit = () => {
                   <p css={s.textStyle}>년차</p>
                 </div>
               </div>
-              <button type="button">LinkedIn 인증하기</button>
+              <button type="button" css={s.buttonStyle}>
+                LinkedIn 인증하기
+              </button>
             </div>
           </div>
           <div css={s.fieldStyle}>

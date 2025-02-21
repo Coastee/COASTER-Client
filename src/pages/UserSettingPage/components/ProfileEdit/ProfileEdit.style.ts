@@ -147,6 +147,17 @@ export const gridLayoutStyle = css`
   gap: 2.3rem;
 `;
 
+export const buttonStyle = css`
+  padding: 1.1rem 1.4rem;
+
+  border-radius: 0.7rem;
+
+  color: ${theme.color.white};
+  background-color: #4788c9;
+
+  ${theme.font.body2};
+`;
+
 export const labelStyle = css`
   color: ${theme.color.gray2};
 
