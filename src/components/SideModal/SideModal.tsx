@@ -62,7 +62,7 @@ const SideModal = ({
               titleChildren
             )}
           </div>
-          <div css={s.headerButtonsStyle(!!modalStyle)}>
+          <div css={s.headerButtonsStyle}>
             {extraButton && <div css={s.headerIconStyle}>{extraButton}</div>}
             <CloseIcon
               width={43}
