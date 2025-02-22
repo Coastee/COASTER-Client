@@ -14,7 +14,7 @@ const CareerBoxChip = ({ title, period, descriptions }: CareerBoxProps) => {
   const navigate = useNavigate();
 
   return (
-    <li css={{ marginRight: "1rem" }}>
+    <li>
       <section css={s.wrapperStyle}>
         <button type="button" css={deleteStyle} onClick={() => {}}>
           <CloseCircleIcon width={18} />

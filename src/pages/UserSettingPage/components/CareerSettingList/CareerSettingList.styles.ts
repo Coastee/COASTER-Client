@@ -15,6 +15,7 @@ export const pageStyle = css`
   overflow-y: auto;
 
   scroll-behavior: smooth;
+  overflow: visible;
 
   ::-webkit-scrollbar {
     display: none;

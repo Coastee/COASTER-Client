@@ -6,7 +6,6 @@ export const wrapperStyle = css`
   display: flex;
 
   width: 100%;
-  max-width: 65rem;
 
   padding: 2.7rem 1.4rem;
 
