@@ -59,12 +59,30 @@ export const profileImgStyle = css`
   cursor: pointer;
 `;
 
+export const profileFrameStyle = css`
+  position: absolute;
+  display: flex;
+
+  top: 6.5rem;
+  left: 3.5rem;
+
+  width: 10rem;
+  height: 10rem;
+
+  border: 4px solid ${theme.color.dark3};
+  border-radius: 1rem;
+
+  background-color: ${theme.color.gray4};
+
+  opacity: 0.5;
+`;
+
 export const editIconStyle = css`
   position: absolute;
   display: flex;
 
   top: 10rem;
-  left: 7rem;
+  left: 6.8rem;
 
   justify-content: center;
   align-items: center;

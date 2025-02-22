@@ -26,6 +26,7 @@ const ProfileEdit = () => {
             alt="기본 프로필"
             css={s.profileImgStyle}
           />
+          <div css={s.profileFrameStyle} />
           <EditIcon width={34} height={32} css={s.editIconStyle} />
           <input
             type="file"
