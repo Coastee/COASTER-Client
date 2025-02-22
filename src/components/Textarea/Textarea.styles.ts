@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 export const layoutStyle = (supportingText: boolean) => css`
   position: relative;
 
-  margin-bottom: ${supportingText ? "1.5rem" : "0"};
+  margin-bottom: ${supportingText ? "2rem" : "0"};
 
   width: 100%;
 `;
@@ -48,7 +48,7 @@ export const textareaStyle = css`
   color: ${theme.color.white};
 
   ::placeholder {
-    ${theme.font.body1};
+    ${theme.font.body2};
     color: ${theme.color.gray1};
   }
 `;

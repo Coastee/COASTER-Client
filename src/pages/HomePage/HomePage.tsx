@@ -36,6 +36,7 @@ const HomePage = () => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />
+
       <div css={s.layoutStyle}>
         <SearchLayout
           keyword={keyword}

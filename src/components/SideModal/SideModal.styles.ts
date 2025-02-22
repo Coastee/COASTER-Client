@@ -30,7 +30,6 @@ export const modalStyle = css`
   padding: 4.4rem 5.4rem 5.4rem 5.4rem;
 
   width: auto;
-  max-width: 70rem;
   min-width: 60rem;
   height: 100%;
 
@@ -44,8 +43,9 @@ export const modalHeaderStyle = css`
 
   justify-content: space-between;
   align-items: start;
-
   gap: 7rem;
+
+  padding-bottom: 1rem;
 `;
 
 export const headerTextStyle = css`
@@ -80,6 +80,8 @@ export const headerButtonsStyle = css`
   display: flex;
 
   gap: 3rem;
+
+  margin-right: -1rem;
 `;
 
 export const modalContentStyle = css``;

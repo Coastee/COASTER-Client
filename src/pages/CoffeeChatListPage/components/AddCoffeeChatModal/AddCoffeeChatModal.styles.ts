@@ -1,3 +1,4 @@
+import { scrollDarkStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
@@ -7,7 +8,12 @@ export const modalContentStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
+  padding-right: 3rem;
+
   height: calc(100vh - 14.1rem);
+
+  ${scrollDarkStyle};
+  overflow-y: scroll;
 `;
 
 export const contentListStyle = css`
@@ -16,9 +22,9 @@ export const contentListStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
-  row-gap: 2.5rem;
+  gap: 2.5rem;
 
-  padding-top: 3rem;
+  padding: 3rem 0 6rem 0;
 `;
 
 export const questionContainer = css`
@@ -72,18 +78,76 @@ export const fileButtonStyle = css`
   ${theme.font.body2};
   font-weight: 400;
   color: ${theme.color.gray2};
+
   text-decoration-line: underline;
   text-underline-position: from-font;
 
-  border-radius: 10px;
+  border-radius: 1rem;
   border: 1px solid ${theme.color.dark1};
 
-  background-color: transparent;
   background-color: #2d3643;
 
   transition: 0.3s ease-in-out;
 
   cursor: pointer;
+`;
+
+export const counterStyle = css`
+  display: flex;
+
+  align-items: center;
+
+  gap: 2.2rem;
+
+  svg {
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    :hover {
+      scale: 1.05;
+    }
+  }
+
+  p {
+    ${theme.font.body1};
+    color: ${theme.color.white};
+  }
+`;
+
+export const dateTimeLayoutStyle = css`
+  display: flex;
+
+  justify-content: space-between;
+  gap: 1.2rem;
+`;
+
+export const dateTimeContainerStyle = (isSelected: boolean) => css`
+  position: relative;
+  display: flex;
+
+  align-items: center;
+
+  padding: 1.6rem 1.8rem;
+
+  width: 15rem;
+
+  ${theme.font.body2};
+  font-weight: 400;
+  color: ${isSelected ? theme.color.gray2 : theme.color.white};
+
+  white-space: nowrap;
+
+  border-radius: 1rem;
+  border: 1px solid ${theme.color.dark1};
+
+  background-color: #2d3643;
+
+  transition: 0.3s ease-in-out;
+
+  cursor: pointer;
+
+  :hover {
+    box-shadow: inset 0 0 0 1px ${theme.color.primaryBlue3};
+  }
 `;
 
 export const editButtonListStyle = css`
@@ -98,45 +162,4 @@ export const buttonContainer = css`
   display: flex;
 
   justify-content: flex-end;
-`;
-
-export const addHashtagStyle = (fontWidth: number) => css`
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 0.8rem;
-
-  width: ${fontWidth && fontWidth > 90
-    ? Math.floor(fontWidth)
-    : 90}px !important;
-
-  padding: 0.8rem 1.7rem;
-
-  border-radius: 1rem;
-
-  ${theme.font.body2};
-  font-weight: 400;
-  color: ${theme.color.gray2};
-
-  background-color: #404a58;
-
-  white-space: nowrap;
-
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-`;
-
-export const hiddenSpanStyle = css`
-  visibility: hidden;
-
-  display: inline-block;
-
-  padding: 0.8rem 1.7rem;
-
-  width: max-content;
-  ${theme.font.body2};
-  font-weight: 400;
 `;

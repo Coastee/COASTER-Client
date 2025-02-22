@@ -1,48 +1,36 @@
-import { Button, Input, SideModal, TagChip, Textarea } from "@/components";
-import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
+import { Button, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
+import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
+import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
+import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
+
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
-import HashtagInput from "@/pages/GroupChatListPage/components/HashtagInput/HashtagInput";
-import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/components/constants/textMaxLength";
-import useAddGroupChatForm from "@/pages/SignupPage/hooks/useAddGroupChatForm";
-import { theme } from "@/styles/theme/theme";
-import { css } from "@emotion/react";
+import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
+import { useAddGroupChat } from "@/pages/GroupChatListPage/hooks/useAddGroupChat";
 import { useState } from "react";
 import * as s from "./AddGroupChatModal.styles";
 
-interface AddGroupChatModalProps {
-  isVisible: boolean;
-  setIsVisible: (value: boolean) => void;
+interface AddGroupChatTypes {
+  title: string;
+  content: string;
+  hashTags: string[];
 }
 
-const AddGroupChatModal = ({
-  isVisible,
-  setIsVisible,
-}: AddGroupChatModalProps) => {
-  const [request, setRequest] = useState({
+const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
+  const [request, setRequest] = useState<AddGroupChatTypes>({
     title: "",
     content: "",
-    hashTags: HASH_TAGS_DUMMY,
+    hashTags: [],
   });
-  const [image, setImage] = useState<File | null>(null);
 
-  const {
-    fileInputRef,
-    addHashtag,
-    removeHashtag,
-    handleFileChange,
-    handleFileDelete,
-    handleFileClick,
-    handleInputChange,
-    handleFocus,
-    handleBlur,
-    isFieldError,
-  } = useAddGroupChatForm({
+  const { handleInputChange, handleFocus, handleBlur, isFieldError } = useAddGroupChat({
     request,
     setRequest,
-    image,
-    setImage,
     maxLengths: TEXT_MAX_LENGTH,
   });
+
+  const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(request, setRequest);
+
+  const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
 
   const isButtonDisabled = isFieldError("title", request.title);
 
@@ -52,16 +40,12 @@ const AddGroupChatModal = ({
   };
 
   return (
-    <SideModal
-      title="그룹 채팅방 개설하기"
-      isVisible={isVisible}
-      setIsVisible={setIsVisible}
-    >
+    <SideModal title="그룹 채팅방 개설하기" isVisible={isVisible} setIsVisible={setIsVisible}>
       <form css={s.modalContentStyle} onSubmit={handleSubmit}>
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <label htmlFor="title" css={s.textareaTitleStyle}>
-              채팅방 제목<span>*</span>
+              채팅방 제목<span id="required">*</span>
             </label>
             <Input
               id="title"
@@ -87,65 +71,34 @@ const AddGroupChatModal = ({
               onChange={(e) => handleInputChange("content", e.target.value)}
               style={{ height: "12rem" }}
             />
+          </li>
+          <li css={[s.questionContainer]}>
+            <div css={s.textareaTitleStyle}>
+              해시태그
+              <span id="sub">해시태그는 최대 10개까지 입력 가능합니다.</span>
+            </div>
             <ul css={s.hashtagListContainer}>
-              {request.hashTags.map((hashtag) => (
-                <li key={hashtag.id}>
-                  <TagChip
-                    id={hashtag.id}
-                    content={hashtag.content}
-                    removeHashtag={removeHashtag}
-                  />
+              {request.hashTags.map((hashtag, idx) => (
+                <li key={idx}>
+                  <TagChip content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
                 </li>
               ))}
-              <HashtagInput addHashtag={addHashtag} />
+              {request.hashTags.length < 10 && <HashtagInput addHashtag={addHashtag} />}
             </ul>
           </li>
           <li css={s.questionContainer} style={{ maxWidth: "35rem" }}>
             <h1 css={s.textareaTitleStyle}>사진 등록하기</h1>
-            <div
-              css={s.fileButtonStyle}
-              onClick={handleFileClick}
-              onKeyDown={handleFileClick}
-            >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-              {image ? `${image.name}` : "이미지 파일을 첨부하세요 (0MB 이내)"}
-            </div>
-
-            {image && (
-              <div css={s.editButtonListStyle}>
-                <Button
-                  variant="tertiary"
-                  size="medium"
-                  onClick={handleFileClick}
-                >
-                  수정하기
-                </Button>
-                <Button
-                  variant="tertiary"
-                  size="medium"
-                  css={css`
-                    color: ${theme.color.primaryPink0};
-                  `}
-                  onClick={handleFileDelete}
-                >
-                  삭제하기
-                </Button>
-              </div>
-            )}
+            <FileUploadBox
+              image={image}
+              fileInputRef={fileInputRef}
+              handleFileChange={handleFileChange}
+              handleFileDelete={handleFileDelete}
+              handleFileClick={handleFileClick}
+            />
           </li>
         </ul>
         <div css={s.buttonContainer}>
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={!request.title.trim() || isButtonDisabled}
-          >
+          <Button type="submit" variant="primary" disabled={!request.title.trim() || isButtonDisabled}>
             등록
           </Button>
         </div>

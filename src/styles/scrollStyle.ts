@@ -16,3 +16,19 @@ export const scrollStyle = css`
 
   scroll-behavior: smooth;
 `;
+
+export const scrollDarkStyle = css`
+  ::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.color.dark2};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  scroll-behavior: smooth;
+`;
