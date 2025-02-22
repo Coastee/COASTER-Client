@@ -33,6 +33,8 @@ export const fixedLayoutStyle = css`
 
   align-items: flex-start;
 
+  z-index: 1;
+
   background-color: ${theme.color.dark4};
 `;
 
@@ -69,16 +71,15 @@ export const plusButtonStyle = css`
 export const listStyle = css`
  display: flex;
 
- padding-top: 18rem;
+ padding-top: 19rem;
 
  flex-direction: column;
  gap: 1.3rem;
 
- padding-bottom: 7rem;
+ padding-bottom: 3.3rem;
 `;
 
 export const buttonLayoutStyle = css`
-
   display: flex;
 
   justify-content: flex-end;
