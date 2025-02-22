@@ -5,7 +5,6 @@ export { default as CheckBox } from "./CheckBox/Checkbox";
 export { default as Divider } from "./Divider/Divider";
 export { default as Dropdown } from "./Dropdown/Dropdown";
 export { default as FileUploadBox } from "./FileUploadBox/FileUploadBox";
-export { default as HashtagChip } from "./HashtagChip/HashtagChip";
 export { default as HashtagInput } from "./HashtagInput/HashtagInput";
 export { default as Input } from "./Input/Input";
 export { default as MenuHeader } from "./MenuHeader/MenuHeader";

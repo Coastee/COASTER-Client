@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
 export interface HashtagTypes {
-  id: number;
+  id?: number;
   content: ReactNode;
 }
