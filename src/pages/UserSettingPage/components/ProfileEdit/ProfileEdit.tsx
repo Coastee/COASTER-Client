@@ -3,6 +3,9 @@ import { Button, Input, TagChip, Textarea } from "@/components";
 import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
+import { dummyProfileData } from "@/pages/UserSettingPage/constants/dummy";
+import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
+import { useEditProfileForm } from "@/pages/UserSettingPage/hooks/useEditProfileForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +15,8 @@ const ProfileEdit = () => {
   const navigate = useNavigate();
 
   const { onImageUpload } = useImageUpload({ setImgUrl });
+  const { form, handleInfoChange, supportingText, handleNickNameMessage, handleCareerMessage, isNickNameError } =
+    useEditProfileForm(dummyProfileData);
 
   return (
     <div css={s.pageStyle}>
@@ -38,7 +43,15 @@ const ProfileEdit = () => {
               <label htmlFor="nickname" css={s.labelStyle}>
                 닉네임
               </label>
-              <Input id="nickname" variant="secondary" maxLength={10} />
+              <Input
+                id="nickname"
+                variant="secondary"
+                maxLength={MAX_LENGTH.NICKNAME_MAX}
+                isError={isNickNameError}
+                supportingText={supportingText.nickName}
+                value={form.nickName}
+                onChange={(e) => handleInfoChange(e, "nickName")}
+              />
             </div>
             <div css={[s.fieldStyle, { minWidth: "19rem" }]}>
               <label htmlFor="nickname" css={s.labelStyle}>
@@ -67,9 +80,21 @@ const ProfileEdit = () => {
             </label>
             <div css={s.boxLayoutStyle}>
               <div css={s.gridLayoutStyle}>
-                <Input id="career" variant="secondary" maxLength={20} />
+                <Input
+                  id="career"
+                  variant="secondary"
+                  maxLength={MAX_LENGTH.CAREER}
+                  supportingText={supportingText.career}
+                  value={form.career}
+                  onChange={(e) => handleInfoChange(e, "career")}
+                />
                 <div css={{ display: "flex", gap: "0.8rem" }}>
-                  <Input id="career" variant="secondary" />
+                  <Input
+                    variant="secondary"
+                    value={form.careerYear}
+                    supportingText={supportingText.careerYear}
+                    onChange={(e) => handleInfoChange(e, "careerYear")}
+                  />
                   <p css={s.textStyle}>년차</p>
                 </div>
               </div>
@@ -82,13 +107,27 @@ const ProfileEdit = () => {
             <label htmlFor="oneLineIntro" css={s.labelStyle}>
               한 줄 소개
             </label>
-            <Input id="oneLineIntro" variant="secondary" maxLength={20} />
+            <Input
+              id="oneLineIntro"
+              variant="secondary"
+              maxLength={MAX_LENGTH.ONELINE_INTRO}
+              supportingText={supportingText.oneLineIntro}
+              value={form.oneLineIntro}
+              onChange={(e) => handleInfoChange(e, "oneLineIntro")}
+            />
           </div>
           <div css={s.fieldStyle}>
             <label htmlFor="intro" css={s.labelStyle}>
               소개글
             </label>
-            <Textarea id="intro" variant="secondary" maxLength={60} />
+            <Textarea
+              id="intro"
+              variant="secondary"
+              maxLength={MAX_LENGTH.INTRO}
+              supportingText={supportingText.intro}
+              value={form.intro}
+              onChange={(e) => handleInfoChange(e, "intro")}
+            />
           </div>
         </div>
       </form>
