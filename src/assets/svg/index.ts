@@ -4,6 +4,7 @@ export { default as CloseCircleIcon } from "./CloseCircleIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
 export { default as DmIcon } from "./DmIcon";
+export { default as EditBlueIcon } from "./EditBlueIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as ExitIcon } from "./ExitIcon";
 export { default as GoogleIcon } from "./GoogleIcon";
