@@ -4,9 +4,12 @@ import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
   const [imgUrl, setImgUrl] = useState("");
+
+  const navigate = useNavigate();
 
   const { onImageUpload } = useImageUpload({ setImgUrl });
 
@@ -15,17 +18,9 @@ const ProfileEdit = () => {
       <h1>프로필 편집</h1>
 
       <form css={s.wrapperStyle}>
-        <img
-          src={DUMMY_PROFILE.backgroundImg}
-          alt="프로필 배경"
-          css={s.backgroundImgStyle}
-        />
+        <img src={DUMMY_PROFILE.backgroundImg} alt="프로필 배경" css={s.backgroundImgStyle} />
         <label htmlFor="file" css={{ height: 0 }}>
-          <img
-            src={imgUrl === "" ? DUMMY_PROFILE.profileImg : imgUrl}
-            alt="기본 프로필"
-            css={s.profileImgStyle}
-          />
+          <img src={imgUrl === "" ? DUMMY_PROFILE.profileImg : imgUrl} alt="기본 프로필" css={s.profileImgStyle} />
           <div css={s.profileFrameStyle} />
           <EditIcon width={34} height={32} css={s.editIconStyle} />
           <input
@@ -98,7 +93,7 @@ const ProfileEdit = () => {
         </div>
       </form>
       <div css={s.buttonLayout}>
-        <Button variant="tertiary" size="medium">
+        <Button variant="tertiary" size="medium" onClick={() => navigate("/mypage")}>
           뒤로 가기
         </Button>
         <Button size="medium">편집 완료</Button>

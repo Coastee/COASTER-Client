@@ -2,12 +2,15 @@ import { DmIcon, EditIcon } from "@/assets/svg";
 import { Button } from "@/components";
 import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
+import { useNavigate } from "react-router-dom";
 
 const ProfileBox = () => {
+  const navigate = useNavigate();
+
   return (
     <section css={s.wrapperStyle}>
       <img src={DUMMY_PROFILE.backgroundImg} alt="프로필 배경" css={s.backgroundImgStyle} />
-      <button type="button" css={s.editBtnStyle}>
+      <button type="button" css={s.editBtnStyle} onClick={() => navigate("/mypage/setting-profile")}>
         <EditIcon width={16} height={15} />
         편집하기
       </button>
