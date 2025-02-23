@@ -1,9 +1,10 @@
-import { ArrowDownIcon } from "@/assets/svg";
+import { ReturnIcon } from "@/assets/svg";
 import type { ServerInfoType } from "@/constants/serverInfo";
 import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   options: ServerInfoType[];
+  item: ServerInfoType;
   setItem: (item: ServerInfoType) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
@@ -11,6 +12,7 @@ interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
 
 const ServerDropdown = ({
   options,
+  item,
   setItem,
   dropdownOpen,
   setDropdownOpen,
@@ -22,33 +24,45 @@ const ServerDropdown = ({
   };
 
   return (
-    <div css={s.sortingStyle}>
-      <button
-        type="button"
-        css={s.buttonStyle}
+    <div css={s.dropdownStyle}>
+      <div
+        css={s.dropdownTopStyle(dropdownOpen)}
         onClick={() => setDropdownOpen(!dropdownOpen)}
+        onKeyDown={() => setDropdownOpen(!dropdownOpen)}
       >
-        <ArrowDownIcon
-          width={10}
-          style={{
-            transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
-          }}
-        />
-      </button>
+        <div css={s.selectedSeverStyle}>
+          <item.icon css={{ width: "100%" }} />
+        </div>
+        {dropdownOpen ? (
+          <div css={s.divideLineStyle} />
+        ) : (
+          <ReturnIcon width={14} height={8} />
+        )}
+      </div>
 
       {dropdownOpen && (
-        <ul css={s.listStyle} {...props}>
-          {options.map((option) => (
-            <li
-              key={option.id}
-              css={s.listBarStyle}
-              onClick={() => handleItemClick(option)}
-              onKeyDown={() => handleItemClick(option)}
-            >
-              {option.name}
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul css={s.listStyle} {...props}>
+            {options.map((option) => (
+              <li
+                key={option.id}
+                css={s.itemStyle}
+                onClick={() => handleItemClick(option)}
+                onKeyDown={() => handleItemClick(option)}
+              >
+                <option.icon css={{ width: "100%" }} />
+              </li>
+            ))}
+          </ul>
+          <div css={s.bottomArrowIcon}>
+            <ReturnIcon
+              width={14}
+              height={8}
+              css={{ transform: "rotate(180deg)" }}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            />
+          </div>
+        </>
       )}
     </div>
   );
