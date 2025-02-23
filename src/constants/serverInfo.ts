@@ -1,4 +1,4 @@
-import { HomeIcon } from "../assets/svg"; // 임시 아이콘
+import { CarIcon, HomeIcon } from "../assets/svg"; // 임시 아이콘
 
 export type ServerInfoType = {
   id: number;
@@ -9,7 +9,7 @@ export type ServerInfoType = {
 export const SERVERINFO: ServerInfoType[] = [
   { id: 1, name: "광고/마케팅", icon: HomeIcon },
   { id: 2, name: "금융/보험/핀테크", icon: HomeIcon },
-  { id: 3, name: "모빌리티/교통", icon: HomeIcon },
+  { id: 3, name: "모빌리티/교통", icon: CarIcon },
   { id: 4, name: "부동산/건설", icon: HomeIcon },
   { id: 5, name: "AI/딥테크/블록체인", icon: HomeIcon },
   { id: 6, name: "여행/레저", icon: HomeIcon },

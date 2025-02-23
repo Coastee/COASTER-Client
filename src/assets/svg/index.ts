@@ -1,6 +1,7 @@
 export { default as Arrow } from "./Arrow";
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ArrowRightIcon } from "./ArrowRightIcon";
+export { default as CarIcon } from "./CarIcon";
 export { default as ChatIcon } from "./ChatIcon";
 export { default as ClockSquareIcon } from "./ClockSquareIcon";
 export { default as CloseCircleIcon } from "./CloseCircleIcon";
@@ -27,6 +28,7 @@ export { default as MiddlePointIcon } from "./MiddlePointIcon";
 export { default as NaverIcon } from "./NaverIcon";
 export { default as PlusIcon } from "./PlusIcon";
 export { default as ProfileIcon } from "./ProfileIcon";
+export { default as ReturnIcon } from "./ReturnIcon";
 export { default as RotateLogoIcon } from "./RotateLogoIcon";
 export { default as SendIcon } from "./SendIcon";
 export { default as ShadowPlusIcon } from "./ShadowPlusIcon";

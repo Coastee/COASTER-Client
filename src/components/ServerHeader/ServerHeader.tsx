@@ -9,9 +9,8 @@ const ServerHeader = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const [myServers, setMyServers] = useState([1, 4, 5, 9]); // dummy data
+  const [myServers, setMyServers] = useState([1, 3, 5, 9]); // dummy data
   const myServerSet = new Set(myServers);
-
 
   const handleNavigate = (serverId: number) => {
     const menu = pathname.split("/")[2] || "home";
@@ -23,28 +22,17 @@ const ServerHeader = () => {
   );
 
   const [dropdownOpen, setDropdownOpen] = useState(true);
+  const [item, setItem] = useState(SERVERINFO[3]);
 
   return (
     <header css={s.containerStyle}>
-      {/* <div css={s.serverListStyle}>
-        {filteredServers.map((server) => {
-          return (
-            <button
-              key={server.id}
-              type="button"
-              css={s.serverItemStyle}
-              onClick={() => handleNavigate(server.id)}
-            >
-              <server.icon />
-            </button>
-          );
-        })}
-      </div> */}
       <ServerDropdown
-        options={SERVERINFO},
-        setItem={SERVERINFO[0]},
-        dropdownOpen={dropdownOpen},
-        setDropdownOpen={setDropdownOpen}/>
+        options={filteredServers}
+        item={item}
+        setItem={setItem}
+        dropdownOpen={dropdownOpen}
+        setDropdownOpen={setDropdownOpen}
+      />
       <button type="button" css={s.plusButtonStyle}>
         <PlusIcon />
       </button>
