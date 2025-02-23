@@ -30,14 +30,16 @@ const ServerDropdown = ({
         onClick={() => setDropdownOpen(!dropdownOpen)}
         onKeyDown={() => setDropdownOpen(!dropdownOpen)}
       >
-        <div css={s.selectedSeverStyle}>
+        <div css={s.topBoxStyle(dropdownOpen)}>
           <item.icon css={{ width: "100%" }} />
         </div>
-        {dropdownOpen ? (
-          <div css={s.divideLineStyle} />
-        ) : (
-          <ReturnIcon width={14} height={8} />
-        )}
+        <div css={s.bottomBoxStyle(dropdownOpen)}>
+          {dropdownOpen ? (
+            <div css={s.divideLineStyle} />
+          ) : (
+            <ReturnIcon width={14} height={8} />
+          )}
+        </div>
       </div>
 
       {dropdownOpen && (
