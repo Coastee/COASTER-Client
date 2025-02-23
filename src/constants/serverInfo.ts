@@ -13,8 +13,6 @@ export type ServerInfoType = {
   icon: React.FC;
 };
 
-
-
 export const SERVERINFO: ServerInfoType[] = [
   { id: 0, name: "광고/마케팅", icon: HomeIcon },
   { id: 1, name: "금융/보험/핀테크", icon: HomeIcon },

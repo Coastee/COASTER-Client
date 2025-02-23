@@ -4,7 +4,7 @@ import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   options: ServerInfoType[];
-  item: ServerInfoType;
+  item?: ServerInfoType;
   setItem: (item: ServerInfoType) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
@@ -24,16 +24,16 @@ const ServerDropdown = ({
   };
 
   return (
-    <div css={s.dropdownStyle}>
+    <div css={s.serverDropdownStyle}>
       <div
         css={s.dropdownTopStyle(dropdownOpen)}
         onClick={() => setDropdownOpen(!dropdownOpen)}
         onKeyDown={() => setDropdownOpen(!dropdownOpen)}
       >
-        <div css={s.topBoxStyle(dropdownOpen)}>
-          <item.icon css={{ width: "100%" }} />
+        <div css={s.currentIconStyle(dropdownOpen)}>
+          {item && <item.icon css={{ width: "100%", height: "100%" }} />}
         </div>
-        <div css={s.bottomBoxStyle(dropdownOpen)}>
+        <div css={s.currentIconBottomStyle(dropdownOpen)}>
           {dropdownOpen ? (
             <div css={s.divideLineStyle} />
           ) : (
@@ -52,7 +52,7 @@ const ServerDropdown = ({
                 onClick={() => handleItemClick(option)}
                 onKeyDown={() => handleItemClick(option)}
               >
-                <option.icon css={{ width: "100%" }} />
+                <option.icon css={s.iconStyle} />
               </li>
             ))}
           </ul>

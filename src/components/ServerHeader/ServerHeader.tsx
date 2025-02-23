@@ -1,7 +1,8 @@
 import { PlusIcon } from "@/assets/svg";
-import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropDown";
+import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
+import { getServerInfo } from "@/components/ServerHeader/utils/getServerInfo";
 import { SERVERINFO } from "@/constants/serverInfo";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
 
@@ -9,27 +10,40 @@ const ServerHeader = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const [myServers, setMyServers] = useState([1, 3, 5, 9]); // dummy data
-  const myServerSet = new Set(myServers);
-
-  const handleNavigate = (serverId: number) => {
-    const menu = pathname.split("/")[2] || "home";
-    navigate(`/${serverId}/${menu}`);
-  };
-
-  const filteredServers = SERVERINFO.filter((server) =>
-    myServerSet.has(server.id)
+  const [myServerIdList, setMyServers] = useState([2, 6, 10, 15, 22]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentServer, setCurrentServer] = useState(
+    getServerInfo(myServerIdList[0])
   );
 
-  const [dropdownOpen, setDropdownOpen] = useState(true);
-  const [item, setItem] = useState(SERVERINFO[3]);
+  const myServerSet = new Set(myServerIdList);
+
+  const handleNavigate = useCallback(
+    (currentServerId: number) => {
+      const menu = pathname.split("/")[2] || "home";
+      navigate(`/${currentServerId}/${menu}`);
+    },
+    [pathname, navigate]
+  );
+
+  const exceptCurrentServer = currentServer
+    ? SERVERINFO.filter(
+        (server) => myServerSet.has(server.id) && server.id !== currentServer.id
+      )
+    : [];
+
+  useEffect(() => {
+    if (currentServer) {
+      handleNavigate(currentServer.id);
+    }
+  }, [currentServer, handleNavigate]);
 
   return (
     <header css={s.containerStyle}>
       <ServerDropdown
-        options={filteredServers}
-        item={item}
-        setItem={setItem}
+        options={exceptCurrentServer}
+        item={currentServer}
+        setItem={setCurrentServer}
         dropdownOpen={dropdownOpen}
         setDropdownOpen={setDropdownOpen}
       />
