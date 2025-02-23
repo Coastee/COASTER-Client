@@ -1,7 +1,7 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const dropdownStyle = css`
+export const serverDropdownStyle = css`
   display: flex;
 
   flex-direction: column;
@@ -21,7 +21,7 @@ export const dropdownTopStyle = (dropdownOpen: boolean) => css`
   justify-content: space-between;
   align-items: center;
 
-  padding: ${dropdownOpen ? "0.5rem 0.5rem 0" : "0.5rem"};
+  padding: ${dropdownOpen ? "0.9rem 0.5rem 0" : "0.9rem 0.5rem 0.9rem"};
 
   width: 5.6rem;
   height: ${dropdownOpen ? "5.6rem" : "7.6rem"};
@@ -29,7 +29,7 @@ export const dropdownTopStyle = (dropdownOpen: boolean) => css`
   cursor: pointer;
 `;
 
-export const topBoxStyle = (dropdownOpen: boolean) => css`
+export const currentIconStyle = (dropdownOpen: boolean) => css`
   display: flex;
   flex-shrink: 0;
 
@@ -42,7 +42,7 @@ export const topBoxStyle = (dropdownOpen: boolean) => css`
   height: 4rem;
 `;
 
-export const bottomBoxStyle = (dropdownOpen: boolean) => css`
+export const currentIconBottomStyle = (dropdownOpen: boolean) => css`
   display: flex;
 
   justify-content: center;
@@ -85,13 +85,22 @@ export const itemStyle = css`
   cursor: pointer;
 `;
 
+export const iconStyle = css`
+  width: 100%;
+  height: 100%;
+
+  :hover {
+    scale: 1.05;
+  }
+`;
+
 export const bottomArrowIcon = css`
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  padding: 1.2rem 0 1.6rem 0;
+  padding: 1.4rem 0 2.1rem 0;
 
   width: 100%;
 
