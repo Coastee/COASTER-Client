@@ -1,7 +1,7 @@
 import { CloseCircleIcon, EditBlueIcon, RotateLogoIcon } from "@/assets/svg";
 import { Divider } from "@/components";
 import { deleteStyle } from "@/components/TagChip/TagChip.styles";
-import * as s from "@/pages/MyPage/components/CareerBox/CareerBox.styles";
+import * as s from "@/pages/UserSettingPage/components/CareerBoxChip/CareerBoxChip.styles";
 import { useNavigate } from "react-router-dom";
 
 interface CareerBoxProps {

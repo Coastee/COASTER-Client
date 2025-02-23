@@ -21,6 +21,7 @@ export const layoutStyle = css`
   display: flex;
 
   align-items: center;
+  justify-content: space-between;
   gap: 1.3rem;
 `;
 
