@@ -21,16 +21,17 @@ export const dropdownTopStyle = (dropdownOpen: boolean) => css`
   justify-content: space-between;
   align-items: center;
 
-  padding: ${dropdownOpen ? "1rem 0.9rem 0" : "1rem 0.9rem 1.2rem"};
+  padding: ${dropdownOpen ? "0.5rem 0.5rem 0" : "0.5rem"};
 
   width: 5.6rem;
-  height: ${dropdownOpen ? "6.2rem" : "8rem"};
+  height: ${dropdownOpen ? "5.6rem" : "7.6rem"};
 
   cursor: pointer;
 `;
 
-export const selectedSeverStyle = css`
+export const topBoxStyle = (dropdownOpen: boolean) => css`
   display: flex;
+  flex-shrink: 0;
 
   align-items: center;
   justify-content: center;
@@ -39,6 +40,16 @@ export const selectedSeverStyle = css`
 
   width: 4rem;
   height: 4rem;
+`;
+
+export const bottomBoxStyle = (dropdownOpen: boolean) => css`
+  display: flex;
+
+  justify-content: center;
+  align-items: ${dropdownOpen ? "end" : "center"};
+
+  width: 4rem;
+  height: ${dropdownOpen ? "3rem" : "100%"};
 `;
 
 export const divideLineStyle = css`
@@ -56,11 +67,8 @@ export const listStyle = css`
   gap: 1.2rem;
 
   padding: 0.7rem 0.5rem 0;
-  border-radius: 0 0 1rem 1rem;
 
   width: 100%;
-
-  background-color: ${theme.color.primaryBlue2};
 `;
 
 export const itemStyle = css`
@@ -86,11 +94,6 @@ export const bottomArrowIcon = css`
   padding: 1.2rem 0 1.6rem 0;
 
   width: 100%;
-
-  path {
-    stroke: #fff;
-    stroke-width: 2px;
-  }
 
   cursor: pointer;
 `;
