@@ -1,16 +1,7 @@
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
+import type { ProfileEditTypes } from "@/pages/UserSettingPage/types/profile";
 import { useCallback, useState } from "react";
-
-interface ProfileEditTypes {
-  backgroundImg?: string;
-  profileImg?: string;
-  nickName: string;
-  career: string;
-  careerYear: number;
-  oneLineIntro: string;
-  intro: string;
-}
 
 export const useEditProfileForm = ({ ...data }: ProfileEditTypes) => {
   const [form, setForm] = useState({ ...data });
