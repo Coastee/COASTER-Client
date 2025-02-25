@@ -1,15 +1,8 @@
-import {
-  Button,
-  FileUploadBox,
-  HashtagChip,
-  HashtagInput,
-  Input,
-  SideModal,
-  Textarea,
-} from "@/components";
+import { Button, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
+
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
 import { useAddGroupChat } from "@/pages/GroupChatListPage/hooks/useAddGroupChat";
@@ -29,25 +22,15 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
     hashTags: [],
   });
 
-  const { handleInputChange, handleFocus, handleBlur, isFieldError } =
-    useAddGroupChat({
-      request,
-      setRequest,
-      maxLengths: TEXT_MAX_LENGTH,
-    });
-
-  const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(
+  const { handleInputChange, handleFocus, handleBlur, isFieldError } = useAddGroupChat({
     request,
-    setRequest
-  );
+    setRequest,
+    maxLengths: TEXT_MAX_LENGTH,
+  });
 
-  const {
-    image,
-    fileInputRef,
-    handleFileChange,
-    handleFileDelete,
-    handleFileClick,
-  } = useFileUpload();
+  const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(request, setRequest);
+
+  const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
 
   const isButtonDisabled = isFieldError("title", request.title);
 
@@ -57,11 +40,7 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   };
 
   return (
-    <SideModal
-      title="그룹 채팅방 개설하기"
-      isVisible={isVisible}
-      setIsVisible={setIsVisible}
-    >
+    <SideModal title="그룹 채팅방 개설하기" isVisible={isVisible} setIsVisible={setIsVisible}>
       <form css={s.modalContentStyle} onSubmit={handleSubmit}>
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
@@ -101,15 +80,10 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
                 <li key={idx}>
-                  <HashtagChip
-                    content={hashtag}
-                    removeHashtag={removeHashtag}
-                  />
+                  <TagChip content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
                 </li>
               ))}
-              {request.hashTags.length < 10 && (
-                <HashtagInput addHashtag={addHashtag} />
-              )}
+              {request.hashTags.length < 10 && <HashtagInput addHashtag={addHashtag} />}
             </ul>
           </li>
           <li css={s.questionContainer} style={{ maxWidth: "35rem" }}>
@@ -124,11 +98,7 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
           </li>
         </ul>
         <div css={s.buttonContainer}>
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={!request.title.trim() || isButtonDisabled}
-          >
+          <Button type="submit" variant="primary" disabled={!request.title.trim() || isButtonDisabled}>
             등록
           </Button>
         </div>

@@ -1,0 +1,7 @@
+export const MAX_LENGTH = {
+  NICKNAME_MIN: 2,
+  NICKNAME_MAX: 10,
+  CAREER: 20,
+  ONELINE_INTRO: 20,
+  INTRO: 60,
+};

@@ -70,6 +70,8 @@ export const profileImgStyle = css`
   border: 4px solid ${theme.color.dark3};
   border-radius: 1.2rem;
 
+  background-color: ${theme.color.dark3};
+
   object-fit: cover;
 `;
 

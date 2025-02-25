@@ -9,6 +9,7 @@ export { default as CoffeeIcon } from "./CoffeeIcon";
 export { default as CounterMinusIcon } from "./CounterMinusIcon";
 export { default as CounterPlusIcon } from "./CounterPlusIcon";
 export { default as DmIcon } from "./DmIcon";
+export { default as EditBlueIcon } from "./EditBlueIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as ExitIcon } from "./ExitIcon";
 export { default as FlagSquareIcon } from "./FlagSquareIcon";

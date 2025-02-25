@@ -1,14 +1,7 @@
 import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
-import {
-  Button,
-  FileUploadBox,
-  HashtagChip,
-  HashtagInput,
-  Input,
-  SideModal,
-  Textarea,
-} from "@/components";
+import { Button, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
+
 import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
@@ -29,35 +22,19 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
 
-  const {
-    isFieldError,
-    handleInputChange,
-    handleFocus,
-    handleBlur,
-    handleMaxCountChange,
-    formatDateTime,
-  } = useAddCoffeeChat({
-    dateTime,
-    setDateTime,
-    setRequest,
-    maxLengths: MAX_LENGTH,
-  });
+  const { isFieldError, handleInputChange, handleFocus, handleBlur, handleMaxCountChange, formatDateTime } =
+    useAddCoffeeChat({
+      dateTime,
+      setDateTime,
+      setRequest,
+      maxLengths: MAX_LENGTH,
+    });
 
-  const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(
-    request,
-    setRequest
-  );
+  const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(request, setRequest);
 
-  const {
-    image,
-    fileInputRef,
-    handleFileChange,
-    handleFileDelete,
-    handleFileClick,
-  } = useFileUpload();
+  const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
 
-  const isButtonDisabled =
-    request.title.trim().length === 0 || request.location.trim().length === 0;
+  const isButtonDisabled = request.title.trim().length === 0 || request.location.trim().length === 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,15 +95,10 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
                 <li key={idx}>
-                  <HashtagChip
-                    content={hashtag}
-                    removeHashtag={removeHashtag}
-                  />
+                  <TagChip content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
                 </li>
               ))}
-              {request.hashTags.length < MAX_HASHTAG_COUNT && (
-                <HashtagInput addHashtag={addHashtag} />
-              )}
+              {request.hashTags.length < MAX_HASHTAG_COUNT && <HashtagInput addHashtag={addHashtag} />}
             </ul>
           </li>
           <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
@@ -158,22 +130,11 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
             </label>
             <div css={s.dateTimeLayoutStyle}>
               <div css={{ display: "flex", gap: "1.2rem" }}>
-                <div
-                  id="date-time"
-                  css={s.dateTimeContainerStyle(request.startDate[0] === 0)}
-                >
-                  {request.startDate[0] === 0
-                    ? CHAT_FORM_FIELDS.dateTime.placeholder
-                    : request.startDate}
+                <div id="date-time" css={s.dateTimeContainerStyle(request.startDate[0] === 0)}>
+                  {request.startDate[0] === 0 ? CHAT_FORM_FIELDS.dateTime.placeholder : request.startDate}
                 </div>
-                <TimeDropdown
-                  type="start"
-                  setTime={(time) => setDateTime({ ...dateTime, start: time })}
-                />
-                <TimeDropdown
-                  type="end"
-                  setTime={(time) => setDateTime({ ...dateTime, end: time })}
-                />
+                <TimeDropdown type="start" setTime={(time) => setDateTime({ ...dateTime, start: time })} />
+                <TimeDropdown type="end" setTime={(time) => setDateTime({ ...dateTime, end: time })} />
               </div>
             </div>
           </li>
@@ -204,13 +165,8 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
               maxLength={MAX_LENGTH.details}
             />
           </li>
-          <li
-            css={s.questionContainer}
-            style={{ maxWidth: "35rem", paddingTop: "1.2rem" }}
-          >
-            <div css={s.textareaTitleStyle}>
-              {CHAT_FORM_FIELDS.file.headerTxt}
-            </div>
+          <li css={s.questionContainer} style={{ maxWidth: "35rem", paddingTop: "1.2rem" }}>
+            <div css={s.textareaTitleStyle}>{CHAT_FORM_FIELDS.file.headerTxt}</div>
             <FileUploadBox
               image={image}
               fileInputRef={fileInputRef}

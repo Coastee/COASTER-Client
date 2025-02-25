@@ -11,7 +11,7 @@ export const buttonStyle = css`
 
   gap: 0.8rem;
 
-  border-radius: 10px;
+  border-radius: 1rem;
 
   font-weight: 500;
   color: ${theme.color.white};
@@ -35,7 +35,10 @@ const textBaseStyle = css`
   color: ${theme.color.primaryBlue1};
 `;
 
-export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<typeof css>> = {
+export const variantStyles: Record<
+  Required<ButtonProps>["variant"],
+  ReturnType<typeof css>
+> = {
   primary: css`
     background-color: ${theme.color.primaryBlue2};
 
@@ -88,8 +91,6 @@ export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<
   `,
 
   hashtag: css`
-    border-radius: 1rem;
-
     background-color: ${theme.color.dark3};
 
     color: ${theme.color.gray3};
@@ -101,7 +102,10 @@ export const variantStyles: Record<Required<ButtonProps>["variant"], ReturnType<
   `,
 };
 
-export const sizeStyle: Record<Required<ButtonProps>["size"], ReturnType<typeof css>> = {
+export const sizeStyle: Record<
+  Required<ButtonProps>["size"],
+  ReturnType<typeof css>
+> = {
   medium: css`
     padding: 0.6rem 1rem;
 

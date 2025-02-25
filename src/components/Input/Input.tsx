@@ -9,6 +9,7 @@ import {
 } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  variant?: "primary" | "secondary";
   isError?: boolean;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -19,6 +20,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
+      variant = "primary",
       isError = false,
       leftIcon,
       rightIcon,
@@ -33,7 +35,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <div css={s.layoutStyle(!!supportingText && isError)}>
-        <div css={s.wrapperStyle(!!leftIcon, !!rightIcon, isError)}>
+        <div css={s.wrapperStyle(variant, !!leftIcon, !!rightIcon, isError)}>
           {leftIcon}
           <input
             css={s.inputStyle}
