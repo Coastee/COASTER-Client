@@ -1,30 +1,28 @@
 import { PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
-import { getServerInfo } from "@/components/ServerHeader/utils/getServerInfo";
-import { SERVERINFO } from "@/constants/serverInfo";
-import { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  GLOBAL_MENUS,
+  type GlobalMenuTypes,
+  SERVERINFO,
+} from "@/constants/serverInfo";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
-  const [myServerIdList, setMyServers] = useState([2, 6, 10, 15, 22]);
+  const [myServerIdList, setMyServers] = useState<number[]>([2, 6, 10, 15, 22]); // dummy
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [currentServer, setCurrentServer] = useState(
-    getServerInfo(myServerIdList[0])
-  );
+  const [currentServer, setCurrentServer] = useState(SERVERINFO[0]);
+  const [selectedGlobalMenu, setSelectedGlobalMenu] = useState<
+    GlobalMenuTypes | undefined
+  >(undefined);
+  const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<
+    string | undefined
+  >(undefined);
 
   const myServerSet = new Set(myServerIdList);
-
-  const handleNavigate = useCallback(
-    (currentServerId: number) => {
-      const menu = pathname.split("/")[2] || "home";
-      navigate(`/${currentServerId}/${menu}`);
-    },
-    [pathname, navigate]
-  );
 
   const exceptCurrentServer = currentServer
     ? SERVERINFO.filter(
@@ -32,24 +30,46 @@ const ServerHeader = () => {
       )
     : [];
 
-  useEffect(() => {
-    if (currentServer) {
-      handleNavigate(currentServer.id);
-    }
-  }, [currentServer, handleNavigate]);
-
   return (
     <header css={s.containerStyle}>
-      <ServerDropdown
-        options={exceptCurrentServer}
-        item={currentServer}
-        setItem={setCurrentServer}
-        dropdownOpen={dropdownOpen}
-        setDropdownOpen={setDropdownOpen}
-      />
-      <button type="button" css={s.plusButtonStyle}>
-        <PlusIcon />
-      </button>
+      <div css={s.topMenuStyle}>
+        <ServerDropdown
+          options={exceptCurrentServer}
+          item={currentServer}
+          setItem={setCurrentServer}
+          setSelectedGlobalMenu={setSelectedGlobalMenu}
+          dropdownOpen={dropdownOpen}
+          setDropdownOpen={setDropdownOpen}
+        />
+        <button type="button" css={s.plusButtonStyle}>
+          <PlusIcon />
+        </button>
+      </div>
+
+      <ul css={s.globalMenuListStyle}>
+        {GLOBAL_MENUS.map((menu) => (
+          <li
+            key={menu.id}
+            css={s.globalMenuItemStyle}
+            onClick={() => {
+              setSelectedGlobalMenu(menu);
+              navigate(`/${menu.id}`);
+            }}
+            onKeyDown={() => setSelectedGlobalMenu(menu)}
+            onMouseEnter={() => setHoveredGlobalMenuId(menu.id)}
+            onMouseLeave={() => setHoveredGlobalMenuId(undefined)}
+          >
+            <div>
+              {menu.id === selectedGlobalMenu?.id ||
+              hoveredGlobalMenuId === menu.id ? (
+                <menu.activeIcon />
+              ) : (
+                <menu.icon />
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
     </header>
   );
 };

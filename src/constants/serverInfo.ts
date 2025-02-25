@@ -1,16 +1,28 @@
 import {
   BeautyServerIcon,
+  CalendarMenuActiveIcon,
+  CalendarMenuIcon,
+  DmMenuActiveIcon,
+  DmMenuIcon,
   HealthServerIcon,
   HomeIcon,
   HomeLivingServerIcon,
   HrLawServerIcon,
   MobilityServerIcon,
+  ProfileMenuActiveIcon,
+  ProfileMenuIcon,
 } from "../assets/svg"; // 임시 아이콘
 
 export type ServerInfoType = {
   id: number;
   name: string;
   icon: React.FC;
+};
+
+export type GlobalMenuTypes = {
+  id: string;
+  icon: React.FC;
+  activeIcon: React.FC;
 };
 
 export const SERVERINFO: ServerInfoType[] = [
@@ -38,4 +50,18 @@ export const SERVERINFO: ServerInfoType[] = [
   { id: 21, name: "환경/에너지", icon: HomeIcon },
   { id: 22, name: "헬스케어/바이오", icon: HealthServerIcon },
   { id: 23, name: "기타", icon: HomeIcon },
+];
+
+export const GLOBAL_MENUS: GlobalMenuTypes[] = [
+  { id: "dm", icon: DmMenuIcon, activeIcon: DmMenuActiveIcon },
+  {
+    id: "calendar",
+    icon: CalendarMenuIcon,
+    activeIcon: CalendarMenuActiveIcon,
+  },
+  {
+    id: "mypage",
+    icon: ProfileMenuIcon,
+    activeIcon: ProfileMenuActiveIcon,
+  },
 ];
