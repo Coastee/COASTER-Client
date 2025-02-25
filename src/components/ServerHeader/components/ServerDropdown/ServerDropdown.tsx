@@ -1,11 +1,13 @@
 import { ReturnIcon } from "@/assets/svg";
-import type { ServerInfoType } from "@/constants/serverInfo";
+import type { GlobalMenuTypes, ServerInfoType } from "@/constants/serverInfo";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   options: ServerInfoType[];
   item?: ServerInfoType;
   setItem: (item: ServerInfoType) => void;
+  setSelectedGlobalMenu: (menu: GlobalMenuTypes | undefined) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
 }
@@ -14,12 +16,18 @@ const ServerDropdown = ({
   options,
   item,
   setItem,
+  setSelectedGlobalMenu,
   dropdownOpen,
   setDropdownOpen,
   ...props
 }: DropdownProps) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const handleItemClick = (item: ServerInfoType) => {
-    setItem(item);
+    setSelectedGlobalMenu(undefined);
+    const menu = pathname.split("/")[2] || "home";
+    navigate(`/${item.id}/${menu}`);
     setDropdownOpen(false);
   };
 

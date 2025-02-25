@@ -4,25 +4,43 @@ import { css } from "@emotion/react";
 export const containerStyle = css`
   display: flex;
   flex-direction: column;
+
   align-items: center;
-  row-gap: 2.8rem;
+  justify-content: space-between;
+
+  padding: 4.4rem 1.8rem 2rem;
+
   width: 9.4rem;
   height: 100vh;
-  padding: 4.4rem 1.8rem;
+
   border-radius: 0rem 2.5rem 2.5rem 0rem;
+
   background: ${theme.color.dark2};
+`;
+
+export const topMenuStyle = css`
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 2.2rem;
 `;
 
 export const serverListStyle = css`
   display: flex;
   flex-direction: column;
+
   row-gap: 1.3rem;
+
   width: 100%;
 `;
 
 export const serverItemStyle = css`
-  width: 100%;
   aspect-ratio: 1;
+
+  width: 100%;
+
   border: 1px solid ${theme.color.dark0};
   border-radius: 1rem;
 
@@ -33,9 +51,10 @@ export const serverItemStyle = css`
 `;
 
 export const plusButtonStyle = css`
+  padding: 1rem;
+
   width: 4rem;
   height: 4rem;
-  padding: 1rem;
 
   :hover {
     scale: 1.2;
@@ -44,5 +63,31 @@ export const plusButtonStyle = css`
     svg path {
       stroke: ${theme.color.white};
     }
+  }
+`;
+
+export const globalMenuListStyle = css`
+  width: 5.4rem;
+
+  li:nth-of-type(1),
+  li:nth-of-type(2) {
+    border-bottom: 2px solid ${theme.color.dark1};
+  }
+`;
+
+export const globalMenuItemStyle = css`
+  padding: 1.7rem 0.5rem;
+
+  width: 100%;
+
+  &:nth-of-type(2) div {
+    padding: 0 0.6rem 0 0.6rem;
+  }
+
+  div {
+    padding: 0.5rem;
+    width: 4.4rem;
+    height: 4.4rem;
+    cursor: pointer;
   }
 `;
