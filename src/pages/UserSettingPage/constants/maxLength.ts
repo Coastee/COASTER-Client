@@ -4,4 +4,6 @@ export const MAX_LENGTH = {
   CAREER: 20,
   ONELINE_INTRO: 20,
   INTRO: 60,
+  DETAIL_COUNT: 5,
+  DETAIL: 30,
 };

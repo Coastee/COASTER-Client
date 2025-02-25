@@ -1,4 +1,3 @@
-export { default as Arrow } from "./Arrow";
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ArrowRightIcon } from "./ArrowRightIcon";
 export { default as ChatIcon } from "./ChatIcon";
@@ -25,6 +24,7 @@ export { default as Logo4Icon } from "./Logo4Icon";
 export { default as Logo4WhiteIcon } from "./Logo4WhiteIcon";
 export { default as MiddlePointIcon } from "./MiddlePointIcon";
 export { default as NaverIcon } from "./NaverIcon";
+export { default as PlusBlueIcon } from "./PlusBlueIcon";
 export { default as PlusIcon } from "./PlusIcon";
 export { default as ProfileIcon } from "./ProfileIcon";
 export { default as RotateLogoIcon } from "./RotateLogoIcon";

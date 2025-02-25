@@ -1,7 +1,4 @@
-import type {
-  formDateTimeTypes,
-  requestDateType,
-} from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
+import type { FormDateTimeTypes, RequestDateType } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 
 export const formatDate = (date: string) => {
   const currentYear = new Date().getFullYear();
@@ -34,10 +31,10 @@ export const simpleFormatDate = (date: Date) => {
 };
 
 export const requestFormatTime = (
-  dateTime: formDateTimeTypes
+  dateTime: FormDateTimeTypes,
 ): {
-  startDate: requestDateType;
-  endDate: requestDateType;
+  startDate: RequestDateType;
+  endDate: RequestDateType;
 } => {
   const [year, month, day] = dateTime.date
     ? (dateTime.date.split(".").map(Number) as [number, number, number])
@@ -53,4 +50,11 @@ export const requestFormatTime = (
     startDate: [year, month - 1, day, ...parseTime(dateTime.start), 0, 0],
     endDate: [year, month - 1, day, ...parseTime(dateTime.end), 0, 0],
   };
+};
+
+export const formatDateArray = (dateArray: number[]): string => {
+  if (dateArray.length < 3) return "";
+
+  const [year, month, day] = dateArray;
+  return `${year}. ${month}. ${day}`;
 };
