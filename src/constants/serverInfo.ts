@@ -55,7 +55,7 @@ export const SERVERINFO: ServerInfoType[] = [
 export const GLOBAL_MENUS: GlobalMenuTypes[] = [
   { id: "dm", icon: DmMenuIcon, activeIcon: DmMenuActiveIcon },
   {
-    id: "calendar",
+    id: "schedule",
     icon: CalendarMenuIcon,
     activeIcon: CalendarMenuActiveIcon,
   },
