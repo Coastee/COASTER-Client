@@ -5,15 +5,17 @@ import {
   type GlobalMenuTypes,
   SERVERINFO,
 } from "@/constants/serverInfo";
-import { useState } from "react";
+import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
 
-  const [myServerIdList, setMyServers] = useState<number[]>([2, 6, 10, 15, 22]); // dummy
+  const [myServerIdList] = useState<number[]>([2, 6, 10, 15, 22]); // dummy
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [currentServer, setCurrentServer] = useState(SERVERINFO[0]);
   const [selectedGlobalMenu, setSelectedGlobalMenu] = useState<
     GlobalMenuTypes | undefined
@@ -29,6 +31,21 @@ const ServerHeader = () => {
         (server) => myServerSet.has(server.id) && server.id !== currentServer.id
       )
     : [];
+
+  const handleGlobalMenuClick = (menu: GlobalMenuTypes | undefined) => {
+    setSelectedGlobalMenu(menu);
+    if (menu?.id === "schedule") {
+      setIsScheduleVisible(true);
+    } else {
+      navigate(`/${menu?.id}`);
+    }
+  };
+
+  useEffect(() => {
+    if (!isScheduleVisible && selectedGlobalMenu?.id === "schedule") {
+      setSelectedGlobalMenu(undefined);
+    }
+  }, [isScheduleVisible, selectedGlobalMenu]);
 
   return (
     <header css={s.containerStyle}>
@@ -51,11 +68,8 @@ const ServerHeader = () => {
           <li
             key={menu.id}
             css={s.globalMenuItemStyle}
-            onClick={() => {
-              setSelectedGlobalMenu(menu);
-              navigate(`/${menu.id}`);
-            }}
-            onKeyDown={() => setSelectedGlobalMenu(menu)}
+            onClick={() => handleGlobalMenuClick(menu)}
+            onKeyDown={() => handleGlobalMenuClick(menu)}
             onMouseEnter={() => setHoveredGlobalMenuId(menu.id)}
             onMouseLeave={() => setHoveredGlobalMenuId(undefined)}
           >
@@ -70,6 +84,10 @@ const ServerHeader = () => {
           </li>
         ))}
       </ul>
+      <ScheduleSideModal
+        isVisible={isScheduleVisible}
+        setIsVisible={setIsScheduleVisible}
+      />
     </header>
   );
 };
