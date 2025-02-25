@@ -62,7 +62,7 @@ const ProfileEdit = () => {
                   <PlusIcon width={14} height={14} />
                 </button>
                 <ul>
-                  <li id="1">
+                  <li>
                     <TagChip
                       id={1}
                       variant="link"
