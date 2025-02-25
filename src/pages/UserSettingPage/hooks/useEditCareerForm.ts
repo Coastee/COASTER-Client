@@ -1,30 +1,56 @@
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
+import type { CareerContentTypes } from "@/pages/UserSettingPage/types/career";
+
 import { useState } from "react";
 
-export const useEditCareerForm = () => {
-  const [isCurrentJob, setIsCurrentJob] = useState(false);
-  const [detailInputs, setDetailInputs] = useState<string[]>([""]);
+export const useEditCareerForm = (data?: CareerContentTypes) => {
+  const [careerData, setCareerData] = useState<CareerContentTypes>({
+    title: data?.title ?? "",
+    contentList: data?.contentList ?? [""],
+    startDate: data?.startDate ?? [0, 0, 0, 0, 0, 0, 0],
+    endDate: data?.endDate ?? null,
+  });
+
+  const handleInputChange = (key: keyof CareerContentTypes, value: string | number[] | null) => {
+    setCareerData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleDetailChange = (index: number, value: string) => {
+    setCareerData((prev) => ({
+      ...prev,
+      contentList: prev.contentList.map((detail, i) => (i === index ? value : detail)),
+    }));
+  };
 
   const handleAddDetailInput = () => {
-    if (detailInputs.length < MAX_LENGTH.DETAIL_COUNT) {
-      setDetailInputs([...detailInputs, ""]);
+    if (careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT) {
+      setCareerData((prev) => ({
+        ...prev,
+        contentList: [...prev.contentList, ""],
+      }));
     }
   };
 
   const handleDeleteDetailInput = (index: number) => {
-    setDetailInputs((prevDetails) => prevDetails.filter((_, i) => i !== index));
+    setCareerData((prev) => ({
+      ...prev,
+      contentList: prev.contentList.filter((_, i) => i !== index),
+    }));
   };
 
-  const handleDetailChange = (index: number, value: string) => {
-    setDetailInputs((prevDetails) => prevDetails.map((detail, i) => (i === index ? value : detail)));
+  const setIsCurrentJob = (isCurrent: boolean) => {
+    setCareerData((prev) => ({
+      ...prev,
+      endDate: isCurrent ? null : [0, 0, 0, 0, 0, 0, 0],
+    }));
   };
 
   return {
-    isCurrentJob,
-    setIsCurrentJob,
-    detailInputs,
+    careerData,
+    handleInputChange,
+    handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    handleDetailChange,
+    setIsCurrentJob,
   };
 };

@@ -4,15 +4,16 @@ import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChi
 import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.styles";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
+import { formatDateArray } from "@/utils/dateTime";
 
 const CareerAdd = () => {
   const {
-    isCurrentJob,
-    setIsCurrentJob,
-    detailInputs,
+    careerData,
+    handleInputChange,
+    handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    handleDetailChange,
+    setIsCurrentJob,
   } = useEditCareerForm();
 
   return (
@@ -23,15 +24,28 @@ const CareerAdd = () => {
           <label htmlFor="career-name" css={s.labelStyle}>
             경력명
           </label>
-          <Input id="career-name" maxLength={30} variant="secondary" />
+          <Input
+            id="career-name"
+            maxLength={30}
+            variant="secondary"
+            value={careerData.title}
+            onChange={(e) => handleInputChange("title", e.target.value)}
+          />
         </div>
+
         <div css={s.fieldStyle}>
           <label htmlFor="period" css={s.labelStyle}>
             기간
           </label>
-          {/* DatePicker 구현해야 함 */}
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" /> <p css={{ marginRight: "1.3rem" }}>부터</p> <Input variant="secondary" />
+            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <p css={{ marginRight: "1.3rem" }}>부터</p>
+            <Input
+              variant="secondary"
+              value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
+              onChange={() => {}}
+              disabled={!careerData.endDate}
+            />
             <p>까지</p>
             <Divider direction="horizontal" />
             <div css={s.checkboxStyle}>
@@ -41,12 +55,13 @@ const CareerAdd = () => {
               <CheckBox
                 id="current-job"
                 variant="round"
-                isChecked={isCurrentJob}
-                onChange={() => setIsCurrentJob((prev) => !prev)}
+                isChecked={!careerData.endDate}
+                onChange={() => setIsCurrentJob(!careerData.endDate)}
               />
             </div>
           </div>
         </div>
+
         <div css={s.fieldStyle}>
           <div css={{ display: "flex", gap: "0.73rem" }}>
             <label htmlFor="detail" css={s.labelStyle}>
@@ -54,11 +69,12 @@ const CareerAdd = () => {
             </label>
             <p css={s.labelStyle}>·</p>
             <span css={{ display: "flex" }}>
-              <p css={s.lengthStyle}>{detailInputs.length}</p>
+              <p css={s.lengthStyle}>{careerData.contentList.length}</p>
               <p css={s.labelStyle}>/{MAX_LENGTH.DETAIL_COUNT}</p>
             </span>
           </div>
-          {detailInputs.map((detail, index) =>
+
+          {careerData.contentList.map((detail, index) =>
             index === 0 ? (
               <Input
                 key={index}
@@ -76,7 +92,8 @@ const CareerAdd = () => {
               />
             ),
           )}
-          {detailInputs.length < MAX_LENGTH.DETAIL_COUNT && (
+
+          {careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT && (
             <button type="button" css={s.iconStyle} onClick={handleAddDetailInput}>
               <PlusBlueIcon width={16} height={16} />
             </button>
