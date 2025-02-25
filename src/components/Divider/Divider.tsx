@@ -12,7 +12,7 @@ const Divider = ({ variant = "single", direction = "vertical", children, ...prop
     <div css={s.wrapperStyle(variant)} {...props}>
       <hr css={s.dividerStyle(direction)} />
       {variant === "date" && <p css={s.childrenStyle}>{children}</p>}
-      <hr css={s.dividerStyle(direction)} />
+      {direction === "vertical" && <hr css={s.dividerStyle(direction)} />}
     </div>
   );
 };
