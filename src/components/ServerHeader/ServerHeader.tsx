@@ -52,8 +52,8 @@ const ServerHeader = () => {
       <div css={s.topMenuStyle}>
         <ServerDropdown
           options={exceptCurrentServer}
-          item={currentServer}
-          setItem={setCurrentServer}
+          currentServer={currentServer}
+          setCurrentServer={setCurrentServer}
           setSelectedGlobalMenu={setSelectedGlobalMenu}
           dropdownOpen={dropdownOpen}
           setDropdownOpen={setDropdownOpen}

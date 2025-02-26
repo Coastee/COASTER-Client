@@ -5,8 +5,8 @@ import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   options: ServerInfoType[];
-  item?: ServerInfoType;
-  setItem: (item: ServerInfoType) => void;
+  currentServer?: ServerInfoType | undefined;
+  setCurrentServer: (item: ServerInfoType) => void;
   setSelectedGlobalMenu: (menu: GlobalMenuTypes | undefined) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
@@ -14,8 +14,8 @@ interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
 
 const ServerDropdown = ({
   options,
-  item,
-  setItem,
+  currentServer,
+  setCurrentServer,
   setSelectedGlobalMenu,
   dropdownOpen,
   setDropdownOpen,
@@ -33,20 +33,22 @@ const ServerDropdown = ({
 
   return (
     <div css={s.serverDropdownStyle}>
-      <div
-        css={s.dropdownTopStyle(dropdownOpen)}
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        onKeyDown={() => setDropdownOpen(!dropdownOpen)}
-      >
-        <div css={s.currentIconStyle(dropdownOpen)}>
-          {item && <item.icon css={{ width: "100%", height: "100%" }} />}
-        </div>
-        <div css={s.currentIconBottomStyle(dropdownOpen)}>
-          {dropdownOpen ? (
-            <div css={s.divideLineStyle} />
-          ) : (
-            <ReturnIcon width={14} height={8} />
-          )}
+      <div css={s.dropdownTopStyle(dropdownOpen)}>
+        {currentServer && (
+          <div
+            css={s.currentIconStyle(dropdownOpen)}
+            onClick={() => handleItemClick(currentServer)}
+            onKeyDown={() => handleItemClick(currentServer)}
+          >
+            <currentServer.icon css={{ width: "100%", height: "100%" }} />
+          </div>
+        )}
+        <div
+          css={s.currentIconBottomStyle(dropdownOpen)}
+          onClick={() => setDropdownOpen(!dropdownOpen)}
+          onKeyDown={() => setDropdownOpen(!dropdownOpen)}
+        >
+          {dropdownOpen ? <div css={s.divideLineStyle} /> : <ReturnIcon width={14} height={8} />}
         </div>
       </div>
 
@@ -64,13 +66,12 @@ const ServerDropdown = ({
               </li>
             ))}
           </ul>
-          <div css={s.bottomArrowIcon}>
-            <ReturnIcon
-              width={14}
-              height={8}
-              css={{ transform: "rotate(180deg)" }}
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-            />
+          <div
+            css={s.bottomArrowIcon}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            onKeyDown={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <ReturnIcon width={14} height={8} css={{ transform: "rotate(180deg)" }} />
           </div>
         </>
       )}
