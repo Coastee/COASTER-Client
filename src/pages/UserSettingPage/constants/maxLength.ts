@@ -12,3 +12,8 @@ export const MIN_LENGTH = {
   NICKNAME: 2,
   CAREER: 1,
 };
+
+export const MIN_LENGTH = {
+  NICKNAME: 2,
+  CAREER: 1,
+};
