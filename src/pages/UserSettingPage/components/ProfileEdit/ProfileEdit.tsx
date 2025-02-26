@@ -1,5 +1,6 @@
 import { EditIcon, PlusIcon } from "@/assets/svg";
 import { Button, Input, TagChip, Textarea } from "@/components";
+import { PATH } from "@/constants/path";
 import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
@@ -144,10 +145,12 @@ const ProfileEdit = () => {
         </div>
       </form>
       <div css={s.buttonLayout}>
-        <Button variant="tertiary" size="medium" onClick={() => navigate("/mypage")}>
+        <Button variant="tertiary" size="medium" onClick={() => navigate(PATH.MYPAGE)}>
           뒤로 가기
         </Button>
-        <Button size="medium">편집 완료</Button>
+        <Button size="medium" onClick={() => navigate(PATH.MYPAGE)}>
+          편집 완료
+        </Button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { PlusBlueIcon } from "@/assets/svg";
 import { Button, CheckBox, Divider, Input } from "@/components";
+import { PATH } from "@/constants/path";
 import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChip/CareerDetailChip";
 import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.styles";
 import { careerDummyData } from "@/pages/UserSettingPage/constants/dummy";
@@ -8,8 +9,11 @@ import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
 import { formatDateArray } from "@/utils/dateTime";
+import { useNavigate } from "react-router-dom";
 
 const CareerEdit = () => {
+  const navigate = useNavigate();
+
   const {
     careerData,
     handleInputChange,
@@ -120,10 +124,12 @@ const CareerEdit = () => {
         </div>
       </form>
       <div css={s.buttonLayoutStyle}>
-        <Button size="medium" variant="tertiary">
+        <Button size="medium" variant="tertiary" onClick={() => navigate(PATH.CAREER_SETTING)}>
           뒤로 가기
         </Button>
-        <Button size="medium">추가 하기</Button>
+        <Button size="medium" onClick={() => navigate(PATH.CAREER_SETTING)}>
+          추가 하기
+        </Button>
       </div>
     </div>
   );

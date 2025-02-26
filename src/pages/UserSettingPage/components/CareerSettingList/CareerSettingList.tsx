@@ -1,5 +1,6 @@
 import { PlusIcon } from "@/assets/svg";
 import { Button } from "@/components";
+import { PATH } from "@/constants/path";
 import { careerData } from "@/pages/MyPage/constants/dummy";
 import CareerBoxChip from "@/pages/UserSettingPage/components/CareerBoxChip/CareerBoxChip";
 import * as s from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList.styles";
@@ -28,7 +29,7 @@ const CareerSettingList = () => {
         ))}
       </ul>
       <div css={s.buttonLayoutStyle}>
-        <Button variant="tertiary" size="medium" onClick={() => navigate("/mypage")}>
+        <Button variant="tertiary" size="medium" onClick={() => navigate(PATH.MYPAGE)}>
           뒤로 가기
         </Button>
       </div>
