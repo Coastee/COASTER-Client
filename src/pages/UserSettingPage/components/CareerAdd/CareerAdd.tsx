@@ -3,10 +3,14 @@ import { CheckBox, Divider, Input } from "@/components";
 import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChip/CareerDetailChip";
 import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.styles";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
+import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
 import { formatDateArray } from "@/utils/dateTime";
+import { useState } from "react";
 
 const CareerAdd = () => {
+  const [isTitleFocused, setIsTitleFocused] = useState(false);
+
   const {
     careerData,
     handleInputChange,
@@ -15,6 +19,8 @@ const CareerAdd = () => {
     handleDeleteDetailInput,
     setIsCurrentJob,
   } = useEditCareerForm();
+
+  const { handleSupportingText, isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
 
   return (
     <div css={s.pageStyle}>
@@ -29,6 +35,9 @@ const CareerAdd = () => {
             maxLength={30}
             variant="secondary"
             value={careerData.title}
+            isError={isTitleFocused && isTitleError}
+            supportingText={isTitleError ? handleSupportingText("title") : ""}
+            onFocus={() => setIsTitleFocused(true)}
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
@@ -38,12 +47,20 @@ const CareerAdd = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input
+              variant="secondary"
+              value={formatDateArray(careerData.startDate)}
+              onChange={() => {}}
+              isError={isDateError}
+              supportingText={handleSupportingText("startDate")}
+            />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
               value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
               onChange={() => {}}
+              isError={isDateError}
+              supportingText={handleSupportingText("endDate")}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
@@ -81,6 +98,8 @@ const CareerAdd = () => {
                 variant="secondary"
                 maxLength={MAX_LENGTH.DETAIL}
                 value={detail}
+                isError={isContentError[index]}
+                supportingText={handleSupportingText("contentList", index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
               />
             ) : (
@@ -89,6 +108,8 @@ const CareerAdd = () => {
                 value={detail}
                 onDelete={() => handleDeleteDetailInput(index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
+                isError={isContentError[index]}
+                supportingText={handleSupportingText("contentList", index)}
               />
             ),
           )}
