@@ -1,6 +1,6 @@
 import { PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
-import { GLOBAL_MENUS, type GlobalMenuTypes, SERVERINFO } from "@/constants/serverInfo";
+import { GLOBAL_MENUS, type GlobalMenuTypes, SERVERINFO, type ServerInfoType } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import useGlobalMenuStore from "@/stores/useGlobalMenuStore";
 import { useEffect, useState } from "react";
@@ -11,11 +11,12 @@ const ServerHeader = () => {
   const navigate = useNavigate();
   const { selectedGlobalMenu, setSelectedGlobalMenu } = useGlobalMenuStore();
 
-  const [prevGlobalMenu, setPrevGlobalMenu] = useState(selectedGlobalMenu);
   const [myServerIdList] = useState<number[]>([2, 6, 10, 15, 22]); // dummy
+  const currentServerInfo = SERVERINFO.find((server) => server.id === myServerIdList[0]);
+  const [currentServer, setCurrentServer] = useState<ServerInfoType | undefined>(currentServerInfo);
+  const [prevGlobalMenu, setPrevGlobalMenu] = useState(selectedGlobalMenu);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
-  const [currentServer, setCurrentServer] = useState(SERVERINFO[0]);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | undefined>(undefined);
 
   const myServerSet = new Set(myServerIdList);
