@@ -1,6 +1,5 @@
-import { CloseCircleIcon, PlusIcon } from "@/assets/svg";
+import { PlusIcon } from "@/assets/svg";
 import { Button } from "@/components";
-import { deleteStyle } from "@/components/TagChip/TagChip.styles";
 import { careerData } from "@/pages/MyPage/constants/dummy";
 import CareerBoxChip from "@/pages/UserSettingPage/components/CareerBoxChip/CareerBoxChip";
 import * as s from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList.styles";
@@ -25,12 +24,7 @@ const CareerSettingList = () => {
       </div>
       <ul css={s.listStyle}>
         {careerData.map((career, index) => (
-          <div key={`${career.title}-${index}`}>
-            <CareerBoxChip {...career} css={{ position: "relative" }} />
-            <button type="button" css={deleteStyle}>
-              <CloseCircleIcon width={18} />
-            </button>
-          </div>
+          <CareerBoxChip key={`${career.title}-${index}`} {...career} css={{ position: "relative" }} />
         ))}
       </ul>
       <div css={s.buttonLayoutStyle}>

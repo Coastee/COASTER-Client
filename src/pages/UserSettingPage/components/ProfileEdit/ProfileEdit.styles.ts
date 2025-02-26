@@ -94,7 +94,7 @@ export const backgroundImgStyle = css`
   width: 65rem;
   height: 13rem;
 
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 1rem 1rem 0 0;
 `;
 
 export const editBtnStyle = css`
@@ -129,7 +129,7 @@ export const fieldStyle = css`
   align-items: start;
   gap: 0.55rem;
 
-  &:first-child {
+  &:first-of-type {
     max-width: 19.5rem;
   }
 `;
