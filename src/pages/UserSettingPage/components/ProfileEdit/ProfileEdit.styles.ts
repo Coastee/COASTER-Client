@@ -145,8 +145,8 @@ export const boxLayoutStyle = css`
 export const gridLayoutStyle = css`
   display: grid;
 
-  max-width: 30.5rem;
-  grid-template-columns: 2.3fr 1fr;
+  max-width: 35rem;
+  grid-template-columns: 5fr 1.7fr;
 
   gap: 2.3rem;
 `;

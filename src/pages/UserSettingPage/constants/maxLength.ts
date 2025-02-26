@@ -1,7 +1,11 @@
 export const MAX_LENGTH = {
-  NICKNAME_MIN: 2,
-  NICKNAME_MAX: 10,
-  CAREER: 20,
-  ONELINE_INTRO: 20,
+  NICKNAME: 10,
+  CAREER: 15,
+  ONELINE_INTRO: 40,
   INTRO: 60,
+};
+
+export const MIN_LENGTH = {
+  NICKNAME: 2,
+  CAREER: 1,
 };
