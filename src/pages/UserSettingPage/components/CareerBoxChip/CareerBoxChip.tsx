@@ -17,17 +17,25 @@ const CareerBoxChip = ({ title, period, descriptions }: CareerBoxProps) => {
     <li>
       <section css={s.wrapperStyle}>
         <button type="button" css={deleteStyle} onClick={() => {}}>
-          <CloseCircleIcon width={18} />
+          <CloseCircleIcon width={26} />
         </button>
         <header css={s.layoutStyle}>
-          <div css={{ display: "flex", gap: "1.3rem" }}>
+          <div css={s.titleBoxStyle}>
             <div css={s.titleLayoutStyle}>
-              <RotateLogoIcon width={15} height={13} css={{ flexShrink: "0" }} />
+              <RotateLogoIcon
+                width={15}
+                height={13}
+                css={{ flexShrink: "0" }}
+              />
               <h1 css={s.titleStyle}>{title}&nbsp;&nbsp;&nbsp;·</h1>
             </div>
             <p css={s.periodStyle}>{period}</p>
           </div>
-          <EditBlueIcon width={19} css={s.editIconStyle} onClick={() => navigate("/mypage/setting-edit-career")} />
+          <EditBlueIcon
+            width={19}
+            css={s.editIconStyle}
+            onClick={() => navigate("/mypage/setting-edit-career")}
+          />
         </header>
         <Divider />
         <ul css={s.listLayoutStyle}>

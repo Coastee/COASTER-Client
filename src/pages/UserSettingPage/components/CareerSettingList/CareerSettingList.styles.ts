@@ -1,3 +1,4 @@
+import { scrollDarkStyle } from "@/styles/scrollStyle";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
@@ -23,7 +24,6 @@ export const pageStyle = css`
 `;
 
 export const fixedLayoutStyle = css`
-  position: fixed;
   display: flex;
 
   flex-direction: column;
@@ -60,24 +60,27 @@ export const plusButtonStyle = css`
     flex-shrink: 0;
   }
 
-    &:hover {
-      background-color: ${theme.color.primaryBlue3};
+  &:hover {
+    background-color: ${theme.color.primaryBlue3};
 
-      transition: 0.15s ease-in;
-      transform: scale(1.005)
-    }
-
+    transition: 0.15s ease-in;
+    transform: scale(1.005);
+  }
 `;
 
 export const listStyle = css`
- display: flex;
+  display: flex;
 
- padding-top: 19rem;
+  flex-direction: column;
+  gap: 1.3rem;
 
- flex-direction: column;
- gap: 1.3rem;
+  padding: 1rem 1rem 3.3rem 0;
+  margin-bottom: 1rem;
 
- padding-bottom: 3.3rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  ${scrollDarkStyle}
 `;
 
 export const buttonLayoutStyle = css`
