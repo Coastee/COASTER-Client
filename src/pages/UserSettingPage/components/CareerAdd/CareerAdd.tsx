@@ -1,5 +1,5 @@
 import { PlusBlueIcon } from "@/assets/svg";
-import { CheckBox, Divider, Input } from "@/components";
+import { Button, CheckBox, Divider, Input } from "@/components";
 import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChip/CareerDetailChip";
 import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.styles";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
@@ -121,6 +121,12 @@ const CareerAdd = () => {
           )}
         </div>
       </form>
+      <div css={s.buttonLayoutStyle}>
+        <Button size="medium" variant="tertiary">
+          뒤로 가기
+        </Button>
+        <Button size="medium">추가 하기</Button>
+      </div>
     </div>
   );
 };

@@ -18,6 +18,7 @@ export const formStyle = css`
   min-width: 65rem;
 
   padding: 2.3rem 3.1rem;
+  margin-bottom: 2.5rem;
 
   flex-direction: column;
   gap: 1.6rem;
@@ -89,4 +90,11 @@ export const iconStyle = css`
 
     cursor: pointer;
   }
+`;
+
+export const buttonLayoutStyle = css`
+  display: flex;
+
+  justify-content: flex-end;
+  gap: 2rem;
 `;
