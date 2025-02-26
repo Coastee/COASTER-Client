@@ -5,6 +5,7 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { careerDummyData } from "@/pages/UserSettingPage/constants/dummy";
 
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
+import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
 import { formatDateArray } from "@/utils/dateTime";
 
@@ -16,11 +17,9 @@ const CareerEdit = () => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     setIsCurrentJob,
-    handleSupportingText,
-    isContentError,
-    isTitleError,
-    isDateError,
   } = useEditCareerForm(careerDummyData);
+
+  const { handleSupportingText, isTitleError, isContentError, isDateError } = useCareerValidation(careerData);
 
   return (
     <div css={s.pageStyle}>
