@@ -16,6 +16,10 @@ const CareerEdit = () => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     setIsCurrentJob,
+    handleSupportingText,
+    isContentError,
+    isTitleError,
+    isDateError,
   } = useEditCareerForm(careerDummyData);
 
   return (
@@ -28,9 +32,11 @@ const CareerEdit = () => {
           </label>
           <Input
             id="career-name"
-            maxLength={30}
+            maxLength={MAX_LENGTH.CAREER_DETAIL_TITLE}
             variant="secondary"
             value={careerData.title}
+            isError={isTitleError}
+            supportingText={handleSupportingText("title")}
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
@@ -40,12 +46,20 @@ const CareerEdit = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input
+              variant="secondary"
+              value={formatDateArray(careerData.startDate)}
+              onChange={() => {}}
+              isError={isDateError}
+              supportingText={handleSupportingText("startDate")}
+            />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
               value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
               onChange={() => {}}
+              isError={isDateError}
+              supportingText={handleSupportingText("endDate")}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
@@ -82,6 +96,8 @@ const CareerEdit = () => {
                 key={index}
                 variant="secondary"
                 maxLength={MAX_LENGTH.DETAIL}
+                isError={isContentError[0]}
+                supportingText={handleSupportingText("contentList", index)}
                 value={detail}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
               />
@@ -89,8 +105,10 @@ const CareerEdit = () => {
               <CareerDetailChip
                 key={index}
                 value={detail}
+                isError={isContentError[index]}
                 onDelete={() => handleDeleteDetailInput(index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
+                supportingText={handleSupportingText("contentList", index)}
               />
             ),
           )}
