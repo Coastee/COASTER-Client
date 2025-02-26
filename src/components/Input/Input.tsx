@@ -1,12 +1,7 @@
 import * as s from "@/components/Input/Input.styles";
 import SupportingText from "@/components/SupportingText/SupportingText";
 import { theme } from "@/styles/theme/theme";
-import {
-  type ForwardedRef,
-  type InputHTMLAttributes,
-  type ReactNode,
-  forwardRef,
-} from "react";
+import { type ForwardedRef, type InputHTMLAttributes, type ReactNode, forwardRef } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: "primary" | "secondary";
@@ -31,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       supportingText,
       ...props
     }: InputProps,
-    ref: ForwardedRef<HTMLInputElement>
+    ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
       <div css={s.layoutStyle(!!supportingText && isError)}>
@@ -41,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             css={s.inputStyle}
             placeholder={placeholder}
             id={id}
+            maxLength={maxLength}
             ref={ref}
             value={value}
             tabIndex={0}
@@ -49,19 +45,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <div css={{ cursor: "pointer" }}>{rightIcon}</div>
           {maxLength && (
             <div css={s.countStyle}>
-              <p css={{ color: `${theme.color.primaryBlue2}` }}>
-                {value ? value.toString().length : 0}
-              </p>
-              / {maxLength}
+              <p css={{ color: `${theme.color.primaryBlue2}` }}>{value ? value.toString().length : 0}</p>/ {maxLength}
             </div>
           )}
         </div>
-        {isError && supportingText && (
-          <SupportingText>{supportingText}</SupportingText>
-        )}
+        {isError && supportingText && <SupportingText position="start">{supportingText}</SupportingText>}
       </div>
     );
-  }
+  },
 );
 
 export default Input;
