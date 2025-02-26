@@ -32,7 +32,7 @@ const CareerAdd = () => {
           </label>
           <Input
             id="career-name"
-            maxLength={30}
+            maxLength={MAX_LENGTH.CAREER_DETAIL_TITLE}
             variant="secondary"
             value={careerData.title}
             isError={isTitleFocused && isTitleError}

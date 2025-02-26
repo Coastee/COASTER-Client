@@ -7,7 +7,7 @@ export const SUPPORTING_TEXT = {
   ONE_LINE_INTRO: "40자 이내로 입력해주세요",
   INTRO: "60자 이내로 입력해주세요",
 
-  CAREER_DETAIL_TITLE: "20자 이내로 입력해주세요",
+  CAREER_DETAIL_TITLE: "30자 이내로 입력해주세요",
   DATE: "올바른 기간을 입력해주세요",
   CONTENT: "40자 이내로 입력해주세요",
 };
