@@ -1,11 +1,13 @@
 import * as s from "@/components/SupportingText/SupportingText.style";
 import type { ComponentPropsWithRef } from "react";
 
-type SupportingTextType = ComponentPropsWithRef<"p">;
+interface SupportingTextProps extends ComponentPropsWithRef<"p"> {
+  position?: "start" | "end";
+}
 
-const SupportingText = ({ children, ...props }: SupportingTextType) => {
+const SupportingText = ({ position = "end", children, ...props }: SupportingTextProps) => {
   return (
-    <p css={s.supportingTextStyle} {...props}>
+    <p css={s.supportingTextStyle(position)} {...props}>
       {children}
     </p>
   );
