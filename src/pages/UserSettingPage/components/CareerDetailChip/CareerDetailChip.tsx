@@ -10,24 +10,16 @@ interface CareerDetailChipProps {
   value: string;
   onDelete: () => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  supportingText: string;
-  isError: boolean;
+  isError?: boolean;
 }
 
-const CareerDetailChip = ({ value, onDelete, onChange, supportingText, isError }: CareerDetailChipProps) => {
+const CareerDetailChip = ({ value, onDelete, onChange, isError = false }: CareerDetailChipProps) => {
   return (
     <div css={s.wrapperStyle}>
       <button type="button" css={deleteStyle} onClick={onDelete}>
         <CloseCircleIcon width={18} />
       </button>
-      <Input
-        maxLength={MAX_LENGTH.DETAIL}
-        variant="secondary"
-        value={value}
-        onChange={onChange}
-        isError={isError}
-        supportingText={supportingText}
-      />
+      <Input maxLength={MAX_LENGTH.DETAIL} variant="secondary" value={value} onChange={onChange} isError={isError} />
     </div>
   );
 };

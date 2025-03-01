@@ -10,14 +10,28 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
     endDate: data?.endDate ?? null,
   });
 
-  const handleInputChange = useCallback((key: keyof CareerContentTypes, value: string | number[] | null) => {
-    setCareerData((prev) => ({ ...prev, [key]: value }));
+  const handleInputChange = useCallback((key: keyof CareerContentTypes, value: string | number[]) => {
+    const maxLength = MAX_LENGTH[key as keyof typeof MAX_LENGTH];
+
+    let slicedValue = value;
+
+    if (typeof value === "string" && value.length > maxLength) {
+      slicedValue = value.slice(0, maxLength - 1);
+    }
+
+    setCareerData((prev) => ({ ...prev, [key]: slicedValue }));
   }, []);
 
   const handleDetailChange = useCallback((index: number, value: string) => {
+    let slicedValue = value;
+
+    if (value.length > MAX_LENGTH.DETAIL) {
+      slicedValue = value.slice(0, MAX_LENGTH.DETAIL - 1);
+    }
+
     setCareerData((prev) => ({
       ...prev,
-      contentList: prev.contentList.map((detail, i) => (i === index ? value : detail)),
+      contentList: prev.contentList.map((detail, i) => (i === index ? slicedValue : detail)),
     }));
   }, []);
 

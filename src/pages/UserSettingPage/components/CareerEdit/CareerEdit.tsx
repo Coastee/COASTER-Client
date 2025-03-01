@@ -23,7 +23,7 @@ const CareerEdit = () => {
     setIsCurrentJob,
   } = useEditCareerForm(careerDummyData);
 
-  const { handleSupportingText, isTitleError, isContentError, isDateError } = useCareerValidation(careerData);
+  const { isTitleError, isContentError, isDateError } = useCareerValidation(careerData);
 
   return (
     <div css={s.pageStyle}>
@@ -39,7 +39,6 @@ const CareerEdit = () => {
             variant="secondary"
             value={careerData.title}
             isError={isTitleError}
-            supportingText={handleSupportingText("title")}
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
@@ -49,20 +48,13 @@ const CareerEdit = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input
-              variant="secondary"
-              value={formatDateArray(careerData.startDate)}
-              onChange={() => {}}
-              isError={isDateError}
-              supportingText={handleSupportingText("startDate")}
-            />
+            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
               value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
               onChange={() => {}}
               isError={isDateError}
-              supportingText={handleSupportingText("endDate")}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
@@ -100,7 +92,6 @@ const CareerEdit = () => {
                 variant="secondary"
                 maxLength={MAX_LENGTH.DETAIL}
                 isError={isContentError[0]}
-                supportingText={handleSupportingText("contentList", index)}
                 value={detail}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
               />
@@ -111,7 +102,6 @@ const CareerEdit = () => {
                 isError={isContentError[index]}
                 onDelete={() => handleDeleteDetailInput(index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
-                supportingText={handleSupportingText("contentList", index)}
               />
             ),
           )}

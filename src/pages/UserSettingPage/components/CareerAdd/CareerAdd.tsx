@@ -24,7 +24,7 @@ const CareerAdd = () => {
     setIsCurrentJob,
   } = useEditCareerForm();
 
-  const { handleSupportingText, isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
+  const { isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
 
   return (
     <div css={s.pageStyle}>
@@ -40,7 +40,6 @@ const CareerAdd = () => {
             variant="secondary"
             value={careerData.title}
             isError={isTitleFocused && isTitleError}
-            supportingText={isTitleError ? handleSupportingText("title") : ""}
             onFocus={() => setIsTitleFocused(true)}
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
@@ -56,7 +55,6 @@ const CareerAdd = () => {
               value={formatDateArray(careerData.startDate)}
               onChange={() => {}}
               isError={isDateError}
-              supportingText={handleSupportingText("startDate")}
             />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
@@ -64,7 +62,6 @@ const CareerAdd = () => {
               value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
               onChange={() => {}}
               isError={isDateError}
-              supportingText={handleSupportingText("endDate")}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
@@ -103,7 +100,6 @@ const CareerAdd = () => {
                 maxLength={MAX_LENGTH.DETAIL}
                 value={detail}
                 isError={isContentError[index]}
-                supportingText={handleSupportingText("contentList", index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
               />
             ) : (
@@ -113,7 +109,6 @@ const CareerAdd = () => {
                 onDelete={() => handleDeleteDetailInput(index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
                 isError={isContentError[index]}
-                supportingText={handleSupportingText("contentList", index)}
               />
             ),
           )}
