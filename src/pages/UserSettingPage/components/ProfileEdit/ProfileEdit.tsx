@@ -15,16 +15,7 @@ const ProfileEdit = () => {
   const navigate = useNavigate();
 
   const { onImageUpload } = useImageUpload({ setImgUrl });
-  const {
-    form,
-    handleInfoChange,
-    handleSupportingText,
-    isNickNameError,
-    isCareerError,
-    isCareerYearError,
-    isIntroError,
-    isOneLineIntroError,
-  } = useEditProfileForm(dummyProfileData);
+  const { form, handleInfoChange } = useEditProfileForm(dummyProfileData);
 
   return (
     <div css={s.pageStyle}>
@@ -55,8 +46,6 @@ const ProfileEdit = () => {
                 id="nickname"
                 variant="secondary"
                 maxLength={MAX_LENGTH.NICKNAME}
-                isError={isNickNameError}
-                supportingText={handleSupportingText("nickName")}
                 value={form.nickName}
                 onChange={(e) => handleInfoChange(e, "nickName")}
               />
@@ -92,8 +81,6 @@ const ProfileEdit = () => {
                   id="career"
                   variant="secondary"
                   maxLength={MAX_LENGTH.CAREER}
-                  supportingText={handleSupportingText("career")}
-                  isError={isCareerError}
                   value={form.career}
                   onChange={(e) => handleInfoChange(e, "career")}
                 />
@@ -101,8 +88,6 @@ const ProfileEdit = () => {
                   <Input
                     variant="secondary"
                     value={form.careerYear}
-                    supportingText={handleSupportingText("careerYear")}
-                    isError={isCareerYearError}
                     onChange={(e) => handleInfoChange(e, "careerYear")}
                   />
                   <p css={s.textStyle}>년차</p>
@@ -121,8 +106,6 @@ const ProfileEdit = () => {
               id="oneLineIntro"
               variant="secondary"
               maxLength={MAX_LENGTH.ONELINE_INTRO}
-              supportingText={handleSupportingText("oneLineIntro")}
-              isError={isOneLineIntroError}
               value={form.oneLineIntro}
               onChange={(e) => handleInfoChange(e, "oneLineIntro")}
             />
@@ -135,8 +118,6 @@ const ProfileEdit = () => {
               id="intro"
               variant="secondary"
               maxLength={MAX_LENGTH.INTRO}
-              supportingText={handleSupportingText("intro")}
-              isError={isIntroError}
               value={form.intro}
               onChange={(e) => handleInfoChange(e, "intro")}
             />
