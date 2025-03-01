@@ -7,7 +7,7 @@ export const wrapperStyle = css`
 
   width: 100%;
 
-  padding: 2.7rem 1.4rem;
+  padding: 2rem 1.4rem;
 
   border-radius: 1rem;
 
@@ -18,6 +18,14 @@ export const wrapperStyle = css`
 `;
 
 export const layoutStyle = css`
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.3rem;
+`;
+
+export const titleBoxStyle = css`
   display: flex;
 
   align-items: center;

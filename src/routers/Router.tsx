@@ -10,6 +10,8 @@ import {
   SignupPage,
 } from "@/pages";
 import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
+import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
+import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
@@ -53,6 +55,14 @@ export const router = createBrowserRouter([
       {
         path: "/mypage",
         element: <MyPage />,
+      },
+      {
+        path: "/mypage/setting-profile",
+        element: <ProfileEdit />,
+      },
+      {
+        path: "/mypage/setting-career",
+        element: <CareerSettingList />,
       },
     ],
   },

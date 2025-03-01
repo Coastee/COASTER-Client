@@ -10,6 +10,7 @@ export const layoutStyle = (supportingText: boolean) => css`
 `;
 
 export const wrapperStyle = (
+  variant: "primary" | "secondary",
   hasLeftIcon: boolean,
   hasRightIcon: boolean,
   isError: boolean
@@ -18,9 +19,9 @@ export const wrapperStyle = (
   display: flex;
 
   width: 100%;
-  height: 5rem;
+  height: 4rem;
 
-  padding: 1.55rem 1.8rem;
+  padding: 1.1rem 1.6rem;
 
   gap: ${hasLeftIcon && "1.35rem"};
   justify-content: ${hasRightIcon && "space-between"};
@@ -29,9 +30,13 @@ export const wrapperStyle = (
 
   border-radius: 10px;
   box-shadow: inset 0 0 0 1px
-    ${isError ? theme.color.primaryPink1 : theme.color.dark1};
+    ${isError
+      ? theme.color.primaryPink1
+      : variant === "primary"
+      ? theme.color.dark1
+      : "none"};
 
-  background-color: #2d3643;
+  background-color: ${variant === "primary" ? "#2d3643" : theme.color.dark2};
 
   transition: 0.2s ease-in-out;
 
@@ -53,7 +58,7 @@ export const inputStyle = css`
   color: ${theme.color.white};
   background-color: transparent;
 
-  ${theme.font.body1};
+  ${theme.font.body2};
 
   outline: none;
 
@@ -65,13 +70,16 @@ export const inputStyle = css`
 
 export const countStyle = css`
   position: absolute;
-  right: 1.5rem;
-  bottom: 1.2rem;
   display: flex;
+
+  right: 1.5rem;
+
   ${theme.font.body3};
   color: ${theme.color.gray1};
 
   & > p {
-    ${theme.font.body3}
+    ${theme.font.body3};
+
+    font-weight: 400;
   }
 `;

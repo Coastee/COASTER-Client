@@ -1,4 +1,4 @@
-import type { HashtagTypes } from "@/components/HashtagChip/types/hashtagTypes";
+import type { HashtagTypes } from "@/components/TagChip/types/hashtagTypes";
 
 export type UserIntroTypes = {
   headline: string;
