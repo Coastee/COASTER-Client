@@ -10,6 +10,13 @@ export const formatDate = (date: string) => {
   return year === currentYear ? `${month}/${day}` : `${year}/${month}/${day}`;
 };
 
+export const datePickerFormatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  return `${year}.${month}.${day}`;
+};
+
 export const formatTime = (time: string) => {
   const [hours] = time.split(":").map(Number);
 

@@ -1,4 +1,4 @@
-import { DatePicker, SearchLayout, SideModal, TitleContainer } from "@/components";
+import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import { HOME_DUMMY } from "@/constants/homeDummy";
@@ -33,7 +33,6 @@ const HomePage = () => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />
-      <DatePicker />
       <div css={s.layoutStyle}>
         <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={HASH_TAGS_DUMMY} />
         <TitleContainer
