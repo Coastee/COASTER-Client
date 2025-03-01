@@ -20,8 +20,6 @@ export const containerStyle = css`
 
   border-radius: 1rem;
 
-  /* background-color: ${theme.color.dark2}; */
-
   .react-calendar {
     border: none;
     background-color: transparent;
@@ -42,11 +40,15 @@ export const calendarStyle = css`
       ${theme.font.body2}
       color: ${theme.color.white}
     }
+
+    button:hover {
+      background-color: transparent;
+    }
   }
 
   .react-calendar__navigation__label {
-    /* ${theme.font.body2}
-    color: ${theme.color.white} */
+    background-color: transparent;
+    pointer-events: none;
   }
 
   .react-calendar__navigation__label:disabled {
@@ -65,11 +67,11 @@ export const calendarStyle = css`
     color: ${theme.color.white};
   }
 
-  .react-calendar__navigation__arrow:hover {
+  .react-calendar__navigation__arrow:enabled:focus {
     background-color: transparent;
   }
 
-  .react-calendar__navigation__arrow:enabled:focus {
+  .react-calendar__navigation__prev-button:hover {
     background-color: transparent;
   }
 
@@ -79,8 +81,7 @@ export const calendarStyle = css`
   }
 
   .react-calendar__viewContainer {
-    /* border: 1px solid blue; */
-    padding: 0 1.2rem 1.2rem 1.2rem;
+    padding: 0 1.2rem 1.4rem 1.2rem;
 
     border-radius: 0 0 1rem 1rem;
 
@@ -89,11 +90,12 @@ export const calendarStyle = css`
 
   // weekday
   .react-calendar__month-view__weekdays__weekday {
-    /* border: 1px solid pink; */
-    padding: 0.8rem 0.8rem 1.2rem 0.8rem;
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    padding: 0.8rem 0.8rem 1.2rem 0.8rem;
 
     :nth-of-type(1) abbr {
       color: ${theme.color.primaryPink1};
@@ -112,7 +114,6 @@ export const calendarStyle = css`
     display: flex;
     justify-content: center;
 
-    /* border: 1px solid yellow; */
     abbr {
       color: ${theme.color.white};
       ${theme.font.body3};
@@ -132,20 +133,23 @@ export const calendarStyle = css`
   // day
   .react-calendar__month-view__days__day {
     display: flex;
+
     justify-content: center;
     align-items: center;
-    width: 28px;
-    height: 28px;
-    /* border: 1px solid orange; */
+
     padding: 0.2rem;
 
+    width: 28px;
+    height: 28px;
+
     abbr {
-      width: 100%;
-      height: 100%;
       display: flex;
+
       align-items: center;
       justify-content: center;
-      /* border: 1px solid red; */
+
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -162,7 +166,6 @@ export const calendarStyle = css`
   .react-calendar__tile--active {
     background-color: transparent;
     abbr {
-      /* border: 1px solid red; */
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -177,7 +180,8 @@ export const calendarStyle = css`
 
   // today
   .react-calendar__tile--now {
-    /* background-color: transparent; */
+    color: ${theme.color.white};
+    background-color: transparent;
   }
 
   // past day
