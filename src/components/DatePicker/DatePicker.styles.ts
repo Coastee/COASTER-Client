@@ -203,7 +203,11 @@ export const calendarStyle = css`
   }
 
   // past day
-  .past-day abbr {
-    color: ${theme.color.gray2};
+  .past-day {
+    pointer-events: none;
+
+    abbr {
+      color: ${theme.color.gray2};
+    }
   }
 `;
