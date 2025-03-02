@@ -27,8 +27,11 @@ const ServerDropdown = ({
   const handleItemClick = (item: ServerInfoType) => {
     setSelectedGlobalMenu(undefined);
     setCurrentServer(item);
+
     const menu = pathname.split("/")[2] || "home";
+
     navigate(`/${item.id}/${menu}`);
+
     setDropdownOpen(false);
   };
 
