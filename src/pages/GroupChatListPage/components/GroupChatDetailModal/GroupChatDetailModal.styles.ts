@@ -1,13 +1,44 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const contentStyle = css`
+export const hamburgerLayoutStyle = css`
+  position: absolute;
+
+  top: 8.4rem;
+`;
+
+export const extendedMenuStyle = css`
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: end;
+  align-items: center;
+`;
+
+export const rectangleStyle = css`
+  position: absolute;
+
   display: flex;
 
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 0.5rem 0.8rem 0.6rem;
+
+  svg:hover {
+    scale: 1.05;
+    transition: all 0.5s ease;
+  }
+`;
+
+export const contentStyle = css`
+  display: flex;
   flex-direction: column;
 
   height: calc(100vh - 14.1rem);
-  /* border: 1px solid red; */
 `;
 
 export const userStyle = css`
@@ -94,7 +125,6 @@ export const hashTagListStyle = css`
 `;
 
 export const descriptionStyle = css`
-  /* border: 1px solid red; */
   width: 48rem;
   min-height: 14rem;
 
@@ -103,10 +133,8 @@ export const descriptionStyle = css`
   border-radius: 1rem;
   background-color: #404a58;
 
-  p {
-    ${theme.font.body1};
-    color: ${theme.color.white2};
-    font-weight: 400;
-    line-height: 1.5;
-  }
+  ${theme.font.body1};
+  color: ${theme.color.white2};
+  font-weight: 400;
+  line-height: 1.5;
 `;
