@@ -1,5 +1,5 @@
 import { datePickerFormatDate } from "@/utils/dateTime";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import * as s from "./DatePicker.styles";
@@ -8,26 +8,31 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface DatePickerProps {
+  setIsVisible: (isVisible: boolean) => void;
   setSelectedDate: (date: string) => void;
+  triangle: "top" | "right";
 }
 
-const DatePicker = ({ setSelectedDate }: DatePickerProps) => {
-  const [value, onChange] = useState<Value>(new Date());
+const DatePicker = ({ setIsVisible, setSelectedDate, triangle = "right" }: DatePickerProps) => {
+  const [value, setValue] = useState<Value>(new Date());
 
-  const isPastDay = (date: Date) => {
-    return date < new Date(new Date().setHours(0, 0, 0, 0));
+  const isPastDay = (date: Date) => date < new Date(new Date().setHours(0, 0, 0, 0));
+
+  const handleDateChange = (date: Value) => {
+    if (date instanceof Date) {
+      setValue(date);
+      setSelectedDate(datePickerFormatDate(date, true));
+      setIsVisible(false);
+    }
   };
-
-  useEffect(() => {
-    setSelectedDate(datePickerFormatDate(value as Date));
-  }, [value, setSelectedDate]);
 
   return (
     <div css={s.layoutStyle}>
       <div css={s.containerStyle}>
+        {triangle === "top" && <div css={s.triangleTopStyle} />}
         <Calendar
           css={s.calendarStyle}
-          onChange={onChange}
+          onChange={handleDateChange}
           value={value}
           locale="ko-KR"
           calendarType="gregory"
@@ -38,7 +43,7 @@ const DatePicker = ({ setSelectedDate }: DatePickerProps) => {
           tileClassName={({ date, view }) => (view === "month" && isPastDay(date) ? "past-day" : "")}
         />
       </div>
-      <div css={s.triangleStyle} />
+      {triangle === "right" && <div css={s.triangleRightStyle} />}
     </div>
   );
 };
