@@ -2,13 +2,20 @@ import type { GlobalMenuTypes } from "@/constants/serverInfo";
 import { create } from "zustand";
 
 interface GlobalMenuState {
-  selectedGlobalMenu: GlobalMenuTypes | undefined;
-  setSelectedGlobalMenu: (menu: GlobalMenuTypes | undefined) => void;
+  globalMenu: GlobalMenuTypes | null;
+  actions: {
+    setGlobalMenu: (menu: GlobalMenuTypes | null) => void;
+    resetGlobalMenu: () => void;
+  };
 }
 
 const useGlobalMenuStore = create<GlobalMenuState>((set) => ({
-  selectedGlobalMenu: undefined,
-  setSelectedGlobalMenu: (menu) => set({ selectedGlobalMenu: menu }),
+  globalMenu: null,
+  actions: {
+    setGlobalMenu: (menu) => set({ globalMenu: menu }),
+    resetGlobalMenu: () => set({ globalMenu: null }),
+  },
 }));
 
-export default useGlobalMenuStore;
+export const useGlobalMenu = () => useGlobalMenuStore((state) => state.globalMenu);
+export const useGlobalMenuAction = () => useGlobalMenuStore((state) => state.actions);

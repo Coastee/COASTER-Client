@@ -1,6 +1,6 @@
 import { ReturnIcon } from "@/assets/svg";
 import type { ServerInfoType } from "@/constants/serverInfo";
-import useGlobalMenuStore from "@/stores/useGlobalMenuStore";
+import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerDropdown.styles";
 
@@ -20,12 +20,12 @@ const ServerDropdown = ({
   setDropdownOpen,
   ...props
 }: DropdownProps) => {
-  const { setSelectedGlobalMenu } = useGlobalMenuStore();
+  const { resetGlobalMenu } = useGlobalMenuAction();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const handleItemClick = (item: ServerInfoType) => {
-    setSelectedGlobalMenu(undefined);
+    resetGlobalMenu();
     setCurrentServer(item);
 
     const menu = pathname.split("/")[2] || "home";
