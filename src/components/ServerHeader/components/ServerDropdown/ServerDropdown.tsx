@@ -1,7 +1,6 @@
 import { ReturnIcon } from "@/assets/svg";
 import type { ServerInfoType } from "@/constants/serverInfo";
 import useGlobalMenuStore from "@/stores/useGlobalMenuStore";
-import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerDropdown.styles";
 
@@ -32,10 +31,6 @@ const ServerDropdown = ({
     navigate(`/${item.id}/${menu}`);
     setDropdownOpen(false);
   };
-
-  useEffect(() => {
-    console.log(currentServer);
-  }, [currentServer]);
 
   return (
     <div css={s.serverDropdownStyle}>
