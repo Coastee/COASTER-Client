@@ -48,7 +48,6 @@ const ServerHeader = () => {
           options={exceptCurrentServer}
           currentServer={currentServer}
           setCurrentServer={setCurrentServer}
-          setSelectedGlobalMenu={setSelectedGlobalMenu}
           dropdownOpen={dropdownOpen}
           setDropdownOpen={setDropdownOpen}
         />
