@@ -1,3 +1,4 @@
+import type { SVGProps } from "react";
 import {
   BeautyServerIcon,
   CalendarMenuActiveIcon,
@@ -11,18 +12,18 @@ import {
   MobilityServerIcon,
   ProfileMenuActiveIcon,
   ProfileMenuIcon,
-} from "../assets/svg"; // 임시 아이콘
+} from "../assets/svg";
 
 export type ServerInfoType = {
   id: number;
   name: string;
-  icon: React.FC;
+  icon: React.ElementType<SVGProps<SVGSVGElement>>;
 };
 
 export type GlobalMenuTypes = {
   id: string;
-  icon: React.FC;
-  activeIcon: React.FC;
+  icon: React.ElementType<SVGProps<SVGSVGElement>>;
+  activeIcon: React.ElementType<SVGProps<SVGSVGElement>>;
 };
 
 export const SERVERINFO: ServerInfoType[] = [
