@@ -19,7 +19,7 @@ export const wrapperStyle = (
   display: flex;
 
   width: 100%;
-  height: 4rem;
+  height: 5rem;
 
   padding: 1.1rem 1.6rem;
 
@@ -58,7 +58,7 @@ export const inputStyle = css`
   color: ${theme.color.white};
   background-color: transparent;
 
-  ${theme.font.body2};
+  ${theme.font.body1};
 
   outline: none;
 
