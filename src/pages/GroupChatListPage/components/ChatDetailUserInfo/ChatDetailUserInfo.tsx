@@ -10,7 +10,7 @@ interface ChatDetailUserInfoProps {
 const ChatDetailUserInfo = ({ nickname, expYears, job }: ChatDetailUserInfoProps) => {
   return (
     <div css={s.userStyle}>
-      <UserBox name="이영희" />
+      <UserBox name={nickname} />
       <div css={{ display: "flex", flexDirection: "column", gap: "0.34rem" }}>
         <div css={s.userInfoTopStyle}>
           <h1>{nickname}</h1>

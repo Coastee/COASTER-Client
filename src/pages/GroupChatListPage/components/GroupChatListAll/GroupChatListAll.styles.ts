@@ -47,7 +47,7 @@ export const infoLayoutStyle = css`
 export const textLayoutStyle = css`
   ${baseStyle.textLayoutStyle};
 
-  gap: 0.8rem;
+  gap: 1rem;
 `;
 
 export const listTitleStyle = css`
