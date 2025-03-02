@@ -143,12 +143,7 @@ export const calendarStyle = css`
     background-color: transparent;
   }
 
-  // today
-  .react-calendar__tile--now {
-    background-color: transparent;
-  }
-
-  // day
+  // days
   .react-calendar__month-view__days__day {
     display: flex;
 
@@ -171,34 +166,8 @@ export const calendarStyle = css`
     }
   }
 
-  // active  day
-  .react-calendar__tile--hasActive {
-    /* background-color: transparent; */
-  }
-
-  .react-calendar__tile--hasActive:enabled:hover,
-  .react-calendar__tile--hasActive:enabled:focus {
-    /* background-color: transparent; */
-  }
-
-  .react-calendar__tile--active {
-    background-color: transparent;
-    abbr {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background-color: ${theme.color.primaryBlue2};
-    }
-  }
-
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background-color: transparent;
-  }
-
   // today
   .react-calendar__tile--now {
-    color: ${theme.color.white};
     background-color: transparent;
   }
 
@@ -208,6 +177,17 @@ export const calendarStyle = css`
 
     abbr {
       color: ${theme.color.gray2};
+    }
+  }
+
+  // selcted day
+  .active {
+    background-color: transparent;
+    abbr {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: ${theme.color.primaryBlue2};
     }
   }
 `;

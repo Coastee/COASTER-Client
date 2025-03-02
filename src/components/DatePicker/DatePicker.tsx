@@ -1,5 +1,5 @@
 import { datePickerFormatDate } from "@/utils/dateTime";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import * as s from "./DatePicker.styles";
@@ -9,22 +9,44 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface DatePickerProps {
   setIsVisible: (isVisible: boolean) => void;
-  setSelectedDate: (date: string) => void;
+  selectedDate: Date | null;
+  setSelectedDate: Dispatch<SetStateAction<Date | null>>;
+  handleDateChange: (date: string) => void;
   triangle: "top" | "right";
 }
 
-const DatePicker = ({ setIsVisible, setSelectedDate, triangle = "right" }: DatePickerProps) => {
-  const [value, setValue] = useState<Value>(new Date());
+const DatePicker = ({
+  setIsVisible,
+  selectedDate,
+  setSelectedDate,
+  handleDateChange,
+  triangle = "right",
+}: DatePickerProps) => {
+  const [value, onChange] = useState<Value>(null);
+  const [activeStartDate, setActiveStartDate] = useState<Date>(selectedDate || new Date());
 
-  const isPastDay = (date: Date) => date < new Date(new Date().setHours(0, 0, 0, 0));
+  const getTileClassName = (date: Date, selectedDate: Date | null) => {
+    const isPastDay = (date: Date) => date < new Date(new Date().setHours(0, 0, 0, 0));
+    const isSameDay = (date1: Date, date2: Date) => date1.toDateString() === date2.toDateString();
 
-  const handleDateChange = (date: Value) => {
-    if (date instanceof Date) {
-      setValue(date);
-      setSelectedDate(datePickerFormatDate(date, true));
-      setIsVisible(false);
-    }
+    if (selectedDate && isSameDay(date, selectedDate)) return "active"; // 선택된 날짜에만 "active" 클래스 추가
+    if (isPastDay(date)) return "past-day";
+    return "";
   };
+
+  useEffect(() => {
+    if (value instanceof Date) {
+      setIsVisible(false);
+      setSelectedDate(value);
+      handleDateChange(datePickerFormatDate(value, true));
+    }
+  }, [value]);
+
+  useEffect(() => {
+    if (selectedDate) {
+      setActiveStartDate(selectedDate);
+    }
+  }, [selectedDate]);
 
   return (
     <div css={s.layoutStyle}>
@@ -32,7 +54,8 @@ const DatePicker = ({ setIsVisible, setSelectedDate, triangle = "right" }: DateP
         {triangle === "top" && <div css={s.triangleTopStyle} />}
         <Calendar
           css={s.calendarStyle}
-          onChange={handleDateChange}
+          onChange={onChange}
+          activeStartDate={activeStartDate}
           value={value}
           locale="ko-KR"
           calendarType="gregory"
@@ -40,7 +63,13 @@ const DatePicker = ({ setIsVisible, setSelectedDate, triangle = "right" }: DateP
           prev2Label={null}
           formatDay={(locale, date) => date.getDate().toString()}
           showNeighboringMonth={false}
-          tileClassName={({ date, view }) => (view === "month" && isPastDay(date) ? "past-day" : "")}
+          tileClassName={({ date, view }) => {
+            if (view !== "month") return "";
+            return getTileClassName(date, selectedDate);
+          }}
+          onActiveStartDateChange={({ activeStartDate }) => {
+            activeStartDate && setActiveStartDate(activeStartDate);
+          }}
         />
       </div>
       {triangle === "right" && <div css={s.triangleRightStyle} />}

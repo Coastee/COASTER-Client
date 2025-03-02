@@ -22,6 +22,7 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const {
     isFieldError,
@@ -150,8 +151,10 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
                 <div css={s.datePickerContainerStyle}>
                   {isDatePickerVisible && (
                     <DatePicker
+                      selectedDate={selectedDate}
+                      setSelectedDate={setSelectedDate}
                       setIsVisible={setIsDatePickerVisible}
-                      setSelectedDate={handleDateChange}
+                      handleDateChange={handleDateChange}
                       triangle="top"
                     />
                   )}
