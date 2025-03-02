@@ -113,6 +113,13 @@ export const counterStyle = css`
   }
 `;
 
+export const datePickerContainerStyle = css`
+  position: absolute;
+  top: 100px;
+
+  z-index: 100;
+`;
+
 export const dateTimeLayoutStyle = css`
   display: flex;
 
