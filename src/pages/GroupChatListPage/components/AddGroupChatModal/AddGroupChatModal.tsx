@@ -1,6 +1,6 @@
 import { Button, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
-import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
+import { useHashtag } from "@/components/TagChip/hooks/useHashtag";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
