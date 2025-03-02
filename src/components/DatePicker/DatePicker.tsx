@@ -23,14 +23,16 @@ const DatePicker = ({
   triangle = "right",
 }: DatePickerProps) => {
   const [value, onChange] = useState<Value>(null);
-  const [activeStartDate, setActiveStartDate] = useState<Date>(selectedDate || new Date());
 
-  const getTileClassName = (date: Date, selectedDate: Date | null) => {
+  const getTileClassName = (date: Date, selectedDate: Date | null, view: string) => {
+    if (view !== "month") return "";
+
     const isPastDay = (date: Date) => date < new Date(new Date().setHours(0, 0, 0, 0));
     const isSameDay = (date1: Date, date2: Date) => date1.toDateString() === date2.toDateString();
 
-    if (selectedDate && isSameDay(date, selectedDate)) return "active"; // 선택된 날짜에만 "active" 클래스 추가
+    if (selectedDate && isSameDay(date, selectedDate)) return "active";
     if (isPastDay(date)) return "past-day";
+
     return "";
   };
 
@@ -42,12 +44,6 @@ const DatePicker = ({
     }
   }, [value]);
 
-  useEffect(() => {
-    if (selectedDate) {
-      setActiveStartDate(selectedDate);
-    }
-  }, [selectedDate]);
-
   return (
     <div css={s.layoutStyle}>
       <div css={s.containerStyle}>
@@ -55,7 +51,7 @@ const DatePicker = ({
         <Calendar
           css={s.calendarStyle}
           onChange={onChange}
-          activeStartDate={activeStartDate}
+          activeStartDate={selectedDate || new Date()}
           value={value}
           locale="ko-KR"
           calendarType="gregory"
@@ -64,11 +60,10 @@ const DatePicker = ({
           formatDay={(locale, date) => date.getDate().toString()}
           showNeighboringMonth={false}
           tileClassName={({ date, view }) => {
-            if (view !== "month") return "";
-            return getTileClassName(date, selectedDate);
+            return getTileClassName(date, selectedDate, view);
           }}
           onActiveStartDateChange={({ activeStartDate }) => {
-            activeStartDate && setActiveStartDate(activeStartDate);
+            activeStartDate && setSelectedDate(activeStartDate);
           }}
         />
       </div>
