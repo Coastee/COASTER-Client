@@ -1,5 +1,5 @@
 import { datePickerFormatDate } from "@/utils/dateTime";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import * as s from "./DatePicker.styles";
@@ -23,6 +23,7 @@ const DatePicker = ({
   triangle = "right",
 }: DatePickerProps) => {
   const [value, onChange] = useState<Value>(null);
+  const [activeStartDate, setActiveStartDate] = useState<Date>(selectedDate || new Date());
 
   const getTileClassName = (date: Date, selectedDate: Date | null, view: string) => {
     if (view !== "month") return "";
@@ -36,6 +37,7 @@ const DatePicker = ({
     return "";
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore warning for missing handleDateChange dependency
   useEffect(() => {
     if (value instanceof Date) {
       setIsVisible(false);
@@ -44,6 +46,12 @@ const DatePicker = ({
     }
   }, [value]);
 
+  useEffect(() => {
+    if (selectedDate) {
+      setActiveStartDate(selectedDate);
+    }
+  }, [selectedDate]);
+
   return (
     <div css={s.layoutStyle}>
       <div css={s.containerStyle}>
@@ -51,7 +59,7 @@ const DatePicker = ({
         <Calendar
           css={s.calendarStyle}
           onChange={onChange}
-          activeStartDate={selectedDate || new Date()}
+          activeStartDate={activeStartDate}
           value={value}
           locale="ko-KR"
           calendarType="gregory"
@@ -63,7 +71,7 @@ const DatePicker = ({
             return getTileClassName(date, selectedDate, view);
           }}
           onActiveStartDateChange={({ activeStartDate }) => {
-            activeStartDate && setSelectedDate(activeStartDate);
+            activeStartDate && setActiveStartDate(activeStartDate);
           }}
         />
       </div>
@@ -73,3 +81,4 @@ const DatePicker = ({
 };
 
 export default DatePicker;
+
