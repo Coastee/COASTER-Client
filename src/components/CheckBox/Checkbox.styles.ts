@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
 export const boxWrapperStyle = css`
-  display: flex;
+  position: relative;
 
   width: 2.4rem;
   height: 2.4rem;
@@ -14,7 +14,11 @@ export const boxWrapperStyle = css`
 `;
 
 export const checkboxStyle = css`
+  position: absolute;
   appearance: none;
+
+  top: 64%;
+  left: 63%;
 
   width: 1.5rem;
   height: 1.5rem;
@@ -22,6 +26,8 @@ export const checkboxStyle = css`
   border-radius: 3px;
 
   flex-shrink: 0;
+
+  transform: translate(-70%, -70%);
 
   cursor: pointer;
 
