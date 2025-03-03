@@ -1,7 +1,4 @@
-import type {
-  formDateTimeTypes,
-  requestDateType,
-} from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
+import type { formDateTimeTypes, requestDateType } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 
 export const formatDate = (date: string) => {
   const currentYear = new Date().getFullYear();
@@ -30,6 +27,25 @@ export const simpleFormatDate = (date: Date) => {
   return {
     simpleDate: `${month}. ${day}`, // "2. 10"
     dayOfWeek, // "수"
+  };
+};
+
+export const parseDateArray = (dateArray: number[]) => {
+  const [year, month, day, hour, minute] = dateArray;
+  const date = new Date(year, month - 1, day, hour, minute);
+
+  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+  const meridiem = hour < 12 ? "오전" : "오후";
+  const formattedHour = hour % 12 || 12;
+
+  return {
+    year,
+    month,
+    day,
+    hour: formattedHour,
+    minute,
+    dayOfWeek,
+    meridiem,
   };
 };
 

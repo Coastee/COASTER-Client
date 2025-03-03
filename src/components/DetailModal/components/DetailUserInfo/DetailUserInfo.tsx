@@ -1,13 +1,13 @@
 import { UserBox } from "@/components";
-import * as s from "./ChatDetailUserInfo.styles";
+import * as s from "./DetailUserInfo.styles";
 
-interface ChatDetailUserInfoProps {
+interface DetailUserInfoProps {
   nickname: string;
   expYears: number;
   job: string;
 }
 
-const ChatDetailUserInfo = ({ nickname, expYears, job }: ChatDetailUserInfoProps) => {
+const DetailUserInfo = ({ nickname, expYears, job }: DetailUserInfoProps) => {
   return (
     <div css={s.userStyle}>
       <UserBox name={nickname} />
@@ -26,4 +26,4 @@ const ChatDetailUserInfo = ({ nickname, expYears, job }: ChatDetailUserInfoProps
   );
 };
 
-export default ChatDetailUserInfo;
+export default DetailUserInfo;

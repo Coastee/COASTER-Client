@@ -12,7 +12,6 @@ const SvgBookmarkIcon = (props: SVGProps<SVGSVGElement>) => (
       strokeLinecap="round"
       strokeWidth={1.6}
       d="M15.467 18.524V.854h-14.4v17.67l7.2-6.324z"
-      opacity={0.8}
     />
   </svg>
 );

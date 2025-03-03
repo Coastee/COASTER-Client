@@ -2,7 +2,7 @@ import { BookmarkIcon, ChatMenuIcon, HamburgerIcon, LeaveIcon } from "@/assets/s
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import * as s from "./HamburgerMenu.styles";
 
-const HamburgerMenu = ({ isVisible, setIsVisible }: SideModalProps) => {
+export const HamburgerMenu = ({ isVisible, setIsVisible }: SideModalProps) => {
   return (
     <>
       <HamburgerIcon width={33} height={23} onClick={() => setIsVisible(!isVisible)} />

@@ -115,6 +115,67 @@ export const imageStyle = css`
   object-fit: cover;
 `;
 
+export const metaInfoStyle = css`
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.8rem;
+
+  padding: 1.4rem 0;
+`;
+
+export const infoStyle = css`
+  display: flex;
+  gap: 0.6rem;
+`;
+
+export const noHoverStyle = css`
+  cursor: auto;
+  :hover {
+    background-color: ${theme.color.primaryBlue2};
+    scale: 1;
+  }
+`;
+
+export const statusStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+
+  border-radius: 0.7rem;
+  background-color: ${theme.color.primaryBlue2};
+
+  ${theme.font.body3}
+  font-weight: 400;
+  color: ${theme.color.white};
+`;
+
+export const textStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 0.6rem;
+
+  padding: 0.5rem 1rem;
+
+  border-radius: 0.7rem;
+  border: 1px solid ${theme.color.dark2};
+
+  p {
+    ${theme.font.body2};
+    font-weight: 400;
+    color: ${theme.color.white};
+  }
+`;
+
+export const circleStyle = css`
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background-color: ${theme.color.white};
+`;
+
 export const hashTagListStyle = css`
   display: flex;
   flex-wrap: wrap;
