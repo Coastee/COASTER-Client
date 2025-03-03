@@ -66,25 +66,7 @@ const CoffeeChatListAll = () => {
       )}
 
       {selectedChat && (
-        <DetailModal
-          id={selectedChat.id}
-          title={selectedChat.title}
-          thumbnail={selectedChat.thumbnail}
-          content={selectedChat.content}
-          currentCount={selectedChat.currentCount}
-          maxCount={selectedChat.maxCount}
-          hashTagList={selectedChat.hashTagList}
-          nickname={selectedChat.user.nickname}
-          expYears={selectedChat.user.userIntro.expYears}
-          job={selectedChat.user.userIntro.job}
-          location={selectedChat.address.location}
-          details={selectedChat.address.details}
-          startDate={selectedChat.period.startDate}
-          endDate={selectedChat.period.endDate}
-          isCoffeeChat={true}
-          isVisible={true}
-          setIsVisible={handleCloseModal}
-        />
+        <DetailModal data={selectedChat} isCoffeeChat={true} isVisible={true} setIsVisible={handleCloseModal} />
       )}
     </div>
   );
