@@ -12,16 +12,9 @@ interface DatePickerProps {
   selectedDate: Date | null;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
   handleDateChange: (date: string) => void;
-  position: "top" | "right";
 }
 
-const DatePicker = ({
-  setIsVisible,
-  selectedDate,
-  setSelectedDate,
-  handleDateChange,
-  position = "right",
-}: DatePickerProps) => {
+const DatePicker = ({ setIsVisible, selectedDate, setSelectedDate, handleDateChange }: DatePickerProps) => {
   const [value, onChange] = useState<Value>(null);
   const [activeStartDate, setActiveStartDate] = useState<Date>(selectedDate || new Date());
 
@@ -55,7 +48,7 @@ const DatePicker = ({
   return (
     <div css={s.layoutStyle}>
       <div css={s.containerStyle}>
-        {position === "top" && <div css={s.triangleTopStyle} />}
+        <div css={s.triangleStyle} />
         <Calendar
           css={s.calendarStyle}
           onChange={onChange}
@@ -75,7 +68,6 @@ const DatePicker = ({
           }}
         />
       </div>
-      {position === "right" && <div css={s.triangleRightStyle} />}
     </div>
   );
 };

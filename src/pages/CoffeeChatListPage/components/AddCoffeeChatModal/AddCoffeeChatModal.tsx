@@ -155,7 +155,6 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
                       setSelectedDate={setDatePickerSelectedDate}
                       setIsVisible={setIsDatePickerVisible}
                       handleDateChange={handleDateChange}
-                      position="top"
                     />
                   )}
                 </div>

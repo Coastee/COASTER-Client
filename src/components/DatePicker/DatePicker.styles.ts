@@ -9,22 +9,13 @@ export const layoutStyle = css`
   width: fit-content;
 `;
 
-export const triangleTopStyle = css`
+export const triangleStyle = css`
   width: 0;
   height: 0;
 
   border-right: 1.5rem solid transparent;
   border-bottom: 1.4rem solid ${theme.color.dark2};
   border-left: 1.5rem solid transparent;
-`;
-
-export const triangleRightStyle = css`
-  width: 0;
-  height: 0;
-
-  border-top: 1.5rem solid transparent;
-  border-bottom: 1.5rem solid transparent;
-  border-left: 1.4rem solid ${theme.color.dark2};
 `;
 
 export const containerStyle = css`
