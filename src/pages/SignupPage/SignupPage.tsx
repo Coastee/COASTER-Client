@@ -8,13 +8,28 @@ import {
   ProfileStep,
 } from "@/pages/SignupPage";
 import * as s from "@/pages/SignupPage/SignupPage.styles";
-
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SignupPage = () => {
   const Funnel = useFunnel();
-
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const updateStep = (step: string) => {
+    setSearchParams({ step });
+
+    Funnel.setStep(`step${step}`);
+  };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const currentStep = searchParams.get("step");
+
+    if (currentStep) {
+      Funnel.setStep(`step${currentStep}`);
+    }
+  }, [searchParams]);
 
   return (
     <div css={s.wrapperStyle}>
@@ -22,24 +37,23 @@ const SignupPage = () => {
       <img src={logo2Img} alt="로고2" css={s.logo2Style} />
       <Funnel>
         <Funnel.Step name="step1">
-          <InfoStep onNext={() => Funnel.setStep("step2")} />
+          <InfoStep onNext={() => updateStep("2")} />
         </Funnel.Step>
         <Funnel.Step name="step2">
           <ProfileStep
-            onPrev={() => Funnel.setStep("step1")}
-            onNext={() => Funnel.setStep("step3")}
+            onPrev={() => updateStep("1")}
+            onNext={() => updateStep("3")}
           />
         </Funnel.Step>
         <Funnel.Step name="step3">
           <ContactStep
-            onPrev={() => Funnel.setStep("step2")}
-            onNext={() => Funnel.setStep("step4")}
+            onPrev={() => updateStep("2")}
+            onNext={() => updateStep("4")}
           />
         </Funnel.Step>
         <Funnel.Step name="step4">
-          {/* 임의로 serverId 부여 */}
           <InterestStep
-            onPrev={() => Funnel.setStep("step3")}
+            onPrev={() => updateStep("3")}
             onNext={() => {
               navigate("/:1/home");
               sessionStorage.clear();
