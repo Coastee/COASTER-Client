@@ -115,7 +115,7 @@ export const counterStyle = css`
 
 export const datePickerContainerStyle = css`
   position: absolute;
-  top: 100px;
+  top: 10rem;
 
   z-index: 100;
 `;
