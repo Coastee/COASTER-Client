@@ -3,13 +3,15 @@ import logo2Img from "@/assets/img/logo2Img.png";
 import { GoogleIcon, KakaoIcon, Logo4WhiteIcon, NaverIcon } from "@/assets/svg";
 import AuthContainer from "@/components/AuthContainer/AuthContainer";
 import * as s from "@/pages/OnboardingPage/OnboardingPage.styles";
-import {
-  logo1Style,
-  logo2Style,
-  wrapperStyle,
-} from "@/pages/SignupPage/SignupPage.styles";
+import { logo1Style, logo2Style, wrapperStyle } from "@/pages/SignupPage/SignupPage.styles";
 
 const OnBoardingPage = () => {
+  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_API_KEY}&redirect_uri=${import.meta.env.VITE_REDIRECT_URL}`;
+
+  const handleKakaoLogin = () => {
+    window.location.href = KAKAO_URL;
+  };
+
   return (
     <div css={wrapperStyle}>
       <img src={logo1Img} alt="로고1" css={logo1Style} />
@@ -23,11 +25,7 @@ const OnBoardingPage = () => {
         }
       >
         <div css={s.sideStyle}>
-          <button
-            type="button"
-            aria-label="Google로 시작하기"
-            css={[s.commonBtnStyle, s.googleBtnStyle]}
-          >
+          <button type="button" aria-label="Google로 시작하기" css={[s.commonBtnStyle, s.googleBtnStyle]}>
             <GoogleIcon width={22} height={22} />
             Google로 시작하기
           </button>
@@ -35,15 +33,12 @@ const OnBoardingPage = () => {
             type="button"
             aria-label="카카오로 시작하기"
             css={[s.commonBtnStyle, s.kakaoBtnStyle]}
+            onClick={handleKakaoLogin}
           >
             <KakaoIcon width={21} height={19} />
             카카오로 시작하기
           </button>
-          <button
-            type="button"
-            aria-label="네이버로 시작하기"
-            css={[s.commonBtnStyle, s.naverBtnStyle]}
-          >
+          <button type="button" aria-label="네이버로 시작하기" css={[s.commonBtnStyle, s.naverBtnStyle]}>
             <NaverIcon width={19} height={18} />
             네이버로 시작하기
           </button>
