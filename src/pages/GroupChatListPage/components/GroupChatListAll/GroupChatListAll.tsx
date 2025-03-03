@@ -1,13 +1,11 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
-import { NoDataContainer } from "@/components";
-import GroupChatDetailModal from "@/pages/GroupChatListPage/components/GroupChatDetailModal/GroupChatDetailModal";
+import { DetailModal, NoDataContainer } from "@/components";
 import { GROUP_CHAT_DUMMY } from "@/pages/GroupChatListPage/constants/groupChatDetailDummy";
 import { useState } from "react";
 import * as s from "./GroupChatListAll.styles";
 const GroupChatListAll = () => {
   const data = GROUP_CHAT_DUMMY;
-
   const items = data.result.chatRoomList;
   const itemsCount = items.length;
 
@@ -45,11 +43,12 @@ const GroupChatListAll = () => {
               </li>
             ))}
           </ul>
+
           {selectedChat && (
-            <GroupChatDetailModal
+            <DetailModal
               id={selectedChat.id}
               title={selectedChat.title}
-              thumbnail={selectedChat.thumbnail ?? ""}
+              thumbnail={selectedChat.thumbnail}
               content={selectedChat.content}
               hashTagList={selectedChat.hashTagList}
               nickname={selectedChat.user.nickname}
