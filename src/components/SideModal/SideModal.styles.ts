@@ -79,7 +79,7 @@ export const userCountStyle = css`
 export const headerButtonsStyle = css`
   display: flex;
 
-  gap: 1rem;
+  gap: 0.8rem;
 
   margin-right: -1rem;
 `;
