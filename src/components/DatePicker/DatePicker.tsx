@@ -12,7 +12,7 @@ interface DatePickerProps {
   selectedDate: Date | null;
   setSelectedDate: Dispatch<SetStateAction<Date | null>>;
   handleDateChange: (date: string) => void;
-  triangle: "top" | "right";
+  position: "top" | "right";
 }
 
 const DatePicker = ({
@@ -20,7 +20,7 @@ const DatePicker = ({
   selectedDate,
   setSelectedDate,
   handleDateChange,
-  triangle = "right",
+  position = "right",
 }: DatePickerProps) => {
   const [value, onChange] = useState<Value>(null);
   const [activeStartDate, setActiveStartDate] = useState<Date>(selectedDate || new Date());
@@ -55,7 +55,7 @@ const DatePicker = ({
   return (
     <div css={s.layoutStyle}>
       <div css={s.containerStyle}>
-        {triangle === "top" && <div css={s.triangleTopStyle} />}
+        {position === "top" && <div css={s.triangleTopStyle} />}
         <Calendar
           css={s.calendarStyle}
           onChange={onChange}
@@ -75,10 +75,9 @@ const DatePicker = ({
           }}
         />
       </div>
-      {triangle === "right" && <div css={s.triangleRightStyle} />}
+      {position === "right" && <div css={s.triangleRightStyle} />}
     </div>
   );
 };
 
 export default DatePicker;
-
