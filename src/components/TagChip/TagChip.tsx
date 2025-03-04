@@ -4,14 +4,15 @@ import * as s from "./TagChip.styles";
 
 interface TagChipProps extends HashtagTypes {
   variant?: "hashTag" | "link";
-  removeHashtag: (id: number) => void;
+  showCloseButton?: boolean;
+  removeHashtag?: (id: number) => void;
 }
 
-const TagChip = ({ variant = "hashTag", id = 0, content, removeHashtag }: TagChipProps) => {
+const TagChip = ({ variant = "hashTag", showCloseButton = true, id = 0, content, removeHashtag }: TagChipProps) => {
   return (
     <div css={s.hashtagLayoutStyle}>
-      <button type="button" css={s.deleteStyle} onClick={() => removeHashtag(id)}>
-        <CloseCircleIcon width={18} />
+      <button type="button" css={s.deleteStyle} onClick={() => removeHashtag?.(id)}>
+        {showCloseButton && <CloseCircleIcon width={18} />}
       </button>
       <button type="button" css={s.hashtagStyle(variant)}>
         {content}

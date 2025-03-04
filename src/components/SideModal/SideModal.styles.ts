@@ -79,7 +79,7 @@ export const userCountStyle = css`
 export const headerButtonsStyle = css`
   display: flex;
 
-  gap: 3rem;
+  gap: 0.8rem;
 
   margin-right: -1rem;
 `;
@@ -87,7 +87,11 @@ export const headerButtonsStyle = css`
 export const modalContentStyle = css``;
 
 export const headerIconStyle = css`
+  display: flex;
   flex-shrink: 0;
+
+  justify-content: center;
+  align-items: center;
 
   padding: 1rem;
 
