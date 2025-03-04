@@ -1,4 +1,5 @@
 import react from "@vitejs/plugin-react-swc";
+import fs from "node:fs";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
@@ -15,6 +16,14 @@ export default defineConfig({
       jsxImportSource: "@emotion/react",
     }),
   ],
+  server: {
+    https: {
+      key: fs.readFileSync("localhost-key.pem"),
+      cert: fs.readFileSync("localhost.pem"),
+    },
+    host: "localhost",
+    port: 5173,
+  },
   resolve: {
     alias: {
       "@": "/src",
