@@ -10,6 +10,14 @@ export const formatDate = (date: string) => {
   return year === currentYear ? `${month}/${day}` : `${year}/${month}/${day}`;
 };
 
+export const datePickerFormatDate = (date: Date, includeDayOfWeek = false) => {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+  return includeDayOfWeek ? `${year}. ${month}. ${day} (${dayOfWeek})` : `${year}. ${month}. ${day}`;
+};
+
 export const formatTime = (time: string) => {
   const [hours] = time.split(":").map(Number);
 
@@ -25,8 +33,8 @@ export const simpleFormatDate = (date: Date) => {
   const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
 
   return {
-    simpleDate: `${month}. ${day}`, // "2. 10"
-    dayOfWeek, // "수"
+    simpleDate: `${month}. ${day}`,
+    dayOfWeek,
   };
 };
 
@@ -55,8 +63,13 @@ export const requestFormatTime = (
   startDate: requestDateType;
   endDate: requestDateType;
 } => {
-  const [year, month, day] = dateTime.date
-    ? (dateTime.date.split(".").map(Number) as [number, number, number])
+  const exceptDayOfWeek = dateTime.date
+    .replace(/\s*\(.*\)/, "")
+    .trim()
+    .replace(/\s+/g, "");
+
+  const [year, month, day] = exceptDayOfWeek
+    ? (exceptDayOfWeek.split(".").map(Number) as [number, number, number])
     : [0, 1, 0];
 
   const parseTime = (time: string): [number, number] => {
