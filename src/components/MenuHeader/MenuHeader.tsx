@@ -1,5 +1,6 @@
 import { Logo4Icon, RotateLogoIcon } from "@/assets/svg";
-import { MENU } from "@/constants/menu";
+import { MENUS, type MenuTypes } from "@/constants/menu";
+import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
 import { useGlobalServer } from "@/stores/useGlobalServerStore"; // Import the global server state hook
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./MenuHeader.styles";
@@ -13,16 +14,18 @@ const MenuHeader = ({ iconOnly = false }: MenuHeaderProps) => {
   const location = useLocation();
 
   const globalServer = useGlobalServer();
-
   const serverId = globalServer?.id;
 
-  const handleNavigate = (menu: string) => {
+  const { setGlobalMenu } = useGlobalMenuAction();
+
+  const handleNavigate = (menu: MenuTypes) => {
     if (!serverId) return;
-    navigate(`/${serverId}/${menu}`);
+    setGlobalMenu(menu);
+    navigate(`/${serverId}/${menu.id}`);
   };
 
-  const isActiveMenu = (menu: string) => {
-    return location.pathname.startsWith(`/${serverId}/${menu}`);
+  const isActiveMenu = (menuId: string) => {
+    return location.pathname.startsWith(`/${serverId}/${menuId}`);
   };
 
   return (
@@ -33,12 +36,12 @@ const MenuHeader = ({ iconOnly = false }: MenuHeaderProps) => {
         <Logo4Icon />
       )}
       <div css={s.menuListStyle}>
-        {MENU.map((menu) => (
+        {MENUS.map((menu) => (
           <button
             key={menu.id}
             type="button"
-            css={[s.menuItemStyle(iconOnly), isActiveMenu(menu.path) && s.activeMenuItemStyle]}
-            onClick={() => handleNavigate(menu.path)}
+            css={[s.menuItemStyle(iconOnly), isActiveMenu(menu.id) && s.activeMenuItemStyle]}
+            onClick={() => handleNavigate(menu)}
           >
             <menu.icon />
             {!iconOnly && <span css={{ whiteSpace: "nowrap" }}>{menu.name}</span>}

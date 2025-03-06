@@ -1,6 +1,7 @@
 import { PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
-import { GLOBAL_MENUS, type GlobalMenuTypes, SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
+import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
+import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useGlobalMenu, useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
 import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
@@ -23,7 +24,7 @@ const ServerHeader = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
-  const [previousMenu, setPreviousMenu] = useState<GlobalMenuTypes | null>(globalMenu);
+  const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
   const myServerSet = new Set(myServerIdList);
 
@@ -31,7 +32,7 @@ const ServerHeader = () => {
     ? SERVERINFO.filter((server) => myServerSet.has(server.id) && server.id !== currentServer.id)
     : [];
 
-  const handleGlobalMenuClick = (menu: GlobalMenuTypes | null) => {
+  const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);
     setGlobalMenu(menu);
     menu?.id === "schedule" ? setIsScheduleVisible(true) : navigate(`/${menu?.id}`);
