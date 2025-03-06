@@ -1,9 +1,13 @@
-import { Logo4Icon } from "@/assets/svg";
+import { Logo4Icon, RotateLogoIcon } from "@/assets/svg";
 import { MENU } from "@/constants/menu";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as s from "./MenuHeader.styles";
 
-const MenuHeader = () => {
+interface MenuHeaderProps {
+  iconOnly?: boolean;
+}
+
+const MenuHeader = ({ iconOnly = false }: MenuHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { serverId } = useParams();
@@ -18,25 +22,24 @@ const MenuHeader = () => {
   };
 
   return (
-    <header css={s.containerStyle}>
-      <Logo4Icon />
+    <header css={s.containerStyle(iconOnly)}>
+      {iconOnly ? (
+        <RotateLogoIcon width={55} height={53} css={{ padding: "1rem", cursor: "pointer" }} />
+      ) : (
+        <Logo4Icon />
+      )}
       <div css={s.menuListStyle}>
-        {MENU.map((menu) => {
-          return (
-            <button
-              key={menu.id}
-              type="button"
-              css={[
-                s.menuItemStyle,
-                isActiveMenu(menu.path) && s.activeMenuItemStyle,
-              ]}
-              onClick={() => handleNavigate(menu.path)}
-            >
-              <menu.icon />
-              <span css={{ whiteSpace: "nowrap" }}>{menu.name}</span>
-            </button>
-          );
-        })}
+        {MENU.map((menu) => (
+          <button
+            key={menu.id}
+            type="button"
+            css={[s.menuItemStyle(iconOnly), isActiveMenu(menu.path) && s.activeMenuItemStyle]}
+            onClick={() => handleNavigate(menu.path)}
+          >
+            <menu.icon />
+            {!iconOnly && <span css={{ whiteSpace: "nowrap" }}>{menu.name}</span>}
+          </button>
+        ))}
       </div>
     </header>
   );
