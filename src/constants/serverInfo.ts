@@ -14,7 +14,7 @@ import {
   ProfileMenuIcon,
 } from "../assets/svg";
 
-export type ServerInfoType = {
+export type ServerInfoTypes = {
   id: number;
   name: string;
   icon: React.ElementType<SVGProps<SVGSVGElement>>;
@@ -26,7 +26,7 @@ export type GlobalMenuTypes = {
   activeIcon: React.ElementType<SVGProps<SVGSVGElement>>;
 };
 
-export const SERVERINFO: ServerInfoType[] = [
+export const SERVERINFO: ServerInfoTypes[] = [
   { id: 0, name: "광고/마케팅", icon: HomeIcon },
   { id: 1, name: "금융/보험/핀테크", icon: HomeIcon },
   { id: 2, name: "모빌리티/교통", icon: MobilityServerIcon },
