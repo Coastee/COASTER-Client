@@ -31,7 +31,10 @@ export const titleStyle = css`
   display: flex;
 
   align-items: center;
+
   gap: 1rem;
+
+  white-space: nowrap;
 
   h1 {
     max-width: 40rem;
@@ -46,6 +49,52 @@ export const titleStyle = css`
     font-weight: 400;
     color: ${theme.color.gray2};
   }
+`;
+
+export const noticeButtonStyle = (isNoticeOpened: boolean) => css`
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.8rem;
+
+  padding: ${isNoticeOpened ? "0.8rem 1.5rem 1.2rem 1.5rem " : "0.8rem 1.5rem"};
+  
+  border-radius: 0.7rem;
+
+  background-color: ${theme.color.primaryBlue2};
+`;
+
+export const noticeTitleStyle = css`
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  p {
+    ${theme.font.body2}
+    font-weight: 500;
+  }
+
+  svg:nth-of-type(1) {
+    padding-top: 0.2rem;
+  }
+
+  svg:nth-of-type(2) path {
+    fill: ${theme.color.white};
+  }
+`;
+
+export const noticeContentStyle = css`
+  ${theme.font.body3}
+  font-weight: 400;
+  width: 26rem;
 `;
 
 export const scrollStyle = css`
