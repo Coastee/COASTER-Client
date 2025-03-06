@@ -1,6 +1,7 @@
 import { Logo4Icon, RotateLogoIcon } from "@/assets/svg";
 import { MENU } from "@/constants/menu";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useGlobalServer } from "@/stores/useGlobalServerStore"; // Import the global server state hook
+import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./MenuHeader.styles";
 
 interface MenuHeaderProps {
@@ -10,7 +11,10 @@ interface MenuHeaderProps {
 const MenuHeader = ({ iconOnly = false }: MenuHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { serverId } = useParams();
+
+  const globalServer = useGlobalServer();
+
+  const serverId = globalServer?.id;
 
   const handleNavigate = (menu: string) => {
     if (!serverId) return;
