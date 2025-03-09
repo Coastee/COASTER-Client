@@ -10,6 +10,7 @@ export const PATH = {
   CAREER_ADD: "/mypage/setting-add-career",
 
   HOME: "/:serverId/home",
+  HOME_RELATIVE: "../home",
   GROUP_CHAT_LIST: "/:serverId/home/group-chat-list",
   COFFEE_CHAT_LIST: "/:serverId/home/coffee-chat-list",
   GROUP_CHAT: "/:serverId/group-chat/chat",

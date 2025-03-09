@@ -20,6 +20,7 @@ export const scrollStyle = css`
 export const scrollDarkStyle = css`
   ::-webkit-scrollbar {
     width: 0.6rem;
+    height: 0.6rem;
   }
   ::-webkit-scrollbar-thumb {
     background: ${theme.color.dark2};
@@ -28,6 +29,9 @@ export const scrollDarkStyle = css`
   ::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 10px;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
   }
 
   scroll-behavior: smooth;
