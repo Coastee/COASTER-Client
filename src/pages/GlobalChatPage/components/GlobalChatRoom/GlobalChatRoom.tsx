@@ -3,21 +3,17 @@ import { Divider, Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 
 import { PATH } from "@/constants/path";
+import { useScrollToBottom } from "@/hooks/useScroll";
 import { DM_MESSAGES } from "@/pages/DMPage/constants/dummy";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
 
 const GlobalChatRoom = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [isNoticeOpened, setIsNoticeOpened] = useState(false);
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, []);
+  const scrollRef = useScrollToBottom();
 
   return (
     <section css={s.wrapperStyle}>
