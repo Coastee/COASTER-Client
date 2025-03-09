@@ -15,12 +15,9 @@ const HomePage = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
-  const { hashTagList, meetingChatRoom, groupChatRoom, notice, chat, ...rest } =
-    HOME_DUMMY;
+  const { hashTagList, meetingChatRoom, groupChatRoom, notice, chat, ...rest } = HOME_DUMMY;
 
-  const [selectedItemId, setSelectedItemId] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedItemId, setSelectedItemId] = useState<string | undefined>(undefined);
 
   const handleItemClick = (id: string) => {
     setSelectedItemId(id);
@@ -36,13 +33,8 @@ const HomePage = () => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />
-
       <div css={s.layoutStyle}>
-        <SearchLayout
-          keyword={keyword}
-          setKeyword={setKeyword}
-          hashTagData={HASH_TAGS_DUMMY}
-        />
+        <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={HASH_TAGS_DUMMY} />
         <TitleContainer
           title="그룹 채팅방"
           textButton="전체보기"
@@ -50,10 +42,7 @@ const HomePage = () => {
             navigate("./group-chat-list");
           }}
         >
-          <GroupChatList
-            data={groupChatRoom}
-            handleItemClick={handleItemClick}
-          />
+          <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
         </TitleContainer>
         <TitleContainer
           title="오프라인 커피챗"

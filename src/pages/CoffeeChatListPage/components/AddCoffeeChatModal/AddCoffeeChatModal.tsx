@@ -1,8 +1,8 @@
 import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
-import { Button, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
+import { Button, DatePicker, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 
-import { useHashtag } from "@/components/HashtagChip/hooks/useHashtag";
+import { useHashtag } from "@/components/TagChip/hooks/useHashtag";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { TimeDropdown } from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
@@ -21,17 +21,24 @@ import * as s from "./AddCoffeeChatModal.styles";
 const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [datePickerSelectedDate, setDatePickerSelectedDate] = useState<Date | null>(null);
 
-  const { isFieldError, handleInputChange, handleFocus, handleBlur, handleMaxCountChange, formatDateTime } =
-    useAddCoffeeChat({
-      dateTime,
-      setDateTime,
-      setRequest,
-      maxLengths: MAX_LENGTH,
-    });
-
+  const {
+    isFieldError,
+    handleDateChange,
+    handleInputChange,
+    handleFocus,
+    handleBlur,
+    handleMaxCountChange,
+    formatDateTime,
+  } = useAddCoffeeChat({
+    dateTime,
+    setDateTime,
+    setRequest,
+    maxLengths: MAX_LENGTH,
+  });
   const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(request, setRequest);
-
   const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
 
   const isButtonDisabled = request.title.trim().length === 0 || request.location.trim().length === 0;
@@ -123,15 +130,33 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
               />
             </div>
           </li>
-          <li css={[s.questionContainer, { paddingTop: "1.2rem" }]}>
+
+          <li css={[s.questionContainer, { paddingTop: "1.2rem", position: "relative" }]}>
             <label htmlFor="date-time" css={s.textareaTitleStyle}>
               {CHAT_FORM_FIELDS.dateTime.headerTxt}
               <span id="required">*</span>
             </label>
+
             <div css={s.dateTimeLayoutStyle}>
               <div css={{ display: "flex", gap: "1.2rem" }}>
-                <div id="date-time" css={s.dateTimeContainerStyle(request.startDate[0] === 0)}>
-                  {request.startDate[0] === 0 ? CHAT_FORM_FIELDS.dateTime.placeholder : request.startDate}
+                <div
+                  id="date-time"
+                  onClick={() => setIsDatePickerVisible(!isDatePickerVisible)}
+                  onKeyDown={() => setIsDatePickerVisible(!isDatePickerVisible)}
+                  css={s.dateTimeContainerStyle(!dateTime.date)}
+                >
+                  {dateTime.date || CHAT_FORM_FIELDS.dateTime.placeholder}
+                </div>
+
+                <div css={s.datePickerContainerStyle}>
+                  {isDatePickerVisible && (
+                    <DatePicker
+                      selectedDate={datePickerSelectedDate}
+                      setSelectedDate={setDatePickerSelectedDate}
+                      setIsVisible={setIsDatePickerVisible}
+                      handleDateChange={handleDateChange}
+                    />
+                  )}
                 </div>
                 <TimeDropdown type="start" setTime={(time) => setDateTime({ ...dateTime, start: time })} />
                 <TimeDropdown type="end" setTime={(time) => setDateTime({ ...dateTime, end: time })} />

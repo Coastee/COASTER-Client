@@ -2,6 +2,8 @@ export { default as AddButton } from "./AddButton/AddButton";
 export { default as AuthContainer } from "./AuthContainer/AuthContainer";
 export { default as Button } from "./Button/Button";
 export { default as CheckBox } from "./CheckBox/Checkbox";
+export { default as DatePicker } from "./DatePicker/DatePicker";
+export { default as DetailModal } from "./DetailModal/DetailModal";
 export { default as Divider } from "./Divider/Divider";
 export { default as Dropdown } from "./Dropdown/Dropdown";
 export { default as FileUploadBox } from "./FileUploadBox/FileUploadBox";

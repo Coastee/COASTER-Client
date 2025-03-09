@@ -1,41 +1,53 @@
+import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
-import { NoDataContainer } from "@/components";
-import { CHAT_ROOMS_DUMMY } from "@/constants/chatRoomsDummy";
+import { DetailModal, NoDataContainer } from "@/components";
+import { GROUP_CHAT_DUMMY } from "@/pages/GroupChatListPage/constants/groupChatDetailDummy";
+import { useState } from "react";
 import * as s from "./GroupChatListAll.styles";
-
 const GroupChatListAll = () => {
-  const items = CHAT_ROOMS_DUMMY;
+  const data = GROUP_CHAT_DUMMY;
+  const items = data.result.chatRoomList;
   const itemsCount = items.length;
+
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  const selectedChat = items.find((chat) => chat.id === selectedId);
 
   return (
     <div>
       {itemsCount === 0 ? (
         <NoDataContainer id="NO_GROUP_CHAT" height="25.1rem" />
       ) : (
-        <ul css={s.listContainerStyle(itemsCount)}>
-          {items.map((chat) => (
-            <li key={chat.id}>
-              <article css={s.listItemStyle}>
-                <div css={s.infoLayoutStyle}>
-                  <div css={s.textLayoutStyle}>
-                    <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
-                    <h1 css={s.listTitleStyle}>{chat.title}</h1>
-                    <p css={s.circle} />
-                    <p css={s.listUsersStyle}>
-                      {chat.currentUsers}/{chat.maxUsers}명
-                    </p>
+        <>
+          <ul css={s.listContainerStyle(itemsCount)}>
+            {items.map((chat) => (
+              <li key={chat.id}>
+                <article
+                  css={s.listItemStyle}
+                  onClick={() => setSelectedId(chat.id)}
+                  onKeyDown={() => setSelectedId(chat.id)}
+                >
+                  <div css={s.infoLayoutStyle}>
+                    <div css={s.textLayoutStyle}>
+                      <RotateLogoIcon width={20} style={{ flexShrink: "0", paddingTop: "0.3rem" }} />
+                      <h1 css={s.listTitleStyle}>{chat.title}</h1>
+                      <p css={s.circle} />
+                      <p css={s.listUsersStyle}>
+                        {chat.currentCount}/{chat.maxCount}명
+                      </p>
+                    </div>
+                    <p css={s.listDescStyle}>{chat.content}</p>
                   </div>
-                  <p css={s.listDescStyle}>{chat.desc}</p>
-                </div>
-                <img
-                  src={chat.imgSrc}
-                  alt="그룹 채팅 썸네일"
-                  css={s.thumbnailImgStyle}
-                />
-              </article>
-            </li>
-          ))}
-        </ul>
+                  <img src={chat.thumbnail || rotateLogoImg} alt="그룹 채팅 썸네일" css={s.thumbnailImgStyle} />
+                </article>
+              </li>
+            ))}
+          </ul>
+
+          {selectedChat && (
+            <DetailModal data={selectedChat} isVisible={true} setIsVisible={() => setSelectedId(null)} />
+          )}
+        </>
       )}
     </div>
   );
