@@ -1,11 +1,9 @@
 import App, { layoutStyle } from "@/App";
 import { ServerHeader } from "@/components";
 import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
-import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
-import KakaoLogin from "@/pages/OnboardingPage/components/KakaoLogin/KakaoLogin";
 import GlobalChatPage from "@/pages/GlobalChatPage/GlobalChatPage";
 import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
-
+import KakaoLogin from "@/pages/OnboardingPage/components/KakaoLogin/KakaoLogin";
 import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
