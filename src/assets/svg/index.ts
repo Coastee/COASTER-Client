@@ -36,6 +36,7 @@ export { default as Logo4WhiteIcon } from "./Logo4WhiteIcon";
 export { default as MiddlePointIcon } from "./MiddlePointIcon";
 export { default as MobilityServerIcon } from "./MobilityServerIcon";
 export { default as NaverIcon } from "./NaverIcon";
+export { default as PlusBlueIcon } from "./PlusBlueIcon";
 export { default as PlusIcon } from "./PlusIcon";
 export { default as ProfileIcon } from "./ProfileIcon";
 export { default as ProfileMenuActiveIcon } from "./ProfileMenuActiveIcon";

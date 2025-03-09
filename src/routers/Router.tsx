@@ -1,15 +1,10 @@
 import App, { layoutStyle } from "@/App";
 import { ServerHeader } from "@/components";
-import {
-  CoffeeChatListPage,
-  DMPage,
-  GroupChatListPage,
-  HomePage,
-  MyPage,
-  OnboardingPage,
-  SignupPage,
-} from "@/pages";
+import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
 import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
+
+import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
+import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
 import { Outlet, createBrowserRouter } from "react-router-dom";
@@ -63,6 +58,15 @@ export const router = createBrowserRouter([
       {
         path: "/mypage/setting-career",
         element: <CareerSettingList />,
+      },
+
+      {
+        path: "/mypage/setting-edit-career",
+        element: <CareerEdit />,
+      },
+      {
+        path: "/mypage/setting-add-career",
+        element: <CareerAdd />,
       },
     ],
   },

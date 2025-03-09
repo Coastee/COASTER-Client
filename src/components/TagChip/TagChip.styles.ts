@@ -35,5 +35,7 @@ export const deleteStyle = css`
   top: 0;
   right: 0;
 
+  z-index: 1;
+
   transform: translate(30%, -30%);
 `;

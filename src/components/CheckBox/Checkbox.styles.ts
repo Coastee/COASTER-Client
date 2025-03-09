@@ -1,33 +1,70 @@
+import type { CheckBoxProps } from "@/components/CheckBox/Checkbox";
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const boxWrapperStyle = css`
-  display: flex;
+export const boxWrapperStyle: Record<Required<CheckBoxProps>["variant"], ReturnType<typeof css>> = {
+  square: css`
+    display: flex;
 
-  width: 2.4rem;
-  height: 2.4rem;
+    width: 2.4rem;
+    height: 2.4rem;
 
-  padding: 0.35rem;
+    padding: 0.35rem;
 
-  border: 1px solid ${theme.color.dark1};
-  border-radius: 5px;
-`;
+    border: 1px solid ${theme.color.dark1};
+    border-radius: 5px;
+  `,
 
-export const checkboxStyle = css`
-  appearance: none;
+  round: css`
+    display: flex;
 
-  width: 1.5rem;
-  height: 1.5rem;
+    width: 2.1rem;
+    height: 2.1rem;
 
-  border-radius: 3px;
+    padding: 0.4rem;
 
-  flex-shrink: 0;
+    border-radius: 100%;
 
-  cursor: pointer;
+    background-color: ${theme.color.dark2};
+  `,
+};
 
-  &:checked {
-    background-color: ${theme.color.primaryBlue1};
+export const variantStyles: Record<Required<CheckBoxProps>["variant"], ReturnType<typeof css>> = {
+  square: css`
+    appearance: none;
 
-    transition: 0.2s ease-in-out;
-  }
-`;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    border-radius: 3px;
+
+    flex-shrink: 0;
+
+    cursor: pointer;
+
+    &:checked {
+      background-color: ${theme.color.primaryBlue1};
+
+      transition: 0.2s ease-in-out;
+    }
+  `,
+
+  round: css`
+    appearance: none;
+
+    width: 1.3rem;
+    height: 1.3rem;
+
+    border-radius: 100%;
+
+    flex-shrink: 0;
+
+    cursor: pointer;
+
+    &:checked {
+      background-color: ${theme.color.primaryBlue2};
+
+      transition: 0.2s ease-in-out;
+    }
+  `,
+};
