@@ -9,7 +9,10 @@ export const layoutStyle = (supportingText: boolean) => css`
   width: 100%;
 `;
 
-export const wrapperStyle = (isError: boolean) => css`
+export const wrapperStyle = (
+  variant: "primary" | "secondary",
+  isError: boolean
+) => css`
   position: relative;
   display: flex;
 
@@ -21,9 +24,13 @@ export const wrapperStyle = (isError: boolean) => css`
 
   border-radius: 10px;
   box-shadow: inset 0 0 0 1px
-    ${isError ? theme.color.primaryPink1 : theme.color.dark1};
+    ${isError
+      ? theme.color.primaryPink1
+      : variant === "primary"
+      ? theme.color.dark1
+      : "none"};
 
-  background-color: #2d3643;
+  background-color: ${variant === "primary" ? "#2d3643" : theme.color.dark2};
 
   transition: 0.2s ease-in-out;
 

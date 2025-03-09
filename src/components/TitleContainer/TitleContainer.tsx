@@ -1,9 +1,6 @@
 import { ArrowDownIcon } from "@/assets/svg";
 import { Button } from "@/components";
-import {
-  type DropdownOptionTypes,
-  SORTING_OPTIONS,
-} from "@/constants/dropdown";
+import { type DropdownOptionTypes, SORTING_OPTIONS } from "@/constants/dropdown";
 import type { HTMLAttributes, ReactNode } from "react";
 import { useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
@@ -37,17 +34,14 @@ const TitleContainer = ({
         <h1 css={s.titleStyle}>{title}</h1>
 
         {textButton && handleTextButtonClick && (
-          <Button variant="text" onClick={handleTextButtonClick}>
+          <Button variant="text" size="large" css={{ padding: "0.6rem 1.2rem" }} onClick={handleTextButtonClick}>
             {textButton}
           </Button>
         )}
 
         {sortingOptions && sortingOption && setSortingOption && (
           <div css={s.sortingStyle}>
-            <Button
-              variant="sorting"
-              onClick={() => setDropdownOpen((prev) => !prev)}
-            >
+            <Button variant="sorting" onClick={() => setDropdownOpen((prev) => !prev)}>
               <ArrowDownIcon
                 width={10}
                 style={{

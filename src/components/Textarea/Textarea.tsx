@@ -9,6 +9,7 @@ import {
 import { inputStyle } from "../Input/Input.styles";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  variant?: "primary" | "secondary";
   isError?: boolean;
   supportingText?: string;
 }
@@ -16,6 +17,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
+      variant = "primary",
       isError = false,
       placeholder,
       id,
@@ -29,7 +31,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     return (
       <div css={s.layoutStyle(!!supportingText && isError)}>
-        <div css={s.wrapperStyle(isError)}>
+        <div css={s.wrapperStyle(variant, isError)}>
           <textarea
             css={[inputStyle, s.textareaStyle]}
             placeholder={placeholder}

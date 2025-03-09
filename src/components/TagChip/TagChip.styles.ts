@@ -7,7 +7,7 @@ export const hashtagLayoutStyle = css`
   position: relative;
 `;
 
-export const hashtagStyle = css`
+export const hashtagStyle = (variant: "hashTag" | "link") => css`
   display: flex;
 
   justify-content: center;
@@ -15,7 +15,7 @@ export const hashtagStyle = css`
 
   gap: 0.8rem;
 
-  padding: 0.8rem 1.7rem;
+  padding: ${variant === "hashTag" ? "0.8rem 1.7rem" : "1.2rem"};
 
   border-radius: 1rem;
 
@@ -34,6 +34,8 @@ export const deleteStyle = css`
   position: absolute;
   top: 0;
   right: 0;
+
+  z-index: 1;
 
   transform: translate(30%, -30%);
 `;

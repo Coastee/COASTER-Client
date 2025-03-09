@@ -2,10 +2,10 @@ import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
 export const wrapperStyle = css`
+  position: relative;
   display: flex;
 
   width: 100%;
-  max-width: 65rem;
 
   padding: 2.7rem 1.4rem;
 
@@ -61,4 +61,17 @@ export const listLayoutStyle = css`
 
   flex-direction: column;
   gap: 0.8rem;
+`;
+
+export const editIconStyle = css`
+  display: flex;
+
+  padding: 0.5rem;
+  margin-right: 2rem;
+
+  flex-shrink: 0;
+
+  box-sizing: content-box;
+
+  cursor: pointer;
 `;

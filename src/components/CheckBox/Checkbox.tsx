@@ -1,17 +1,18 @@
 import * as s from "@/components/CheckBox/Checkbox.styles";
 import type { HTMLAttributes } from "react";
 
-interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
+export interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
+  variant?: "square" | "round";
   isChecked: boolean;
 }
 
-const CheckBox = ({ id, isChecked, onChange, ...props }: CheckBoxProps) => {
+const CheckBox = ({ id, variant = "square", isChecked, onChange, ...props }: CheckBoxProps) => {
   return (
-    <div css={s.boxWrapperStyle}>
+    <div css={s.boxWrapperStyle[variant]}>
       <input
         type="checkbox"
         id={id}
-        css={s.checkboxStyle}
+        css={s.variantStyles[variant]}
         onChange={onChange}
         checked={isChecked}
         aria-checked={isChecked}
