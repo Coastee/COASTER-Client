@@ -60,6 +60,7 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
 
   return {
     careerData,
+    setCareerData,
     handleInputChange,
     handleDetailChange,
     handleAddDetailInput,

@@ -1,4 +1,4 @@
-import { PlusBlueIcon } from "@/assets/svg";
+import PlusBlueIcon from "@/assets/svg/PlusBlueIcon";
 import { Button, CheckBox, Divider, Input } from "@/components";
 import { PATH } from "@/constants/path";
 import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChip/CareerDetailChip";
@@ -15,6 +15,7 @@ const CareerEdit = () => {
 
   const {
     careerData,
+    setCareerData,
     handleInputChange,
     handleDetailChange,
     handleAddDetailInput,
@@ -35,7 +36,15 @@ const CareerEdit = () => {
             maxLength={MAX_LENGTH.CAREER_DETAIL_TITLE}
             variant="secondary"
             value={careerData.title}
-            onChange={(e) => handleInputChange("title", e.target.value)}
+            onChange={(e) => {
+              const { value } = e.target;
+
+              if (value.length > MAX_LENGTH.CAREER_DETAIL_TITLE) {
+                setCareerData((prev) => ({ ...prev, title: value.slice(0, MAX_LENGTH.CAREER_DETAIL_TITLE) }));
+              } else {
+                handleInputChange("title", value);
+              }
+            }}
           />
         </div>
 
