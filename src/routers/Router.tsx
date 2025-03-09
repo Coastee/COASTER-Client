@@ -1,15 +1,8 @@
 import App, { layoutStyle } from "@/App";
 import { ServerHeader } from "@/components";
-import {
-  CoffeeChatListPage,
-  DMPage,
-  GroupChatListPage,
-  HomePage,
-  MyPage,
-  OnboardingPage,
-  SignupPage,
-} from "@/pages";
+import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
 import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
+import KakaoLogin from "@/pages/OnboardingPage/components/KakaoLogin/KakaoLogin";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
@@ -33,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignupPage />,
+      },
+      {
+        path: "/redirect-kakao",
+        element: <KakaoLogin />,
       },
     ],
   },

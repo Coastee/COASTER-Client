@@ -6,7 +6,7 @@ import * as s from "@/pages/OnboardingPage/OnboardingPage.styles";
 import { logo1Style, logo2Style, wrapperStyle } from "@/pages/SignupPage/SignupPage.styles";
 
 const OnBoardingPage = () => {
-  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_API_KEY}&redirect_uri=${import.meta.env.VITE_REDIRECT_URL}`;
+  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}`;
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_URL;
