@@ -47,10 +47,6 @@ const ServerHeader = () => {
     !isScheduleVisible && globalMenu?.id === "schedule" && setGlobalMenu(previousMenu);
   }, [isScheduleVisible, globalMenu, previousMenu, setGlobalMenu]);
 
-  useEffect(() => {
-    globalServer && setCurrentServer(globalServer);
-  }, [globalServer]);
-
   return (
     <header css={s.containerStyle}>
       <div css={s.topMenuStyle}>
