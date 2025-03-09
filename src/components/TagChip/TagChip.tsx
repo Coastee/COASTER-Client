@@ -1,8 +1,8 @@
 import { CloseCircleIcon } from "@/assets/svg";
-import type { HashtagTypes } from "@/components/TagChip/types/hashtagTypes";
+import type { TagChipTypes } from "@/components/TagChip/types/tagChipTypes";
 import * as s from "./TagChip.styles";
 
-interface TagChipProps extends HashtagTypes {
+interface TagChipProps extends TagChipTypes {
   variant?: "hashTag" | "link";
   showCloseButton?: boolean;
   removeHashtag?: (id: number) => void;

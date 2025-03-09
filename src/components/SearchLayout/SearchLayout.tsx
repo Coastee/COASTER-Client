@@ -1,6 +1,6 @@
 import { RotateLogoIcon } from "@/assets/svg";
 import { Button, Input } from "@/components";
-import type { HashtagTypes } from "@/components/TagChip/types/hashtagTypes";
+import type { HashtagTypes } from "@/pages/HomePage/types/homeDataTypes";
 import * as s from "./SearchLayout.styles";
 
 interface SearchLayoutProps {
