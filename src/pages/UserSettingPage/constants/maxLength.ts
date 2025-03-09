@@ -11,9 +11,5 @@ export const MAX_LENGTH = {
 export const MIN_LENGTH = {
   NICKNAME: 2,
   CAREER: 1,
-};
-
-export const MIN_LENGTH = {
-  NICKNAME: 2,
-  CAREER: 1,
+  DETAIL: 30,
 };
