@@ -1,4 +1,3 @@
-import { getCookie } from "@/cookies/cookies";
 import ky from "ky";
 
 export const instance = ky.create({
@@ -8,7 +7,7 @@ export const instance = ky.create({
   },
 });
 
-const accessToken = getCookie("accessToken");
+const accessToken = localStorage.getItem("accessToken");
 
 export const tokenInstance = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
