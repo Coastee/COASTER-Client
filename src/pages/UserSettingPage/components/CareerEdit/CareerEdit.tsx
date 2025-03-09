@@ -6,7 +6,6 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { careerDummyData } from "@/pages/UserSettingPage/constants/dummy";
 
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
-import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
 import { formatDateArray } from "@/utils/dateTime";
 import { useNavigate } from "react-router-dom";
@@ -23,8 +22,6 @@ const CareerEdit = () => {
     setIsCurrentJob,
   } = useEditCareerForm(careerDummyData);
 
-  const { isTitleError, isContentError, isDateError } = useCareerValidation(careerData);
-
   return (
     <div css={s.pageStyle}>
       <h1 css={s.titleStyle}>경력 편집</h1>
@@ -38,7 +35,6 @@ const CareerEdit = () => {
             maxLength={MAX_LENGTH.CAREER_DETAIL_TITLE}
             variant="secondary"
             value={careerData.title}
-            isError={isTitleError}
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
@@ -54,7 +50,6 @@ const CareerEdit = () => {
               variant="secondary"
               value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
               onChange={() => {}}
-              isError={isDateError}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
@@ -91,7 +86,6 @@ const CareerEdit = () => {
                 key={index}
                 variant="secondary"
                 maxLength={MAX_LENGTH.DETAIL}
-                isError={isContentError[0]}
                 value={detail}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
               />
@@ -99,7 +93,6 @@ const CareerEdit = () => {
               <CareerDetailChip
                 key={index}
                 value={detail}
-                isError={isContentError[index]}
                 onDelete={() => handleDeleteDetailInput(index)}
                 onChange={(e) => handleDetailChange(index, e.target.value)}
               />
