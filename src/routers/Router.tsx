@@ -1,6 +1,7 @@
 import App, { layoutStyle } from "@/App";
 import { ServerHeader } from "@/components";
 import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
+import GlobalChatPage from "@/pages/GlobalChatPage/GlobalChatPage";
 import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
 
 import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
       {
         path: "/:serverId/group-chat/chat",
         element: <GroupChatPage />,
+      },
+      {
+        path: "/:serverId/global-chat",
+        element: <GlobalChatPage />,
       },
     ],
   },
