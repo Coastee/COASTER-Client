@@ -32,12 +32,8 @@ const HomePage = () => {
 
   useEffect(() => {
     const loadHomeData = async () => {
-      try {
-        const result = await fetchServerHome(serverId);
-        setHomeData(result);
-      } catch (error) {
-        console.error("홈 데이터를 가져오는 데 실패했습니다.", error);
-      }
+      const result = await fetchServerHome(serverId);
+      result && setHomeData(result);
     };
     loadHomeData();
   }, []);
