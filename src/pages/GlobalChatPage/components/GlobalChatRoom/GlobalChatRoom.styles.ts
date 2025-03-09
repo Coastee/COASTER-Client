@@ -60,7 +60,7 @@ export const noticeButtonStyle = (isNoticeOpened: boolean) => css`
   gap: 0.8rem;
 
   padding: ${isNoticeOpened ? "0.8rem 1.5rem 1.2rem 1.5rem " : "0.8rem 1.5rem"};
-  
+
   border-radius: 0.7rem;
 
   background-color: ${theme.color.primaryBlue2};
@@ -116,7 +116,6 @@ export const scrollStyle = css`
 `;
 
 export const layoutStyle = css`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
 
