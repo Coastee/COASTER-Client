@@ -2,6 +2,7 @@ import { ArrowDownIcon, ExitIcon, PinIcon, SendIcon } from "@/assets/svg";
 import { Divider, Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 
+import { PATH } from "@/constants/path";
 import { DM_MESSAGES } from "@/pages/DMPage/constants/dummy";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +54,7 @@ const GlobalChatRoom = () => {
           height={23}
           css={s.iconStyle}
           onClick={() => {
-            navigate("../home");
+            navigate(PATH.HOME_RELATIVE);
           }}
         />
       </header>
