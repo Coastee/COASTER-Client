@@ -1,3 +1,4 @@
+import { fetchServerHome } from "@/apis/server";
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
@@ -5,7 +6,7 @@ import { HOME_DUMMY } from "@/constants/homeDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
 
@@ -24,6 +25,20 @@ const HomePage = () => {
     setSelectedItemId(id);
     setIsVisible(true);
   };
+
+  const serverId = 2;
+
+  useEffect(() => {
+    const loadHomeData = async () => {
+      try {
+        const homeData = await fetchServerHome(serverId);
+        console.log(homeData);
+      } catch (error) {
+        console.error("홈 데이터를 가져오는 데 실패했습니다.", error);
+      }
+    };
+    loadHomeData();
+  });
 
   return (
     <>
