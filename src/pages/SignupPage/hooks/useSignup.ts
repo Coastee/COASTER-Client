@@ -11,7 +11,6 @@ export const useSignup = () => {
     mutationFn: (userData: SignUpFormTypes) => postSignup(userData),
 
     onSuccess: (response) => {
-      console.log(response);
       const storedData = sessionStorage.getItem("signup");
 
       if (!storedData) return;
