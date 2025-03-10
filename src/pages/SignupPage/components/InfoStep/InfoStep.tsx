@@ -25,7 +25,7 @@ const InfoStep = ({ onNext }: InfoStepProps) => {
         <Input
           placeholder={PLACEHOLDER.NICKNAME}
           onChange={(e) => handleInfoChange(e, "nickname")}
-          value={form.nickName}
+          value={form.nickname}
           isError={isNickNameError}
           supportingText={SUPPORTING_TEXT.NICKNAME}
         />

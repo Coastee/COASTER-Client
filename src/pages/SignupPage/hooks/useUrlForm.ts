@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 export const useUrlForm = () => {
   const formData = JSON.parse(sessionStorage.getItem("signup") || "{}");
-  const initialUrls = Array.isArray(formData.urls) ? formData.urls : [""];
+  const initialUrls = Array.isArray(formData.urlList) ? formData.urlList : [""];
 
   const [urls, setUrls] = useState<string[]>(initialUrls);
 
