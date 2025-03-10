@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <App />,
+    element: <App iconMenuHeader={true} />,
     children: [
       {
         path: "/mypage",
@@ -91,17 +91,23 @@ export const router = createBrowserRouter([
         path: "/:serverId/home/coffee-chat-list",
         element: <CoffeeChatListPage />,
       },
+    ],
+  },
+  {
+    path: "/:serverId",
+    element: <App iconMenuHeader={true} />,
+    children: [
       {
         path: "/:serverId/group-chat",
-        element: <HomePage />,
+        element: <GroupChatPage />,
       },
       {
         path: "/:serverId/coffee-chat",
-        element: <HomePage />,
+        element: <GroupChatPage />,
       },
       {
-        path: "/:serverId/group-chat/chat",
-        element: <GroupChatPage />,
+        path: "/:serverId/global-chat",
+        element: <GlobalChatPage />,
       },
       {
         path: "/:serverId/global-chat",

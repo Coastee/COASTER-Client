@@ -1,22 +1,56 @@
-import { ChatIcon, CoffeeIcon, HomeIcon } from "../assets/svg"; // 임시 아이콘
+import type { SVGProps } from "react";
+import {
+  CalendarMenuActiveIcon,
+  CalendarMenuIcon,
+  ChatIcon,
+  CoffeeIcon,
+  DmMenuActiveIcon,
+  DmMenuIcon,
+  HomeIcon,
+  ProfileMenuActiveIcon,
+  ProfileMenuIcon,
+} from "../assets/svg";
 
-export const MENU = [
+export type MenuTypes = {
+  id: string;
+  name: string;
+  icon: React.ElementType<SVGProps<SVGSVGElement>>;
+  activeIcon: React.ElementType<SVGProps<SVGSVGElement>>;
+};
+
+export const MENUS: MenuTypes[] = [
   {
     id: "home",
     name: "홈",
     icon: HomeIcon,
-    path: "home", // 상대 경로
+    activeIcon: HomeIcon,
   },
   {
     id: "group-chat",
     name: "그룹챗",
     icon: ChatIcon,
-    path: "group-chat",
+    activeIcon: ChatIcon,
   },
   {
     id: "coffee-chat",
     name: "커피챗",
     icon: CoffeeIcon,
-    path: "coffee-chat",
+    activeIcon: CoffeeIcon,
+  },
+];
+
+export const GLOBAL_MENUS: MenuTypes[] = [
+  { id: "dm", name: "DM", icon: DmMenuIcon, activeIcon: DmMenuActiveIcon },
+  {
+    id: "schedule",
+    name: "스케줄",
+    icon: CalendarMenuIcon,
+    activeIcon: CalendarMenuActiveIcon,
+  },
+  {
+    id: "mypage",
+    name: "마이페이지",
+    icon: ProfileMenuIcon,
+    activeIcon: ProfileMenuActiveIcon,
   },
 ];

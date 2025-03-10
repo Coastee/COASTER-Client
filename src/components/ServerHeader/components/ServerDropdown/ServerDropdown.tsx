@@ -1,15 +1,16 @@
 import { ReturnIcon } from "@/assets/svg";
-import type { ServerInfoType } from "@/constants/serverInfo";
+import type { ServerInfoTypes } from "@/constants/serverInfo";
 import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
-  options: ServerInfoType[];
-  currentServer?: ServerInfoType | undefined;
-  setCurrentServer: (item: ServerInfoType) => void;
+  options: ServerInfoTypes[];
+  currentServer?: ServerInfoTypes | undefined;
+  setCurrentServer: (item: ServerInfoTypes) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
+  onServerChange: (server: ServerInfoTypes) => void;
 }
 
 const ServerDropdown = ({
@@ -18,15 +19,17 @@ const ServerDropdown = ({
   setCurrentServer,
   dropdownOpen,
   setDropdownOpen,
+  onServerChange,
   ...props
 }: DropdownProps) => {
   const { resetGlobalMenu } = useGlobalMenuAction();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const handleItemClick = (item: ServerInfoType) => {
+  const handleItemClick = (item: ServerInfoTypes) => {
     resetGlobalMenu();
     setCurrentServer(item);
+    onServerChange(item);
 
     const menu = pathname.split("/")[2] || "home";
 
