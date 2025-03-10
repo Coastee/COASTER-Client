@@ -1,10 +1,8 @@
 import { instance } from "@/apis/instance";
-import type { LoginResponse } from "@/pages/OnboardingPage/types";
+import type { LoginResponseTypes } from "@/pages/OnboardingPage/types";
 
 export const fetchKakaoLogin = async (code: string) => {
-  const response = await instance.get<LoginResponse>(`api/v1/login/kakao-callback?code=${code}`).json();
-
-  console.log(response);
+  const response = await instance.get<LoginResponseTypes>(`api/v1/login/kakao-callback?code=${code}`).json();
 
   return response;
 };

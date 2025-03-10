@@ -1,4 +1,4 @@
-export interface LoginResponse {
+export interface LoginResponseTypes {
   result: {
     tokenType: string;
     userId: number;
