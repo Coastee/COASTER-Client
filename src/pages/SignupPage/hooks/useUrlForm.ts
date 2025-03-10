@@ -19,7 +19,7 @@ export const useUrlForm = () => {
         updatedUrls = [""];
       }
 
-      sessionStorage.setItem("signup", JSON.stringify({ ...formData, urls: updatedUrls }));
+      sessionStorage.setItem("signup", JSON.stringify({ ...formData, urlList: updatedUrls }));
 
       return updatedUrls;
     });
