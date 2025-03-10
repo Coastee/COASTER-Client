@@ -1,5 +1,5 @@
-import { fetchServerHome } from "@/components/ServerHeader/apis/server";
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
+import { fetchServerHome } from "@/components/ServerHeader/apis/server";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
@@ -76,15 +76,6 @@ const HomePage = () => {
               <CoffeeChatList data={meetingChatRoom} />
             </TitleContainer>
           </div>
-          <TitleContainer
-            title="전체 채팅"
-            textButton="더보기"
-            handleTextButtonClick={() => {
-              navigate("../global-chat");
-            }}
-          >
-            <GlobalChatPreview />
-          </TitleContainer>
         </div>
         <TitleContainer
           title="전체 채팅"
