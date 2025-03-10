@@ -3,11 +3,10 @@ import logo2Img from "@/assets/img/logo2Img.png";
 import { GoogleIcon, KakaoIcon, Logo4WhiteIcon, NaverIcon } from "@/assets/svg";
 import AuthContainer from "@/components/AuthContainer/AuthContainer";
 import * as s from "@/pages/OnboardingPage/OnboardingPage.styles";
+import { KAKAO_URL } from "@/pages/OnboardingPage/constants";
 import { logo1Style, logo2Style, wrapperStyle } from "@/pages/SignupPage/SignupPage.styles";
 
 const OnBoardingPage = () => {
-  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}`;
-
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_URL;
   };
