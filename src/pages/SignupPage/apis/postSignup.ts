@@ -10,6 +10,5 @@ export const postSignup = async (userData: SignUpFormTypes) => {
     })
     .json();
 
-  console.log("Response", response);
   return response;
 };
