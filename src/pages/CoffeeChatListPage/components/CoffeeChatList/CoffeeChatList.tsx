@@ -25,7 +25,14 @@ const CoffeeChatList = ({ data }: { data: HomeDataTypes["meetingChatRoom"] }) =>
         items.map((chat, idx) => (
           <li key={chat.id}>
             <article css={s.listItemStyle({ itemCount, idx })}>
-              <img src={chat.thumbnail || rotateLogoImg} alt="썸네일" css={s.thumbnailImgStyle} />
+              <img
+                src={chat.thumbnail || rotateLogoImg}
+                onError={(e) => {
+                  e.currentTarget.src = rotateLogoImg;
+                }}
+                alt="썸네일"
+                css={s.thumbnailImgStyle}
+              />
               <div css={s.infoLayoutStyle}>
                 <div css={s.titleLayoutStyle}>
                   <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />
