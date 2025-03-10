@@ -3,18 +3,12 @@ import { Divider, Input, UserBox } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 
 import { PLACEHOLDER } from "@/constants/placeholder";
+import { useScrollToBottom } from "@/hooks/useScroll";
 import { DM_MESSAGES } from "@/pages/DMPage/constants/dummy";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
-import { useEffect, useRef } from "react";
 
 const ChatRoom = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, []);
+  const scrollRef = useScrollToBottom();
 
   return (
     <section css={s.wrapperStyle}>
@@ -39,23 +33,13 @@ const ChatRoom = () => {
           <div key={`${index}-${chat.time}`} css={s.layoutStyle(chat.isUser)}>
             {!chat.isUser && <UserBox name={chat.userName} size="medium" />}
 
-            <div
-              css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}
-            >
-              <ChatPanel
-                isUser={chat.isUser}
-                message={chat.message}
-                time={chat.time}
-                isDM={true}
-              />
+            <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+              <ChatPanel isUser={chat.isUser} message={chat.message} time={chat.time} isDM={true} />
             </div>
           </div>
         ))}
       </div>
-      <Input
-        placeholder={PLACEHOLDER.CHAT}
-        rightIcon={<SendIcon width={14} height={14} />}
-      />
+      <Input placeholder={PLACEHOLDER.CHAT} rightIcon={<SendIcon width={14} height={14} />} />
     </section>
   );
 };

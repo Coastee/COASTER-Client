@@ -4,18 +4,12 @@ import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import TimeChip from "@/components/TimeChip/TimeChip";
 
 import { PLACEHOLDER } from "@/constants/placeholder";
+import { useScrollToBottom } from "@/hooks/useScroll";
 import { DUMMY_CHAT_MESSAGES } from "@/pages/GroupChatPage/constants/dummy";
 import * as s from "@pages/GroupChatPage/components/ChatRoom/ChatRoom.styles";
-import { useEffect, useRef } from "react";
 
 const ChatRoom = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, []);
+  const scrollRef = useScrollToBottom();
 
   return (
     <section css={s.wrapperStyle}>
