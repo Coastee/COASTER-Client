@@ -52,7 +52,7 @@ export type ChatTypes = {
   type: string;
 };
 
-export type HomeGetDummyTypes = {
+export type HomeDataTypes = {
   hashTagList: HashtagTypes[];
   groupChatRoom: {
     pageInfo: PageInfoTypes;
@@ -74,4 +74,11 @@ export type HomeGetDummyTypes = {
     pageInfo: PageInfoTypes;
     chatList: ChatTypes[];
   };
+};
+
+export type HomeResponseTypes = {
+  isSuccess: boolean;
+  code: string;
+  message: string;
+  result: HomeDataTypes;
 };

@@ -23,10 +23,10 @@ export const listContainerStyle = (itemsCount = 0) => css`
 `;
 
 export const listItemStyle = ({
-  itemsCount,
+  itemCount,
   idx,
 }: {
-  itemsCount: number;
+  itemCount: number;
   idx: number;
 }) => css`
   display: flex;
@@ -40,7 +40,7 @@ export const listItemStyle = ({
 
   width: 100%;
 
-  border-right: ${itemsCount > 1 && idx < itemsCount - 1 ? "1px solid #414e5f" : "none"};
+  border-right: ${itemCount > 1 && idx < itemCount - 1 ? "1px solid #414e5f" : "none"};
 
   cursor: pointer;
 `;
