@@ -1,5 +1,6 @@
 export const MAX_LENGTH = {
   NICKNAME: 10,
+  PROFILE_CAREER: 10,
   CAREER: 15,
   ONELINE_INTRO: 40,
   INTRO: 60,
