@@ -1,32 +1,20 @@
 import type { SVGProps } from "react";
 import {
   BeautyServerIcon,
-  CalendarMenuActiveIcon,
-  CalendarMenuIcon,
-  DmMenuActiveIcon,
-  DmMenuIcon,
   HealthServerIcon,
   HomeIcon,
   HomeLivingServerIcon,
   HrLawServerIcon,
   MobilityServerIcon,
-  ProfileMenuActiveIcon,
-  ProfileMenuIcon,
 } from "../assets/svg";
 
-export type ServerInfoType = {
+export type ServerInfoTypes = {
   id: number;
   name: string;
   icon: React.ElementType<SVGProps<SVGSVGElement>>;
 };
 
-export type GlobalMenuTypes = {
-  id: string;
-  icon: React.ElementType<SVGProps<SVGSVGElement>>;
-  activeIcon: React.ElementType<SVGProps<SVGSVGElement>>;
-};
-
-export const SERVERINFO: ServerInfoType[] = [
+export const SERVERINFO: ServerInfoTypes[] = [
   { id: 0, name: "광고/마케팅", icon: HomeIcon },
   { id: 1, name: "금융/보험/핀테크", icon: HomeIcon },
   { id: 2, name: "모빌리티/교통", icon: MobilityServerIcon },
@@ -51,18 +39,4 @@ export const SERVERINFO: ServerInfoType[] = [
   { id: 21, name: "환경/에너지", icon: HomeIcon },
   { id: 22, name: "헬스케어/바이오", icon: HealthServerIcon },
   { id: 23, name: "기타", icon: HomeIcon },
-];
-
-export const GLOBAL_MENUS: GlobalMenuTypes[] = [
-  { id: "dm", icon: DmMenuIcon, activeIcon: DmMenuActiveIcon },
-  {
-    id: "schedule",
-    icon: CalendarMenuIcon,
-    activeIcon: CalendarMenuActiveIcon,
-  },
-  {
-    id: "mypage",
-    icon: ProfileMenuIcon,
-    activeIcon: ProfileMenuActiveIcon,
-  },
 ];

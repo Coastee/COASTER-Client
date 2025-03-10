@@ -1,10 +1,10 @@
-import type { GlobalMenuTypes } from "@/constants/serverInfo";
+import type { MenuTypes } from "@/constants/menu";
 import { create } from "zustand";
 
 interface GlobalMenuState {
-  globalMenu: GlobalMenuTypes | null;
+  globalMenu: MenuTypes | null;
   actions: {
-    setGlobalMenu: (menu: GlobalMenuTypes | null) => void;
+    setGlobalMenu: (menu: MenuTypes | null) => void;
     resetGlobalMenu: () => void;
   };
 }

@@ -37,25 +37,36 @@ const HomePage = () => {
 
       <div css={s.layoutStyle}>
         <div css={s.leftLayoutStyle}>
-          <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={HASH_TAGS_DUMMY} />
+          <div css={s.leftLayoutStyle}>
+            <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={HASH_TAGS_DUMMY} />
+            <TitleContainer
+              title="그룹 채팅방"
+              textButton="전체보기"
+              handleTextButtonClick={() => {
+                navigate("./group-chat-list");
+              }}
+            >
+              <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
+            </TitleContainer>
+            <TitleContainer
+              title="오프라인 커피챗"
+              textButton="전체보기"
+              handleTextButtonClick={() => {
+                navigate("./coffee-chat-list");
+              }}
+              css={{ paddingBottom: "5rem" }}
+            >
+              <CoffeeChatList />
+            </TitleContainer>
+          </div>
           <TitleContainer
-            title="그룹 채팅방"
-            textButton="전체보기"
+            title="전체 채팅"
+            textButton="더보기"
             handleTextButtonClick={() => {
-              navigate("./group-chat-list");
+              navigate("../global-chat");
             }}
           >
-            <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
-          </TitleContainer>
-          <TitleContainer
-            title="오프라인 커피챗"
-            textButton="전체보기"
-            handleTextButtonClick={() => {
-              navigate("./coffee-chat-list");
-            }}
-            css={{ paddingBottom: "5rem" }}
-          >
-            <CoffeeChatList />
+            <GlobalChatPreview />
           </TitleContainer>
         </div>
         <TitleContainer
