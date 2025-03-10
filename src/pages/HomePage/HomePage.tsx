@@ -1,20 +1,18 @@
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { fetchServerHome } from "@/components/ServerHeader/apis/server";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
-import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
-import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
 
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const [homeData, setHomeData] = useState<HomeDataTypes | null>(null);
-  const serverId = 1;
+  const serverId = 1; // 임시 id
 
   const [keyword, setKeyword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -28,16 +26,18 @@ const HomePage = () => {
     setIsVisible(true);
   };
 
-  useEffect(() => {
-    const loadHomeData = async () => {
-      const result = await fetchServerHome(serverId);
-      result && setHomeData(result);
-    };
-    loadHomeData();
-  }, []);
+  const { data: homeData, isLoading } = useQuery({
+    queryKey: ["serverHome", serverId],
+    queryFn: () => fetchServerHome(serverId),
+    enabled: !!serverId,
+  });
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   if (!homeData) {
-    return <div>로딩 중...</div>;
+    return <div>데이터 없음</div>;
   }
 
   const { hashTagList, groupChatRoom, meetingChatRoom, notice } = homeData;
@@ -51,31 +51,28 @@ const HomePage = () => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />
-
       <div css={s.layoutStyle}>
         <div css={s.leftLayoutStyle}>
-          <div css={s.leftLayoutStyle}>
-            <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={HASH_TAGS_DUMMY} />
-            <TitleContainer
-              title="그룹 채팅방"
-              textButton="전체보기"
-              handleTextButtonClick={() => {
-                navigate("./group-chat-list");
-              }}
-            >
-              <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
-            </TitleContainer>
-            <TitleContainer
-              title="오프라인 커피챗"
-              textButton="전체보기"
-              handleTextButtonClick={() => {
-                navigate("./coffee-chat-list");
-              }}
-              css={{ paddingBottom: "5rem" }}
-            >
-              <CoffeeChatList data={meetingChatRoom} />
-            </TitleContainer>
-          </div>
+          <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={hashTagList} />
+          <TitleContainer
+            title="그룹 채팅방"
+            textButton="전체보기"
+            handleTextButtonClick={() => {
+              navigate("./group-chat-list");
+            }}
+          >
+            <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
+          </TitleContainer>
+          <TitleContainer
+            title="오프라인 커피챗"
+            textButton="전체보기"
+            handleTextButtonClick={() => {
+              navigate("./coffee-chat-list");
+            }}
+            css={{ paddingBottom: "5rem" }}
+          >
+            <CoffeeChatList data={meetingChatRoom} />
+          </TitleContainer>
         </div>
         <TitleContainer
           title="전체 채팅"
