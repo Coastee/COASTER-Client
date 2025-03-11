@@ -24,7 +24,8 @@ root.render(
         <Global styles={globalStyle} />
         <RouterProvider router={router} />
       </ThemeProvider>
+
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

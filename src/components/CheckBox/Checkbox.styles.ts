@@ -25,6 +25,9 @@ export const boxWrapperStyle: Record<Required<CheckBoxProps>["variant"], ReturnT
 
     border-radius: 100%;
 
+    transform: translate(-70%, -70%);
+
+    cursor: pointer;
     background-color: ${theme.color.dark2};
   `,
 };

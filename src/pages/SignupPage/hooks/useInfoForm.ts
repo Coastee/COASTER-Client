@@ -20,22 +20,24 @@ export const useInfoForm = () => {
 
   const handleInfoChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, key: keyof signUpFormTypes) => {
-      setForm((prev: signUpFormTypes) => ({
-        ...prev,
-        [key]: e.target.value,
-      }));
+      setForm((prev: signUpFormTypes) => {
+        const updatedForm = {
+          ...prev,
+          [key]: e.target.value,
+        };
 
-      sessionStorage.setItem(
-        "signup",
-        JSON.stringify({
-          ...form,
-          name: form.name,
-          nickName: form.nickName,
-          birth: formatDate(form.birth),
-        })
-      );
+        sessionStorage.setItem(
+          "signup",
+          JSON.stringify({
+            ...updatedForm,
+            birth: formatDate(updatedForm.birth),
+          })
+        );
+
+        return updatedForm;
+      });
     },
-    [form]
+    []
   );
 
   const handleNickNameMessage = useCallback((nickName: string) => {
