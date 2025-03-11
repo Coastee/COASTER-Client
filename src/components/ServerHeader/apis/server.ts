@@ -1,4 +1,5 @@
 import { tokenInstance } from "@/apis/instance";
+import type { ServerResponseTypes } from "@/components/ServerHeader/types/serverTypes";
 import type { HomeResponseTypes } from "@/pages/HomePage/types/homeDataTypes";
 
 // [GET] Find All Servers
@@ -8,6 +9,18 @@ export const fetchAllServers = async () => {
     return response;
   } catch (error) {
     console.error("전체 서버 받아오기 실패:", error);
+  }
+};
+
+// [GET] Find My Servers
+export const fetchMyServers = async (): Promise<ServerResponseTypes> => {
+  try {
+    const response = await tokenInstance("api/v1/servers?scope=joined").json();
+    return response as ServerResponseTypes; // 응답을 ServerResponseTypes로 명시적으로 변환
+  } catch (error) {
+    console.error("내 서버 받아오기 실패:", error);
+    // 에러 발생 시 명확한 처리 (reject를 통해 에러를 던질 수 있음)
+    return Promise.reject(error);
   }
 };
 

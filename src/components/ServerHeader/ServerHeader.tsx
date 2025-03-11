@@ -1,5 +1,6 @@
 import { PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
+import { useMyServerList } from "@/components/ServerHeader/hooks/useMyServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
@@ -18,16 +19,28 @@ const ServerHeader = () => {
   const { setGlobalMenu } = useGlobalMenuAction();
   const { setGlobalServer } = useGlobalServerAction();
 
-  const [myServerIdList] = useState<number[]>([2, 6, 10, 15, 22]);
-  const currentServerInfo = SERVERINFO.find((server) => server.id === myServerIdList[0]);
+  const { data: myServerInfo } = useMyServerList();
+  const simpleMyServerList = myServerInfo?.result.serverList;
 
-  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>(currentServerInfo);
+  const myServerList = simpleMyServerList?.map((server) => {
+    const serverInfo = SERVERINFO.find((item) => item.id === server.id);
+    return {
+      id: server.id,
+      title: server.title,
+      icon: serverInfo?.icon, // 아이콘을 포함
+    };
+  });
+
+  console.log("myServerList: ", myServerList);
+
+  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
-  const myServerSet = new Set(myServerIdList);
+  const myServerSet = new Set(myServerList?.map((server) => server.id));
+
   const exceptCurrentServer = currentServer
     ? SERVERINFO.filter((server) => myServerSet.has(server.id) && server.id !== currentServer.id)
     : [];
