@@ -1,4 +1,7 @@
-import type { HashtagTypes } from "@/components/TagChip/types/hashtagTypes";
+export type HashtagTypes = {
+  id: number;
+  content: string;
+};
 
 export type UserIntroTypes = {
   headline: string;
@@ -52,7 +55,7 @@ export type ChatTypes = {
   type: string;
 };
 
-export type HomeGetDummyTypes = {
+export type HomeDataTypes = {
   hashTagList: HashtagTypes[];
   groupChatRoom: {
     pageInfo: PageInfoTypes;
@@ -74,4 +77,11 @@ export type HomeGetDummyTypes = {
     pageInfo: PageInfoTypes;
     chatList: ChatTypes[];
   };
+};
+
+export type HomeResponseTypes = {
+  isSuccess: boolean;
+  code: string;
+  message: string;
+  result: HomeDataTypes;
 };

@@ -9,26 +9,18 @@ export const listContainerStyle = (itemsCount = 0) => css`
 
   box-sizing: content-box;
 
-  border-radius: 1rem;
+  border-radius: 2.5rem;
 
   background: ${theme.color.dark3};
 
-  ${
-    itemsCount !== undefined &&
-    css`
+  ${itemsCount !== undefined &&
+  css`
     width: ${itemsCount === 1 ? "21.6rem" : itemsCount === 2 ? "43.2rem" : "auto"};
     min-width: ${itemsCount === 3 ? "73rem" : ""};
-  `
-  }
+  `}
 `;
 
-export const listItemStyle = ({
-  itemsCount,
-  idx,
-}: {
-  itemsCount: number;
-  idx: number;
-}) => css`
+export const listItemStyle = ({ itemCount, idx }: { itemCount: number; idx: number }) => css`
   display: flex;
   flex-direction: column;
 
@@ -40,7 +32,7 @@ export const listItemStyle = ({
 
   width: 100%;
 
-  border-right: ${itemsCount > 1 && idx < itemsCount - 1 ? "1px solid #414e5f" : "none"};
+  border-right: ${itemCount > 1 && idx < itemCount - 1 ? "1px solid #414e5f" : "none"};
 
   cursor: pointer;
 `;

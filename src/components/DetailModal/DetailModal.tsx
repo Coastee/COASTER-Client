@@ -39,7 +39,14 @@ const DetailModal = ({ data, isCoffeeChat = false, isVisible, setIsVisible }: De
             endDate={data.period.endDate}
           />
         )}
-        <img src={data.thumbnail || detailBgImg} css={s.imageStyle} alt="썸네일" />
+        <img
+          src={data.thumbnail || detailBgImg}
+          onError={(e) => {
+            e.currentTarget.src = detailBgImg;
+          }}
+          css={s.imageStyle}
+          alt="썸네일"
+        />
         <ul css={s.hashTagListStyle}>
           {data.hashTagList.map((tag) => (
             <li key={tag.id}>

@@ -38,7 +38,14 @@ const GroupChatListAll = () => {
                     </div>
                     <p css={s.listDescStyle}>{chat.content}</p>
                   </div>
-                  <img src={chat.thumbnail || rotateLogoImg} alt="그룹 채팅 썸네일" css={s.thumbnailImgStyle} />
+                  <img
+                    src={chat.thumbnail || rotateLogoImg}
+                    onError={(e) => {
+                      e.currentTarget.src = rotateLogoImg;
+                    }}
+                    alt="그룹 채팅 썸네일"
+                    css={s.thumbnailImgStyle}
+                  />
                 </article>
               </li>
             ))}
