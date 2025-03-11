@@ -1,10 +1,9 @@
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
-import { fetchServerHome } from "@/components/ServerHeader/apis/server";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
-import { useQuery } from "@tanstack/react-query";
+import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
@@ -26,19 +25,10 @@ const HomePage = () => {
     setIsVisible(true);
   };
 
-  const { data: homeData, isLoading } = useQuery({
-    queryKey: ["serverHome", serverId],
-    queryFn: () => fetchServerHome(serverId),
-    enabled: !!serverId,
-  });
+  const { data: homeData, isLoading } = useHomeData(serverId);
 
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (!homeData) {
-    return <div>데이터 없음</div>;
-  }
+  if (isLoading) return <div>로딩 중...</div>;
+  if (!homeData) return <div>데이터 없음</div>;
 
   const { hashTagList, groupChatRoom, meetingChatRoom, notice } = homeData;
 
