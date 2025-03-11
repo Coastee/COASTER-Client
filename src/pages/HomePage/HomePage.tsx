@@ -1,4 +1,4 @@
-import { fetchServerHome } from "@/apis/server";
+import { fetchServerHome } from "@/components/ServerHeader/apis/server";
 import { SearchLayout, SideModal, TitleContainer } from "@/components";
 import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
 import { HASH_TAGS_DUMMY } from "@/constants/hashTagsDummy";
