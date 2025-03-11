@@ -1,6 +1,6 @@
 import { PlusIcon, RotateLogoIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
-import { useAllServerList, useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
+import { useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
@@ -19,15 +19,14 @@ const ServerHeader = () => {
   const { setGlobalMenu } = useGlobalMenuAction();
   const { setGlobalServer } = useGlobalServerAction();
 
-  const { data: myServerInfo } = useMyServerList();
-  const { data: allServerInfo } = useAllServerList();
-  console.log(allServerInfo);
-  const myServerIdTitleList = myServerInfo?.result.serverList || [];
-
+  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>(undefined);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
+
+  const { data: myServerInfo } = useMyServerList();
+  const myServerIdTitleList = myServerInfo?.result.serverList || [];
 
   const myServerList = Array.from(
     new Map(
@@ -45,7 +44,9 @@ const ServerHeader = () => {
     ).values()
   );
 
-  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | null>(null);
+  const exceptCurrentServer = currentServer
+    ? myServerList.filter((server) => server.id !== currentServer.id)
+    : myServerList;
 
   useEffect(() => {
     if (myServerList.length > 0 && !currentServer) {
@@ -53,15 +54,6 @@ const ServerHeader = () => {
       setGlobalServer(myServerList[0]);
     }
   }, [myServerList, currentServer, setGlobalServer]);
-
-  console.log("myServerList: ", myServerList);
-  console.log("currentServer: ", currentServer);
-
-  const exceptCurrentServer = currentServer
-    ? myServerList.filter((server) => server.id !== currentServer.id)
-    : myServerList; // currentServer가 없으면 전체 리스트 반환
-
-  console.log("exceptCurrentServer", exceptCurrentServer);
 
   const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);
