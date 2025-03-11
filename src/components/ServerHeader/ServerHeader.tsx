@@ -1,6 +1,6 @@
-import { PlusIcon } from "@/assets/svg";
+import { PlusIcon, RotateLogoIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
-import { useMyServerList } from "@/components/ServerHeader/hooks/useMyServerList";
+import { useAllServerList, useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
@@ -20,30 +20,48 @@ const ServerHeader = () => {
   const { setGlobalServer } = useGlobalServerAction();
 
   const { data: myServerInfo } = useMyServerList();
-  const simpleMyServerList = myServerInfo?.result.serverList;
+  const { data: allServerInfo } = useAllServerList();
+  console.log(allServerInfo);
+  const myServerIdTitleList = myServerInfo?.result.serverList || [];
 
-  const myServerList = simpleMyServerList?.map((server) => {
-    const serverInfo = SERVERINFO.find((item) => item.id === server.id);
-    return {
-      id: server.id,
-      title: server.title,
-      icon: serverInfo?.icon, // 아이콘을 포함
-    };
-  });
-
-  console.log("myServerList: ", myServerList);
-
-  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
-  const myServerSet = new Set(myServerList?.map((server) => server.id));
+  const myServerList = Array.from(
+    new Map(
+      myServerIdTitleList.map((server) => {
+        const serverInfo = SERVERINFO.find((item) => item.title === server.title);
+        return [
+          server.id,
+          {
+            id: server.id,
+            title: server.title,
+            icon: serverInfo?.icon || RotateLogoIcon,
+          },
+        ];
+      })
+    ).values()
+  );
+
+  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | null>(null);
+
+  useEffect(() => {
+    if (myServerList.length > 0 && !currentServer) {
+      setCurrentServer(myServerList[0]);
+      setGlobalServer(myServerList[0]);
+    }
+  }, [myServerList, currentServer, setGlobalServer]);
+
+  console.log("myServerList: ", myServerList);
+  console.log("currentServer: ", currentServer);
 
   const exceptCurrentServer = currentServer
-    ? SERVERINFO.filter((server) => myServerSet.has(server.id) && server.id !== currentServer.id)
-    : [];
+    ? myServerList.filter((server) => server.id !== currentServer.id)
+    : myServerList; // currentServer가 없으면 전체 리스트 반환
+
+  console.log("exceptCurrentServer", exceptCurrentServer);
 
   const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);
@@ -57,7 +75,9 @@ const ServerHeader = () => {
   };
 
   useEffect(() => {
-    !isScheduleVisible && globalMenu?.id === "schedule" && setGlobalMenu(previousMenu);
+    if (!isScheduleVisible && globalMenu?.id === "schedule") {
+      setGlobalMenu(previousMenu);
+    }
   }, [isScheduleVisible, globalMenu, previousMenu, setGlobalMenu]);
 
   return (

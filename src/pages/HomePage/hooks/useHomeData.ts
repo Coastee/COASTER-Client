@@ -6,5 +6,6 @@ export const useHomeData = (serverId: number) => {
     queryKey: ["serverHome", serverId],
     queryFn: () => fetchServerHome(serverId),
     enabled: !!serverId,
+    staleTime: 10 * 60 * 1000
   });
 };

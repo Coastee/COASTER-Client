@@ -4,7 +4,7 @@ import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
 
@@ -25,7 +25,9 @@ const HomePage = () => {
     setIsVisible(true);
   };
 
-  const { data: homeData, isLoading } = useHomeData(serverId);
+  // const { data: homeData, isLoading } = useHomeData(serverId);
+  const { data: homeData, isLoading } = useHomeData(useMemo(() => serverId, [serverId]));
+
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
