@@ -1,8 +1,8 @@
 import { fetchUserDetail } from "@/pages/MyPage/apis/fetchUserDetail";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useFetchUserDetail = (userId: number) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [userId],
     queryFn: () => fetchUserDetail(userId, 0),
   });

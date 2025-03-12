@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileBox = (data: UserDetailTypes) => {
   const navigate = useNavigate();
-  const userData = data.result;
+  const userData = data;
 
   return (
     <section css={s.wrapperStyle}>
@@ -27,7 +27,7 @@ const ProfileBox = (data: UserDetailTypes) => {
       />
       <div css={s.layoutStyle}>
         <div css={s.rowStyle}>
-          <h1 css={s.nameStyle}>{userData?.userIntro?.headline}</h1>
+          <h1 css={s.nameStyle}>{userData?.nickname}</h1>
           <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
