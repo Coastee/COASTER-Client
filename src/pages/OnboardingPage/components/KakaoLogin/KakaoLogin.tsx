@@ -13,6 +13,8 @@ const KakaoLogin = () => {
       localStorage.setItem("accessToken", data.result.accessToken);
       localStorage.setItem("refreshToken", data.result.refreshToken);
 
+      localStorage.setItem("userId", data.result.userId.toString());
+
       navigate("/signup");
     }
   }, [data, isSuccess, navigate]);
