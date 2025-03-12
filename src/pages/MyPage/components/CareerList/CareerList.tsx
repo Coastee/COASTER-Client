@@ -2,11 +2,13 @@ import { EditIcon } from "@/assets/svg";
 import { Button } from "@/components";
 import CareerBox from "@/pages/MyPage/components/CareerBox/CareerBox";
 import * as s from "@/pages/MyPage/components/CareerList/CareerList.styles";
-import { careerData } from "@/pages/MyPage/constants/dummy";
+import type { UserDetailTypes } from "@/pages/MyPage/types";
 import { useNavigate } from "react-router-dom";
 
-const CareerList = () => {
+const CareerList = (data: UserDetailTypes) => {
   const navigate = useNavigate();
+
+  const careerListData = data?.result?.experience;
 
   return (
     <>
@@ -23,7 +25,7 @@ const CareerList = () => {
         </Button>
       </div>
       <ul css={s.listStyle}>
-        {careerData.map((career, index) => (
+        {careerListData?.experienceList.map((career, index) => (
           <CareerBox key={`${index}-${career.title}`} {...career} />
         ))}
       </ul>
