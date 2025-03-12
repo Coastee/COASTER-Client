@@ -1,15 +1,23 @@
+import type { UserDetailTypes } from "@/pages/MyPage/types";
 import { MAX_LENGTH, MIN_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
-import type { ProfileEditTypes } from "@/pages/UserSettingPage/types/profile";
+import type { ProfileEditTypes, UserProfileTypes } from "@/pages/UserSettingPage/types/profile";
 import { useCallback, useState } from "react";
 
-export const useEditProfileForm = ({ ...data }: ProfileEditTypes) => {
-  const [form, setForm] = useState({ ...data });
+export const useEditProfileForm = ({ ...data }: UserDetailTypes) => {
+  const [form, setForm] = useState<UserProfileTypes>({
+    nickname: data.nickname,
+    headline: data.userIntro.headline,
+    job: data.userIntro.job,
+    expYears: data.userIntro.expYears,
+    bio: data.bio,
+    urlList: data.urlList,
+  });
 
-  const isNickNameError = form.nickName.length < MIN_LENGTH.NICKNAME || form.nickName.length > MAX_LENGTH.NICKNAME;
-  const isCareerError = form.career.length < MIN_LENGTH.CAREER || form.career.length > MAX_LENGTH.CAREER;
-  const isCareerYearError = Number.isNaN(Number(form.careerYear));
-  const isOneLineIntroError = form.oneLineIntro.length > MAX_LENGTH.ONELINE_INTRO;
-  const isIntroError = form.intro.length > MAX_LENGTH.INTRO;
+  const isNickNameError = form.nickname.length < MIN_LENGTH.NICKNAME || form.nickname.length > MAX_LENGTH.NICKNAME;
+  const isCareerError = form.job.length < MIN_LENGTH.CAREER || form.job.length > MAX_LENGTH.CAREER;
+  const isCareerYearError = Number.isNaN(Number(form.expYears));
+  const isOneLineIntroError = form.headline.length > MAX_LENGTH.ONELINE_INTRO;
+  const isIntroError = form.bio.length > MAX_LENGTH.INTRO;
 
   const handleInfoChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: keyof ProfileEditTypes) => {
