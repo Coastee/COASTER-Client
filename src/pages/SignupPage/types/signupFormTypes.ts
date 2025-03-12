@@ -1,19 +1,19 @@
-export interface signUpFormTypes {
-  belonging: string;
-  birth: string;
-  interests: string[];
-  introduction: string;
-  name: string;
-  nickName: string;
-  urls: string[];
+export interface SignUpFormTypes {
+  nickname: string;
+  urlList: string[];
+  headline: string;
+  job: string;
+  expYears: number;
+  bio: string;
+  serverIdList: number[];
 }
 
-export const defaultSignUpFormValues: signUpFormTypes = {
-  belonging: "",
-  birth: "",
-  interests: [],
-  introduction: "",
-  name: "",
-  nickName: "",
-  urls: [""],
+export const defaultSignUpFormValues: SignUpFormTypes = {
+  job: "",
+  expYears: 0,
+  serverIdList: [],
+  headline: "",
+  nickname: "",
+  urlList: [""],
+  bio: "",
 };
