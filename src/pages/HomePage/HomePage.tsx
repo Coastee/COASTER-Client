@@ -8,7 +8,6 @@ import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
-
 const HomePage = () => {
   const navigate = useNavigate();
   const globalServer = useGlobalServer();
@@ -18,19 +17,18 @@ const HomePage = () => {
   const [selectedItemId, setSelectedItemId] = useState<string | undefined>(undefined);
 
   const serverId = globalServer?.id;
-  const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
-
-  const handleItemClick = (id: string) => {
-    setSelectedItemId(id);
-    setIsVisible(true);
-  };
-
   const { data: homeData, isLoading } = useHomeData(serverId);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
 
+  const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
   const { hashTagList, groupChatRoom, meetingChatRoom, notice } = homeData;
+
+  const handleItemClick = (id: string) => {
+    setSelectedItemId(id);
+    setIsVisible(true);
+  };
 
   return (
     <>

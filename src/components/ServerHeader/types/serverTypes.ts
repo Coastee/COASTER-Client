@@ -1,4 +1,4 @@
-interface Server {
+export interface ServerTypes {
   id: number;
   title: string;
 }
@@ -9,6 +9,6 @@ export interface ServerResponseTypes {
   message: string;
   result: {
     count: number;
-    serverList: Server[];
+    serverList: ServerTypes[];
   };
 }

@@ -1,11 +1,11 @@
-import { PlusIcon, RotateLogoIcon } from "@/assets/svg";
+import { HomeIcon, PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
 import { useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useGlobalMenu, useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
-import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
+import { useGlobalServerAction } from "@/stores/useGlobalServerStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
@@ -14,7 +14,6 @@ const ServerHeader = () => {
   const navigate = useNavigate();
 
   const globalMenu = useGlobalMenu();
-  const globalServer = useGlobalServer();
 
   const { setGlobalMenu } = useGlobalMenuAction();
   const { setGlobalServer } = useGlobalServerAction();
@@ -37,7 +36,7 @@ const ServerHeader = () => {
           {
             id: server.id,
             title: server.title,
-            icon: serverInfo?.icon || RotateLogoIcon,
+            icon: serverInfo?.icon || HomeIcon,
           },
         ];
       })
@@ -67,9 +66,7 @@ const ServerHeader = () => {
   };
 
   useEffect(() => {
-    if (!isScheduleVisible && globalMenu?.id === "schedule") {
-      setGlobalMenu(previousMenu);
-    }
+    !isScheduleVisible && globalMenu?.id === "schedule" && setGlobalMenu(previousMenu);
   }, [isScheduleVisible, globalMenu, previousMenu, setGlobalMenu]);
 
   return (

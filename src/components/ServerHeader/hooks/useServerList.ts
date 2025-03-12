@@ -7,7 +7,6 @@ export const useAllServerList = () => {
     queryKey: ["allServerInfo"],
     queryFn: fetchAllServers as () => Promise<ServerResponseTypes>,
     staleTime: 1000 * 60 * 10,
-    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 };
@@ -15,9 +14,8 @@ export const useAllServerList = () => {
 export const useMyServerList = () => {
   return useQuery<ServerResponseTypes>({
     queryKey: ["myServerInfo"],
-    queryFn: fetchMyServers,
+    queryFn: fetchMyServers as () => Promise<ServerResponseTypes>,
     staleTime: 1000 * 60 * 10,
-    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 };
