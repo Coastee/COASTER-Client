@@ -90,3 +90,9 @@ export const formatDateArray = (dateArray: number[]): string => {
   const [year, month, day] = dateArray;
   return `${year}. ${month}. ${day}`;
 };
+
+export const formatDateRange = (startDate: number[], endDate?: number[]): string => {
+  const format = (dateArray: number[]) => `${dateArray[0]}.${dateArray[1]}.${dateArray[2]}`;
+
+  return endDate ? `${format(startDate)} ~ ${format(endDate)}` : format(startDate);
+};
