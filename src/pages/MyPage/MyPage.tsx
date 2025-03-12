@@ -4,13 +4,20 @@ import CareerList from "@/pages/MyPage/components/CareerList/CareerList";
 import ProfileBox from "@/pages/MyPage/components/ProfileBox/ProfileBox";
 import RecommendedProfiles from "@/pages/MyPage/components/RecommendedProfiles/RecommendedProfiles";
 import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
   const navigate = useNavigate();
-
   const userId = localStorage.getItem("userId");
-  if (!userId) return navigate(PATH.ONBOARDING);
+
+  useEffect(() => {
+    if (!userId) {
+      navigate(PATH.ONBOARDING);
+    }
+  }, [userId, navigate]);
+
+  if (!userId) return null;
 
   const { data } = useFetchUserDetail(Number(userId));
 
@@ -24,4 +31,5 @@ const MyPage = () => {
     </div>
   );
 };
+
 export default MyPage;
