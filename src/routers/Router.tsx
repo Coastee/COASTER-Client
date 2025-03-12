@@ -8,6 +8,7 @@ import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
+import { Suspense } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
@@ -54,11 +55,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/mypage",
-        element: <MyPage />,
+        element: (
+          <Suspense>
+            <MyPage />
+          </Suspense>
+        ),
       },
       {
         path: "/mypage/setting-profile",
-        element: <ProfileEdit />,
+        element: (
+          <Suspense>
+            <ProfileEdit />
+          </Suspense>
+        ),
       },
       {
         path: "/mypage/setting-career",
