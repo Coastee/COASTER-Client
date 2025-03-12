@@ -11,6 +11,7 @@ import * as s from "./ServerHeader.styles";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
+
   const globalMenu = useGlobalMenu();
   const globalServer = useGlobalServer();
 
@@ -27,7 +28,6 @@ const ServerHeader = () => {
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
   const myServerSet = new Set(myServerIdList);
-
   const exceptCurrentServer = currentServer
     ? SERVERINFO.filter((server) => myServerSet.has(server.id) && server.id !== currentServer.id)
     : [];

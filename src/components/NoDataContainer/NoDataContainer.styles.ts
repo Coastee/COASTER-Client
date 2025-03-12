@@ -44,6 +44,8 @@ export const titleStyle = css`
 
   ${theme.font.body2};
   font-weight: 600;
+
+  white-space: nowrap;
 `;
 
 export const underBarStyle = css`

@@ -1,21 +1,15 @@
 import { RotateLogoIcon } from "@/assets/svg";
 import { Button, Input } from "@/components";
+import type { HashtagTypes } from "@/pages/HomePage/types/homeDataTypes";
 import * as s from "./SearchLayout.styles";
 
 interface SearchLayoutProps {
   keyword: string;
   setKeyword: (value: string) => void;
-  hashTagData: {
-    id: number;
-    content: string;
-  }[];
+  hashTagData: HashtagTypes[];
 }
 
-const SearchLayout = ({
-  keyword,
-  setKeyword,
-  hashTagData,
-}: SearchLayoutProps) => {
+const SearchLayout = ({ keyword, setKeyword, hashTagData }: SearchLayoutProps) => {
   return (
     <div css={s.searchLayoutStyle}>
       <Input

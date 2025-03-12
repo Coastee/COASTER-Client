@@ -43,7 +43,14 @@ const CoffeeChatListAll = () => {
                 onClick={() => handleItemClick(chat.id)}
                 onKeyDown={() => handleItemClick(chat.id)}
               >
-                <img src={chat.thumbnail || rotateLogoImg} alt="썸네일" css={s.thumbnailImgStyle} />
+                <img
+                  src={chat.thumbnail || rotateLogoImg}
+                  onError={(e) => {
+                    e.currentTarget.src = rotateLogoImg;
+                  }}
+                  alt="썸네일"
+                  css={s.thumbnailImgStyle}
+                />
                 <div css={s.infoLayoutStyle}>
                   <div css={s.titleLayoutStyle}>
                     <RotateLogoIcon width={20} style={{ flexShrink: "0" }} />

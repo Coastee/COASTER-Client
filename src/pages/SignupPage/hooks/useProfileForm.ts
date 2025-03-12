@@ -1,10 +1,7 @@
-import {
-  type signUpFormTypes,
-  defaultSignUpFormValues,
-} from "@/pages/SignupPage/types/signupFormTypes";
+import { type SignUpFormTypes, defaultSignUpFormValues } from "@/pages/SignupPage/types/signupFormTypes";
 import { useCallback, useState } from "react";
 
-type FormKeys = "belonging" | "introduction";
+type FormKeys = "job" | "expYears" | "bio";
 
 export const useProfileForm = () => {
   const formData = JSON.parse(sessionStorage.getItem("signup") || "{}");
@@ -15,11 +12,14 @@ export const useProfileForm = () => {
   });
 
   const handleFormChange = useCallback(
-    (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      key: FormKeys
-    ) => {
-      setForm((prev: signUpFormTypes) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: FormKeys) => {
+      const value = e.target.value;
+
+      if (key === "expYears" && value !== "" && Number.isNaN(Number(value))) {
+        return;
+      }
+
+      setForm((prev: SignUpFormTypes) => {
         const updatedForm = {
           ...prev,
           [key]: e.target.value,
@@ -29,15 +29,16 @@ export const useProfileForm = () => {
           "signup",
           JSON.stringify({
             ...updatedForm,
-            belonging: updatedForm.belonging,
-            introduction: updatedForm.introduction,
-          })
+            job: updatedForm.job,
+            expYears: Number(updatedForm.expYears),
+            headline: updatedForm.headline,
+          }),
         );
 
         return updatedForm;
       });
     },
-    []
+    [],
   );
 
   return {

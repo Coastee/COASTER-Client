@@ -9,38 +9,28 @@ interface InterestStepProps {
 }
 
 const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
-  const { interests, handleCheckboxChange, handleReset } =
-    useInterestSelection();
+  const { selectedIds, handleCheckboxChange, handleReset } = useInterestSelection();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     onNext();
   };
 
   return (
     <form onSubmit={handleSubmit} css={{ zIndex: 1 }}>
-      <AuthContainer
-        title={TITLE.PROFILE}
-        desc={DESC.INTEREST_INFO}
-        size="large"
-      >
-        <Button
-          variant="text"
-          css={{ textDecoration: "none" }}
-          onClick={handleReset}
-        >
+      <AuthContainer title={TITLE.PROFILE} desc={DESC.INTEREST_INFO} size="large">
+        <Button variant="text" css={{ textDecoration: "none" }} onClick={handleReset}>
           초기화
         </Button>
         <div css={s.boxWrapperStyle}>
-          {INTERESTS.map((field) => (
-            <label key={field} htmlFor={field} css={s.boxLayoutStyle}>
+          {INTERESTS.map(({ id, name }) => (
+            <label key={id} htmlFor={`interest-${id}`} css={s.boxLayoutStyle}>
               <CheckBox
-                id={field}
-                isChecked={interests.includes(field)}
-                onChange={() => handleCheckboxChange(field)}
+                id={`interest-${id}`}
+                isChecked={selectedIds.includes(id)}
+                onChange={() => handleCheckboxChange(id)}
               />
-              <span css={s.labelStyle}>{field}</span>
+              <span css={s.labelStyle}>{name}</span>
             </label>
           ))}
         </div>
@@ -48,7 +38,7 @@ const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
           <Button onClick={onPrev} variant="tertiary">
             이전
           </Button>
-          <Button type="submit" disabled={interests.length === 0}>
+          <Button type="submit" disabled={selectedIds.length === 0}>
             완료
           </Button>
         </div>

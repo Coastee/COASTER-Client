@@ -20,4 +20,7 @@ export const leftLayoutStyle = css`
   flex-direction: column;
 
   gap: 4rem;
+
+  width: 100%;
+  min-width: 50rem;
 `;
