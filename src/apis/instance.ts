@@ -1,3 +1,5 @@
+import { beforeRetry } from "@/apis/interceptor";
+import { RETRY_COUNT } from "@/pages/OnboardingPage/constants";
 import ky from "ky";
 
 export const instance = ky.create({
@@ -5,14 +7,29 @@ export const instance = ky.create({
   headers: {
     "Content-Type": "application/json",
   },
+  hooks: {
+    beforeRetry: [beforeRetry],
+  },
 });
-
-const accessToken = localStorage.getItem("accessToken");
 
 export const tokenInstance = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
+  },
+  hooks: {
+    beforeRequest: [
+      (request) => {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (accessToken) {
+          request.headers.set("Authorization", `Bearer ${accessToken}`);
+        }
+      },
+    ],
+    beforeRetry: [beforeRetry],
+  },
+  retry: {
+    limit: RETRY_COUNT,
   },
 });
