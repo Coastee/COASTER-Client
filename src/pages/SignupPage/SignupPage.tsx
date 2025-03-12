@@ -26,7 +26,7 @@ const SignupPage = () => {
     const userData = JSON.parse(storedData);
 
     const formattedData = {
-      nickname: userData.nickName,
+      nickname: userData.nickname,
       urlList: userData.urlList || [],
       headline: userData.headline,
       job: userData.job,
@@ -34,6 +34,8 @@ const SignupPage = () => {
       bio: userData.bio || "",
       serverIdList: userData.serverIdList,
     };
+
+    console.log(formattedData);
 
     mutate(formattedData);
   };
