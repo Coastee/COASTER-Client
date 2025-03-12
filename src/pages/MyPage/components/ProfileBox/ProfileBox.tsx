@@ -2,6 +2,7 @@ import { DmIcon, EditIcon } from "@/assets/svg";
 import { Button } from "@/components";
 import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
+import { IMAGE_PLACEHOLDER } from "@/pages/MyPage/constants/image";
 import type { UserDetailTypes } from "@/pages/MyPage/types";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,14 @@ const ProfileBox = (data: UserDetailTypes) => {
         <EditIcon width={16} height={15} />
         편집하기
       </button>
-      <img src={userData?.profileImage} alt="프로필" css={s.profileImgStyle} />
+      <img
+        src={userData?.profileImage ?? IMAGE_PLACEHOLDER}
+        alt="프로필"
+        css={s.profileImgStyle}
+        onError={(e) => {
+          e.currentTarget.src = IMAGE_PLACEHOLDER;
+        }}
+      />
       <div css={s.layoutStyle}>
         <div css={s.rowStyle}>
           <h1 css={s.nameStyle}>{userData?.userIntro?.headline}</h1>
