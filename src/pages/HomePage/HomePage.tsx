@@ -23,7 +23,7 @@ const HomePage = () => {
   if (!homeData) return <div>데이터 없음</div>;
 
   const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
-  const { hashTagList, groupChatRoom, meetingChatRoom, notice } = homeData;
+  const { hashTagList, groupChatRoom, meetingChatRoom, notice, chat } = homeData;
 
   const handleItemClick = (id: string) => {
     setSelectedItemId(id);
@@ -68,9 +68,9 @@ const HomePage = () => {
           handleTextButtonClick={() => {
             navigate("../global-chat");
           }}
-          css={{ paddingTop: "12.3rem" }}
+          css={{ paddingTop: "10rem" }}
         >
-          <GlobalChatPreview />
+          <GlobalChatPreview chat={chat} notice={notice}/>
         </TitleContainer>
       </div>
     </>
