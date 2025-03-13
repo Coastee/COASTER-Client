@@ -1,5 +1,6 @@
 import { UserBox } from "@/components";
 import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
+import { timeAgo } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/DMItem/DMItem.styles";
 
 interface DMItemProps extends DMRoomTypes {}
@@ -16,7 +17,7 @@ const DMItem = ({ user, dm }: DMItemProps) => {
           <div css={s.contentStyle}>
             <p css={s.messageStyle(isRead)}>{dm.content}</p>
             <div css={s.circleStyle} />
-            <p css={s.timeStyle}>{dm.createdDate.toString()}분</p>
+            <p css={s.timeStyle}>{timeAgo(dm.createdDate)}</p>
           </div>
         </div>
       </div>
