@@ -58,7 +58,7 @@ export const parseDateArray = (dateArray: number[]) => {
 };
 
 export const requestFormatTime = (
-  dateTime: FormDateTimeTypes,
+  dateTime: FormDateTimeTypes
 ): {
   startDate: RequestDateType;
   endDate: RequestDateType;

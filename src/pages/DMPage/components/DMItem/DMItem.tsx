@@ -2,24 +2,13 @@ import { UserBox } from "@/components";
 import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
 import * as s from "@pages/DMPage/components/DMItem/DMItem.styles";
 
-interface DMItemProps extends DMRoomTypes {
-  setRoomId: (id: number) => void;
-  setUserId: (id: number) => void;
-  setIsChatting: (value: boolean) => void;
-}
+interface DMItemProps extends DMRoomTypes {}
 
 const isRead = false;
 
-const DMItem = ({ id, user, dm, setRoomId, setUserId, setIsChatting }: DMItemProps) => {
+const DMItem = ({ user, dm }: DMItemProps) => {
   return (
-    <li
-      css={s.itemWrapperStyle}
-      onClick={() => {
-        setRoomId(id);
-        setUserId(user.id);
-        setIsChatting(true);
-      }}
-    >
+    <div css={s.itemWrapperStyle}>
       <div css={s.layoutStyle}>
         <UserBox name={user.nickname} />
         <div css={s.infoStyle}>
@@ -32,7 +21,7 @@ const DMItem = ({ id, user, dm, setRoomId, setUserId, setIsChatting }: DMItemPro
         </div>
       </div>
       {!isRead && <div css={s.blueCircleStyle} />}
-    </li>
+    </div>
   );
 };
 

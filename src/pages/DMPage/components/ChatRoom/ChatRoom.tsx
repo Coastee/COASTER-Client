@@ -5,54 +5,65 @@ import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
 import { useDmLogs } from "@/pages/DMPage/hooks/useDm";
-import { createStompClient } from "@/sockets/\bstomp"; // STOMP 관련 함수 추가
-import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
+import type { DMRoomTypes, DMTypes } from "@/pages/DMPage/types/dmTypes";
+import { createStompClient } from "@/sockets/\bstomp";
+import { parseDateArray } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
+import type { Client } from "@stomp/stompjs";
 import { useEffect, useState } from "react";
 
 interface ChatRoomProps {
   roomId: number;
-  userId: number;
   dmList: DMRoomTypes[];
 }
 
-const ChatRoom = ({ roomId, userId }: ChatRoomProps) => {
+interface StompClientState {
+  client: Client;
+  sendMessage: (message: string) => void;
+}
+
+const ChatRoom = ({ roomId }: ChatRoomProps) => {
   const scrollRef = useScrollToBottom();
-  const [message, setMessage] = useState(""); // 입력 메시지 상태 관리
-  const [dmLogs, setDmLogs] = useState<DMRoomTypes[]>([]); // 대화 내용 상태
-  const [stompClient, setStompClient] = useState<any>(null); // STOMP 클라이언트 상태
-  const myId = 19;
-
+  const [input, setInput] = useState("");
+  const [dmLogs, setDmLogs] = useState<DMTypes[]>([]);
+  const [stompClient, setStompClient] = useState<StompClientState | null>(null); // STOMP 클라이언트 상태
+  const myId = 19; // 추후 전역상태로 받아올 예정
   const { data } = useDmLogs(roomId);
+  const user = data?.result.dmList[0]?.user;
 
+  const formatParsedDate = (dateArray: number[]) => {
+    const { hour, minute, meridiem } = parseDateArray(dateArray);
+    return `${meridiem} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+  };
+
+  const handleSendMessage = () => {
+    if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
+
+    stompClient.sendMessage(input);
+    setInput("");
+  };
+  // STOMP 클라이언트 연결 및 구독 설정
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
   useEffect(() => {
     if (roomId) {
-      // STOMP 클라이언트 연결 및 구독 설정
-      const { client, sendMessage } = createStompClient(roomId, (messageContent: string) => {
-        // 받은 메시지 처리
-        const messageData = JSON.parse(messageContent); // 메시지 문자열을 JSON으로 파싱
-        const newMessage = {
-          id: messageData.id,
-          user: messageData.user,
-          content: messageData.content,
-          createdDate: new Date(...messageData.createdDate), // receivedDate 배열을 Date 객체로 변환
-        };
+      const stomp = createStompClient(roomId, (messageContent: string) => {
+        const messageData = JSON.parse(messageContent);
 
         setDmLogs((prevLogs) => {
-          // 메시지 중복 방지: 이미 같은 ID의 메시지가 있는지 체크
-          if (!prevLogs.find((msg) => msg.id === newMessage.id)) {
-            return [newMessage, ...prevLogs]; // 새 메시지를 맨 앞에 추가
+          if (!prevLogs.find((msg) => msg.id === messageData.id)) {
+            return [messageData, ...prevLogs];
           }
           return prevLogs;
         });
       });
 
-      setStompClient({ client, sendMessage });
+      if (stomp.client && typeof stomp.sendMessage === "function") {
+        setStompClient(stomp);
+      }
     }
 
-    // 컴포넌트 언마운트 시 STOMP 클라이언트 비활성화
     return () => {
-      if (stompClient) {
+      if (stompClient?.client) {
         stompClient.client.deactivate();
       }
     };
@@ -60,36 +71,10 @@ const ChatRoom = ({ roomId, userId }: ChatRoomProps) => {
 
   // 초기 로딩 후 불러온 메시지 처리
   useEffect(() => {
-    if (data && data.result && data.result.dmList) {
-      const initialMessages = data.result.dmList.map((message: any) => ({
-        id: message.id,
-        user: message.user,
-        content: message.content,
-        createdDate: new Date(...message.createdDate), // receivedDate 배열을 Date 객체로 변환
-      }));
-      setDmLogs(initialMessages);
+    if (data?.result?.dmList) {
+      setDmLogs(data.result.dmList);
     }
   }, [data]);
-
-  const handleSendMessage = () => {
-    if (stompClient && message.trim() !== "") {
-      stompClient.sendMessage(message); // 메시지 보내기
-      const newMessage = {
-        id: Date.now(), // 임시 ID 생성
-        user: { id: myId, nickname: "나" }, // 사용자 정보
-        content: message,
-        createdDate: new Date(), // 현재 시간
-      };
-      setDmLogs((prevLogs) => [newMessage, ...prevLogs]); // 보내는 메시지는 맨 앞에 추가
-      setMessage(""); // 입력창 초기화
-    } else {
-      console.error("STOMP 클라이언트가 없거나 메시지가 비어있습니다.");
-    }
-  };
-
-  useEffect(() => {
-    console.log("dmLogs: ", dmLogs);
-  }, [dmLogs]);
 
   if (!data) return <p>Loading...</p>;
 
@@ -97,16 +82,13 @@ const ChatRoom = ({ roomId, userId }: ChatRoomProps) => {
     <section css={s.wrapperStyle}>
       <header css={s.headerStyle}>
         <div css={s.titleLayoutStyle}>
-          {/* userIntro의 expYears와 job에 대한 안전한 접근 */}
-          <UserBox name={dmLogs[0]?.user?.nickname ?? "사용자 없음"} />
+          <UserBox name={user?.nickname ?? ""} />
           <div css={s.infoLayoutStyle}>
-            <h1>{dmLogs[0]?.user?.nickname ?? "사용자 없음"}</h1>
+            <h1>{user?.nickname ?? "사용자 없음"}</h1>
             <div css={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
-              <p css={s.infoStyle}>
-                {dmLogs[0]?.user?.userIntro?.expYears ?? "경력 미제공"}년차
-              </p>
+              <p css={s.infoStyle}>{user?.userIntro?.expYears ?? "경력 미제공"}년차</p>
               <div css={s.circleStyle} />
-              <p css={s.infoStyle}>{dmLogs[0]?.user?.userIntro?.job ?? "직무 미제공"}</p>
+              <p css={s.infoStyle}>{user?.userIntro?.job ?? "직무 미제공"}</p>
             </div>
           </div>
         </div>
@@ -121,7 +103,7 @@ const ChatRoom = ({ roomId, userId }: ChatRoomProps) => {
               <ChatPanel
                 isUser={chat.user.id === myId}
                 message={chat.content}
-                time={chat.createdDate.toString()}
+                time={formatParsedDate(chat.createdDate)}
                 isDM={true}
               />
             </div>
@@ -132,9 +114,9 @@ const ChatRoom = ({ roomId, userId }: ChatRoomProps) => {
         <Input
           placeholder={PLACEHOLDER.CHAT}
           rightIcon={<SendIcon width={14} height={14} />}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => {
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyUp={(e) => {
             if (e.key === "Enter") handleSendMessage();
           }}
         />
