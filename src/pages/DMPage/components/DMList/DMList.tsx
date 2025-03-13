@@ -1,11 +1,25 @@
 import { Logo4Icon } from "@/assets/svg";
 import { Divider } from "@/components";
 import DMItem from "@/pages/DMPage/components/DMItem/DMItem";
-import { CHAT_LIST } from "@/pages/DMPage/constants/dummy";
+import { useDmList } from "@/pages/DMPage/hooks/useDm";
 import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
+import { useEffect } from "react";
 
-const DMList = () => {
+interface ChatRoomProps {
+  setRoomId: (id: number) => void;
+}
+
+const DMList = ({ setRoomId }: ChatRoomProps) => {
+  const { data } = useDmList();
+  const dmList = data?.result.dmRoomList || [];
+
+  useEffect(() => {
+    console.log(dmList);
+  }, [dmList]);
+
+
+
   return (
     <section css={s.sectionStyle}>
       <header css={s.headerStyle}>
@@ -14,8 +28,8 @@ const DMList = () => {
         <Divider css={{ backgroundColor: `${theme.color.dark2}` }} />
       </header>
       <ul css={[s.listStyle]}>
-        {CHAT_LIST.map((item, index) => (
-          <DMItem key={`${item.name}-${index}`} {...item} />
+        {dmList.map((item, index) => (
+          <DMItem key={`${item.user.nickname}-${index}`} {...item} id={item.id} setRoomId={setRoomId} />
         ))}
       </ul>
     </section>
