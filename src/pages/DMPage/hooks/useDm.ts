@@ -1,4 +1,4 @@
-import { fetchAllDms } from "@/pages/DMPage/apis/dm";
+import { fetchAllDms, fetchDmLogs } from "@/pages/DMPage/apis/dm";
 import { useQuery } from "@tanstack/react-query";
 
 export const useDmList = () => {
@@ -7,3 +7,11 @@ export const useDmList = () => {
     queryFn: () => fetchAllDms(),
   });
 };
+
+export const useDmLogs = (roomId: number) => {
+  return useQuery({
+    queryKey: ["dmLogs"],
+    queryFn: () => fetchDmLogs(roomId),
+  });
+};
+

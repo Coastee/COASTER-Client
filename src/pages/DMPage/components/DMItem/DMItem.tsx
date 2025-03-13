@@ -4,17 +4,22 @@ import * as s from "@pages/DMPage/components/DMItem/DMItem.styles";
 
 interface DMItemProps extends DMRoomTypes {
   setRoomId: (id: number) => void;
+  setUserId: (id: number) => void;
+  setIsChatting: (value: boolean) => void;
 }
-// user
-// dm.content
-// dm.createdDate
-// isRead: false
 
 const isRead = false;
 
-const DMItem = ({ id, user, dm, setRoomId }: DMItemProps) => {
+const DMItem = ({ id, user, dm, setRoomId, setUserId, setIsChatting }: DMItemProps) => {
   return (
-    <li css={s.itemWrapperStyle} onClick={() => setRoomId(id)}>
+    <li
+      css={s.itemWrapperStyle}
+      onClick={() => {
+        setRoomId(id);
+        setUserId(user.id);
+        setIsChatting(true);
+      }}
+    >
       <div css={s.layoutStyle}>
         <UserBox name={user.nickname} />
         <div css={s.infoStyle}>

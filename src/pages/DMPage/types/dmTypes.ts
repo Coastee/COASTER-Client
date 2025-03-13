@@ -41,3 +41,18 @@ export interface DMResponseTypes {
     dmRoomList: DMRoomTypes[];
   };
 }
+
+export interface DMLogResponseTypes {
+  isSuccess: boolean;
+  code: string;
+  message: string;
+  result: {
+    pageInfo: {
+      lastPage: boolean;
+      totalPages: number;
+      totalElements: number;
+      size: number;
+    };
+    dmList: DMTypes[];
+  };
+}
