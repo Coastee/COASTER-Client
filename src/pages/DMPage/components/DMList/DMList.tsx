@@ -2,7 +2,7 @@ import { Logo4Icon } from "@/assets/svg";
 import { Divider } from "@/components";
 import DMItem from "@/pages/DMPage/components/DMItem/DMItem";
 import type { DmListProps } from "@/pages/DMPage/types/dmTypes";
-import { createDMClient } from "@/sockets/dmWebSocketClient";
+import { createDMClient } from "@/sockets/dmSocketClient";
 import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";

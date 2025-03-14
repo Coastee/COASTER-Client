@@ -6,7 +6,7 @@ import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
 import { useDmLogs } from "@/pages/DMPage/hooks/useDm";
 import type { ChatRoomProps, DMTypes, StompClientStateTypes } from "@/pages/DMPage/types/dmTypes";
-import { createStompClient } from "@/sockets/dmWebSocketClient";
+import { createStompClient } from "@/sockets/dmSocketClient";
 import { parseDateArray } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useLayoutEffect, useState } from "react";
