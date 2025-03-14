@@ -60,8 +60,15 @@ export interface DMLogResponseTypes {
 }
 
 export interface ChatRoomProps {
-  roomId: number;
   dmList: DMRoomTypes[];
+  roomId: number | null;
+  setRoomId: (id: number | null) => void;
+}
+
+export interface DmListProps {
+  dmList: DMRoomTypes[];
+  setRoomId: (id: number) => void;
+  setUserId: (id: number) => void;
 }
 
 export interface StompClientStateTypes {

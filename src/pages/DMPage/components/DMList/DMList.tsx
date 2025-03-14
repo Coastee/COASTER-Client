@@ -1,19 +1,13 @@
 import { Logo4Icon } from "@/assets/svg";
 import { Divider } from "@/components";
 import DMItem from "@/pages/DMPage/components/DMItem/DMItem";
-import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
+import type { DmListProps } from "@/pages/DMPage/types/dmTypes";
 import { createDMClient } from "@/sockets/\bstomp";
 import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";
 
-interface ChatRoomProps {
-  dmList: DMRoomTypes[];
-  setRoomId: (id: number) => void;
-  setUserId: (id: number) => void;
-}
-
-const DMList = ({ dmList, setRoomId, setUserId }: ChatRoomProps) => {
+const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
 
   const userId = 19; // 내 userId - 추후 전역상태로 관리

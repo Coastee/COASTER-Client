@@ -8,9 +8,10 @@ export const useDmList = () => {
   });
 };
 
-export const useDmLogs = (roomId: number) => {
+export const useDmLogs = (roomId: number | null) => {
   return useQuery({
     queryKey: ["dmLogs", roomId],
-    queryFn: () => fetchDmLogs(roomId),
+    queryFn: () => roomId !== null ? fetchDmLogs(roomId) : Promise.reject("roomId is null"),
+    enabled: !!roomId
   });
 };

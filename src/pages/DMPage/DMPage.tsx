@@ -14,7 +14,11 @@ const DMPage = () => {
   return (
     <>
       <DMList dmList={dmList} setRoomId={setRoomId} setUserId={setUserId} />
-      {roomId ? <ChatRoom roomId={roomId} dmList={dmList} /> : <EmptyPanel onClick={() => setRoomId(dmList[0].id)} />}
+      {roomId ? (
+        <ChatRoom dmList={dmList} roomId={roomId} setRoomId={setRoomId} />
+      ) : (
+        <EmptyPanel onClick={() => setRoomId(dmList[0].id)} />
+      )}
     </>
   );
 };

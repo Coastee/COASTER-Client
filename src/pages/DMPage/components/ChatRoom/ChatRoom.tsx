@@ -11,7 +11,9 @@ import { parseDateArray } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useLayoutEffect, useState } from "react";
 
-const ChatRoom = ({ roomId }: ChatRoomProps) => {
+const myId = 19; // 추후 전역상태로 받아올 예정
+
+const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
   const scrollRef = useScrollToBottom();
   const { data } = useDmLogs(roomId);
 
@@ -19,8 +21,7 @@ const ChatRoom = ({ roomId }: ChatRoomProps) => {
   const [dmLogs, setDmLogs] = useState<DMTypes[]>([]);
   const [stompClient, setStompClient] = useState<StompClientStateTypes | null>(null); // STOMP 클라이언트 상태
 
-  const myId = 19; // 추후 전역상태로 받아올 예정
-  const user = data?.result.dmList[0]?.user;
+  const userInfo = dmList.find((item) => item.id === roomId)?.user;
 
   const formatParsedDate = (dateArray: number[]) => {
     const { hour, minute, meridiem } = parseDateArray(dateArray);
@@ -81,23 +82,30 @@ const ChatRoom = ({ roomId }: ChatRoomProps) => {
     <section css={s.wrapperStyle}>
       <header css={s.headerStyle}>
         <div css={s.titleLayoutStyle}>
-          <UserBox name={user?.nickname ?? ""} />
+          <UserBox name={userInfo?.nickname ?? ""} />
           <div css={s.infoLayoutStyle}>
-            <h1>{user?.nickname ?? "사용자 없음"}</h1>
+            <h1>{userInfo?.nickname ?? "사용자 없음"}</h1>
             <div css={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
-              <p css={s.infoStyle}>{user?.userIntro?.expYears ?? "경력 미제공"}년차</p>
+              <p css={s.infoStyle}>{userInfo?.userIntro?.expYears ?? "경력 미제공"}년차</p>
               <div css={s.circleStyle} />
-              <p css={s.infoStyle}>{user?.userIntro?.job ?? "직무 미제공"}</p>
+              <p css={s.infoStyle}>{userInfo?.userIntro?.job ?? "직무 미제공"}</p>
             </div>
           </div>
         </div>
-        <ExitIcon width={23} height={23} css={s.iconStyle} onClick={() => {}} />
+        <ExitIcon
+          width={23}
+          height={23}
+          css={s.iconStyle}
+          onClick={() => {
+            setRoomId(null);
+          }}
+        />
       </header>
       <Divider />
       <div css={s.scrollStyle} ref={scrollRef}>
         {[...dmLogs].reverse().map((chat, index) => (
           <div key={`${index}-${chat.id}`} css={s.layoutStyle(chat.user.id === myId)}>
-            {!(chat.user.id === myId) && <UserBox name={chat.user.nickname} size="medium" />}
+            {chat.user.id !== myId && <UserBox name={chat.user.nickname} size="medium" />}
             <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
               <ChatPanel
                 isUser={chat.user.id === myId}
