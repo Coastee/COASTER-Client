@@ -1,11 +1,11 @@
 import { Button, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
-import { useHashtag } from "@/components/TagChip/hooks/useHashtag";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
-
+import { useHashtag } from "@/components/TagChip/hooks/useHashtag";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { TEXT_MAX_LENGTH } from "@/pages/GroupChatListPage/constants/textMaxLength";
 import { useAddGroupChat } from "@/pages/GroupChatListPage/hooks/useAddGroupChat";
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
 import * as s from "./AddGroupChatModal.styles";
 
@@ -16,13 +16,15 @@ interface AddGroupChatTypes {
 }
 
 const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
+  const globalServer = useGlobalServer();
+
   const [request, setRequest] = useState<AddGroupChatTypes>({
     title: "",
     content: "",
     hashTags: [],
   });
 
-  const { handleInputChange, handleFocus, handleBlur, isFieldError } = useAddGroupChat({
+  const { handleInputChange, handleFocus, handleBlur, isFieldError, uploadGroupChat } = useAddGroupChat({
     request,
     setRequest,
     maxLengths: TEXT_MAX_LENGTH,
@@ -34,9 +36,22 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
 
   const isButtonDisabled = isFieldError("title", request.title);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsVisible(false);
+    try {
+      if (!globalServer) {
+        console.log(globalServer);
+        console.error("서버 정보가 없습니다.");
+        return;
+      }
+      uploadGroupChat({
+        serverId: globalServer.id,
+        file: image || null,
+      });
+      setIsVisible(false);
+    } catch (error) {
+      console.error("그룹챗 생성 실패:", error);
+    }
   };
 
   return (

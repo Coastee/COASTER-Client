@@ -1,3 +1,5 @@
+import { createGroupChat } from "@/pages/GroupChatListPage/apis/addGroupChat";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 interface AddGroupChatTypes {
@@ -12,14 +14,8 @@ interface UseAddGroupChatProps {
   maxLengths: Record<string, number>;
 }
 
-export const useAddGroupChat = ({
-  request,
-  setRequest,
-  maxLengths,
-}: UseAddGroupChatProps) => {
-  const [focusedField, setFocusedField] = useState<
-    Record<string, { hasBeenFocused: boolean; isFocused: boolean }>
-  >({});
+export const useAddGroupChat = ({ request, setRequest, maxLengths }: UseAddGroupChatProps) => {
+  const [focusedField, setFocusedField] = useState<Record<string, { hasBeenFocused: boolean; isFocused: boolean }>>({});
 
   const handleFocus = (field: string) => {
     setFocusedField((prev) => ({
@@ -49,11 +45,34 @@ export const useAddGroupChat = ({
     }));
   };
 
+  const {
+    mutate: uploadGroupChat,
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: ({ serverId, file }: { serverId: number; file: File | null }) => {
+      const formData = new FormData();
+      formData.append("request", JSON.stringify(request));
+
+      if (file) {
+        const fileType = file.type || "";
+        const fileBlob = new Blob([file], { type: fileType });
+        formData.append("image", fileBlob, file.name);
+      } else {
+        formData.append("image", new Blob([], { type: "" }), "");
+      }
+
+      return createGroupChat(serverId, formData);
+    },
+  });
+
   return {
-    request,
     isFieldError,
     handleInputChange,
     handleFocus,
     handleBlur,
+    uploadGroupChat,
+    isError,
+    error,
   };
 };
