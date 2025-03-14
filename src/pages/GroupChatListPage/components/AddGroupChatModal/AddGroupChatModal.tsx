@@ -56,7 +56,15 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
 
   return (
     <SideModal title="그룹 채팅방 개설하기" isVisible={isVisible} setIsVisible={setIsVisible}>
-      <form css={s.modalContentStyle} onSubmit={handleSubmit}>
+      <form
+        css={s.modalContentStyle}
+        onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
+            e.preventDefault();
+          }
+        }}
+      >
         <ul css={s.contentListStyle}>
           <li css={[s.questionContainer, { maxWidth: "35rem" }]}>
             <label htmlFor="title" css={s.textareaTitleStyle}>
@@ -95,7 +103,7 @@ const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
                 <li key={idx}>
-                  <TagChip content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
+                  <TagChip id={idx} content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
                 </li>
               ))}
               {request.hashTags.length < 10 && <HashtagInput addHashtag={addHashtag} />}
