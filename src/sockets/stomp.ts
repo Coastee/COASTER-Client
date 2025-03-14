@@ -1,3 +1,4 @@
+import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
 import * as StompJs from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
@@ -19,7 +20,7 @@ const createClient = (onConnect?: (client: StompJs.Client) => void) => {
   });
 
   client.webSocketFactory = () => {
-    const socket = new SockJS(import.meta.env.VITE_STOMP_HTTPS_URL);
+    const socket = new SockJS(STOMP_HTTPS_URL);
     return socket as unknown as StompJs.IStompSocket;
   };
 
@@ -53,6 +54,21 @@ export const createStompClient = (roomId: number, onMessageReceived: (message: s
   };
 
   return { client, sendMessage };
+};
+
+// DM을 받은 후 채팅방 순서를 업데이트하는 함수
+export const createDMClient = (userId: number, onDMReceived: (dm: DMRoomTypes) => void) => {
+  const client = createClient((client) => {
+    client.subscribe(`/sub/users/dms/${userId}`, (message) => {
+      console.log("New DM received:", message.body);
+      const dm = JSON.parse(message.body); // DM 메시지 파싱
+      onDMReceived(dm);
+    });
+  });
+
+  client.activate();
+
+  return client;
 };
 
 // 메시지 전송 함수 (DM 생성 및 DM 전송)
