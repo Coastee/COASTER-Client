@@ -17,42 +17,26 @@ interface AddGroupChatTypes {
 
 const AddGroupChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const globalServer = useGlobalServer();
-
   const [request, setRequest] = useState<AddGroupChatTypes>({
     title: "",
     content: "",
     hashTags: [],
   });
 
-  const { handleInputChange, handleFocus, handleBlur, isFieldError, uploadGroupChat } = useAddGroupChat({
-    request,
-    setRequest,
-    maxLengths: TEXT_MAX_LENGTH,
-  });
-
   const { addHashtag, removeHashtag } = useHashtag<AddGroupChatTypes>(request, setRequest);
 
   const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
 
-  const isButtonDisabled = isFieldError("title", request.title);
+  const { handleSubmit, handleInputChange, handleFocus, handleBlur, isFieldError } = useAddGroupChat({
+    request,
+    setRequest,
+    maxLengths: TEXT_MAX_LENGTH,
+    setIsVisible,
+    globalServer,
+    image: image,
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (!globalServer) {
-        console.log(globalServer);
-        console.error("서버 정보가 없습니다.");
-        return;
-      }
-      uploadGroupChat({
-        serverId: globalServer.id,
-        file: image || null,
-      });
-      setIsVisible(false);
-    } catch (error) {
-      console.error("그룹챗 생성 실패:", error);
-    }
-  };
+  const isButtonDisabled = isFieldError("title", request.title);
 
   return (
     <SideModal title="그룹 채팅방 개설하기" isVisible={isVisible} setIsVisible={setIsVisible}>

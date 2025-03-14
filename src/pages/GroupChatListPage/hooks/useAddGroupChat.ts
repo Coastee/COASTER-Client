@@ -12,9 +12,12 @@ interface UseAddGroupChatProps {
   request: AddGroupChatTypes;
   setRequest: React.Dispatch<React.SetStateAction<AddGroupChatTypes>>;
   maxLengths: Record<string, number>;
+  setIsVisible: (isVisible: boolean) => void;
+  globalServer: { id: number } | null;
+  image: File | null;
 }
 
-export const useAddGroupChat = ({ request, setRequest, maxLengths }: UseAddGroupChatProps) => {
+export const useAddGroupChat = ({ request, setRequest, maxLengths, setIsVisible, globalServer, image }: UseAddGroupChatProps) => {
   const [focusedField, setFocusedField] = useState<Record<string, { hasBeenFocused: boolean; isFocused: boolean }>>({});
 
   const handleFocus = (field: string) => {
@@ -45,12 +48,10 @@ export const useAddGroupChat = ({ request, setRequest, maxLengths }: UseAddGroup
     }));
   };
 
-  const {
-    mutate: uploadGroupChat,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: ({ serverId, file }: { serverId: number; file: File | null }) => {
+  const { mutate: uploadGroupChat, isError, error } = useMutation({
+    mutationFn: async ({ serverId, file }: { serverId: number; file: File | null }) => {
+      if (!serverId) throw new Error("서버 정보가 없습니다.");
+
       const formData = new FormData();
       formData.append("request", JSON.stringify(request));
 
@@ -64,14 +65,30 @@ export const useAddGroupChat = ({ request, setRequest, maxLengths }: UseAddGroup
 
       return createGroupChat(serverId, formData);
     },
+    onSuccess: () => {
+      setIsVisible(false);
+    },
+    onError: (error) => {
+      console.error("그룹챗 생성 실패:", error);
+    },
   });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!globalServer) {
+      console.error("서버 정보가 없습니다.");
+      return;
+    }
+
+    uploadGroupChat({ serverId: globalServer.id, file: image });
+  };
 
   return {
     isFieldError,
     handleInputChange,
     handleFocus,
     handleBlur,
-    uploadGroupChat,
+    handleSubmit,
     isError,
     error,
   };
