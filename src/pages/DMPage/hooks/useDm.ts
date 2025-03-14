@@ -10,8 +10,7 @@ export const useDmList = () => {
 
 export const useDmLogs = (roomId: number) => {
   return useQuery({
-    queryKey: ["dmLogs"],
+    queryKey: ["dmLogs", roomId],
     queryFn: () => fetchDmLogs(roomId),
   });
 };
-
