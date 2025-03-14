@@ -99,6 +99,9 @@ export const timeAgo = (dateArray: number[]) => {
   const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60)); // 시간 단위 차이
   const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24)); // 일 단위 차이
 
+  if (diffInMinutes < 1) {
+    return "지금";
+  }
   if (diffInMinutes < 60) {
     return `${diffInMinutes}분`;
   }
