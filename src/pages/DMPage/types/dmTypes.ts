@@ -1,3 +1,5 @@
+import type { Client } from "@stomp/stompjs";
+
 export interface UserIntroTypes {
   headline: string;
   job: string;
@@ -55,4 +57,14 @@ export interface DMLogResponseTypes {
     };
     dmList: DMTypes[];
   };
+}
+
+export interface ChatRoomProps {
+  roomId: number;
+  dmList: DMRoomTypes[];
+}
+
+export interface StompClientStateTypes {
+  client: Client;
+  sendMessage: (message: string) => void;
 }

@@ -5,30 +5,21 @@ import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
 import { useDmLogs } from "@/pages/DMPage/hooks/useDm";
-import type { DMRoomTypes, DMTypes } from "@/pages/DMPage/types/dmTypes";
+import type { ChatRoomProps, DMTypes, StompClientStateTypes } from "@/pages/DMPage/types/dmTypes";
 import { createStompClient } from "@/sockets/\bstomp";
 import { parseDateArray } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
-import type { Client } from "@stomp/stompjs";
-import { useEffect, useState } from "react";
-
-interface ChatRoomProps {
-  roomId: number;
-  dmList: DMRoomTypes[];
-}
-
-interface StompClientState {
-  client: Client;
-  sendMessage: (message: string) => void;
-}
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const ChatRoom = ({ roomId }: ChatRoomProps) => {
   const scrollRef = useScrollToBottom();
+  const { data } = useDmLogs(roomId);
+
   const [input, setInput] = useState("");
   const [dmLogs, setDmLogs] = useState<DMTypes[]>([]);
-  const [stompClient, setStompClient] = useState<StompClientState | null>(null); // STOMP 클라이언트 상태
+  const [stompClient, setStompClient] = useState<StompClientStateTypes | null>(null); // STOMP 클라이언트 상태
+
   const myId = 19; // 추후 전역상태로 받아올 예정
-  const { data } = useDmLogs(roomId);
   const user = data?.result.dmList[0]?.user;
 
   const formatParsedDate = (dateArray: number[]) => {
@@ -42,6 +33,7 @@ const ChatRoom = ({ roomId }: ChatRoomProps) => {
     stompClient.sendMessage(input);
     setInput("");
   };
+
   // STOMP 클라이언트 연결 및 구독 설정
   // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
   useEffect(() => {
@@ -75,6 +67,13 @@ const ChatRoom = ({ roomId }: ChatRoomProps) => {
       setDmLogs(data.result.dmList);
     }
   }, [data]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
+  useLayoutEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [dmLogs]);
 
   if (!data) return <p>Loading...</p>;
 

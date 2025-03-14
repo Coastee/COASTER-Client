@@ -10,6 +10,7 @@ const DMPage = () => {
 
   const { data } = useDmList();
   const dmList = data?.result.dmRoomList || [];
+
   return (
     <>
       <DMList dmList={dmList} setRoomId={setRoomId} setUserId={setUserId} />
