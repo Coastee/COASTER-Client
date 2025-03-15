@@ -91,6 +91,12 @@ export const formatDateArray = (dateArray: number[]): string => {
   return `${year}. ${month}. ${day}`;
 };
 
+export const formatDateRange = (startDate: number[], endDate?: number[]): string => {
+  const format = (dateArray: number[]) => `${dateArray[0]}.${dateArray[1]}.${dateArray[2]}`;
+
+  return endDate ? `${format(startDate)} ~ ${format(endDate)}` : format(startDate);
+};
+
 export const timeAgo = (dateArray: number[]) => {
   const now = new Date();
   const messageDate = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4], dateArray[5]);
