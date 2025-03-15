@@ -91,8 +91,22 @@ export const formatDateArray = (dateArray: number[]): string => {
   return `${year}. ${month}. ${day}`;
 };
 
-export const formatDateRange = (startDate: number[], endDate?: number[]): string => {
-  const format = (dateArray: number[]) => `${dateArray[0]}.${dateArray[1]}.${dateArray[2]}`;
+export const timeAgo = (dateArray: number[]) => {
+  const now = new Date();
+  const messageDate = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4], dateArray[5]);
+  const diffInMilliseconds = now.getTime() - messageDate.getTime();
+  const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60)); // 분 단위 차이
+  const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60)); // 시간 단위 차이
+  const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24)); // 일 단위 차이
 
-  return endDate ? `${format(startDate)} ~ ${format(endDate)}` : format(startDate);
+  if (diffInMinutes < 1) {
+    return "지금";
+  }
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}분`;
+  }
+  if (diffInHours < 24) {
+    return `${diffInHours}시간`;
+  }
+  return `${diffInDays}일`;
 };

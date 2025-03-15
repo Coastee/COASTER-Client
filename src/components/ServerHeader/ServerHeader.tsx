@@ -1,10 +1,11 @@
-import { PlusIcon } from "@/assets/svg";
+import { HomeIcon, PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
+import { useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useGlobalMenu, useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
-import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
+import { useGlobalServerAction } from "@/stores/useGlobalServerStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
@@ -13,24 +14,45 @@ const ServerHeader = () => {
   const navigate = useNavigate();
 
   const globalMenu = useGlobalMenu();
-  const globalServer = useGlobalServer();
 
   const { setGlobalMenu } = useGlobalMenuAction();
   const { setGlobalServer } = useGlobalServerAction();
 
-  const [myServerIdList] = useState<number[]>([2, 6, 10, 15, 22]);
-  const currentServerInfo = SERVERINFO.find((server) => server.id === myServerIdList[0]);
-
-  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>(currentServerInfo);
+  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>(undefined);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
-  const myServerSet = new Set(myServerIdList);
+  const { data: myServerInfo } = useMyServerList();
+  const myServerIdTitleList = myServerInfo?.result.serverList || [];
+
+  const myServerList = Array.from(
+    new Map(
+      myServerIdTitleList.map((server) => {
+        const serverInfo = SERVERINFO.find((item) => item.title === server.title);
+        return [
+          server.id,
+          {
+            id: server.id,
+            title: server.title,
+            icon: serverInfo?.icon || HomeIcon,
+          },
+        ];
+      })
+    ).values()
+  );
+
   const exceptCurrentServer = currentServer
-    ? SERVERINFO.filter((server) => myServerSet.has(server.id) && server.id !== currentServer.id)
-    : [];
+    ? myServerList.filter((server) => server.id !== currentServer.id)
+    : myServerList;
+
+  useEffect(() => {
+    if (myServerList.length > 0 && !currentServer) {
+      setCurrentServer(myServerList[0]);
+      setGlobalServer(myServerList[0]);
+    }
+  }, [myServerList, currentServer, setGlobalServer]);
 
   const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
+    "@stomp/stompjs": "^7.0.1",
     "@tanstack/react-query": "^5.62.12",
     "@tanstack/react-query-devtools": "^5.62.12",
     "@vitejs/plugin-react-swc": "^3.7.2",
@@ -20,12 +21,18 @@
     "react-calendar": "^5.1.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.1",
+    "websocket": "^1.0.35",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "@types/sockjs": "^0",
+    "@types/sockjs-client": "^1",
+    "@types/websocket": "^1",
     "@vitejs/plugin-react": "^4.3.4",
     "@yarnpkg/sdks": "^3.2.0",
     "globals": "^15.14.0",

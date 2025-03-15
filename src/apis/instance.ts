@@ -33,3 +33,10 @@ export const tokenInstance = ky.create({
     limit: RETRY_COUNT,
   },
 });
+
+export const formDataInstance = ky.create({
+  prefixUrl: import.meta.env.VITE_BASE_URL,
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+});
