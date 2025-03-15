@@ -12,6 +12,8 @@ export const instance = ky.create({
   },
 });
 
+const accessToken = localStorage.getItem("accessToken");
+
 export const tokenInstance = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
   headers: {
@@ -20,8 +22,6 @@ export const tokenInstance = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const accessToken = localStorage.getItem("accessToken");
-
         if (accessToken) {
           request.headers.set("Authorization", `Bearer ${accessToken}`);
         }
