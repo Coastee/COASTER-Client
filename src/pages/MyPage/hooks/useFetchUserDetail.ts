@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useFetchUserDetail = (userId: number) => {
   return useSuspenseQuery({
-    queryKey: [userId],
+    queryKey: ["fetchUserDetail"],
     queryFn: () => fetchUserDetail(userId, 0),
   });
 };

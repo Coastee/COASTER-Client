@@ -31,6 +31,7 @@ const ProfileEdit = () => {
   const handleAddLink = (url: string) => {
     const updatedUrls = [...(form.urlList || []), url];
     handleInfoChange({ target: { value: updatedUrls } }, "urlList");
+
     closeModal();
   };
 
