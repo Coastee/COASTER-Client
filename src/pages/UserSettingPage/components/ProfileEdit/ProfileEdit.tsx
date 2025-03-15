@@ -4,19 +4,22 @@ import { PATH } from "@/constants/path";
 import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
+import LinkModal from "@/pages/UserSettingPage/components/LinkModal/LinkModal";
 import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditProfileForm } from "@/pages/UserSettingPage/hooks/useEditProfileForm";
 import { usePostUserProfile } from "@/pages/UserSettingPage/hooks/usePostUserProfile";
+import { useCloseModal, useOpenModal } from "@/stores/useModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
   const [imgUrl, setImgUrl] = useState("");
-  const [urlList, setUrlList] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const { onImageUpload, file } = useImageUpload({ setImgUrl });
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
 
   const userId = localStorage.getItem("userId");
   const { data: userData } = useFetchUserDetail(Number(userId));
@@ -24,8 +27,15 @@ const ProfileEdit = () => {
 
   const { mutate } = usePostUserProfile();
 
-  const handleAddUrl = () => {
-    setUrlList([...urlList, ""]);
+  const handleAddLink = (url: string) => {
+    const updatedUrls = [...(form.urlList || []), url];
+    handleInfoChange({ target: { value: updatedUrls } }, "urlList");
+    closeModal();
+  };
+
+  const handleRemoveLink = (index: number) => {
+    const updatedUrls = form.urlList?.filter((_, i) => i !== index) || [];
+    handleInfoChange({ target: { value: updatedUrls } }, "urlList");
   };
 
   const handleSubmit = () => {
@@ -78,18 +88,20 @@ const ProfileEdit = () => {
             <div css={[s.fieldStyle, { minWidth: "19rem" }]}>
               <label css={s.labelStyle}>링크</label>
               <div css={{ display: "flex", gap: "0.8rem" }}>
-                <button type="button" css={s.plusBtnStyle} onClick={() => handleAddUrl()}>
+                <button type="button" css={s.plusBtnStyle} onClick={() => openModal()}>
                   <PlusIcon width={14} height={14} />
                 </button>
-                <ul>
-                  <li>
-                    <TagChip
-                      id={1}
-                      variant="link"
-                      removeHashtag={() => {}}
-                      content={<PlusIcon width={14} height={14} />}
-                    />
-                  </li>
+                <ul css={{ display: "flex", gap: "0.8rem" }}>
+                  {form.urlList?.map((url, index) => (
+                    <li key={index}>
+                      <TagChip
+                        id={index}
+                        variant="link"
+                        content={<PlusIcon width={14} height={14} />}
+                        removeHashtag={() => handleRemoveLink(index)}
+                      />
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -151,6 +163,7 @@ const ProfileEdit = () => {
           편집 완료
         </Button>
       </div>
+      <LinkModal onAddLink={handleAddLink} />
     </div>
   );
 };

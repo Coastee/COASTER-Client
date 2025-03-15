@@ -170,8 +170,11 @@ export const labelStyle = css`
 `;
 
 export const plusBtnStyle = css`
+  display: flex;
   padding: 1rem;
 
+  align-items: center;
+  justify-content: center;
   border: 1px dashed ${theme.color.dark2};
   border-radius: 0.7rem;
 `;
