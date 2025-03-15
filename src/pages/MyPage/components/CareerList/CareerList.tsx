@@ -1,5 +1,5 @@
 import { EditIcon } from "@/assets/svg";
-import { Button } from "@/components";
+import { Button, NoDataContainer } from "@/components";
 import CareerBox from "@/pages/MyPage/components/CareerBox/CareerBox";
 import * as s from "@/pages/MyPage/components/CareerList/CareerList.styles";
 import type { UserDetailTypes } from "@/pages/MyPage/types";
@@ -25,6 +25,7 @@ const CareerList = (data: UserDetailTypes) => {
         </Button>
       </div>
       <ul css={s.listStyle}>
+        {careerListData?.experienceList.length === 0 && <NoDataContainer id="NO_CAREER" />}
         {careerListData?.experienceList.map((career, index) => (
           <CareerBox key={`${index}-${career.title}`} {...career} />
         ))}
