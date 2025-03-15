@@ -2,12 +2,22 @@ import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { DetailModal, NoDataContainer } from "@/components";
 import { GROUP_CHAT_DUMMY } from "@/pages/GroupChatListPage/constants/groupChatDetailDummy";
+import { useGroupChatListAll } from "@/pages/GroupChatListPage/hooks/useGroupChat";
+import type { GroupChatListResponse } from "@/pages/GroupChatListPage/types/groupChatTypes";
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
 import * as s from "./GroupChatListAll.styles";
 const GroupChatListAll = () => {
-  const data = GROUP_CHAT_DUMMY;
+  // const data = GROUP_CHAT_DUMMY;
+  // const items = data.result.chatRoomList;
+  // const itemsCount = items.length;
+
+  const currentServer = useGlobalServer();
+
+  const data: GroupChatListResponse = useGroupChatListAll(currentServer?.id);
   const items = data.result.chatRoomList;
-  const itemsCount = items.length;
+
+  const itemCount = items.result.pageInfo.totalElements;
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -15,11 +25,11 @@ const GroupChatListAll = () => {
 
   return (
     <div>
-      {itemsCount === 0 ? (
+      {itemCount === 0 ? (
         <NoDataContainer id="NO_GROUP_CHAT" height="25.1rem" />
       ) : (
         <>
-          <ul css={s.listContainerStyle(itemsCount)}>
+          <ul css={s.listContainerStyle(itemCount)}>
             {items.map((chat) => (
               <li key={chat.id}>
                 <article
