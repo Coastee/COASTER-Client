@@ -35,8 +35,6 @@ const SignupPage = () => {
       serverIdList: userData.serverIdList,
     };
 
-    console.log(formattedData);
-
     mutate(formattedData);
   };
 

@@ -6,12 +6,13 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
-import { usePostExperience } from "@/pages/UserSettingPage/hooks/usePostExperience";
+import { formatDateArray } from "@/utils/dateTime";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CareerAdd = () => {
   const [isTitleFocused, setIsTitleFocused] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -20,55 +21,10 @@ const CareerAdd = () => {
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    setCareerData,
+    setIsCurrentJob,
   } = useEditCareerForm();
-  const { isContentError, isTitleError } = useCareerValidation(careerData);
 
-  const { mutate: addExperience } = usePostExperience();
-
-  const handleStartDateChange = (value: string) => {
-    const date = new Date(value);
-    setCareerData((prev) => ({
-      ...prev,
-      startDate: [
-        date.getFullYear(),
-        date.getMonth() + 1,
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds(),
-        date.getMilliseconds(),
-      ],
-    }));
-  };
-
-  const handleEndDateChange = (value: string) => {
-    const date = new Date(value);
-    setCareerData((prev) => ({
-      ...prev,
-      endDate: [
-        date.getFullYear(),
-        date.getMonth() + 1,
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds(),
-        date.getMilliseconds(),
-      ],
-    }));
-  };
-
-  const handleSubmit = () => {
-    const updateCareerData = {
-      title: careerData.title,
-      contentList: careerData.contentList,
-      startDate: careerData.startDate,
-      endDate: careerData.endDate,
-    };
-
-    addExperience(updateCareerData);
-    navigate(PATH.CAREER_SETTING);
-  };
+  const { isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
 
   return (
     <div css={s.pageStyle}>
@@ -88,41 +44,20 @@ const CareerAdd = () => {
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
-
         <div css={s.fieldStyle}>
           <label htmlFor="period" css={s.labelStyle}>
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <div css={{ position: "relative" }}>
-              <Input
-                type="datetime-local"
-                onChange={(e) => handleStartDateChange(e.target.value)}
-                variant="secondary"
-              />
-            </div>
+            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
-            <div css={{ position: "relative" }}>
-              <Input
-                value={
-                  careerData.endDate
-                    ? new Date(
-                        careerData.endDate[0],
-                        careerData.endDate[1] - 1,
-                        careerData.endDate[2],
-                        careerData.endDate[3],
-                        careerData.endDate[4],
-                        careerData.endDate[5],
-                      )
-                        .toISOString()
-                        .slice(0, 16)
-                    : ""
-                }
-                onChange={(e) => handleEndDateChange(e.target.value)}
-                variant="secondary"
-                disabled={!careerData.endDate}
-              />
-            </div>
+            <Input
+              variant="secondary"
+              value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
+              onChange={() => {}}
+              disabled={!careerData.endDate}
+            />
             <p>까지</p>
             <Divider direction="horizontal" />
             <div css={s.checkboxStyle}>
@@ -133,17 +68,11 @@ const CareerAdd = () => {
                 id="current-job"
                 variant="round"
                 isChecked={!careerData.endDate}
-                onChange={() => {
-                  setCareerData((prev) => ({
-                    ...prev,
-                    endDate: prev.endDate ? null : [new Date().getFullYear(), new Date().getMonth() + 1],
-                  }));
-                }}
+                onChange={() => setIsCurrentJob(!careerData.endDate)}
               />
             </div>
           </div>
         </div>
-
         <div css={s.fieldStyle}>
           <div css={{ display: "flex", gap: "0.73rem" }}>
             <label htmlFor="detail" css={s.labelStyle}>
@@ -155,7 +84,6 @@ const CareerAdd = () => {
               <p css={s.labelStyle}>/{MAX_LENGTH.DETAIL_COUNT}</p>
             </span>
           </div>
-
           {careerData.contentList.map((detail, index) =>
             index === 0 ? (
               <Input
@@ -176,7 +104,6 @@ const CareerAdd = () => {
               />
             ),
           )}
-
           {careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT && (
             <button type="button" css={s.iconStyle} onClick={handleAddDetailInput}>
               <PlusBlueIcon width={16} height={16} />
@@ -188,12 +115,11 @@ const CareerAdd = () => {
         <Button size="medium" variant="tertiary" onClick={() => navigate(PATH.CAREER_SETTING)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={handleSubmit}>
+        <Button size="medium" onClick={() => navigate(PATH.CAREER_SETTING)}>
           추가 하기
         </Button>
       </div>
     </div>
   );
 };
-
 export default CareerAdd;

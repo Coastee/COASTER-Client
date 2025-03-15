@@ -20,7 +20,5 @@ export const postUserProfile = async (userId: number, data: UserProfileTypes, fi
     })
     .json();
 
-  console.log(response);
-
   return response;
 };
