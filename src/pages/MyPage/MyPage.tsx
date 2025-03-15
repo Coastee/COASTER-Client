@@ -10,9 +10,14 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
-  if (!userId) return navigate(PATH.ONBOARDING);
-
   const { data } = useFetchUserDetail(Number(userId));
+
+  if (!userId) {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    window.location.href = PATH.ONBOARDING;
+  }
 
   return (
     <div css={s.wrapperStyle}>
