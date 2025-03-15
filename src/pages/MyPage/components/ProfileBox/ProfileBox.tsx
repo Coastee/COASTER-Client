@@ -1,5 +1,6 @@
 import { DmIcon, EditIcon } from "@/assets/svg";
 import { Button } from "@/components";
+import { PATH } from "@/constants/path";
 import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import { IMAGE_PLACEHOLDER } from "@/pages/MyPage/constants/image";
@@ -28,7 +29,12 @@ const ProfileBox = (data: UserDetailTypes) => {
       <div css={s.layoutStyle}>
         <div css={s.rowStyle}>
           <h1 css={s.nameStyle}>{userData?.nickname}</h1>
-          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }}>
+          <div css={s.jobLayoutStyle}>
+            <p>{userData?.userIntro?.job}</p>
+            <p>·</p>
+            <p>{userData?.userIntro?.expYears}년차</p>
+          </div>
+          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }} onClick={() => navigate(PATH.DM)}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
           </Button>
@@ -42,7 +48,7 @@ const ProfileBox = (data: UserDetailTypes) => {
             ))}
           </ul>
         </div>
-        <p css={s.oneLineIntroStyle}>{userData?.userIntro?.job}</p>
+        <p css={s.oneLineIntroStyle}>{userData?.userIntro?.headline}</p>
         <p css={s.introStyle}>{userData?.bio}</p>
       </div>
     </section>
