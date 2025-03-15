@@ -27,7 +27,12 @@ const ProfileBox = (data: UserDetailTypes) => {
       />
       <div css={s.layoutStyle}>
         <div css={s.rowStyle}>
-          <h1 css={s.nameStyle}>{userData?.userIntro?.headline}</h1>
+          <h1 css={s.nameStyle}>{userData?.nickname}</h1>
+          <div css={s.jobLayoutStyle}>
+            <p>{userData?.userIntro?.job}</p>
+            <p>·</p>
+            <p>{userData?.userIntro?.expYears}년차</p>
+          </div>
           <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
@@ -42,7 +47,7 @@ const ProfileBox = (data: UserDetailTypes) => {
             ))}
           </ul>
         </div>
-        <p css={s.oneLineIntroStyle}>{userData?.userIntro?.job}</p>
+        <p css={s.oneLineIntroStyle}>{userData?.userIntro?.headline}</p>
         <p css={s.introStyle}>{userData?.bio}</p>
       </div>
     </section>
