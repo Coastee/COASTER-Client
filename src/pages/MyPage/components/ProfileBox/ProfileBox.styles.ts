@@ -46,6 +46,19 @@ export const nameStyle = css`
   white-space: nowrap;
 `;
 
+export const jobLayoutStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 0.8rem;
+
+  & > p {
+    color: ${theme.color.primaryBlue0};
+
+    ${theme.font.body1};
+  }
+`;
+
 export const oneLineIntroStyle = css`
   ${theme.font.body1};
 `;

@@ -1,6 +1,7 @@
 import { AuthContainer, Button, CheckBox } from "@/components";
-import { DESC, INTERESTS, TITLE } from "@/constants/signup";
+import { DESC, TITLE } from "@/constants/signup";
 import * as s from "@/pages/SignupPage/components/InterestStep/InterestStep.styles";
+import { useFetchServers } from "@/pages/SignupPage/hooks/useFetchServers";
 import { useInterestSelection } from "@/pages/SignupPage/hooks/useInterestSelection";
 
 interface InterestStepProps {
@@ -10,6 +11,8 @@ interface InterestStepProps {
 
 const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
   const { selectedIds, handleCheckboxChange, handleReset } = useInterestSelection();
+
+  const { data: serverData } = useFetchServers();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,14 +26,14 @@ const InterestStep = ({ onPrev, onNext }: InterestStepProps) => {
           초기화
         </Button>
         <div css={s.boxWrapperStyle}>
-          {INTERESTS.map(({ id, name }) => (
+          {serverData?.result.serverList.map(({ id, title }) => (
             <label key={id} htmlFor={`interest-${id}`} css={s.boxLayoutStyle}>
               <CheckBox
                 id={`interest-${id}`}
                 isChecked={selectedIds.includes(id)}
                 onChange={() => handleCheckboxChange(id)}
               />
-              <span css={s.labelStyle}>{name}</span>
+              <span css={s.labelStyle}>{title}</span>
             </label>
           ))}
         </div>
