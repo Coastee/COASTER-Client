@@ -1,7 +1,7 @@
 export interface ProfileEditTypes {
   backgroundImg?: string;
   profileImg?: string;
-  nickName: string;
+  nickname: string;
   career: string;
   careerYear: number;
   oneLineIntro: string;

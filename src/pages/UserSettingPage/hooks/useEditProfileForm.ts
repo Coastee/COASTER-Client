@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 export const useEditProfileForm = ({ ...data }: ProfileEditTypes) => {
   const [form, setForm] = useState({ ...data });
 
-  const isNickNameError = form.nickName.length < MIN_LENGTH.NICKNAME || form.nickName.length > MAX_LENGTH.NICKNAME;
+  const isNickNameError = form.nickname.length < MIN_LENGTH.NICKNAME || form.nickname.length > MAX_LENGTH.NICKNAME;
   const isCareerError = form.career.length < MIN_LENGTH.CAREER || form.career.length > MAX_LENGTH.CAREER;
   const isCareerYearError = Number.isNaN(Number(form.careerYear));
   const isOneLineIntroError = form.oneLineIntro.length > MAX_LENGTH.ONELINE_INTRO;
