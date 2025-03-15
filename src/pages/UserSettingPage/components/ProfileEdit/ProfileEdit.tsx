@@ -18,8 +18,9 @@ const ProfileEdit = () => {
   const navigate = useNavigate();
 
   const { onImageUpload, file } = useImageUpload({ setImgUrl });
-  const openModal = useOpenModal();
+
   const closeModal = useCloseModal();
+  const openModal = useOpenModal();
 
   const userId = localStorage.getItem("userId");
   const { data: userData } = useFetchUserDetail(Number(userId));
@@ -50,6 +51,8 @@ const ProfileEdit = () => {
         urlList: form.urlList,
       },
     });
+
+    navigate(PATH.MYPAGE);
   };
 
   return (
@@ -88,9 +91,12 @@ const ProfileEdit = () => {
             <div css={[s.fieldStyle, { minWidth: "19rem" }]}>
               <label css={s.labelStyle}>링크</label>
               <div css={{ display: "flex", gap: "0.8rem" }}>
-                <button type="button" css={s.plusBtnStyle} onClick={() => openModal()}>
-                  <PlusIcon width={14} height={14} />
-                </button>
+                {form.urlList?.length < 5 && (
+                  <button type="button" css={s.plusBtnStyle} onClick={() => openModal("link")}>
+                    <PlusIcon width={14} height={14} />
+                  </button>
+                )}
+
                 <ul css={{ display: "flex", gap: "0.8rem" }}>
                   {form.urlList?.map((url, index) => (
                     <li key={index}>
@@ -124,7 +130,7 @@ const ProfileEdit = () => {
                   <p css={s.textStyle}>년차</p>
                 </div>
               </div>
-              <button type="button" css={s.buttonStyle}>
+              <button type="button" css={s.buttonStyle} onClick={() => openModal("certification")}>
                 LinkedIn 인증하기
               </button>
             </div>

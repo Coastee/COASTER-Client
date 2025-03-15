@@ -152,6 +152,9 @@ export const gridLayoutStyle = css`
 `;
 
 export const buttonStyle = css`
+  width: 13.2rem;
+  height: 4rem;
+
   padding: 1.1rem 1.4rem;
 
   border-radius: 0.7rem;

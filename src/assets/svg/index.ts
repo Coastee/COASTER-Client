@@ -27,6 +27,7 @@ export { default as HomeLivingServerIcon } from "./HomeLivingServerIcon";
 export { default as HrLawServerIcon } from "./HrLawServerIcon";
 export { default as KakaoIcon } from "./KakaoIcon";
 export { default as LeaveIcon } from "./LeaveIcon";
+export { default as LinkedInIcon } from "./LinkedInIcon";
 export { default as Logo1Icon } from "./Logo1Icon";
 export { default as Logo2Icon } from "./Logo2Icon";
 export { default as Logo2WhiteIcon } from "./Logo2WhiteIcon";
