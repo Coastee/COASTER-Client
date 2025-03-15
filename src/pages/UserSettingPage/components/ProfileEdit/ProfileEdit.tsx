@@ -16,7 +16,7 @@ const ProfileEdit = () => {
   const [urlList, setUrlList] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const { onImageUpload } = useImageUpload({ setImgUrl });
+  const { onImageUpload, file } = useImageUpload({ setImgUrl });
 
   const userId = localStorage.getItem("userId");
   const { data: userData } = useFetchUserDetail(Number(userId));
@@ -30,12 +30,15 @@ const ProfileEdit = () => {
 
   const handleSubmit = () => {
     mutate({
-      nickname: form.nickname,
-      headline: form.headline,
-      job: form.job,
-      expYears: form.expYears,
-      bio: form.bio,
-      urlList: form.urlList,
+      file,
+      data: {
+        nickname: form.nickname,
+        headline: form.headline,
+        job: form.job,
+        expYears: form.expYears,
+        bio: form.bio,
+        urlList: form.urlList,
+      },
     });
   };
 

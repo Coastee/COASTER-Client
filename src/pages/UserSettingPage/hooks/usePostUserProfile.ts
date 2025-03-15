@@ -6,6 +6,7 @@ export const usePostUserProfile = () => {
   const userId = localStorage.getItem("userId");
 
   return useMutation({
-    mutationFn: (data: UserProfileTypes) => postUserProfile(Number(userId), data),
+    mutationFn: ({ file, data }: { file: File | null; data: UserProfileTypes }) =>
+      postUserProfile(Number(userId), data, file),
   });
 };
