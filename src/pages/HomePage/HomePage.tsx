@@ -4,33 +4,31 @@ import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./HomePage.styles";
-
 const HomePage = () => {
   const navigate = useNavigate();
-
-  const serverId = 1; // 임시 id
+  const globalServer = useGlobalServer();
 
   const [keyword, setKeyword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-
-  const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
-
   const [selectedItemId, setSelectedItemId] = useState<string | undefined>(undefined);
 
-  const handleItemClick = (id: string) => {
-    setSelectedItemId(id);
-    setIsVisible(true);
-  };
-
+  const serverId = globalServer?.id;
   const { data: homeData, isLoading } = useHomeData(serverId);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
 
-  const { hashTagList, groupChatRoom, meetingChatRoom, notice } = homeData;
+  const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
+  const { hashTagList, groupChatRoom, meetingChatRoom, notice, chat } = homeData;
+
+  const handleItemClick = (id: string) => {
+    setSelectedItemId(id);
+    setIsVisible(true);
+  };
 
   return (
     <>
@@ -70,9 +68,9 @@ const HomePage = () => {
           handleTextButtonClick={() => {
             navigate("../global-chat");
           }}
-          css={{ paddingTop: "12.3rem" }}
+          css={{ paddingTop: "10rem" }}
         >
-          <GlobalChatPreview />
+          <GlobalChatPreview chat={chat} notice={notice}/>
         </TitleContainer>
       </div>
     </>
