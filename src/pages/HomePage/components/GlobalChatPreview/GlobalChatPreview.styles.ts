@@ -61,6 +61,7 @@ export const chatStyle = css`
   padding: 1.6rem 1.4rem;
 
   width: 28rem;
+  min-height: 26.4rem;
 
   border-radius: 1rem;
   background-color: ${theme.color.dark3};

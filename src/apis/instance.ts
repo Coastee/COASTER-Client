@@ -41,3 +41,10 @@ export const formDataInstance = ky.create({
     Authorization: `Bearer ${accessToken}`,
   },
 });
+
+export const formDataInstance = ky.create({
+  prefixUrl: import.meta.env.VITE_BASE_URL,
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  },
+});
