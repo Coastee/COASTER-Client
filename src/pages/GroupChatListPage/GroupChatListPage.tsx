@@ -15,11 +15,7 @@ const GroupChatListPage = () => {
     <div css={s.layoutStyle}>
       <AddGroupChatModal isVisible={isVisible} setIsVisible={setIsVisible} />
       <AddButton setIsModalVisible={setIsVisible} />
-      <SearchLayout
-        keyword={keyword}
-        setKeyword={setKeyword}
-        hashTagData={HASH_TAGS_DUMMY}
-      />
+      <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={HASH_TAGS_DUMMY} />
 
       <TitleContainer
         title="그룹 채팅방"

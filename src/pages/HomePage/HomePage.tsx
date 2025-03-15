@@ -70,7 +70,7 @@ const HomePage = () => {
           }}
           css={{ paddingTop: "10rem" }}
         >
-          <GlobalChatPreview chat={chat} notice={notice}/>
+          <GlobalChatPreview chat={chat} notice={notice} />
         </TitleContainer>
       </div>
     </>

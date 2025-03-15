@@ -10,6 +10,5 @@ export const useHomeData = (serverId?: number) => {
       }
       return fetchServerHome(serverId);
     },
-    staleTime: 10 * 60 * 1000,
   });
 };
