@@ -104,7 +104,20 @@ const CareerAdd = () => {
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <div css={{ position: "relative" }}>
               <Input
-                value={careerData.endDate ? new Date(...careerData.endDate).toISOString().slice(0, 16) : ""}
+                value={
+                  careerData.endDate
+                    ? new Date(
+                        careerData.endDate[0],
+                        careerData.endDate[1] - 1,
+                        careerData.endDate[2],
+                        careerData.endDate[3],
+                        careerData.endDate[4],
+                        careerData.endDate[5],
+                      )
+                        .toISOString()
+                        .slice(0, 16)
+                    : ""
+                }
                 onChange={(e) => handleEndDateChange(e.target.value)}
                 variant="secondary"
                 disabled={!careerData.endDate}
