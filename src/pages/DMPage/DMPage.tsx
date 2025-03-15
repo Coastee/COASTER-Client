@@ -1,17 +1,24 @@
 import ChatRoom from "@/pages/DMPage/components/ChatRoom/ChatRoom";
 import DMList from "@/pages/DMPage/components/DMList/DMList";
 import EmptyPanel from "@/pages/DMPage/components/EmptyPanel/EmptyPanel";
-
+import { useDmList } from "@/pages/DMPage/hooks/useDm";
 import { useState } from "react";
 
 const DMPage = () => {
-  const [isChatting, setIsChatting] = useState(false);
+  const [roomId, setRoomId] = useState<number | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
+
+  const { data } = useDmList();
+  const dmList = data?.result.dmRoomList || [];
 
   return (
     <>
-      <DMList />
-      {/* 후에 로직 수정 */}
-      {isChatting ? <ChatRoom /> : <EmptyPanel onClick={() => setIsChatting(true)} />}
+      <DMList dmList={dmList} setRoomId={setRoomId} setUserId={setUserId} />
+      {roomId ? (
+        <ChatRoom dmList={dmList} roomId={roomId} setRoomId={setRoomId} />
+      ) : (
+        <EmptyPanel onClick={() => setRoomId(dmList[0].id)} />
+      )}
     </>
   );
 };

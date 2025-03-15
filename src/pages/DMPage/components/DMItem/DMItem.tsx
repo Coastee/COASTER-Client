@@ -1,29 +1,28 @@
 import { UserBox } from "@/components";
+import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
+import { timeAgo } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/DMItem/DMItem.styles";
 
-interface DMItemProps {
-  name: string;
-  latestMessage: string;
-  sentTime: string; // 분 단위 가정
-  isRead: boolean;
-}
+interface DMItemProps extends DMRoomTypes {}
 
-const DMItem = ({ name, latestMessage, sentTime, isRead }: DMItemProps) => {
+const isRead = false;
+
+const DMItem = ({ user, dm }: DMItemProps) => {
   return (
-    <li css={s.itemWrapperStyle}>
+    <div css={s.itemWrapperStyle}>
       <div css={s.layoutStyle}>
-        <UserBox name={name} />
+        <UserBox name={user.nickname} />
         <div css={s.infoStyle}>
-          <h2>{name}</h2>
+          <h2>{user.nickname}</h2>
           <div css={s.contentStyle}>
-            <p css={s.messageStyle(isRead)}>{latestMessage}</p>
+            <p css={s.messageStyle(isRead)}>{dm.content}</p>
             <div css={s.circleStyle} />
-            <p css={s.timeStyle}>{sentTime}분</p>
+            <p css={s.timeStyle}>{timeAgo(dm.createdDate)}</p>
           </div>
         </div>
       </div>
       {!isRead && <div css={s.blueCircleStyle} />}
-    </li>
+    </div>
   );
 };
 
