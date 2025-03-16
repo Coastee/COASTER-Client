@@ -80,7 +80,7 @@ const HomePage = () => {
           title="전체 채팅"
           textButton="더보기"
           handleTextButtonClick={() => {
-            navigate("../global-chat", { state: { chat, notice } });
+            navigate("../global-chat");
           }}
           css={{ paddingTop: "10rem" }}
         >
