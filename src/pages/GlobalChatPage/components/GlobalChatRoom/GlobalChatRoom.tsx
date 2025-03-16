@@ -73,7 +73,7 @@ const GlobalChatRoom = () => {
 
       <div css={s.scrollStyle} ref={scrollRef}>
         {reversedChatLogs.map((chat) => (
-          <div key={chat.id} css={s.layoutStyle}>
+          <div key={chat.id} css={s.layoutStyle(chat.user.id === myId)}>
             <p>{chat.user.nickname}</p>
             <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
               <ChatPanel
