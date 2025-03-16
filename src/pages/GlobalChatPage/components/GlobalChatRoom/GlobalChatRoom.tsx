@@ -3,39 +3,32 @@ import { Divider, Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import { PATH } from "@/constants/path";
 import { useScrollToBottom } from "@/hooks/useScroll";
-import type { StompClientStateTypes } from "@/pages/DMPage/types/dmTypes";
-import { useGlobalChatLogs } from "@/pages/GlobalChatPage/hooks/useGlobalChat";
+
+import { useChatScroll } from "@/pages/GlobalChatPage/hooks/useChatScroll";
+import { useGlobalChatStompClient } from "@/pages/GlobalChatPage/hooks/useGlobalChatStompClient";
+import { useUpdateChatLogs } from "@/pages/GlobalChatPage/hooks/useUpdateChatLogs";
 import type { ChatTypes } from "@/pages/GlobalChatPage/types/globalChatTypes";
-import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
-import { createStompClient } from "@/sockets/globalChatSocketClient";
-import { parseDateArray } from "@/utils/dateTime";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { globalChatFormatTime } from "@/pages/GlobalChatPage/utils/globalChatFormatTime";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
 
-interface GlobalChatRoomProps {
-  chat: HomeDataTypes["chat"];
-}
+const GlobalChatRoom = () => {
+  const [globalChatLogs, setGlobalChatLogs] = useState<ChatTypes[]>([]);
+  const [input, setInput] = useState("");
+  const [isNoticeOpened, setIsNoticeOpened] = useState(false);
 
-const GlobalChatRoom = ({ chat }: GlobalChatRoomProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const serverId = Number(pathname.split("/")[1]);
   const roomId = serverId;
   const myId = Number(localStorage.getItem("userId"));
 
-  const [input, setInput] = useState("");
-  const { data } = useGlobalChatLogs(serverId);
-  const [globalChatLogs, setGlobalChatLogs] = useState<ChatTypes[]>([]);
-  const [stompClient, setStompClient] = useState<StompClientStateTypes | null>(null);
-  const [isNoticeOpened, setIsNoticeOpened] = useState(false);
-
+  const stompClient = useGlobalChatStompClient(roomId, setGlobalChatLogs);
   const scrollRef = useScrollToBottom();
 
-  const formatParsedDate = (dateArray: number[]) => {
-    const { hour, minute, meridiem } = parseDateArray(dateArray);
-    return `${meridiem} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
-  };
+  useUpdateChatLogs(serverId, setGlobalChatLogs);
+  useChatScroll(scrollRef, globalChatLogs);
 
   const handleSendMessage = () => {
     if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
@@ -43,46 +36,7 @@ const GlobalChatRoom = ({ chat }: GlobalChatRoomProps) => {
     setInput("");
   };
 
-  // STOMP 클라이언트 설정
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
-  useEffect(() => {
-    if (roomId) {
-      const stomp = createStompClient(roomId, (messageContent: string) => {
-        const messageData = JSON.parse(messageContent);
-        setGlobalChatLogs((prevLogs) => {
-          if (!prevLogs.find((msg) => msg.id === messageData.id)) {
-            return [messageData, ...prevLogs];
-          }
-          return prevLogs;
-        });
-      });
-
-      if (stomp.client && typeof stomp.sendMessage === "function") {
-        setStompClient(stomp);
-      }
-    }
-
-    return () => {
-      if (stompClient?.client) {
-        stompClient.client.deactivate();
-      }
-    };
-  }, [roomId]);
-
-  // 기존 채팅 로그
-  useEffect(() => {
-    if (data?.result.chatList) {
-      setGlobalChatLogs(data.result.chatList);
-    }
-  }, [data]);
-
-  // 스크롤 자동 이동
-    // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
-  useLayoutEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [globalChatLogs]);
+  const reversedChatLogs = [...globalChatLogs].reverse();
 
   return (
     <section css={s.wrapperStyle}>
@@ -118,20 +72,19 @@ const GlobalChatRoom = ({ chat }: GlobalChatRoomProps) => {
       <Divider />
 
       <div css={s.scrollStyle} ref={scrollRef}>
-        {globalChatLogs.length > 0 &&
-          [...globalChatLogs].reverse().map((chat) => (
-            <div key={chat.id} css={s.layoutStyle}>
-              <p>{chat.user.nickname}</p>
-              <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-                <ChatPanel
-                  isUser={chat.user.id === myId}
-                  message={chat.content}
-                  time={formatParsedDate(chat.createdDate)}
-                  isDM
-                />
-              </div>
+        {reversedChatLogs.map((chat) => (
+          <div key={chat.id} css={s.layoutStyle}>
+            <p>{chat.user.nickname}</p>
+            <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+              <ChatPanel
+                isUser={chat.user.id === myId}
+                message={chat.content}
+                time={globalChatFormatTime(chat.createdDate)}
+                isDM
+              />
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
       <Input
