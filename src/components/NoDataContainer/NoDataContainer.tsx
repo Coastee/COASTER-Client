@@ -6,10 +6,11 @@ import * as s from "./NoDataContainer.styles";
 
 interface AuthContainerProps {
   id: string;
+  width?: string;
   height?: string;
 }
 
-const NoDataContainer = ({ id, height }: AuthContainerProps) => {
+const NoDataContainer = ({ id, width, height }: AuthContainerProps) => {
   const data = NO_DATA.find((data) => data.id === id);
 
   return (
@@ -17,6 +18,7 @@ const NoDataContainer = ({ id, height }: AuthContainerProps) => {
       css={[
         s.sectionStyle,
         css`
+          width: ${width};
           height: ${height};
         `,
       ]}
