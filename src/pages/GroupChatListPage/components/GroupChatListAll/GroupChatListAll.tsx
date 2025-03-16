@@ -1,23 +1,20 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { DetailModal, NoDataContainer } from "@/components";
-import { GROUP_CHAT_DUMMY } from "@/pages/GroupChatListPage/constants/groupChatDetailDummy";
 import { useGroupChatListAll } from "@/pages/GroupChatListPage/hooks/useGroupChat";
 import type { GroupChatListResponse } from "@/pages/GroupChatListPage/types/groupChatTypes";
-import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import * as s from "./GroupChatListAll.styles";
+
 const GroupChatListAll = () => {
-  // const data = GROUP_CHAT_DUMMY;
-  // const items = data.result.chatRoomList;
-  // const itemsCount = items.length;
+  const { pathname } = useLocation();
+  const serverId = Number(pathname.split("/")[1]);
 
-  const currentServer = useGlobalServer();
+  const { data } = useGroupChatListAll(serverId) as { data?: GroupChatListResponse };
 
-  const data: GroupChatListResponse = useGroupChatListAll(currentServer?.id);
-  const items = data.result.chatRoomList;
-
-  const itemCount = items.result.pageInfo.totalElements;
+  const items = data?.result.chatRoomList ?? [];
+  const itemCount = data?.result.pageInfo?.totalElements ?? 0;
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
 

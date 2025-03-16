@@ -4,8 +4,8 @@ export interface ChatRoomTypes {
   title: string;
   content: string;
   period: {
-    startDate: number[];
-    endDate: number[];
+    startDate: number[] | null;
+    endDate: number[] | null;
   };
   user: {
     id: number;

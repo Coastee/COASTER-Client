@@ -1,4 +1,5 @@
-import type { ChatRoomTypes, PageInfoTypes } from "@/pages/HomePage/types/homeDataTypes";
+import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
+import type { PageInfoTypes } from "@/pages/HomePage/types/homeDataTypes";
 
 export interface GroupChatListResponse {
   isSuccess: boolean;
