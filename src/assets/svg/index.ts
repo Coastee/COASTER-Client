@@ -9,6 +9,7 @@ export { default as ChatMenuIcon } from "./ChatMenuIcon";
 export { default as ClockSquareIcon } from "./ClockSquareIcon";
 export { default as CloseCircleIcon } from "./CloseCircleIcon";
 export { default as CloseIcon } from "./CloseIcon";
+export { default as CloseNavIcon } from "./CloseNavIcon";
 export { default as CoffeeIcon } from "./CoffeeIcon";
 export { default as CounterMinusIcon } from "./CounterMinusIcon";
 export { default as CounterPlusIcon } from "./CounterPlusIcon";
