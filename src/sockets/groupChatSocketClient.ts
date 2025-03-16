@@ -1,14 +1,13 @@
-import type { DMRoomTypes } from "@/pages/DMPage/types/dmTypes";
 import { createClient } from "@/sockets/createClient";
 
 const accessToken = localStorage.getItem("accessToken");
 
-// DM 구독 및 메시지 전송을 위한 클라이언트 생성
+// 그룹챗 구독 및 메시지 전송을 위한 클라이언트 생성
 export const createStompClient = (roomId: number, onMessageReceived: (message: string) => void) => {
   const client = createClient((client) => {
-    console.log(`Connected to room ${roomId}`);
+    console.log(`Connected to Chatroom ${roomId}`);
 
-    client.subscribe(`/sub/dms/${roomId}`, (message) => {
+    client.subscribe(`/sub/chats/${roomId}`, (message) => {
       console.log("Received message: ", message.body);
       onMessageReceived(message.body);
     });
@@ -23,7 +22,7 @@ export const createStompClient = (roomId: number, onMessageReceived: (message: s
       return;
     }
     client.publish({
-      destination: `/pub/dms/${roomId}`,
+      destination: `/pub/chats/${roomId}`,
       body: JSON.stringify({ content: messageBody }),
       headers: { Authorization: `Bearer ${accessToken}` },
     });
@@ -32,24 +31,9 @@ export const createStompClient = (roomId: number, onMessageReceived: (message: s
   return { client, sendMessage };
 };
 
-// DM을 받은 후 채팅방 순서를 업데이트하는 함수
-export const createDMClient = (userId: number, onDMReceived: (dm: DMRoomTypes) => void) => {
-  const client = createClient((client) => {
-    client.subscribe(`/sub/users/dms/${userId}`, (message) => {
-      console.log("New DM received:", message.body);
-      const dm = JSON.parse(message.body); // DM 메시지 파싱
-      onDMReceived(dm);
-    });
-  });
-
-  client.activate();
-
-  return client;
-};
-
 // 메시지 전송 함수 (DM 생성 및 DM 전송)
 export const sendMessage = (roomId: number | null, userId: number | null, messageBody: string) => {
-  const destination = roomId ? `/pub/dms/${roomId}` : "/pub/dms/create";
+  const destination = roomId ? `/pub/chats/${roomId}` : "/pub/chats/create";
   const body = roomId ? { content: messageBody } : { userId, content: messageBody };
 
   const client = createClient((client) => {
