@@ -5,15 +5,22 @@ import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import { PATH } from "@/constants/path";
 import { useScrollToBottom } from "@/hooks/useScroll";
 import { DM_MESSAGES } from "@/pages/DMPage/constants/dummy";
+import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
 
-const GlobalChatRoom = () => {
+interface GlobalChatRoomProps {
+  chat: HomeDataTypes["chat"];
+}
+
+const GlobalChatRoom = ({ chat }: GlobalChatRoomProps) => {
   const navigate = useNavigate();
+  const scrollRef = useScrollToBottom();
+
   const [isNoticeOpened, setIsNoticeOpened] = useState(false);
 
-  const scrollRef = useScrollToBottom();
+  console.log("chat: ", chat);
 
   return (
     <section css={s.wrapperStyle}>
