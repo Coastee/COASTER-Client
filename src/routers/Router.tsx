@@ -8,6 +8,7 @@ import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
+import { Suspense } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
@@ -99,11 +100,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/:serverId/group-chat",
-        element: <GroupChatPage />,
+        element: (
+          <Suspense>
+            <GroupChatPage />
+          </Suspense>
+        ),
       },
       {
         path: "/:serverId/coffee-chat",
-        element: <GroupChatPage />,
+        element: (
+          <Suspense>
+            <GroupChatPage />
+          </Suspense>
+        ),
       },
       {
         path: "/:serverId/global-chat",
