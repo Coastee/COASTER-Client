@@ -1,13 +1,15 @@
 import { ArrowDownIcon, ExitIcon, PinIcon, SendIcon } from "@/assets/svg";
 import { Divider, Input } from "@/components";
-import ChatPanel from "@/components/ChatPanel/ChatPanel";
 
+import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import { PATH } from "@/constants/path";
 import { useScrollToBottom } from "@/hooks/useScroll";
-import { DM_MESSAGES } from "@/pages/DMPage/constants/dummy";
+import { useGlobalChatLogs } from "@/pages/GlobalChatPage/hooks/useGlobalChat";
+import type { ChatTypes } from "@/pages/GlobalChatPage/types/globalChatTypes";
 import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { parseDateArray } from "@/utils/dateTime";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
 
 interface GlobalChatRoomProps {
@@ -16,11 +18,31 @@ interface GlobalChatRoomProps {
 
 const GlobalChatRoom = ({ chat }: GlobalChatRoomProps) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const serverId = Number(pathname.split("/")[1]);
+
+  const { data } = useGlobalChatLogs(serverId);
+  const [globalChatLogs, setGlobalChatLogs] = useState<ChatTypes[]>([]);
+  const myId = Number(localStorage.getItem("userId"));
+
   const scrollRef = useScrollToBottom();
 
   const [isNoticeOpened, setIsNoticeOpened] = useState(false);
 
+  const formatParsedDate = (dateArray: number[]) => {
+    const { hour, minute, meridiem } = parseDateArray(dateArray);
+    return `${meridiem} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+  };
+
   console.log("chat: ", chat);
+  console.log("data: ", data);
+  console.log("globalChatLogs: ", globalChatLogs);
+
+  useEffect(() => {
+    if (data?.result.chatList) {
+      setGlobalChatLogs(data.result.chatList);
+    }
+  }, [data]);
 
   return (
     <section css={s.wrapperStyle}>
@@ -63,15 +85,23 @@ const GlobalChatRoom = ({ chat }: GlobalChatRoomProps) => {
       </header>
       <Divider />
       <div css={s.scrollStyle} ref={scrollRef}>
-        {DM_MESSAGES.map((chat, index) => (
-          <div key={`${index}-${chat.time}`} css={s.layoutStyle}>
-            {!chat.isUser && <p> {chat.userName}</p>}
-            <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-              <ChatPanel isUser={chat.isUser} message={chat.message} time={chat.time} isDM={true} />
+        {globalChatLogs &&
+          globalChatLogs.length > 0 &&
+          globalChatLogs.map((chat) => (
+            <div key={chat.id} css={s.layoutStyle}>
+              <p>{chat.user.nickname}</p>
+              <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+                <ChatPanel
+                  isUser={chat.user.id === myId}
+                  message={chat.content}
+                  time={formatParsedDate(chat.createdDate)}
+                  isDM
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
+
       <Input
         placeholder="채팅을 입력해주세요 (상대방을 향한 비방, 욕설글은 정지 대상이 될 수 있습니다.)"
         rightIcon={<SendIcon width={14} height={14} />}

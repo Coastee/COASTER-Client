@@ -1,3 +1,4 @@
+
 export interface ChatRoomTypes {
   id: number;
   thumbnail: string | null;
