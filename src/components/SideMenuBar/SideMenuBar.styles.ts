@@ -1,12 +1,11 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const wrapperStyle = css`
+export const wrapperStyle = (isOpen: boolean) => css`
   position: fixed;
   display: flex;
-
   top: 0;
-  left: 0;
+  right: ${isOpen ? "0" : "-27.9rem"};
 
   width: 27.9rem;
   height: 100vh;
@@ -15,9 +14,12 @@ export const wrapperStyle = css`
 
   flex-direction: column;
 
-  border-right: 1px solid #455163;
+  border-left: 1px solid #455163;
 
   background-color: ${theme.color.dark4};
+
+  z-index: 3;
+  transition: all 0.4s ease-in-out;
 `;
 
 export const closeNavIconWrapperStyle = css`

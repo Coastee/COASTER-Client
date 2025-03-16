@@ -1,3 +1,5 @@
+import SideMenuBar from "@/components/SideMenuBar/SideMenuBar";
+
 import ChatInfoList from "@/pages/GroupChatPage/components/ChatInfoList/ChatInfoList";
 import ChatRoom from "@/pages/GroupChatPage/components/ChatRoom/ChatRoom";
 
@@ -7,6 +9,7 @@ const GroupChatPage = () => {
       {/* 임의 더미 넣어둠 */}
       <ChatInfoList name="남다은" />
       <ChatRoom />
+      <SideMenuBar />
     </div>
   );
 };
