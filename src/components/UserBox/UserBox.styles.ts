@@ -1,21 +1,22 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const wrapperStyle = (size: "medium" | "large") => css`
+export const wrapperStyle = (size: "small" | "medium" | "large", variant: "default" | "outline") => css`
   display: flex;
-  width: ${size === "large" ? "5.4rem" : "4.3rem"};
-  height: ${size === "large" ? "5.4rem" : "4.3rem"};
+  width: ${size === "large" ? "5.4rem" : size === "medium" ? "4.3rem" : "2.7rem"};
+  height: ${size === "large" ? "5.4rem" : size === "medium" ? "4.3rem" : "2.7rem"};
 
   padding: 1rem;
 
   justify-content: center;
   align-items: center;
 
-  border: 1px solid ${theme.color.dark1};
-  border-radius: 1rem;
+  border: 1px solid ${variant === "outline" ? theme.color.dark1 : "#2D3643"};
+  border-radius: ${variant === "outline" ? "1rem" : "0.5rem"};
 
-  background-color: ${theme.color.dark3};
+  background-color: ${variant === "outline" ? theme.color.dark3 : "#2D3643"};
+  color: ${variant === "outline" ? theme.color.white : theme.color.primaryBlue1};
 
-  ${size === "large" ? theme.font.title2 : theme.font.title4};
+  ${size === "large" ? theme.font.title2 : size === "medium" ? theme.font.title4 : theme.font.body2};
   font-weight: 400;
 `;
