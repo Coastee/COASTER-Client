@@ -3,8 +3,8 @@ import { parseDateArray } from "@/utils/dateTime";
 import * as s from "./DetailMeta.styles";
 
 interface DetailMetaProps {
-  location: string;
-  details: string;
+  location: string | null;
+  details: string | null;
   startDate: number[] | null;
   endDate: number[] | null;
 }
