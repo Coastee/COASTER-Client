@@ -3,7 +3,7 @@ interface Period {
   endDate: string | null;
 }
 
-interface ChatRoom {
+export interface ChatRoomTypes {
   id: number;
   thumbnail: string | null;
   title: string;
@@ -18,9 +18,9 @@ interface PageInfo {
   size: number;
 }
 
-interface ChatRoomResult {
+export interface ChatRoomResult {
   pageInfo: PageInfo;
-  chatRoomList: ChatRoom[];
+  chatRoomList: ChatRoomTypes[];
 }
 
 export interface ChatListTypes {
