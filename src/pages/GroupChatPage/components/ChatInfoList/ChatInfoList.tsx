@@ -6,9 +6,10 @@ import { useFetchGroupChat } from "@/pages/GroupChatPage/hooks/useFetchGroupChat
 
 interface ChatInfoListProps {
   name: string;
+  setSelectedRoomId: (id: number) => void;
 }
 
-const ChatInfoList = ({ name }: ChatInfoListProps) => {
+const ChatInfoList = ({ name, setSelectedRoomId }: ChatInfoListProps) => {
   const { data: groupChatList } = useFetchGroupChat();
   const { data: coffeeChatList } = useFetchCoffeeChat();
 
@@ -21,7 +22,18 @@ const ChatInfoList = ({ name }: ChatInfoListProps) => {
         {groupChatList?.chatRoomList?.length > 0 ? (
           <ul css={s.listStyle}>
             {groupChatList.chatRoomList.map((chat, index) => (
-              <ChatListItem key={chat.id} name={chat.title} index={index} length={groupChatList.chatRoomList.length} />
+              <li
+                key={chat.id}
+                onClick={() => {
+                  setSelectedRoomId(chat.id);
+                  console.log(chat.id);
+                }}
+                onKeyDown={() => {
+                  setSelectedRoomId(chat.id);
+                }}
+              >
+                <ChatListItem name={chat.title} index={index} length={groupChatList.chatRoomList.length} />
+              </li>
             ))}
           </ul>
         ) : (

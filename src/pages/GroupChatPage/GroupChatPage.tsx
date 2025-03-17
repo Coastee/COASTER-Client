@@ -1,11 +1,13 @@
 import ChatInfoList from "@/pages/GroupChatPage/components/ChatInfoList/ChatInfoList";
 import ChatRoom from "@/pages/GroupChatPage/components/ChatRoom/ChatRoom";
+import { useState } from "react";
 
 const GroupChatPage = () => {
+  const [selectedRoomId, setSelectedRoomId] = useState<number | null>(null);
+
   return (
     <div css={{ width: "100%", display: "flex" }}>
-      {/* 임의 더미 넣어둠 */}
-      <ChatInfoList name="남다은" />
+      <ChatInfoList name="남다은" setSelectedRoomId={setSelectedRoomId} />
       <ChatRoom />
     </div>
   );
