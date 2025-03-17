@@ -1,12 +1,11 @@
-import { BookmarkIcon, ChatMenuIcon, HamburgerIcon, LeaveIcon } from "@/assets/svg";
+import { LeaveIcon } from "@/assets/svg";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
-import * as s from "./HamburgerMenu.styles";
 
 export const HamburgerMenu = ({ isVisible, setIsVisible }: SideModalProps) => {
   return (
     <>
-      <HamburgerIcon width={33} height={23} onClick={() => setIsVisible(!isVisible)} />
-      {isVisible && (
+      <LeaveIcon width={33} height={23} onClick={() => setIsVisible(!isVisible)} />
+      {/* {isVisible && (
         <div css={s.hamburgerLayoutStyle}>
           <div css={s.extendedMenuStyle}>
             <ChatMenuIcon width={96} height={49} />
@@ -17,7 +16,7 @@ export const HamburgerMenu = ({ isVisible, setIsVisible }: SideModalProps) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
