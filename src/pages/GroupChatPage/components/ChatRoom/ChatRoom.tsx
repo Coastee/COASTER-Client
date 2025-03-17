@@ -6,12 +6,14 @@ import TimeChip from "@/components/TimeChip/TimeChip";
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
 import { DUMMY_CHAT_MESSAGES } from "@/pages/GroupChatPage/constants/dummy";
-import { useMenuBarAction } from "@/stores/useMenuBarStore";
+import { useMenuBarAction, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
 import * as s from "@pages/GroupChatPage/components/ChatRoom/ChatRoom.styles";
 
 const ChatRoom = () => {
   const scrollRef = useScrollToBottom();
   const { openMenuBar } = useMenuBarAction();
+
+  const isOpen = useMenuBarIsOpen();
 
   const handleOpenSideBar = () => {
     const dummyMembers = [
@@ -23,7 +25,7 @@ const ChatRoom = () => {
   };
 
   return (
-    <section css={s.wrapperStyle}>
+    <section css={s.wrapperStyle(isOpen)}>
       <header css={s.headerLayoutStyle}>
         <div css={s.titleLayoutStyle}>
           <RotateLogoIcon width={25} height={22} />
@@ -31,7 +33,7 @@ const ChatRoom = () => {
           <h1 css={s.titleStyle}>강남 오프라인</h1>
           <TimeChip size="large" time="11/2 (월) 18:30" />
         </div>
-        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={handleOpenSideBar} />
+        {!isOpen && <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={handleOpenSideBar} />}
       </header>
       <div css={s.scrollStyle} ref={scrollRef}>
         {DUMMY_CHAT_MESSAGES.map((chat, index) => (
