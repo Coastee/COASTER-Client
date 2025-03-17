@@ -10,11 +10,21 @@ import * as s from "./DetailModal.styles";
 
 interface DetailModalProps extends SideModalProps {
   data: ChatRoomTypes;
+  serverId: number ;
+  selectedItemId: number;
   isCoffeeChat?: boolean;
 }
 
-const DetailModal = ({ data, isCoffeeChat = false, isVisible, setIsVisible }: DetailModalProps) => {
+const DetailModal = ({
+  data,
+  serverId,
+  selectedItemId,
+  isCoffeeChat = false,
+  isVisible,
+  setIsVisible,
+}: DetailModalProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const chatRoomType = isCoffeeChat ? "meetings" : "groups";
 
   return (
     <SideModal
@@ -22,7 +32,15 @@ const DetailModal = ({ data, isCoffeeChat = false, isVisible, setIsVisible }: De
       title={data.title}
       isVisible={isVisible}
       setIsVisible={setIsVisible}
-      extraButton={<HamburgerMenu isVisible={isMenuOpen} setIsVisible={setIsMenuOpen} />}
+      extraButton={
+        <HamburgerMenu
+          serverId={serverId}
+          chatRoomType={chatRoomType}
+          selectedItemId={selectedItemId}
+          isVisible={isMenuOpen}
+          setIsVisible={setIsMenuOpen}
+        />
+      }
       {...(isCoffeeChat ? { currentUsers: data.currentCount, maxUsers: data.maxCount } : {})}
     >
       <div css={s.contentStyle}>
