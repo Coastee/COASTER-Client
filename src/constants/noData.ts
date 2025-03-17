@@ -14,4 +14,14 @@ export const NO_DATA = [
     title: "추가된 경력이 없습니다.",
     desc: "경력을 추가해보세요!",
   },
+  {
+    id: "NO_JOINED_GROUP_CHAT",
+    title: "참여한 그룹챗이 없습니다.",
+    desc: "그룹채팅에 참여해보세요!",
+  },
+  {
+    id: "NO_JOINED_COFFEE_CHAT",
+    title: "참여한 티타임이 없습니다.",
+    desc: "티타임에 참여해보세요!",
+  },
 ];
