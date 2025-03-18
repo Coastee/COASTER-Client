@@ -1,3 +1,5 @@
+import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
+import type { PageInfoTypes } from "@/pages/HomePage/types/homeDataTypes";
 import type { Dispatch, SetStateAction } from "react";
 
 export type RequestDateType = [number, number, number, number, number, number, number];
@@ -28,4 +30,14 @@ export interface UseAddCoffeeChatProps {
   setIsVisible: (isVisible: boolean) => void;
   globalServer: { id: number } | null;
   image: File | null;
+}
+
+export interface CoffeeChatListResponse {
+  isSuccess: boolean;
+  code: string;
+  message: string;
+  result: {
+    pageInfo: PageInfoTypes;
+    chatRoomList: ChatRoomTypes[];
+  };
 }

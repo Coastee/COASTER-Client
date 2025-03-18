@@ -4,14 +4,14 @@ export interface ChatRoomTypes {
   title: string;
   content: string;
   period: {
-    startDate: number[];
-    endDate: number[];
+    startDate: number[] | null;
+    endDate: number[] | null;
   };
   user: {
     id: number;
     profileImage: string;
     nickname: string;
-    linkedInVerify: boolean;
+    linkedInVerify?: boolean;
     userIntro: {
       headline: string;
       job: string;
@@ -19,10 +19,10 @@ export interface ChatRoomTypes {
     };
   };
   address: {
-    location: string;
-    details: string;
+    location: string | null;
+    details: string | null;
   };
-  hasEntered: boolean;
+  hasEntered: boolean | null;
   maxCount: number;
   currentCount: number;
   hashTagList: {

@@ -3,10 +3,10 @@ import { parseDateArray } from "@/utils/dateTime";
 import * as s from "./DetailMeta.styles";
 
 interface DetailMetaProps {
-  location: string;
-  details: string;
-  startDate: number[];
-  endDate: number[];
+  location: string | null;
+  details: string | null;
+  startDate: number[] | null;
+  endDate: number[] | null;
 }
 
 const DetailMeta = ({ location, details, startDate, endDate }: DetailMetaProps) => {
@@ -37,13 +37,13 @@ const DetailMeta = ({ location, details, startDate, endDate }: DetailMetaProps) 
         <Button variant="primary" size="medium" aria-hidden="true" css={s.noHoverStyle}>
           진행 날짜
         </Button>
-        <div css={s.textStyle}>
-          <p>{dateFormat(startDate).basicDate}</p>
-          <div css={s.circleStyle} />
-          <p>
-            {dateFormat(startDate).time} ~ {dateFormat(endDate).time}
-          </p>
-        </div>
+        {startDate && endDate && (
+          <div css={s.textStyle}>
+            <p> {dateFormat(startDate).basicDate}</p>
+            <div css={s.circleStyle} />
+            <p>{`${dateFormat(startDate).time} ~ ${dateFormat(endDate).time}`}</p>
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { fetchGroupChat } from "@/pages/GroupChatPage/apis/fetchGroupChat";
+import { fetchGroupChat } from "@/pages/GroupChatPage/apis/fetchSideGroupChatList";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 

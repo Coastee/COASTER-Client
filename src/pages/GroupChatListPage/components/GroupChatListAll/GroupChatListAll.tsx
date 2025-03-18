@@ -1,13 +1,21 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { DetailModal, NoDataContainer } from "@/components";
-import { GROUP_CHAT_DUMMY } from "@/pages/GroupChatListPage/constants/groupChatDetailDummy";
+
+import { useFetchGroupChatList } from "@/pages/GroupChatListPage/hooks/useFetchGroupChatList";
+import type { GroupChatListResponse } from "@/pages/GroupChatListPage/types/groupChatTypes";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import * as s from "./GroupChatListAll.styles";
+
 const GroupChatListAll = () => {
-  const data = GROUP_CHAT_DUMMY;
-  const items = data.result.chatRoomList;
-  const itemsCount = items.length;
+  const { pathname } = useLocation();
+  const serverId = Number(pathname.split("/")[1]);
+
+  const { data } = useFetchGroupChatList(serverId) as { data?: GroupChatListResponse };
+
+  const items = data?.result.chatRoomList ?? [];
+  const itemCount = data?.result.pageInfo?.totalElements ?? 0;
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -15,11 +23,11 @@ const GroupChatListAll = () => {
 
   return (
     <div>
-      {itemsCount === 0 ? (
+      {itemCount === 0 ? (
         <NoDataContainer id="NO_GROUP_CHAT" height="25.1rem" />
       ) : (
         <>
-          <ul css={s.listContainerStyle(itemsCount)}>
+          <ul css={s.listContainerStyle(itemCount)}>
             {items.map((chat) => (
               <li key={chat.id}>
                 <article
