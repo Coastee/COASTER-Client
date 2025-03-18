@@ -18,7 +18,7 @@ const HomePage = () => {
     type: null,
   });
 
-  const serverId = globalServer?.id;
+  const serverId = Number(globalServer?.id);
   const { data: homeData, isLoading } = useHomeData(serverId);
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -38,18 +38,21 @@ const HomePage = () => {
     if (selectedItem.type === "groupChatRoom") {
       return groupChatRoom.chatRoomList.find((chat) => chat.id === Number(selectedItem.id));
     }
-    return undefined;
+    return null;
   })();
 
   return (
     <>
-      {selectedChat && (
+      {selectedChat && serverId && (
         <DetailModal
           data={selectedChat}
+          serverId={serverId}
+          selectedItemId={Number(selectedItem.id)}
           isVisible={true}
           setIsVisible={() => setSelectedItem({ type: null, id: null })}
         />
       )}
+
       <div css={s.layoutStyle}>
         <div css={s.leftLayoutStyle}>
           <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={hashTagList} />

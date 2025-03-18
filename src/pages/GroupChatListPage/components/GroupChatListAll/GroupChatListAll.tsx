@@ -60,7 +60,12 @@ const GroupChatListAll = () => {
           </ul>
 
           {selectedChat && (
-            <DetailModal data={selectedChat} isVisible={true} setIsVisible={() => setSelectedId(null)} />
+            <DetailModal
+              data={selectedChat}
+              serverId={serverId}
+              selectedItemId={selectedChat.id}
+              setIsVisible={() => setSelectedId(null)}
+            />
           )}
         </>
       )}

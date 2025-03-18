@@ -4,25 +4,36 @@ import DetailMeta from "@/components/DetailModal/components/DetailMeta/DetailMet
 import DetailUserInfo from "@/components/DetailModal/components/DetailUserInfo/DetailUserInfo";
 import HamburgerMenu from "@/components/DetailModal/components/HamburgerMenu/HamburgerMenu";
 import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
-import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { useState } from "react";
 import * as s from "./DetailModal.styles";
 
-interface DetailModalProps extends SideModalProps {
+interface DetailModalProps {
   data: ChatRoomTypes;
+  serverId: number;
+  selectedItemId: number;
   isCoffeeChat?: boolean;
+  setIsVisible: (isVisible: boolean) => void;
 }
 
-const DetailModal = ({ data, isCoffeeChat = false, isVisible, setIsVisible }: DetailModalProps) => {
+const DetailModal = ({ data, serverId, selectedItemId, isCoffeeChat = false, setIsVisible }: DetailModalProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const chatRoomType = isCoffeeChat ? "meetings" : "groups";
 
   return (
     <SideModal
       modalStyle={{ width: "100%", maxWidth: "70rem" }}
       title={data.title}
-      isVisible={isVisible}
+      isVisible={true}
       setIsVisible={setIsVisible}
-      extraButton={<HamburgerMenu isVisible={isMenuOpen} setIsVisible={setIsMenuOpen} />}
+      extraButton={
+        <HamburgerMenu
+          serverId={serverId}
+          chatRoomType={chatRoomType}
+          selectedItemId={selectedItemId}
+          isVisible={isMenuOpen}
+          setIsVisible={setIsMenuOpen}
+        />
+      }
       {...(isCoffeeChat ? { currentUsers: data.currentCount, maxUsers: data.maxCount } : {})}
     >
       <div css={s.contentStyle}>
