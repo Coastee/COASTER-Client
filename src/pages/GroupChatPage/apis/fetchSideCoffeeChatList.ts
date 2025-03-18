@@ -9,3 +9,4 @@ export const fetchCoffeeChat = async (serverId: number) => {
 
   return response.result;
 };
+
