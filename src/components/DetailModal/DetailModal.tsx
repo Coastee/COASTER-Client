@@ -4,25 +4,18 @@ import DetailMeta from "@/components/DetailModal/components/DetailMeta/DetailMet
 import DetailUserInfo from "@/components/DetailModal/components/DetailUserInfo/DetailUserInfo";
 import HamburgerMenu from "@/components/DetailModal/components/HamburgerMenu/HamburgerMenu";
 import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
-import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { useState } from "react";
 import * as s from "./DetailModal.styles";
 
-interface DetailModalProps extends SideModalProps {
+interface DetailModalProps {
   data: ChatRoomTypes;
-  serverId: number ;
+  serverId: number;
   selectedItemId: number;
   isCoffeeChat?: boolean;
+  setIsVisible: (isVisible: boolean) => void;
 }
 
-const DetailModal = ({
-  data,
-  serverId,
-  selectedItemId,
-  isCoffeeChat = false,
-  isVisible,
-  setIsVisible,
-}: DetailModalProps) => {
+const DetailModal = ({ data, serverId, selectedItemId, isCoffeeChat = false, setIsVisible }: DetailModalProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const chatRoomType = isCoffeeChat ? "meetings" : "groups";
 
@@ -30,7 +23,7 @@ const DetailModal = ({
     <SideModal
       modalStyle={{ width: "100%", maxWidth: "70rem" }}
       title={data.title}
-      isVisible={isVisible}
+      isVisible={true}
       setIsVisible={setIsVisible}
       extraButton={
         <HamburgerMenu

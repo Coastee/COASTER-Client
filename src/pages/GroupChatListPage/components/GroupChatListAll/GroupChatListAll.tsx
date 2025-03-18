@@ -64,7 +64,6 @@ const GroupChatListAll = () => {
               data={selectedChat}
               serverId={serverId}
               selectedItemId={selectedChat.id}
-              isVisible={true}
               setIsVisible={() => setSelectedId(null)}
             />
           )}
