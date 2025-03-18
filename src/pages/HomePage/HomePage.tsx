@@ -1,5 +1,4 @@
-import { SearchLayout, SideModal, TitleContainer } from "@/components";
-import { CHAT_ROOM_DETAIL_DUMMY } from "@/constants/chatRoomDetailDummy";
+import { DetailModal, SearchLayout, TitleContainer } from "@/components";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
@@ -14,31 +13,46 @@ const HomePage = () => {
 
   const [keyword, setKeyword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedItemId, setSelectedItemId] = useState<string | undefined>(undefined);
+  const [selectedItem, setSelectedItem] = useState<{ id: string | null; type: string | null }>({
+    id: null,
+    type: null,
+  });
 
-  const serverId = globalServer?.id;
+  const serverId = Number(globalServer?.id);
   const { data: homeData, isLoading } = useHomeData(serverId);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
 
-  const { title, currentUsers, maxUsers } = CHAT_ROOM_DETAIL_DUMMY;
   const { hashTagList, groupChatRoom, meetingChatRoom, notice, chat } = homeData;
 
-  const handleItemClick = (id: string) => {
-    setSelectedItemId(id);
+  const handleItemClick = (type: string, id: string) => {
+    setSelectedItem({ type: type, id: id });
     setIsVisible(true);
   };
 
+  const selectedChat = (() => {
+    if (selectedItem.type === "meetingChatRoom") {
+      return meetingChatRoom.chatRoomList.find((chat) => chat.id === Number(selectedItem.id));
+    }
+    if (selectedItem.type === "groupChatRoom") {
+      return groupChatRoom.chatRoomList.find((chat) => chat.id === Number(selectedItem.id));
+    }
+    return null;
+  })();
+
   return (
     <>
-      <SideModal
-        title={title}
-        currentUsers={currentUsers}
-        maxUsers={maxUsers}
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-      />
+      {selectedChat && serverId && (
+        <DetailModal
+          data={selectedChat}
+          serverId={serverId}
+          selectedItemId={Number(selectedItem.id)}
+          isVisible={true}
+          setIsVisible={() => setSelectedItem({ type: null, id: null })}
+        />
+      )}
+
       <div css={s.layoutStyle}>
         <div css={s.leftLayoutStyle}>
           <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={hashTagList} />
@@ -59,7 +73,7 @@ const HomePage = () => {
             }}
             css={{ paddingBottom: "5rem" }}
           >
-            <CoffeeChatList data={meetingChatRoom} />
+            <CoffeeChatList data={meetingChatRoom} handleItemClick={handleItemClick} />
           </TitleContainer>
         </div>
         <TitleContainer

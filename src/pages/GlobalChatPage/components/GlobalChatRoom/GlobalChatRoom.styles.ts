@@ -115,9 +115,10 @@ export const scrollStyle = css`
   }
 `;
 
-export const layoutStyle = css`
+export const layoutStyle = (isUser: boolean) => css`
   display: flex;
   flex-direction: column;
+  align-items: ${isUser ? "flex-end" : "flex-start"};
 
   gap: 0.6rem;
 

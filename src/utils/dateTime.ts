@@ -58,7 +58,7 @@ export const parseDateArray = (dateArray: number[]) => {
 };
 
 export const requestFormatTime = (
-  dateTime: FormDateTimeTypes,
+  dateTime: FormDateTimeTypes
 ): {
   startDate: RequestDateType;
   endDate: RequestDateType;
@@ -115,4 +115,9 @@ export const timeAgo = (dateArray: number[]) => {
     return `${diffInHours}시간`;
   }
   return `${diffInDays}일`;
+};
+
+export const chatFormatTime = (dateArray: number[]) => {
+  const { hour, minute, meridiem } = parseDateArray(dateArray);
+  return `${meridiem} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
 };

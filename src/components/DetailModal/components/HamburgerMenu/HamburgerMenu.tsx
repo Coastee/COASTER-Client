@@ -1,12 +1,34 @@
-import { BookmarkIcon, ChatMenuIcon, HamburgerIcon, LeaveIcon } from "@/assets/svg";
+import { LeaveIcon } from "@/assets/svg";
+import { useEnterChatRoom } from "@/components/DetailModal/hooks/useEnterChatRoom";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
-import * as s from "./HamburgerMenu.styles";
 
-export const HamburgerMenu = ({ isVisible, setIsVisible }: SideModalProps) => {
+interface HamburgerMenuProps extends SideModalProps {
+  serverId: number;
+  chatRoomType: string;
+  selectedItemId: number;
+  isVisible: boolean;
+  setIsVisible: (value: boolean) => void;
+}
+
+export const HamburgerMenu = ({
+  serverId,
+  chatRoomType,
+  selectedItemId,
+  isVisible,
+  setIsVisible,
+}: HamburgerMenuProps) => {
+  const { mutate: enterRoom } = useEnterChatRoom();
+
+  const handleIconClick = () => {
+    console.log("서버 입장 시도");
+    enterRoom({ serverId, chatRoomType, groupId: selectedItemId });
+    setIsVisible(!isVisible);
+  };
+
   return (
     <>
-      <HamburgerIcon width={33} height={23} onClick={() => setIsVisible(!isVisible)} />
-      {isVisible && (
+      <LeaveIcon width={33} height={23} onClick={handleIconClick} />
+      {/* {isVisible && (
         <div css={s.hamburgerLayoutStyle}>
           <div css={s.extendedMenuStyle}>
             <ChatMenuIcon width={96} height={49} />
@@ -17,7 +39,7 @@ export const HamburgerMenu = ({ isVisible, setIsVisible }: SideModalProps) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -108,11 +108,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/:serverId/group-chat",
-        element: <GroupChatPage />,
+        element: (
+          <Suspense>
+            <GroupChatPage />
+          </Suspense>
+        ),
       },
       {
         path: "/:serverId/coffee-chat",
-        element: <GroupChatPage />,
+        element: (
+          <Suspense>
+            <GroupChatPage />
+          </Suspense>
+        ),
       },
       {
         path: "/:serverId/global-chat",
