@@ -1,12 +1,9 @@
 import { fetchGroupChat } from "@/pages/GroupChatPage/apis/fetchSideGroupChatList";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 
-export const useFetchGroupChat = () => {
-  const { serverId } = useParams();
-
+export const useFetchGroupChat = (serverId: number, scope: string) => {
   return useSuspenseQuery({
-    queryKey: ["fetchGroupChatList"],
-    queryFn: () => fetchGroupChat(Number(serverId)),
+    queryKey: ["fetchGroupChatList", serverId, scope],
+    queryFn: () => fetchGroupChat(serverId, scope),
   });
 };
