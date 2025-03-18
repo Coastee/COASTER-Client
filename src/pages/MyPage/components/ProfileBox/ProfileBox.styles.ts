@@ -25,6 +25,22 @@ export const layoutStyle = css`
   background-color: ${theme.color.dark3};
 `;
 
+export const iconStyle = css`
+  display: flex;
+
+  width: 100%;
+
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+
+  & > p {
+    color : #359AFF;
+
+    ${theme.font.body3};
+  }
+`;
+
 export const linkLayoutStyle = css`
   display: flex;
 
