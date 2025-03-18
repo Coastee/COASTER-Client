@@ -1,14 +1,25 @@
+import { createCoffeeChat } from "@/pages/CoffeeChatListPage/apis/addCoffeeChat";
 import type {
   AddCoffeeChatTypes,
+  FormDateTimeTypes,
   UseAddCoffeeChatProps,
-  formDateTimeTypes,
 } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 import { requestFormatTime } from "@/utils/dateTime";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 const DEFAULT_MAX_LENGTH = 20;
 
-export const useAddCoffeeChat = ({ dateTime, setDateTime, setRequest, maxLengths }: UseAddCoffeeChatProps) => {
+export const useAddCoffeeChat = ({
+  request,
+  setRequest,
+  dateTime,
+  setDateTime,
+  maxLengths,
+  setIsVisible,
+  globalServer,
+  image,
+}: UseAddCoffeeChatProps) => {
   const [focusedField, setFocusedField] = useState<Record<string, { hasBeenFocused: boolean; isFocused: boolean }>>({});
 
   const handleFocus = (field: string) => {
@@ -32,7 +43,7 @@ export const useAddCoffeeChat = ({ dateTime, setDateTime, setRequest, maxLengths
     return false;
   };
 
-  const formatDateTime = (updatedDateTime: formDateTimeTypes = dateTime) => {
+  const formatDateTime = (updatedDateTime: FormDateTimeTypes = dateTime) => {
     const { startDate, endDate } = requestFormatTime(updatedDateTime);
 
     setRequest((prev) => ({
@@ -70,6 +81,47 @@ export const useAddCoffeeChat = ({ dateTime, setDateTime, setRequest, maxLengths
     });
   };
 
+  const {
+    mutate: uploadCoffeeChat,
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: async ({ serverId, file }: { serverId: number; file: File | null }) => {
+      if (!serverId) throw new Error("서버 정보가 없습니다.");
+
+      const formData = new FormData();
+      formData.append("request", JSON.stringify(request));
+
+      if (file) {
+        const fileType = file.type || "";
+        const fileBlob = new Blob([file], { type: fileType });
+        formData.append("image", fileBlob, file.name);
+      } else {
+        formData.append("image", new Blob([], { type: "" }), "");
+      }
+
+      return createCoffeeChat(serverId, formData);
+    },
+    onSuccess: () => {
+      setIsVisible(false);
+    },
+    onError: (error) => {
+      console.error("티타임 생성 실패:", error);
+      alert("티타임 생성에 실패했습니다.");
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    formatDateTime();
+    if (!globalServer) {
+      console.error("서버 정보가 없습니다.");
+      return;
+    }
+
+    uploadCoffeeChat({ serverId: globalServer.id, file: image });
+  };
+
   return {
     isFieldError,
     handleDateChange,
@@ -77,7 +129,9 @@ export const useAddCoffeeChat = ({ dateTime, setDateTime, setRequest, maxLengths
     handleFocus,
     handleBlur,
     handleMaxCountChange,
-    formatDateTime,
     setDateTime,
+    handleSubmit,
+    isError,
+    error,
   };
 };

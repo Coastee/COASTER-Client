@@ -2,8 +2,8 @@ import { CounterMinusIcon, CounterPlusIcon } from "@/assets/svg";
 import { Button, DatePicker, FileUploadBox, HashtagInput, Input, SideModal, TagChip, Textarea } from "@/components";
 import { useFileUpload } from "@/components/FileUploadBox/hooks/useFileUpload";
 
-import { useHashtag } from "@/components/TagChip/hooks/useHashtag";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
+import { useHashtag } from "@/components/TagChip/hooks/useHashtag";
 import { SUPPORTING_TEXT } from "@/constants/supportingText";
 import { TimeDropdown } from "@/pages/CoffeeChatListPage/components/TimeDropdown/TimeDropdown";
 import {
@@ -15,14 +15,22 @@ import {
 } from "@/pages/CoffeeChatListPage/constants/coffeeChat";
 import { useAddCoffeeChat } from "@/pages/CoffeeChatListPage/hooks/useAddCoffeeChat";
 import type { AddCoffeeChatTypes } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
 import * as s from "./AddCoffeeChatModal.styles";
 
 const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
+  const globalServer = useGlobalServer();
+
   const [request, setRequest] = useState(DEFAULT_COFFEE_CHAT_VALUES);
   const [dateTime, setDateTime] = useState(DEFAULT_DATE_TIME_VALUE);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [datePickerSelectedDate, setDatePickerSelectedDate] = useState<Date | null>(null);
+
+  const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(request, setRequest);
+  const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
+
+  const isButtonDisabled = request.title.trim().length === 0 || request.location.trim().length === 0;
 
   const {
     isFieldError,
@@ -31,23 +39,17 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
     handleFocus,
     handleBlur,
     handleMaxCountChange,
-    formatDateTime,
+    handleSubmit,
   } = useAddCoffeeChat({
+    request,
+    setRequest,
     dateTime,
     setDateTime,
-    setRequest,
     maxLengths: MAX_LENGTH,
+    setIsVisible,
+    globalServer,
+    image,
   });
-  const { addHashtag, removeHashtag } = useHashtag<AddCoffeeChatTypes>(request, setRequest);
-  const { image, fileInputRef, handleFileChange, handleFileDelete, handleFileClick } = useFileUpload();
-
-  const isButtonDisabled = request.title.trim().length === 0 || request.location.trim().length === 0;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    formatDateTime();
-    setIsVisible(false);
-  };
 
   return (
     <SideModal
@@ -102,7 +104,7 @@ const AddCoffeeChatModal = ({ isVisible, setIsVisible }: SideModalProps) => {
             <ul css={s.hashtagListContainer}>
               {request.hashTags.map((hashtag, idx) => (
                 <li key={idx}>
-                  <TagChip content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
+                  <TagChip id={idx} content={hashtag} removeHashtag={() => removeHashtag(hashtag)} />
                 </li>
               ))}
               {request.hashTags.length < MAX_HASHTAG_COUNT && <HashtagInput addHashtag={addHashtag} />}

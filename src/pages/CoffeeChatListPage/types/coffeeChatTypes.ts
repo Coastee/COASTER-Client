@@ -8,13 +8,6 @@ export interface FormDateTimeTypes {
   end: string;
 }
 
-export interface UseAddCoffeeChatProps {
-  dateTime: { date: string; start: string; end: string };
-  setDateTime: Dispatch<SetStateAction<{ date: string; start: string; end: string }>>;
-  setRequest: Dispatch<SetStateAction<AddCoffeeChatTypes>>;
-  maxLengths: Record<string, number>;
-}
-
 export interface AddCoffeeChatTypes {
   title: string;
   content: string;
@@ -24,4 +17,15 @@ export interface AddCoffeeChatTypes {
   endDate: RequestDateType;
   location: string;
   details: string;
+}
+
+export interface UseAddCoffeeChatProps {
+  request: AddCoffeeChatTypes;
+  setRequest: Dispatch<SetStateAction<AddCoffeeChatTypes>>;
+  dateTime: { date: string; start: string; end: string };
+  setDateTime: Dispatch<SetStateAction<{ date: string; start: string; end: string }>>;
+  maxLengths: Record<string, number>;
+  setIsVisible: (isVisible: boolean) => void;
+  globalServer: { id: number } | null;
+  image: File | null;
 }
