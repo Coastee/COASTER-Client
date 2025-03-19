@@ -34,7 +34,13 @@ const ChatInfoList = ({ ownerList, joinedList, name, setSelectedRoom }: ChatInfo
             ))}
           </ul>
         ) : (
-          <NoDataContainer id="NO_JOINED_GROUP_CHAT" width="18rem" />
+          <NoDataContainer
+            id="NO_CREATED_GROUP_CHAT"
+            width="18rem"
+            padding="3rem 7.8rem 3rem"
+            logoSize={40}
+            navPath="../home/group-chat-list"
+          />
         )}
       </div>
 
@@ -57,7 +63,13 @@ const ChatInfoList = ({ ownerList, joinedList, name, setSelectedRoom }: ChatInfo
             ))}
           </ul>
         ) : (
-          <NoDataContainer id="NO_JOINED_COFFEE_CHAT" width="18rem" />
+          <NoDataContainer
+            id="NO_JOINED_GROUP_CHAT"
+            width="18rem"
+            padding="3rem 7.8rem 3rem"
+            logoSize={40}
+            navPath="../home/group-chat-list"
+          />
         )}
       </div>
     </section>
