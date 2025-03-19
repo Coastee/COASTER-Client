@@ -69,7 +69,7 @@ const HomePage = () => {
             title="오프라인 커피챗"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./coffee-chat-list");
+              navigate("./tea-time-list");
             }}
             css={{ paddingBottom: "5rem" }}
           >

@@ -25,12 +25,12 @@ export const NO_DATA = [
     desc: "새로운 그룹 채팅을 만들어보세요!",
   },
   {
-    id: "NO_JOINED_COFFEE_CHAT",
+    id: "NO_JOINED_TEA_TIME",
     title: "참여한 티타임이 없습니다.",
     desc: "다양한 티타임 모임을 살펴보고 참여해보세요!",
   },
   {
-    id: "NO_CREATED_COFFEE_CHAT",
+    id: "NO_CREATED_TEA_TIME",
     title: "개설한 티타임이 없습니다.",
     desc: "새로운 티타임을 개설해보세요!",
   },
