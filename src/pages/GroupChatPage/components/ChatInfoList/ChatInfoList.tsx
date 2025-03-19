@@ -43,7 +43,17 @@ const ChatInfoList = ({ ownerList, joinedList, name, setSelectedRoom }: ChatInfo
         {joinedList?.pageInfo.totalElements > 0 ? (
           <ul css={s.listStyle}>
             {joinedList.chatRoomList.map((chat, index) => (
-              <ChatListItem key={chat.id} name={chat.title} index={index} length={joinedList.pageInfo.totalElements} />
+              <li
+                key={chat.id}
+                onClick={() => {
+                  setSelectedRoom(chat);
+                }}
+                onKeyDown={() => {
+                  setSelectedRoom(chat);
+                }}
+              >
+                <ChatListItem name={chat.title} index={index} length={joinedList.pageInfo.totalElements} />
+              </li>
             ))}
           </ul>
         ) : (
