@@ -1,6 +1,6 @@
 import { RotateLogoIcon, StarIcon } from "@/assets/svg";
 import { Divider } from "@/components";
-import * as s from "@/pages/GroupChatPage/components/ChatListItem/ChatListItem.styles";
+import * as s from "@/pages/ChatPage/components/ChatListItem/ChatListItem.styles";
 import { theme } from "@/styles/theme/theme";
 import { useState } from "react";
 

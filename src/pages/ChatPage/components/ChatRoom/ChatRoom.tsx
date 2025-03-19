@@ -5,37 +5,35 @@ import TimeChip from "@/components/TimeChip/TimeChip";
 
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
-import { useChatScroll } from "@/pages/GroupChatPage/hooks/useChatScroll";
-import { useFetchGroupChatLogs } from "@/pages/GroupChatPage/hooks/useFetchGroupChatLogs";
-import { useGroupChatStompClient } from "@/pages/GroupChatPage/hooks/useGroupChatStompClient";
-import { useUpdateChatLogs } from "@/pages/GroupChatPage/hooks/useUpdateChatLogs";
-import type { ChatTypes } from "@/pages/GroupChatPage/types/groupChatLogTypes";
+import { useChatScroll } from "@/pages/ChatPage/hooks/useChatScroll";
+import { useFetchChatLogs } from "@/pages/ChatPage/hooks/useFetchChatLogs";
+import { useChatStompClient } from "@/pages/ChatPage/hooks/useGroupChatStompClient";
+import { useUpdateChatLogs } from "@/pages/ChatPage/hooks/useUpdateChatLogs";
+import type { ChatTypes } from "@/pages/ChatPage/types/groupChatLogTypes";
 import { chatFormatTime } from "@/utils/dateTime";
-import * as s from "@pages/GroupChatPage/components/ChatRoom/ChatRoom.styles";
+import * as s from "@pages/ChatPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 
 interface ChatRoomProps {
+  menu: string;
+  type: "groups" | "meetings";
+  serverId: number;
   selectedRoomId: number;
   title: string;
 }
 
-const ChatRoom = ({ selectedRoomId, title }: ChatRoomProps) => {
+const ChatRoom = ({ menu, type, serverId, selectedRoomId, title }: ChatRoomProps) => {
   const [logs, setLogs] = useState<ChatTypes[]>([]);
   const [input, setInput] = useState("");
 
-  const { pathname } = useLocation();
-  const serverId = Number(pathname.split("/")[1]);
-
-  const stompClient = useGroupChatStompClient(selectedRoomId, setLogs);
+  const stompClient = useChatStompClient(selectedRoomId, setLogs);
   const scrollRef = useScrollToBottom();
+  const myId = Number(localStorage.getItem("userId")) || null;
 
-  useUpdateChatLogs(serverId, selectedRoomId, setLogs);
+  useUpdateChatLogs(serverId, type, selectedRoomId, setLogs);
   useChatScroll(scrollRef, logs);
 
-  const { data } = useFetchGroupChatLogs(serverId, selectedRoomId);
-
-  const myId = Number(localStorage.getItem("userId")) || null;
+  const { data } = useFetchChatLogs(serverId, type, selectedRoomId);
 
   const handleSendMessage = () => {
     if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
@@ -50,6 +48,7 @@ const ChatRoom = ({ selectedRoomId, title }: ChatRoomProps) => {
       setLogs(data.result.chatList);
     }
   }, [data]);
+
   return (
     <section css={s.wrapperStyle}>
       <header css={s.headerLayoutStyle}>
