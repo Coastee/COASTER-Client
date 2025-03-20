@@ -27,10 +27,9 @@ const CoffeeChatListPage = () => {
 
   const { data } = useSearch({
     serverId,
-    type: "groups",
+    type: "meetings",
     queryParam,
   });
-  console.log(data);
 
   return (
     <div css={s.layoutStyle}>
@@ -43,7 +42,7 @@ const CoffeeChatListPage = () => {
         sortingOption={MEETING_SORTING_OPTIONS.find((option) => option.id === queryParam.sort)}
         setSortingOption={(newOpt) => setQueryParam((prev) => ({ ...prev, sort: newOpt.id }))}
       >
-        <CoffeeChatListAll />
+        {data && <CoffeeChatListAll serverId={serverId} data={data} />}
       </TitleContainer>
     </div>
   );

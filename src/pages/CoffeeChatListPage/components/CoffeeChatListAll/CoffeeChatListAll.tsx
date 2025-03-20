@@ -1,27 +1,21 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { DetailModal, NoDataContainer } from "@/components";
-import { useFetchCoffeeChatList } from "@/pages/CoffeeChatListPage/hooks/useFetchCoffeeChatList";
 import type { CoffeeChatListResponse } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 import { parseDateArray } from "@/utils/dateTime";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import * as s from "./CoffeeChatListAll.styles";
 
-const CoffeeChatListAll = () => {
-  const { pathname } = useLocation();
-  const serverId = Number(pathname.split("/")[1]);
+interface CoffeeChatListAllProps {
+  serverId: number;
+  data: CoffeeChatListResponse;
+}
 
-  const { data } = useFetchCoffeeChatList(serverId) as { data?: CoffeeChatListResponse };
-
+const CoffeeChatListAll = ({ serverId, data }: CoffeeChatListAllProps) => {
   const items = data?.result.chatRoomList;
   const itemsCount = items?.length;
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
-
-  const handleItemClick = (id: number) => {
-    setSelectedId(id);
-  };
 
   const handleCloseModal = () => {
     setSelectedId(null);
@@ -30,7 +24,7 @@ const CoffeeChatListAll = () => {
   const selectedChat = items?.find((chat) => chat.id === selectedId);
 
   const dateTimeFormat = (dateArray: number[] | null) => {
-    if (!dateArray) return ;
+    if (!dateArray) return;
     const parsed = parseDateArray(dateArray);
     return `${parsed.month}/${parsed.day} ${parsed.meridiem} ${String(parsed.hour).padStart(2, "0")}:${String(
       parsed.minute
@@ -47,8 +41,8 @@ const CoffeeChatListAll = () => {
             <li key={chat.id} style={{ paddingRight: "0" }}>
               <article
                 css={s.listItemStyle}
-                onClick={() => handleItemClick(chat.id)}
-                onKeyDown={() => handleItemClick(chat.id)}
+                onClick={() => setSelectedId(chat.id)}
+                onKeyDown={() => setSelectedId(chat.id)}
               >
                 <img
                   src={chat.thumbnail || rotateLogoImg}
@@ -80,7 +74,13 @@ const CoffeeChatListAll = () => {
       )}
 
       {selectedChat && (
-        <DetailModal data={selectedChat} isCoffeeChat={true} isVisible={true} setIsVisible={handleCloseModal} />
+        <DetailModal
+          data={selectedChat}
+          serverId={serverId}
+          selectedItemId={selectedChat.id}
+          isCoffeeChat={true}
+          setIsVisible={handleCloseModal}
+        />
       )}
     </div>
   );
