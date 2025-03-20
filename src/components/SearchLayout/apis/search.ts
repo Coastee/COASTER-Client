@@ -13,7 +13,7 @@ export const fetchSearchResult = async ({
     const queryParams = new URLSearchParams();
 
     queryParams.append("page", page.toString());
-    if (sort) queryParams.append("sort", sort); //
+    if (sort && sort !== "default") queryParams.append("sort", sort);
     if (scope) queryParams.append("scope", scope);
     if (keyword) queryParams.append("keyword", keyword);
     if (tagList && tagList.length > 0) {
@@ -22,10 +22,8 @@ export const fetchSearchResult = async ({
       }
     }
 
-    console.log(queryParams.toString());
-
     const response: GroupChatListResponse = await tokenInstance
-      .get(`api/v1/servers/${serverId}/${type}?${queryParams.toString()}`)
+      .get(`api/v1/servers/${serverId}/${type}?${queryParams}`)
       .json();
 
     return response;
