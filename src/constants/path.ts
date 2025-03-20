@@ -1,6 +1,7 @@
 export const PATH = {
   ONBOARDING: "/",
   SIGNUP: "/signup",
+  KAKAO: "/redirect-kakao",
 
   DM: "/dm",
   MYPAGE: "/mypage",
@@ -12,6 +13,8 @@ export const PATH = {
   HOME: "/:serverId/home",
   HOME_RELATIVE: "../home",
   GROUP_CHAT_LIST: "/:serverId/home/group-chat-list",
-  COFFEE_CHAT_LIST: "/:serverId/home/coffee-chat-list",
-  GROUP_CHAT: "/:serverId/group-chat/chat",
+  TEA_TIME_LIST: "/:serverId/home/tea-time-list",
+  GROUP_CHAT: "/:serverId/group-chat",
+  TEA_TIME: "/:serverId/tea-time",
+  GLOBAL_CHAT: "/:serverId/global-chat",
 };

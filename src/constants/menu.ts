@@ -32,7 +32,7 @@ export const MENUS: MenuTypes[] = [
     activeIcon: ChatIcon,
   },
   {
-    id: "coffee-chat",
+    id: "tea-time",
     name: "커피챗",
     icon: CoffeeIcon,
     activeIcon: CoffeeIcon,
