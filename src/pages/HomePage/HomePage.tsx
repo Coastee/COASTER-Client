@@ -76,7 +76,7 @@ const HomePage = () => {
             title="오프라인 커피챗"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./tea-time-list");
+              navigate("./tea-time-list", { state: { hashTagData: hashTagList } });
             }}
             css={{ paddingBottom: "5rem" }}
           >
