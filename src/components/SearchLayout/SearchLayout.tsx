@@ -3,7 +3,6 @@ import { Button, Input } from "@/components";
 import { useUpdateSearchParam } from "@/components/SearchLayout/hooks/useUpdateSearchParam";
 import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
 import type { HashtagTypes } from "@/components/TagChip/types/tagChipTypes";
-import { useEffect } from "react";
 import * as s from "./SearchLayout.styles";
 
 interface SearchLayoutProps {
@@ -15,9 +14,6 @@ interface SearchLayoutProps {
 const SearchLayout = ({ queryParam, setQueryParam, hashTagData }: SearchLayoutProps) => {
   const { updateField, updateTagList } = useUpdateSearchParam(queryParam, setQueryParam);
 
-  useEffect(() => {
-    console.log("queryParam: ", queryParam);
-  }, [queryParam]);
   return (
     <div css={s.searchLayoutStyle}>
       <Input

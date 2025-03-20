@@ -1,6 +1,6 @@
 export interface QueryParamTypes {
   page: number;
-  sort: "name" | "remain" | "";
+  sort: string;
   scope: "joined" | "owner" | "";
   keyword: string;
   tagList: string[];
