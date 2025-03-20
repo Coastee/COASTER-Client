@@ -2,18 +2,16 @@ import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { DetailModal, NoDataContainer } from "@/components";
 
-import { useFetchGroupChatList } from "@/pages/GroupChatListPage/hooks/useFetchGroupChatList";
 import type { GroupChatListResponse } from "@/pages/GroupChatListPage/types/groupChatTypes";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import * as s from "./GroupChatListAll.styles";
 
-const GroupChatListAll = () => {
-  const { pathname } = useLocation();
-  const serverId = Number(pathname.split("/")[1]);
+interface GroupChatListAllProps {
+  serverId: number;
+  data: GroupChatListResponse;
+}
 
-  const { data } = useFetchGroupChatList(serverId) as { data?: GroupChatListResponse };
-
+const GroupChatListAll = ({ serverId, data }: GroupChatListAllProps) => {
   const items = data?.result.chatRoomList ?? [];
   const itemCount = data?.result.pageInfo?.totalElements ?? 0;
 

@@ -1,4 +1,5 @@
 import { DetailModal, SearchLayout, TitleContainer } from "@/components";
+import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
@@ -11,11 +12,18 @@ const HomePage = () => {
   const navigate = useNavigate();
   const globalServer = useGlobalServer();
 
-  const [keyword, setKeyword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<{ id: string | null; type: string | null }>({
     id: null,
     type: null,
+  });
+
+  const [queryParam, setQueryParam] = useState<QueryParamTypes>({
+    page: 0,
+    sort: "",
+    scope: "",
+    keyword: "",
+    tagList: [],
   });
 
   const serverId = Number(globalServer?.id);
@@ -48,19 +56,18 @@ const HomePage = () => {
           data={selectedChat}
           serverId={serverId}
           selectedItemId={Number(selectedItem.id)}
-          isVisible={true}
           setIsVisible={() => setSelectedItem({ type: null, id: null })}
         />
       )}
 
       <div css={s.layoutStyle}>
         <div css={s.leftLayoutStyle}>
-          <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={hashTagList} />
+          <SearchLayout queryParam={queryParam} setQueryParam={setQueryParam} hashTagData={hashTagList} />
           <TitleContainer
             title="그룹 채팅방"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./group-chat-list");
+              navigate("./group-chat-list", { state: { hashTagData: hashTagList } });
             }}
           >
             <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
