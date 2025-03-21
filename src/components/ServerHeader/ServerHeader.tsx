@@ -80,12 +80,14 @@ const ServerHeader = () => {
           setDropdownOpen={setDropdownOpen}
           onServerChange={handleServerChange}
         />
-        <button type="button" css={s.plusButtonStyle}>
-          <PlusIcon
-            onClick={() => {
-              navigate("/server-edit");
-            }}
-          />
+        <button
+          type="button"
+          css={s.plusButtonStyle}
+          onClick={() => {
+            navigate("/server-edit", { state: { myServers: myServerInfo?.result.serverList } });
+          }}
+        >
+          <PlusIcon />
         </button>
       </div>
 

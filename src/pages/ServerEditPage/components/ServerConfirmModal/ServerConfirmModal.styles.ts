@@ -39,14 +39,6 @@ export const titleStyle = css`
   ${theme.font.body1};
   font-weight: 400;
   text-align: center;
-
-  span {
-    padding-bottom: inherit;
-    ${theme.font.body1};
-    font-weight: inherit;
-    text-align: inherit;
-    color: ${theme.color.primaryBlue1};
-  }
 `;
 
 export const serverNameStyle = css`
@@ -78,6 +70,6 @@ export const cancelBtnStyle = css`
   color: ${theme.color.gray2};
 `;
 
-export const addBtnStyle = css`
-  color: ${theme.color.primaryBlue1};
+export const addBtnStyle = (modalType: string) => css`
+  color: ${modalType === "server-enter" ? theme.color.primaryBlue1 : theme.color.primaryPink1};
 `;
