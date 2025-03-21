@@ -3,7 +3,7 @@ export interface QueryParamTypes {
   sort: string;
   scope: "joined" | "owner" | "";
   keyword: string;
-  tagList: string[];
+  tags: string[];
 }
 
 export interface SearchParamTypes {

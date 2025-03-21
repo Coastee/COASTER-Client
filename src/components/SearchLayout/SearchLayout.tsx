@@ -24,7 +24,7 @@ const SearchLayout = ({ queryParam, setQueryParam, hashTagData }: SearchLayoutPr
       />
       <ul css={s.hashTagListStyle}>
         {hashTagData.map((tag) => {
-          const isSelected = queryParam.tagList.includes(tag.content);
+          const isSelected = queryParam.tags.includes(tag.content);
           return (
             <li key={tag.id}>
               <Button

@@ -22,7 +22,7 @@ const HomePage = () => {
     sort: "",
     scope: "",
     keyword: "",
-    tagList: [],
+    tags: [],
   });
 
   const serverId = Number(param.serverId);
