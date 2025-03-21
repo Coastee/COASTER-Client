@@ -1,24 +1,31 @@
 import { DetailModal, SearchLayout, TitleContainer } from "@/components";
+import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
-import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./HomePage.styles";
 const HomePage = () => {
   const navigate = useNavigate();
-  const globalServer = useGlobalServer();
+  const param = useParams();
 
-  const [keyword, setKeyword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<{ id: string | null; type: string | null }>({
     id: null,
     type: null,
   });
 
-  const serverId = Number(globalServer?.id);
+  const [queryParam, setQueryParam] = useState<QueryParamTypes>({
+    page: 0,
+    sort: "",
+    scope: "",
+    keyword: "",
+    tags: [],
+  });
+
+  const serverId = Number(param.serverId);
   const { data: homeData, isLoading } = useHomeData(serverId);
 
   if (isLoading) return <div>로딩 중...</div>;
@@ -48,19 +55,18 @@ const HomePage = () => {
           data={selectedChat}
           serverId={serverId}
           selectedItemId={Number(selectedItem.id)}
-          isVisible={true}
           setIsVisible={() => setSelectedItem({ type: null, id: null })}
         />
       )}
 
       <div css={s.layoutStyle}>
         <div css={s.leftLayoutStyle}>
-          <SearchLayout keyword={keyword} setKeyword={setKeyword} hashTagData={hashTagList} />
+          <SearchLayout queryParam={queryParam} setQueryParam={setQueryParam} hashTagData={hashTagList} />
           <TitleContainer
             title="그룹 채팅방"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./group-chat-list");
+              navigate("./group-chat-list", { state: { hashTagData: hashTagList } });
             }}
           >
             <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
@@ -69,7 +75,7 @@ const HomePage = () => {
             title="오프라인 커피챗"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./tea-time-list");
+              navigate("./tea-time-list", { state: { hashTagData: hashTagList } });
             }}
             css={{ paddingBottom: "5rem" }}
           >

@@ -1,6 +1,6 @@
 import { ArrowDownIcon } from "@/assets/svg";
 import { Button } from "@/components";
-import { type DropdownOptionTypes, SORTING_OPTIONS } from "@/constants/dropdown";
+import type { DropdownOptionTypes } from "@/constants/dropdown";
 import type { HTMLAttributes, ReactNode } from "react";
 import { useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
@@ -52,7 +52,7 @@ const TitleContainer = ({
             </Button>
             {dropdownOpen && (
               <Dropdown
-                options={SORTING_OPTIONS}
+                options={sortingOptions}
                 setItem={setSortingOption}
                 dropDownOpen={dropdownOpen}
                 setDropdownOpen={setDropdownOpen}
