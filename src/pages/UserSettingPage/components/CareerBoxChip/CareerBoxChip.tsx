@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 interface CareerBoxProps {
   title: string;
-  period: string;
+  startDate: number[];
+  endDate: number[];
   descriptions?: string[];
 }
 
-const CareerBoxChip = ({ title, period, descriptions }: CareerBoxProps) => {
+const CareerBoxChip = ({ title, startDate, endDate, descriptions }: CareerBoxProps) => {
   const navigate = useNavigate();
 
   return (
@@ -22,20 +23,12 @@ const CareerBoxChip = ({ title, period, descriptions }: CareerBoxProps) => {
         <header css={s.layoutStyle}>
           <div css={s.titleBoxStyle}>
             <div css={s.titleLayoutStyle}>
-              <RotateLogoIcon
-                width={15}
-                height={13}
-                css={{ flexShrink: "0" }}
-              />
+              <RotateLogoIcon width={15} height={13} css={{ flexShrink: "0" }} />
               <h1 css={s.titleStyle}>{title}&nbsp;&nbsp;&nbsp;·</h1>
             </div>
-            <p css={s.periodStyle}>{period}</p>
+            {/* <p css={s.periodStyle}>{period}</p> */}
           </div>
-          <EditBlueIcon
-            width={19}
-            css={s.editIconStyle}
-            onClick={() => navigate("/mypage/setting-edit-career")}
-          />
+          <EditBlueIcon width={19} css={s.editIconStyle} onClick={() => navigate("/mypage/setting-edit-career")} />
         </header>
         <Divider />
         <ul css={s.listLayoutStyle}>
