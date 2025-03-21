@@ -9,6 +9,7 @@ import { useGlobalChatStompClient } from "@/pages/GlobalChatPage/hooks/useGlobal
 import { useUpdateChatLogs } from "@/pages/GlobalChatPage/hooks/useUpdateChatLogs";
 import type { ChatTypes } from "@/pages/GlobalChatPage/types/globalChatTypes";
 import { globalChatFormatTime } from "@/pages/GlobalChatPage/utils/globalChatFormatTime";
+import { CHAT_NOTICE_DEFAULT } from "@/pages/HomePage/constants/noticeDummy";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
@@ -57,13 +58,7 @@ const GlobalChatRoom = () => {
                 <p>공지</p>
                 <ArrowDownIcon width={14} height={7} />
               </div>
-              {isNoticeOpened && (
-                <div css={s.noticeContentStyle}>
-                  처음 오신 분들은 공지를 꼭 읽어주시길 바랍니다. 상대방을 향한 비방, 욕설글은 정지 대상이 될 수
-                  있습니다. 이 점 유의하여 올바른 서비스 사용을 해주시길 바랍니다. 모든 유저가 행복한 채팅 환경을
-                  조성해주시길 바랍니다.
-                </div>
-              )}
+              {isNoticeOpened && <div css={s.noticeContentStyle}>{CHAT_NOTICE_DEFAULT}</div>}
             </div>
           </div>
         </div>
