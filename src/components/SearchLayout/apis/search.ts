@@ -8,7 +8,7 @@ export const fetchSearchResult = async ({
   queryParam,
 }: SearchParamTypes): Promise<GroupChatListResponse> => {
   try {
-    const { page, sort, scope, keyword, tagList } = queryParam;
+    const { page, sort, scope, keyword, tags } = queryParam;
 
     const queryParams = new URLSearchParams();
 
@@ -16,9 +16,9 @@ export const fetchSearchResult = async ({
     if (sort && sort !== "default") queryParams.append("sort", sort);
     if (scope) queryParams.append("scope", scope);
     if (keyword) queryParams.append("keyword", keyword);
-    if (tagList && tagList.length > 0) {
-      for (const tag of tagList) {
-        queryParams.append("tagList", tag);
+    if (tags && tags.length > 0) {
+      for (const tag of tags) {
+        queryParams.append("tags", tag);
       }
     }
 

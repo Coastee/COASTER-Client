@@ -9,13 +9,13 @@ export const useUpdateSearchParam = (param: QueryParamTypes, setParam: (param: Q
   };
 
   const updateTagList = (tagContent: string) => {
-    const isTagExist = param.tagList.includes(tagContent);
+    const isTagExist = param.tags.includes(tagContent);
 
     const updatedTagList = isTagExist
-      ? param.tagList.filter((tagContentInList) => tagContentInList !== tagContent)
-      : [...param.tagList, tagContent];
+      ? param.tags.filter((tagContentInList) => tagContentInList !== tagContent)
+      : [...param.tags, tagContent];
 
-    updateField("tagList", updatedTagList);
+    updateField("tags", updatedTagList);
   };
 
   return { updateField, updateTagList };

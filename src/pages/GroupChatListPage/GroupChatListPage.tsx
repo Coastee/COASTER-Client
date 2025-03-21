@@ -22,7 +22,7 @@ const GroupChatListPage = () => {
     sort: GROUP_SORTING_OPTIONS[0].id,
     scope: "",
     keyword: "",
-    tagList: [],
+    tags: [],
   });
 
   const { data } = useSearch({
