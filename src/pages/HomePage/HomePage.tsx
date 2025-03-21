@@ -4,13 +4,12 @@ import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
-import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./HomePage.styles";
 const HomePage = () => {
   const navigate = useNavigate();
-  const globalServer = useGlobalServer();
+  const param = useParams();
 
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<{ id: string | null; type: string | null }>({
@@ -26,8 +25,9 @@ const HomePage = () => {
     tagList: [],
   });
 
-  const serverId = Number(globalServer?.id);
+  const serverId = Number(param.serverId);
   const { data: homeData, isLoading } = useHomeData(serverId);
+  console.log(homeData);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
