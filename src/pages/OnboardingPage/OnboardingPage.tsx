@@ -3,7 +3,9 @@ import logo2Img from "@/assets/img/logo2Img.png";
 import { GoogleIcon, KakaoIcon, Logo4WhiteIcon, NaverIcon } from "@/assets/svg";
 import AuthContainer from "@/components/AuthContainer/AuthContainer";
 import * as s from "@/pages/OnboardingPage/OnboardingPage.styles";
-import { KAKAO_URL, NAVER_URL } from "@/pages/OnboardingPage/constants";
+
+import { GOOGLE_URL, KAKAO_URL, NAVER_URL } from "@/pages/OnboardingPage/constants";
+
 import { logo1Style, logo2Style, wrapperStyle } from "@/pages/SignupPage/SignupPage.styles";
 
 const OnBoardingPage = () => {
@@ -13,6 +15,10 @@ const OnBoardingPage = () => {
 
   const handleNaverLogin = () => {
     window.location.href = NAVER_URL;
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = GOOGLE_URL;
   };
 
   return (
@@ -28,7 +34,12 @@ const OnBoardingPage = () => {
         }
       >
         <div css={s.sideStyle}>
-          <button type="button" aria-label="Google로 시작하기" css={[s.commonBtnStyle, s.googleBtnStyle]}>
+          <button
+            type="button"
+            aria-label="Google로 시작하기"
+            css={[s.commonBtnStyle, s.googleBtnStyle]}
+            onClick={handleGoogleLogin}
+          >
             <GoogleIcon width={22} height={22} />
             Google로 시작하기
           </button>
