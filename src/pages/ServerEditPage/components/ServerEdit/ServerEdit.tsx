@@ -34,12 +34,7 @@ const ServerEdit = () => {
 
   const handleItemClick = (item: ServerTypes) => {
     setSelectedItem(item);
-
-    if (matchedIds.includes(item.id)) {
-      openModal("server-exit");
-    } else {
-      openModal("server-enter");
-    }
+    matchedIds.includes(item.id) ? openModal("server-exit") : openModal("server-enter");
   };
 
   return (

@@ -84,7 +84,7 @@ const ServerHeader = () => {
           type="button"
           css={s.plusButtonStyle}
           onClick={() => {
-            navigate("/server-edit", { state: { myServers: myServerInfo?.result.serverList } });
+            navigate("/server-edit");
           }}
         >
           <PlusIcon />
