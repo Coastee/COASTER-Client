@@ -67,16 +67,17 @@ export type HomeDataTypes = {
   };
   notice: {
     pageInfo: PageInfoTypes;
-    noticeList: {
-      id: number;
-      title: string;
-      content: string;
-    }[];
-  };
+    noticeList:
+      | {
+          id: number;
+          title: string;
+          content: string;
+        }[];
+  } | null;
   chat: {
     pageInfo: PageInfoTypes;
     chatList: ChatTypes[];
-  };
+  } | null;
 };
 
 export type HomeResponseTypes = {

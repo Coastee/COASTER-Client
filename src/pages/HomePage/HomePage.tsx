@@ -27,7 +27,6 @@ const HomePage = () => {
 
   const serverId = Number(param.serverId);
   const { data: homeData, isLoading } = useHomeData(serverId);
-  console.log(homeData);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
