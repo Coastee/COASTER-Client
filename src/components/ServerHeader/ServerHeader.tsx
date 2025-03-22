@@ -5,20 +5,21 @@ import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useGlobalMenu, useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
-import { useGlobalServerAction } from "@/stores/useGlobalServerStore";
+import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const globalMenu = useGlobalMenu();
+  const globalServer = useGlobalServer();
 
   const { setGlobalMenu } = useGlobalMenuAction();
   const { setGlobalServer } = useGlobalServerAction();
 
-  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>(undefined);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
@@ -43,16 +44,9 @@ const ServerHeader = () => {
     ).values()
   );
 
-  const exceptCurrentServer = currentServer
-    ? myServerList.filter((server) => server.id !== currentServer.id)
+  const exceptCurrentServer = globalServer
+    ? myServerList.filter((server) => server.id !== globalServer.id)
     : myServerList;
-
-  useEffect(() => {
-    if (myServerList.length > 0 && !currentServer) {
-      setCurrentServer(myServerList[0]);
-      setGlobalServer(myServerList[0]);
-    }
-  }, [myServerList, currentServer, setGlobalServer]);
 
   const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);
@@ -62,8 +56,15 @@ const ServerHeader = () => {
 
   const handleServerChange = (server: ServerInfoTypes) => {
     setGlobalServer(server);
-    setCurrentServer(server);
   };
+
+  useEffect(() => {
+    if (!globalServer) {
+      const serverId = pathname.split("/")[1];
+      const server = myServerList.find((my) => my.id === Number(serverId)) || myServerList[0] || null;
+      setGlobalServer(server);
+    }
+  }, [myServerList, globalServer, pathname, setGlobalServer]);
 
   useEffect(() => {
     !isScheduleVisible && globalMenu?.id === "schedule" && setGlobalMenu(previousMenu);
@@ -74,8 +75,6 @@ const ServerHeader = () => {
       <div css={s.topMenuStyle}>
         <ServerDropdown
           options={exceptCurrentServer}
-          currentServer={currentServer}
-          setCurrentServer={setCurrentServer}
           dropdownOpen={dropdownOpen}
           setDropdownOpen={setDropdownOpen}
           onServerChange={handleServerChange}

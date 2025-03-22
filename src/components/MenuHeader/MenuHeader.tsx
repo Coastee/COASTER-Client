@@ -1,7 +1,7 @@
 import { Logo4Icon, RotateLogoIcon } from "@/assets/svg";
 import { MENUS, type MenuTypes } from "@/constants/menu";
 import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
-import { useGlobalServer } from "@/stores/useGlobalServerStore"; // Import the global server state hook
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./MenuHeader.styles";
 

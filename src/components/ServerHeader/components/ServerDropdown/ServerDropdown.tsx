@@ -1,38 +1,30 @@
 import { ReturnIcon } from "@/assets/svg";
 import type { ServerInfoTypes } from "@/constants/serverInfo";
 import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
+import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   options: ServerInfoTypes[];
-  currentServer?: ServerInfoTypes | undefined;
-  setCurrentServer: (item: ServerInfoTypes) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
   onServerChange: (server: ServerInfoTypes) => void;
 }
 
-const ServerDropdown = ({
-  options,
-  currentServer,
-  setCurrentServer,
-  dropdownOpen,
-  setDropdownOpen,
-  onServerChange,
-  ...props
-}: DropdownProps) => {
+const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange, ...props }: DropdownProps) => {
   const { resetGlobalMenu } = useGlobalMenuAction();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const globalServer = useGlobalServer();
+  const { setGlobalServer } = useGlobalServerAction();
 
   const handleItemClick = (item: ServerInfoTypes) => {
     resetGlobalMenu();
-    setCurrentServer(item);
+    setGlobalServer(item);
     onServerChange(item);
 
     const menu = pathname.split("/")[2] || "home";
-
     navigate(`/${item.id}/${menu}`);
 
     setDropdownOpen(false);
@@ -41,13 +33,13 @@ const ServerDropdown = ({
   return (
     <div css={s.serverDropdownStyle}>
       <div css={s.dropdownTopStyle(dropdownOpen)}>
-        {currentServer && (
+        {globalServer && (
           <div
             css={s.currentIconStyle(dropdownOpen)}
-            onClick={() => handleItemClick(currentServer)}
-            onKeyDown={() => handleItemClick(currentServer)}
+            onClick={() => handleItemClick(globalServer)}
+            onKeyDown={() => handleItemClick(globalServer)}
           >
-            <currentServer.icon css={{ width: "100%", height: "100%" }} />
+            <globalServer.icon css={{ width: "100%", height: "100%" }} />
           </div>
         )}
         <div
