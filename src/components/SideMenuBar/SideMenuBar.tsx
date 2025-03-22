@@ -6,6 +6,7 @@ import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/
 
 const SideMenuBar = () => {
   const members = useMenuBarContent();
+
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
 

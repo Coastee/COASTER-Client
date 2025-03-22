@@ -73,6 +73,8 @@ export const listWrapperStyle = css`
   border-radius: 0.8rem;
 
   background-color: #404A58;
+
+  cursor: pointer;
 `;
 
 export const listStyle = css`
