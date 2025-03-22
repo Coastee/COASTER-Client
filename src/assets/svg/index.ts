@@ -1,4 +1,3 @@
-export { default as ExitRoomIcon } from "./ExitRoomIcon";
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ArrowRightIcon } from "./ArrowRightIcon";
 export { default as BeautyServerIcon } from "./BeautyServerIcon";
@@ -20,6 +19,7 @@ export { default as DmMenuIcon } from "./DmMenuIcon";
 export { default as EditBlueIcon } from "./EditBlueIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as ExitIcon } from "./ExitIcon";
+export { default as ExitRoomIcon } from "./ExitRoomIcon";
 export { default as FlagSquareIcon } from "./FlagSquareIcon";
 export { default as GoogleIcon } from "./GoogleIcon";
 export { default as HamburgerIcon } from "./HamburgerIcon";
@@ -49,5 +49,4 @@ export { default as RotateLogoIcon } from "./RotateLogoIcon";
 export { default as SendIcon } from "./SendIcon";
 export { default as ShadowPlusIcon } from "./ShadowPlusIcon";
 export { default as StarIcon } from "./StarIcon";
-export { default as VerifyIcon } from "./VerifyIcon";
 export { default as Vite } from "./Vite";
