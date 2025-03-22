@@ -7,6 +7,24 @@ import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/
 const SideMenuBar = () => {
   const members = useMenuBarContent();
 
+  const MEMBER_LIST = [
+    {
+      name: "김철수",
+      image: "https://via.placeholder.com/150",
+      id: "1",
+    },
+    {
+      name: "이영희",
+      image: "https://via.placeholder.com/150",
+      id: "2",
+    },
+    {
+      name: "박영수",
+      image: "https://via.placeholder.com/150",
+      id: "3",
+    },
+  ];
+
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
 
@@ -26,7 +44,7 @@ const SideMenuBar = () => {
         </div>
         <div css={s.listWrapperStyle}>
           <ul css={s.listStyle}>
-            {members.map((member, index) => (
+            {MEMBER_LIST.map((member, index) => (
               <div key={member.id} css={s.itemWrapperStyle}>
                 <li css={s.itemStyle}>
                   <UserBox name={member.name} size="small" variant="default" />

@@ -65,7 +65,7 @@ export const titleLayoutStyle = css`
 export const listWrapperStyle = css`
   display: flex;
 
-  padding: 0.5rem 0.6rem;
+  padding: 0.5rem;
   flex-direction: column;
 
   min-width: 18rem;
@@ -106,6 +106,7 @@ export const itemStyle = css`
 
   padding: 0.5rem 0.6rem;
 
+  border-radius: 0.8rem;
 
   background-color: #404A58;
 
@@ -113,6 +114,12 @@ export const itemStyle = css`
 
   & > p {
     ${theme.font.body2};
+  }
+
+  &:hover {
+    background-color: ${theme.color.dark3};
+
+    transition: all 0.1s ease-in-out;
   }
 `;
 
