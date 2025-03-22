@@ -29,6 +29,8 @@ const ProfileEdit = () => {
 
   const { mutate } = usePostUserProfile();
 
+  const isDisabled = form.nickname === "" || form.bio === "" || form.job === "" || form.headline === "";
+
   const handleAddLink = (url: string) => {
     const updatedUrls = [...(form.urlList || []), url];
     handleInfoChange({ target: { value: updatedUrls } }, "urlList");
@@ -40,7 +42,6 @@ const ProfileEdit = () => {
     const updatedUrls = form.urlList?.filter((_, i) => i !== index) || [];
     handleInfoChange({ target: { value: updatedUrls } }, "urlList");
   };
-
   const handleSubmit = () => {
     mutate({
       file,
@@ -174,7 +175,7 @@ const ProfileEdit = () => {
         <Button variant="tertiary" size="medium" onClick={() => navigate(PATH.MYPAGE)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={handleSubmit}>
+        <Button size="medium" onClick={handleSubmit} disabled={isDisabled}>
           편집 완료
         </Button>
       </div>
