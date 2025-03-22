@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CareerList = (data: UserDetailTypes) => {
   const navigate = useNavigate();
 
-  const careerListData = data?.result?.experience;
+  const careerListData = data?.experience;
 
   return (
     <>

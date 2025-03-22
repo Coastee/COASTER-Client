@@ -13,7 +13,6 @@ const KakaoLogin = () => {
     if (isSuccess && data) {
       localStorage.setItem("accessToken", data.result.accessToken);
       localStorage.setItem("refreshToken", data.result.refreshToken);
-
       localStorage.setItem("userId", data.result.userId.toString());
 
       handleRedirect();

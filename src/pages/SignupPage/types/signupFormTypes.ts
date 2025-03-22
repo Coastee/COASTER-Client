@@ -1,4 +1,5 @@
 export interface SignUpFormTypes {
+  name?: string;
   nickname: string;
   urlList: string[];
   headline: string;

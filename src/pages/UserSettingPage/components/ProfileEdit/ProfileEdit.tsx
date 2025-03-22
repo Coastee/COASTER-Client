@@ -3,20 +3,60 @@ import { Button, Input, TagChip, Textarea } from "@/components";
 import { PATH } from "@/constants/path";
 import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
+import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
+import LinkModal from "@/pages/UserSettingPage/components/LinkModal/LinkModal";
+
 import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
-import { dummyProfileData } from "@/pages/UserSettingPage/constants/dummy";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditProfileForm } from "@/pages/UserSettingPage/hooks/useEditProfileForm";
+import { usePostUserProfile } from "@/pages/UserSettingPage/hooks/usePostUserProfile";
+import { useCloseModal, useOpenModal } from "@/stores/useModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
   const [imgUrl, setImgUrl] = useState("");
-
   const navigate = useNavigate();
 
-  const { onImageUpload } = useImageUpload({ setImgUrl });
-  const { form, handleInfoChange } = useEditProfileForm(dummyProfileData);
+  const { onImageUpload, file } = useImageUpload({ setImgUrl });
+
+  const closeModal = useCloseModal();
+  const openModal = useOpenModal();
+
+  const userId = localStorage.getItem("userId");
+  const { data: userData } = useFetchUserDetail(Number(userId));
+  const { form, handleInfoChange } = useEditProfileForm(userData);
+
+  const { mutate } = usePostUserProfile();
+
+  const isDisabled = form.nickname === "" || form.bio === "" || form.job === "" || form.headline === "";
+
+  const handleAddLink = (url: string) => {
+    const updatedUrls = [...(form.urlList || []), url];
+    handleInfoChange({ target: { value: updatedUrls } }, "urlList");
+
+    closeModal();
+  };
+
+  const handleRemoveLink = (index: number) => {
+    const updatedUrls = form.urlList?.filter((_, i) => i !== index) || [];
+    handleInfoChange({ target: { value: updatedUrls } }, "urlList");
+  };
+  const handleSubmit = () => {
+    mutate({
+      file,
+      data: {
+        nickname: form.nickname,
+        headline: form.headline,
+        job: form.job,
+        expYears: form.expYears,
+        bio: form.bio,
+        urlList: form.urlList,
+      },
+    });
+
+    navigate(PATH.MYPAGE);
+  };
 
   return (
     <div css={s.pageStyle}>
@@ -47,27 +87,30 @@ const ProfileEdit = () => {
                 id="nickname"
                 variant="secondary"
                 maxLength={MAX_LENGTH.NICKNAME}
-                value={form.nickName}
-                onChange={(e) => handleInfoChange(e, "nickName")}
+                value={form.nickname}
+                onChange={(e) => handleInfoChange(e, "nickname")}
               />
             </div>
             <div css={[s.fieldStyle, { minWidth: "19rem" }]}>
-              <label htmlFor="nickname" css={s.labelStyle}>
-                링크
-              </label>
+              <label css={s.labelStyle}>링크</label>
               <div css={{ display: "flex", gap: "0.8rem" }}>
-                <button type="button" css={s.plusBtnStyle}>
-                  <PlusIcon width={14} height={14} />
-                </button>
-                <ul>
-                  <li>
-                    <TagChip
-                      id={1}
-                      variant="link"
-                      removeHashtag={() => {}}
-                      content={<PlusIcon width={14} height={14} />}
-                    />
-                  </li>
+                {form.urlList?.length < 5 && (
+                  <button type="button" css={s.plusBtnStyle} onClick={() => openModal("link")}>
+                    <PlusIcon width={14} height={14} />
+                  </button>
+                )}
+
+                <ul css={{ display: "flex", gap: "0.8rem" }}>
+                  {form.urlList?.map((url, index) => (
+                    <li key={index}>
+                      <TagChip
+                        id={index}
+                        variant="link"
+                        content={<PlusIcon width={14} height={14} />}
+                        removeHashtag={() => handleRemoveLink(index)}
+                      />
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -82,19 +125,22 @@ const ProfileEdit = () => {
                   id="career"
                   variant="secondary"
                   maxLength={MAX_LENGTH.CAREER}
-                  value={form.career}
-                  onChange={(e) => handleInfoChange(e, "career")}
+                  value={form.job}
+                  onChange={(e) => handleInfoChange(e, "job")}
                 />
                 <div css={{ display: "flex", gap: "0.8rem", height: "4rem" }}>
                   <Input
                     variant="secondary"
-                    value={form.careerYear}
-                    onChange={(e) => handleInfoChange(e, "careerYear")}
+                    value={form.expYears}
+                    onChange={(e) => {
+                      const numericValue = e.target.value.replace(/[^0-9]/g, "");
+                      handleInfoChange({ target: { value: numericValue } }, "expYears");
+                    }}
                   />
                   <p css={s.textStyle}>년차</p>
                 </div>
               </div>
-              <button type="button" css={s.buttonStyle}>
+              <button type="button" css={s.buttonStyle} onClick={() => openModal("certification")}>
                 LinkedIn 인증하기
               </button>
             </div>
@@ -107,8 +153,8 @@ const ProfileEdit = () => {
               id="oneLineIntro"
               variant="secondary"
               maxLength={MAX_LENGTH.ONELINE_INTRO}
-              value={form.oneLineIntro}
-              onChange={(e) => handleInfoChange(e, "oneLineIntro")}
+              value={form.headline}
+              onChange={(e) => handleInfoChange(e, "headline")}
             />
           </div>
           <div css={s.fieldStyle}>
@@ -119,8 +165,8 @@ const ProfileEdit = () => {
               id="intro"
               variant="secondary"
               maxLength={MAX_LENGTH.INTRO}
-              value={form.intro}
-              onChange={(e) => handleInfoChange(e, "intro")}
+              value={form.bio}
+              onChange={(e) => handleInfoChange(e, "bio")}
             />
           </div>
         </div>
@@ -129,10 +175,11 @@ const ProfileEdit = () => {
         <Button variant="tertiary" size="medium" onClick={() => navigate(PATH.MYPAGE)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={() => navigate(PATH.MYPAGE)}>
+        <Button size="medium" onClick={handleSubmit} disabled={isDisabled}>
           편집 완료
         </Button>
       </div>
+      <LinkModal onAddLink={handleAddLink} />
     </div>
   );
 };
