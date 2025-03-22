@@ -5,6 +5,8 @@ export const wrapperStyle = css`
   position: relative;
   display: flex;
 
+  min-width: 65rem;
+
   margin-bottom: 0.6rem;
 
   flex-direction: column;
@@ -13,7 +15,7 @@ export const wrapperStyle = css`
 export const layoutStyle = css`
   display: flex;
 
-  padding: 6.5rem 3.5rem 2.5rem;
+  padding: 5rem 3.5rem 2.5rem;
 
   flex-direction: column;
   gap: 0.95rem;
@@ -23,12 +25,29 @@ export const layoutStyle = css`
   background-color: ${theme.color.dark3};
 `;
 
+export const iconStyle = css`
+  display: flex;
+
+  width: 100%;
+
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+
+  & > p {
+    color : #359AFF;
+
+    ${theme.font.body3};
+  }
+`;
+
 export const linkLayoutStyle = css`
   display: flex;
 
   margin-left: auto;
 
-  gap: 0.8rem;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 `;
 
 export const linkStyle = css`
@@ -56,6 +75,8 @@ export const jobLayoutStyle = css`
     color: ${theme.color.primaryBlue0};
 
     ${theme.font.body1};
+
+    white-space: nowrap;
   }
 `;
 

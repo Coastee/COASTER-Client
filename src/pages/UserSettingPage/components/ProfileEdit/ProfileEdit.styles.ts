@@ -152,6 +152,9 @@ export const gridLayoutStyle = css`
 `;
 
 export const buttonStyle = css`
+  width: 13.2rem;
+  height: 4rem;
+
   padding: 1.1rem 1.4rem;
 
   border-radius: 0.7rem;
@@ -170,8 +173,11 @@ export const labelStyle = css`
 `;
 
 export const plusBtnStyle = css`
+  display: flex;
   padding: 1rem;
 
+  align-items: center;
+  justify-content: center;
   border: 1px dashed ${theme.color.dark2};
   border-radius: 0.7rem;
 `;

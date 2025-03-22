@@ -44,7 +44,6 @@ const CareerAdd = () => {
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </div>
-
         <div css={s.fieldStyle}>
           <label htmlFor="period" css={s.labelStyle}>
             기간
@@ -74,7 +73,6 @@ const CareerAdd = () => {
             </div>
           </div>
         </div>
-
         <div css={s.fieldStyle}>
           <div css={{ display: "flex", gap: "0.73rem" }}>
             <label htmlFor="detail" css={s.labelStyle}>
@@ -86,7 +84,6 @@ const CareerAdd = () => {
               <p css={s.labelStyle}>/{MAX_LENGTH.DETAIL_COUNT}</p>
             </span>
           </div>
-
           {careerData.contentList.map((detail, index) =>
             index === 0 ? (
               <Input
@@ -107,7 +104,6 @@ const CareerAdd = () => {
               />
             ),
           )}
-
           {careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT && (
             <button type="button" css={s.iconStyle} onClick={handleAddDetailInput}>
               <PlusBlueIcon width={16} height={16} />
@@ -126,5 +122,4 @@ const CareerAdd = () => {
     </div>
   );
 };
-
 export default CareerAdd;
