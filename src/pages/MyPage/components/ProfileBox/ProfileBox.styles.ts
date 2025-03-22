@@ -15,7 +15,7 @@ export const wrapperStyle = css`
 export const layoutStyle = css`
   display: flex;
 
-  padding: 3.6rem 3.5rem 2.5rem;
+  padding: 5rem 3.5rem 2.5rem;
 
   flex-direction: column;
   gap: 0.95rem;
