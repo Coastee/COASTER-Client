@@ -3,12 +3,16 @@ import logo2Img from "@/assets/img/logo2Img.png";
 import { GoogleIcon, KakaoIcon, Logo4WhiteIcon, NaverIcon } from "@/assets/svg";
 import AuthContainer from "@/components/AuthContainer/AuthContainer";
 import * as s from "@/pages/OnboardingPage/OnboardingPage.styles";
-import { KAKAO_URL } from "@/pages/OnboardingPage/constants";
+import { KAKAO_URL, NAVER_URL } from "@/pages/OnboardingPage/constants";
 import { logo1Style, logo2Style, wrapperStyle } from "@/pages/SignupPage/SignupPage.styles";
 
 const OnBoardingPage = () => {
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_URL;
+  };
+
+  const handleNaverLogin = () => {
+    window.location.href = NAVER_URL;
   };
 
   return (
@@ -37,7 +41,12 @@ const OnBoardingPage = () => {
             <KakaoIcon width={21} height={19} />
             카카오로 시작하기
           </button>
-          <button type="button" aria-label="네이버로 시작하기" css={[s.commonBtnStyle, s.naverBtnStyle]}>
+          <button
+            type="button"
+            aria-label="네이버로 시작하기"
+            css={[s.commonBtnStyle, s.naverBtnStyle]}
+            onClick={handleNaverLogin}
+          >
             <NaverIcon width={19} height={18} />
             네이버로 시작하기
           </button>
