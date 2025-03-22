@@ -7,7 +7,7 @@ import { useScrollToBottom } from "@/hooks/useScroll";
 import { useDmLogs } from "@/pages/DMPage/hooks/useDm";
 import type { ChatRoomProps, DMTypes, StompClientStateTypes } from "@/pages/DMPage/types/dmTypes";
 import { createStompClient } from "@/sockets/dmSocketClient";
-import { parseDateArray } from "@/utils/dateTime";
+import { chatFormatTime } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useLayoutEffect, useState } from "react";
 
@@ -22,11 +22,6 @@ const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
   const [stompClient, setStompClient] = useState<StompClientStateTypes | null>(null); // STOMP 클라이언트 상태
 
   const userInfo = dmList.find((item) => item.id === roomId)?.user;
-
-  const formatParsedDate = (dateArray: number[]) => {
-    const { hour, minute, meridiem } = parseDateArray(dateArray);
-    return `${meridiem} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
-  };
 
   const handleSendMessage = () => {
     if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
@@ -110,7 +105,7 @@ const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
               <ChatPanel
                 isUser={chat.user.id === myId}
                 message={chat.content}
-                time={formatParsedDate(chat.createdDate)}
+                time={chatFormatTime(chat.createdDate)}
                 isDM={true}
               />
             </div>

@@ -25,10 +25,10 @@ export const listWrapperStyle = (isMarked: boolean) => css`
   }
 
   svg {
-    :nth-child(2) {
+    :nth-of-type(2) {
       path {
         fill: ${isMarked ? theme.color.primaryBlue2 : "transparent"};
-        stroke: ${isMarked ? theme.color.primaryBlue2 : theme.color.dark1}
+        stroke: ${isMarked ? theme.color.primaryBlue2 : theme.color.dark1};
       }
     }
   }

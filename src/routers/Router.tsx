@@ -1,8 +1,9 @@
 import App, { layoutStyle } from "@/App";
 import { ServerHeader } from "@/components";
+import { PATH } from "@/constants/path";
 import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
+import ChatPage from "@/pages/ChatPage/ChatPage";
 import GlobalChatPage from "@/pages/GlobalChatPage/GlobalChatPage";
-import GroupChatPage from "@/pages/GroupChatPage/GroupChatPage";
 import KakaoLogin from "@/pages/OnboardingPage/components/KakaoLogin/KakaoLogin";
 import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
@@ -26,15 +27,15 @@ export const router = createBrowserRouter([
     element: <Outlet />,
     children: [
       {
-        path: "/",
+        path: PATH.ONBOARDING,
         element: <OnboardingPage />,
       },
       {
-        path: "/signup",
+        path: PATH.SIGNUP,
         element: <SignupPage />,
       },
       {
-        path: "/redirect-kakao",
+        path: PATH.KAKAO,
         element: <KakaoLogin />,
       },
     ],
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/dm",
+        path: PATH.DM,
         element: <DMPage />,
       },
     ],
@@ -54,32 +55,24 @@ export const router = createBrowserRouter([
     element: <App iconMenuHeader={true} />,
     children: [
       {
-        path: "/mypage",
-        element: (
-          <Suspense>
-            <MyPage />
-          </Suspense>
-        ),
+        path: PATH.MYPAGE,
+        element: <MyPage />,
       },
       {
-        path: "/mypage/setting-profile",
-        element: (
-          <Suspense>
-            <ProfileEdit />
-          </Suspense>
-        ),
+        path: PATH.PROFILE_EDIT,
+        element: <ProfileEdit />,
       },
       {
-        path: "/mypage/setting-career",
+        path: PATH.CAREER_SETTING,
         element: <CareerSettingList />,
       },
 
       {
-        path: "/mypage/setting-edit-career",
+        path: PATH.CAREER_EDIT,
         element: <CareerEdit />,
       },
       {
-        path: "/mypage/setting-add-career",
+        path: PATH.CAREER_ADD,
         element: <CareerAdd />,
       },
     ],
@@ -89,15 +82,15 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/:serverId/home",
+        path: PATH.HOME,
         element: <HomePage />,
       },
       {
-        path: "/:serverId/home/group-chat-list",
+        path: PATH.GROUP_CHAT_LIST,
         element: <GroupChatListPage />,
       },
       {
-        path: "/:serverId/home/coffee-chat-list",
+        path: PATH.TEA_TIME_LIST,
         element: <CoffeeChatListPage />,
       },
     ],
@@ -107,19 +100,23 @@ export const router = createBrowserRouter([
     element: <App iconMenuHeader={true} />,
     children: [
       {
-        path: "/:serverId/group-chat",
-        element: <GroupChatPage />,
+        path: PATH.GROUP_CHAT,
+        element: (
+          <Suspense>
+            <ChatPage type="groups" />
+          </Suspense>
+        ),
       },
       {
-        path: "/:serverId/coffee-chat",
-        element: <GroupChatPage />,
+        path: PATH.TEA_TIME,
+        element: (
+          <Suspense>
+            <ChatPage type="meetings" />
+          </Suspense>
+        ),
       },
       {
-        path: "/:serverId/global-chat",
-        element: <GlobalChatPage />,
-      },
-      {
-        path: "/:serverId/global-chat",
+        path: PATH.GLOBAL_CHAT,
         element: <GlobalChatPage />,
       },
     ],

@@ -137,6 +137,7 @@ export const thumbnailImgStyle = css`
   border-radius: 10px;
 
   object-fit: cover;
+  aspect-ratio: 16 / 9;
 `;
 
 export const verticalLineStyle = css`

@@ -1,7 +1,7 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const sectionStyle = css`
+export const sectionStyle = (image: string) => css`
   position: relative;
 
   display: flex;
@@ -12,13 +12,18 @@ export const sectionStyle = css`
   justify-content: center;
   align-items: center;
 
-  padding: 4.4rem 7.8rem 3.5rem 6rem;
+  padding: 4.4rem 7.8rem 3.5rem;
 
   row-gap: 3.4rem;
 
   border-radius: 2.5rem;
 
   background-color: ${theme.color.dark3};
+  background-image: url(${image});
+  background-position: center;
+  background-size: cover;
+
+  cursor: pointer;
 `;
 
 export const textLayoutStyle = css`
@@ -26,6 +31,7 @@ export const textLayoutStyle = css`
   flex-direction: column;
 
   align-items: center;
+  justify-content: center;
 
   row-gap: 0.9rem;
 `;
@@ -60,17 +66,13 @@ export const underBarStyle = css`
   background-color: ${theme.color.primaryBlue2};
 `;
 export const descStyle = css`
+  display: flex;
+
+  justify-content: center;
+
   ${theme.font.body2};
   font-weight: 400;
-`;
-
-export const backgroundStyle = css`
-  position: absolute;
-
-  padding: 1.2rem 5.2rem;
-
-  height: 100%;
-
-  background-position: center;
-  background-size: cover;
+  text-align: center;
+  white-space: normal;
+  word-break: keep-all;
 `;
