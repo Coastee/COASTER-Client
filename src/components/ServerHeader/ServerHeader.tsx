@@ -9,6 +9,7 @@ import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServer
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
+import { PATH } from "@/constants/path";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ const ServerHeader = () => {
           type="button"
           css={s.plusButtonStyle}
           onClick={() => {
-            navigate("/server-edit");
+            navigate(PATH.SERVER_EDIT);
           }}
         >
           <PlusIcon />
