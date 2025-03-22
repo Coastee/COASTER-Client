@@ -3,6 +3,7 @@ export const PATH = {
   SIGNUP: "/signup",
   KAKAO: "/redirect-kakao",
   NAVER: "/redirect-naver",
+  SERVER_EDIT: "/server-edit",
 
   DM: "/dm",
   MYPAGE: "/mypage",

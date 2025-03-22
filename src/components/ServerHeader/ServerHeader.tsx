@@ -81,7 +81,11 @@ const ServerHeader = () => {
           onServerChange={handleServerChange}
         />
         <button type="button" css={s.plusButtonStyle}>
-          <PlusIcon />
+          <PlusIcon
+            onClick={() => {
+              navigate("/server-edit");
+            }}
+          />
         </button>
       </div>
 

@@ -6,6 +6,7 @@ import ChatPage from "@/pages/ChatPage/ChatPage";
 import GlobalChatPage from "@/pages/GlobalChatPage/GlobalChatPage";
 import KakaoLogin from "@/pages/OnboardingPage/components/KakaoLogin/KakaoLogin";
 import NaverLogin from "@/pages/OnboardingPage/components/NaverLogin/NaverLogin";
+import ServerEditPage from "@/pages/ServerEditPage/ServerEditPage";
 import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.NAVER,
         element: <NaverLogin />,
+      },
+      {
+        path: PATH.SERVER_EDIT,
+        element: <ServerEditPage />,
       },
     ],
   },
