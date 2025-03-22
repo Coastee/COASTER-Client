@@ -4,12 +4,14 @@ import type { ServerTypes } from "@/components/ServerHeader/types/serverTypes";
 import { DESC } from "@/constants/signup";
 import ServerConfirmModal from "@/pages/ServerEditPage/components/ServerConfirmModal/ServerConfirmModal";
 import { useFetchServers } from "@/pages/SignupPage/hooks/useFetchServers";
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useCloseModal, useModalType, useOpenModal } from "@/stores/useModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as s from "./ServerEdit.styles";
 
 const ServerEdit = () => {
+  const currentServer = useGlobalServer();
   const navigate = useNavigate();
   const openModal = useOpenModal();
   const closeModal = useCloseModal();
@@ -29,7 +31,11 @@ const ServerEdit = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate(-1);
+    if (myServers.some((server) => server.id === currentServer?.id)) {
+      navigate(-1);
+    } else {
+      navigate(`/${myServers[0]?.id}/home`);
+    }
   };
 
   const handleItemClick = (item: ServerTypes) => {
