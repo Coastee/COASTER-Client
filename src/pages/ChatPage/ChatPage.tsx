@@ -1,3 +1,4 @@
+import SideMenuBar from "@/components/SideMenuBar/SideMenuBar";
 import ChatEmptyPanel from "@/pages/ChatPage/components/ChatEmptyPanel/ChatEmptyPanel";
 import ChatInfoList from "@/pages/ChatPage/components/ChatInfoList/ChatInfoList";
 import ChatRoom from "@/pages/ChatPage/components/ChatRoom/ChatRoom";
@@ -21,7 +22,18 @@ const ChatPage = ({ type }: { type: "groups" | "meetings" }) => {
   return (
     <div css={{ width: "100%", display: "flex" }}>
       <ChatInfoList menu={menu} ownerList={ownerList} joinedList={joinedList} setSelectedRoom={setSelectedRoom} />
-      {selectedRoom?.id ? <ChatRoom menu={menu} type={type} serverId={serverId} selectedRoomId={selectedRoom.id} title={selectedRoom.title} /> : <ChatEmptyPanel />}
+      {selectedRoom?.id ? (
+        <ChatRoom
+          menu={menu}
+          type={type}
+          serverId={serverId}
+          selectedRoomId={selectedRoom.id}
+          title={selectedRoom.title}
+        />
+      ) : (
+        <ChatEmptyPanel />
+      )}
+      <SideMenuBar />
     </div>
   );
 };

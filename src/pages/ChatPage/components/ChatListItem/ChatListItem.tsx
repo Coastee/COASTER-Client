@@ -1,6 +1,10 @@
 import { RotateLogoIcon, StarIcon } from "@/assets/svg";
 import { Divider } from "@/components";
+
+import { type Member, useMenuBarAction } from "@/stores/useMenuBarStore";
+
 import * as s from "@/pages/ChatPage/components/ChatListItem/ChatListItem.styles";
+
 import { theme } from "@/styles/theme/theme";
 import { useState } from "react";
 
@@ -8,13 +12,19 @@ interface ChatListItemProps {
   name: string;
   index: number;
   length: number;
+  members: Member[];
 }
 
-const ChatListItem = ({ name, index, length }: ChatListItemProps) => {
+const ChatListItem = ({ name, index, length, members }: ChatListItemProps) => {
   const [isMarked, setIsMarked] = useState(false);
+  const { openMenuBar } = useMenuBarAction();
 
   const toggle = () => {
     setIsMarked((prev) => !prev);
+  };
+
+  const handleClick = () => {
+    openMenuBar(members);
   };
 
   return (
