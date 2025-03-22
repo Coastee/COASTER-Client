@@ -5,6 +5,7 @@ import useImageUpload from "@/hooks/useImageUpload";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
 import LinkModal from "@/pages/UserSettingPage/components/LinkModal/LinkModal";
+
 import * as s from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditProfileForm } from "@/pages/UserSettingPage/hooks/useEditProfileForm";
@@ -127,7 +128,14 @@ const ProfileEdit = () => {
                   onChange={(e) => handleInfoChange(e, "job")}
                 />
                 <div css={{ display: "flex", gap: "0.8rem", height: "4rem" }}>
-                  <Input variant="secondary" value={form.expYears} onChange={(e) => handleInfoChange(e, "expYears")} />
+                  <Input
+                    variant="secondary"
+                    value={form.expYears}
+                    onChange={(e) => {
+                      const numericValue = e.target.value.replace(/[^0-9]/g, "");
+                      handleInfoChange({ target: { value: numericValue } }, "expYears");
+                    }}
+                  />
                   <p css={s.textStyle}>년차</p>
                 </div>
               </div>
