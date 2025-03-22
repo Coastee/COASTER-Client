@@ -35,7 +35,7 @@ const ServerConfirmModal = ({ item, closeModal }: ServerConfirmModalProps) => {
         <div css={s.serverNameStyle}>{item.title || "서버 이름 없음"}</div>
 
         <div css={s.buttonLayout}>
-          <button type="button" onClick={() => closeModal()} css={s.cancelBtnStyle}>
+          <button type="button" onClick={closeModal} css={s.cancelBtnStyle}>
             취소
           </button>
           <button type="button" onClick={handleConfirm} css={s.addBtnStyle(modalType)}>
