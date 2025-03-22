@@ -1,19 +1,43 @@
 import { ArrowDownIcon, ExitIcon, PinIcon, SendIcon } from "@/assets/svg";
 import { Divider, Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
-
 import { PATH } from "@/constants/path";
 import { useScrollToBottom } from "@/hooks/useScroll";
-import { DM_MESSAGES } from "@/pages/DMPage/constants/dummy";
+
+import { useChatScroll } from "@/pages/GlobalChatPage/hooks/useChatScroll";
+import { useGlobalChatStompClient } from "@/pages/GlobalChatPage/hooks/useGlobalChatStompClient";
+import { useUpdateChatLogs } from "@/pages/GlobalChatPage/hooks/useUpdateChatLogs";
+import type { ChatTypes } from "@/pages/GlobalChatPage/types/globalChatTypes";
+import { globalChatFormatTime } from "@/pages/GlobalChatPage/utils/globalChatFormatTime";
+import { CHAT_NOTICE_DEFAULT } from "@/pages/HomePage/constants/noticeDummy";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
 
 const GlobalChatRoom = () => {
-  const navigate = useNavigate();
+  const [globalChatLogs, setGlobalChatLogs] = useState<ChatTypes[]>([]);
+  const [input, setInput] = useState("");
   const [isNoticeOpened, setIsNoticeOpened] = useState(false);
 
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const serverId = Number(pathname.split("/")[1]);
+  const roomId = serverId;
+  const myId = Number(localStorage.getItem("userId"));
+
+  const stompClient = useGlobalChatStompClient(roomId, setGlobalChatLogs);
   const scrollRef = useScrollToBottom();
+
+  useUpdateChatLogs(serverId, setGlobalChatLogs);
+  useChatScroll(scrollRef, globalChatLogs);
+
+  const handleSendMessage = () => {
+    if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
+    stompClient.sendMessage(input);
+    setInput("");
+  };
+
+  const reversedChatLogs = [...globalChatLogs].reverse();
 
   return (
     <section css={s.wrapperStyle}>
@@ -34,40 +58,38 @@ const GlobalChatRoom = () => {
                 <p>공지</p>
                 <ArrowDownIcon width={14} height={7} />
               </div>
-              {isNoticeOpened && (
-                <div css={s.noticeContentStyle}>
-                  처음 오신 분들은 공지를 꼭 읽어주시길 바랍니다. 상대방을 향한 비방, 욕설글은 정지 대상이 될 수
-                  있습니다. 이 점 유의하여 올바른 서비스 사용을 해주 시길 바랍니다. 모든 유저가 행복한 채팅 환경을 조
-                  성해주시길 바랍니다.
-                </div>
-              )}
+              {isNoticeOpened && <div css={s.noticeContentStyle}>{CHAT_NOTICE_DEFAULT}</div>}
             </div>
           </div>
         </div>
-
-        <ExitIcon
-          width={23}
-          height={23}
-          css={s.iconStyle}
-          onClick={() => {
-            navigate(PATH.HOME_RELATIVE);
-          }}
-        />
+        <ExitIcon width={23} height={23} css={s.iconStyle} onClick={() => navigate(PATH.HOME_RELATIVE)} />
       </header>
       <Divider />
+
       <div css={s.scrollStyle} ref={scrollRef}>
-        {DM_MESSAGES.map((chat, index) => (
-          <div key={`${index}-${chat.time}`} css={s.layoutStyle}>
-            {!chat.isUser && <p> {chat.userName}</p>}
+        {reversedChatLogs.map((chat) => (
+          <div key={chat.id} css={s.layoutStyle(chat.user.id === myId)}>
+            <p>{chat.user.nickname}</p>
             <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-              <ChatPanel isUser={chat.isUser} message={chat.message} time={chat.time} isDM={true} />
+              <ChatPanel
+                isUser={chat.user.id === myId}
+                message={chat.content}
+                time={globalChatFormatTime(chat.createdDate)}
+                isDM
+              />
             </div>
           </div>
         ))}
       </div>
+
       <Input
         placeholder="채팅을 입력해주세요 (상대방을 향한 비방, 욕설글은 정지 대상이 될 수 있습니다.)"
         rightIcon={<SendIcon width={14} height={14} />}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") handleSendMessage();
+        }}
       />
     </section>
   );

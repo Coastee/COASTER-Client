@@ -9,9 +9,15 @@ export const SCHEDULE_FILTERING_OPTIONS = [
   { id: "LAST_12_MONTHS", name: "1년 이상" },
 ];
 
-export const SORTING_OPTIONS = [
-  { id: "BY_LATEST", name: "최신순" },
-  { id: "BY_DEADLINE", name: "마감 임박순" },
+export const GROUP_SORTING_OPTIONS = [
+  { id: "default", name: "최신순" },
+  { id: "name", name: "이름순" },
+];
+
+export const MEETING_SORTING_OPTIONS = [
+  { id: "default", name: "최신순" },
+  { id: "name", name: "이름순" },
+  { id: "remain", name: "마감 임박순" },
 ];
 
 export const AMPM_OPTIONS = [

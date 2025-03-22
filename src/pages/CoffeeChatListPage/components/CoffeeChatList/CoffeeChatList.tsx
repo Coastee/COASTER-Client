@@ -8,7 +8,12 @@ import { parseDateArray } from "@/utils/dateTime";
 
 import * as s from "./CoffeeChatList.styles";
 
-const CoffeeChatList = ({ data }: { data: HomeDataTypes["meetingChatRoom"] }) => {
+interface CoffeeChatListProps {
+  data: HomeDataTypes["meetingChatRoom"];
+  handleItemClick: (type: string, id: string) => void;
+}
+
+const CoffeeChatList = ({ data, handleItemClick }: CoffeeChatListProps) => {
   const items = data?.chatRoomList || [];
   const itemCount = items.length || 0;
 
@@ -23,7 +28,13 @@ const CoffeeChatList = ({ data }: { data: HomeDataTypes["meetingChatRoom"] }) =>
         <NoDataContainer id="NO_COFFEE_CHAT" height="25.1rem" />
       ) : (
         items.map((chat, idx) => (
-          <li key={chat.id}>
+          <li
+            key={chat.id}
+            onClick={() => handleItemClick("meetingChatRoom", chat.id.toString())}
+            onKeyDown={(e) => {
+              e.key === "Enter" && handleItemClick("meetingChatRoom", chat.id.toString());
+            }}
+          >
             <article css={s.listItemStyle({ itemCount, idx })}>
               <img
                 src={chat.thumbnail || rotateLogoImg}

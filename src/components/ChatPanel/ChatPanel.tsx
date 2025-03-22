@@ -7,7 +7,6 @@ interface ChatPanelProps {
   time: string;
   isDM: boolean;
 }
-
 const ChatPanel = ({ isUser, message, time, isDM }: ChatPanelProps) => {
   return (
     <div css={s.wrapperStyle(isUser)}>
