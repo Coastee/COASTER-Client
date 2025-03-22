@@ -1,20 +1,27 @@
 ---
 name: Feature request
-about: Issue Template
-title: ''
-labels: ''
+about: 기능 구현 템플릿
+title: "[FEAT] 구현할 기능"
+labels: "✨ Feature"
 assignees: ''
 
 ---
 
-## Title
+## 🔎 어떤 기능인가요?
 
-이슈의 제목을 입력해주세요!
+- (추가하려는 기능에 대해 간결하게 설명해주세요.)
 
-## ✅ 구현할 기능
+<br />
 
-## 🔨 상세 작업 내용
+## 📋 작업 목록
 
-- [ ] To-do 1
-- [ ] To-do 2
-- [ ] To-do 3
+- [ ] 작업1
+- [ ] 작업2
+
+<br>
+
+<!--
+## 👀 참고자료
+
+- (스크린샷이나 참고할 추가 자료를 넣어주세요.)
+ -->

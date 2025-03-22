@@ -21,10 +21,17 @@
   },
   "linter": {
     "enabled": true,
+    "ignore": ["src/assets/svg/*"],
     "rules": {
       "recommended": true,
       "correctness": {
         "noUnusedImports": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      },
+      "a11y": {
+        "noLabelWithoutControl": "off"
       }
     }
   },

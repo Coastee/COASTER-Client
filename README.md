@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+## Commit 컨벤션
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+**Commit 태그 종류**
+```
+✨ [FEAT] : 새로운 기능 구현
+🔧 [MODIFY] : 코드 수정 (기능의 변화가 있을 때)
+📝 [DOCS] : README나 WIKI 등의 문서 수정
+➕ [ADD] : Feat 이외의 부수적인 코드 추가, 라이브러리 추가, 새로운 파일 생성
+🔥 [REMOVE] : 폴더 또는 파일 삭제, 쓸모없는 코드 삭제
+🐛 [FIX] : 버그, 오류 해결
+⏪️ [RENAME] : 파일 이름 변경 또는 파일 이동시
+🪄 [REFACTOR] : 기능 추가나 버그 수정이 없는 코드 변경 ( 코드 구조 변경 등의 리팩토링 )
+🌈 [PERF] : 성능 개선 ( API 호출 횟수, 페이지 로드 시간 등 )
+👍 [CORRECT] : 문법 오류나 타입의 변경, 이름 변경시 ( 세미콜론 추가 등 비즈니스 로직에 변경 없음 )
+🎨 [STYLE] : CSS 스타일 수정
+🧪 [TEST] : 테스트 추가 또는 이전 테스트 수정
+🧹 [CHORE] : src 또는 test 파일을 수정하지 않는 기타 변경 사항 ( 빌드/패키지 매니저 설정 변경 등 )
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+<br />
 
+**Commit 메시지 형식**
 ```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+#이슈 번호 [커밋 태그] 커밋 내용
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+// 예시
+#1 [FEAT] 회원가입 기능 완료
+```
+
+<br />
+
+## Issue 컨벤션
+
+**Issue 태그 종류**
+```
+[FEAT] : 기능 추가
+[FIX] : 에러 수정, 버그 수정
+[DOCS] : README, 문서
+[REFACTOR] : 코드 리펙토링 (기능 변경 없이 코드만 수정할 때)
+[MODIFY] : 코드 수정 (기능의 변화가 있을 때)
+[PERF] : 성능 개선 ( API 호출 횟수, 페이지 로드 시간 등 )
+[CHORE] : 그 외 작업 내용
+```
+
+<br />
+
+**Issue 제목**
+```js
+[커밋 태그] 커밋 내용
+
+// 예시
+[FEAT] 회원가입 구현
+```
+
+<br />
+
+**브랜치 이름**
+```
+feat/#이슈 번호-기능 이름
+
+// 예시
+feat/#1-login
 ```
