@@ -40,6 +40,8 @@ export const closeNavIconWrapperStyle = css`
   align-items: center;
   gap: 1.8rem;
 
+  cursor: pointer;
+
   & > p {
     ${theme.font.body1};
     font-weight: 400;
