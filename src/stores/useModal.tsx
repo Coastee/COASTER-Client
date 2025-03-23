@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "link" | "certification" | "server-enter" | "server-exit";
+export type ModalType = "link" | "certification" | "server-enter" |  "server-exit";
 
 interface ModalState {
   isOpen: boolean;
