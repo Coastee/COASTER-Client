@@ -8,11 +8,15 @@ interface CareerBoxProps {
   title: string;
   startDate: number[];
   endDate: number[];
-  descriptions?: string[];
+  contentList?: string[];
 }
 
-const CareerBoxChip = ({ title, startDate, endDate, descriptions }: CareerBoxProps) => {
+const CareerBoxChip = ({ ...career }: CareerBoxProps) => {
   const navigate = useNavigate();
+
+  const startDate = career.startDate.slice(0, 3).join("-");
+  const endDate = career.endDate.slice(0, 3).join("-");
+  const period = `${startDate} ~ ${endDate}`;
 
   return (
     <li>
@@ -24,15 +28,15 @@ const CareerBoxChip = ({ title, startDate, endDate, descriptions }: CareerBoxPro
           <div css={s.titleBoxStyle}>
             <div css={s.titleLayoutStyle}>
               <RotateLogoIcon width={15} height={13} css={{ flexShrink: "0" }} />
-              <h1 css={s.titleStyle}>{title}&nbsp;&nbsp;&nbsp;·</h1>
+              <h1 css={s.titleStyle}>{career.title}&nbsp;&nbsp;&nbsp;·</h1>
             </div>
-            {/* <p css={s.periodStyle}>{period}</p> */}
+            <p css={s.periodStyle}>{period}</p>
           </div>
           <EditBlueIcon width={19} css={s.editIconStyle} onClick={() => navigate("/mypage/setting-edit-career")} />
         </header>
         <Divider />
         <ul css={s.listLayoutStyle}>
-          {descriptions?.map((item, index) => (
+          {career?.contentList?.map((item, index) => (
             <li key={`${index}-${item}`} css={s.itemStyle}>
               ·&nbsp;&nbsp;{item}
             </li>
