@@ -1,22 +1,19 @@
-import { useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { create } from "zustand";
 
 type ServerStore = {
-  serverId: number | null;
+  serverId: number;
   actions: {
     setServerId: (id: number | null) => void;
   };
 };
 
-const server = useMyServerList();
-
 const useServerIdStore = create<ServerStore>((set) => ({
-  serverId: Number(server.data?.result.serverList[0].id),
+  serverId: 0,
 
   actions: {
     setServerId: (serverId: number | null) =>
       set({
-        serverId,
+        serverId: serverId ?? 0,
       }),
   },
 }));
