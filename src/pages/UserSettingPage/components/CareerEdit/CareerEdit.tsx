@@ -10,15 +10,19 @@ import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerFo
 import { useUpdateExperience } from "@/pages/UserSettingPage/hooks/useUpdateExperience";
 import { formatDateArray } from "@/utils/dateTime";
 import type { FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CareerEdit = () => {
   const navigate = useNavigate();
-
+  const { experienceId } = useParams();
   const userId = localStorage.getItem("userId");
 
   const { data } = useFetchUserDetail(Number(userId));
   const { mutate: updateCareer } = useUpdateExperience();
+
+  const selectedExperience = data.experience.experienceList.find(
+    (exp) => exp.id === Number(experienceId)
+  );
 
   const {
     careerData,
@@ -28,13 +32,13 @@ const CareerEdit = () => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     setIsCurrentJob,
-  } = useEditCareerForm(data.experience.experienceList[0]);
+  } = useEditCareerForm(selectedExperience);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     updateCareer({
-      experienceId: data.experience.experienceList[0].id,
+      experienceId: Number(experienceId),
       data: {
         title: careerData.title,
         startDate: careerData.startDate,

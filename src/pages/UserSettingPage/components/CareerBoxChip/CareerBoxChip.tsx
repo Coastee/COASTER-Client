@@ -5,13 +5,14 @@ import * as s from "@/pages/UserSettingPage/components/CareerBoxChip/CareerBoxCh
 import { useNavigate } from "react-router-dom";
 
 interface CareerBoxProps {
+  id: number;
   title: string;
   startDate: number[];
   endDate: number[];
   contentList?: string[];
 }
 
-const CareerBoxChip = ({ ...career }: CareerBoxProps) => {
+const CareerBoxChip = ({ id, ...career }: CareerBoxProps) => {
   const navigate = useNavigate();
 
   const startDate = career.startDate.slice(0, 3).join("-");
@@ -32,7 +33,11 @@ const CareerBoxChip = ({ ...career }: CareerBoxProps) => {
             </div>
             <p css={s.periodStyle}>{period}</p>
           </div>
-          <EditBlueIcon width={19} css={s.editIconStyle} onClick={() => navigate("/mypage/setting-edit-career")} />
+          <EditBlueIcon
+            width={19}
+            css={s.editIconStyle}
+            onClick={() => navigate(`/mypage/setting-edit-career/${id}`)}
+          />
         </header>
         <Divider />
         <ul css={s.listLayoutStyle}>
