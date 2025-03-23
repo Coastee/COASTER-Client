@@ -1,0 +1,11 @@
+<svg width="41" height="37" viewBox="0 0 41 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_1879_1745" fill="white">
+<rect x="8.44727" y="7.82495" width="23.3753" height="16.4913" rx="1"/>
+</mask>
+<rect x="8.44727" y="7.82495" width="23.3753" height="16.4913" rx="1" fill="white" stroke="white" stroke-width="3" mask="url(#path-1-inside-1_1879_1745)"/>
+<rect x="8.44727" y="18.397" width="11.6161" height="5.91921" rx="1" fill="white" stroke="#6B8AFD" stroke-width="1.5"/>
+<rect x="20.207" y="18.397" width="11.6161" height="5.91921" rx="1" fill="white" stroke="#6B8AFD" stroke-width="1.5"/>
+<path d="M8.18565 15.3203H7.0293C6.0628 15.3203 5.2793 16.1038 5.2793 17.0703V26.853C5.2793 27.8195 6.0628 28.603 7.0293 28.603H33.0293C33.9958 28.603 34.7793 27.8195 34.7793 26.853V17.0703C34.7793 16.1038 33.9958 15.3203 33.0293 15.3203H31.9748C31.0083 15.3203 30.2248 16.1038 30.2248 17.0703V21.635C30.2248 21.7731 30.1128 21.885 29.9748 21.885H10.1857C10.0476 21.885 9.93565 21.7731 9.93565 21.635V17.0703C9.93565 16.1038 9.15215 15.3203 8.18565 15.3203Z" fill="white" stroke="#6B8AFD" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="8.74545" y="28.1512" width="0.596372" height="1.37545" rx="0.298186" fill="white" stroke="white" stroke-width="0.596372"/>
+<rect x="30.9251" y="28.1512" width="0.596372" height="1.37545" rx="0.298186" fill="white" stroke="white" stroke-width="0.596372"/>
+</svg>
