@@ -29,7 +29,7 @@ export const dropdownTopStyle = (dropdownOpen: boolean) => css`
   cursor: pointer;
 `;
 
-export const currentIconStyle = css`
+export const currentItemStyle = css`
   display: flex;
   flex-shrink: 0;
 
@@ -39,8 +39,8 @@ export const currentIconStyle = css`
   width: 4rem;
   height: 3.6rem;
 
-  :hover {
-    scale: 1.05;
+  &:hover .current-server-desc {
+    display: block;
   }
 `;
 
@@ -71,6 +71,14 @@ export const listStyle = css`
   padding: 0.8rem 0.8rem 0;
 
   width: 100%;
+  height: 31rem;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const itemStyle = css`
@@ -85,7 +93,7 @@ export const itemStyle = css`
 
   cursor: pointer;
 
-  &:hover .server-desc {
+  &:hover .servers-desc {
     display: block;
   }
 `;
@@ -99,11 +107,11 @@ export const iconStyle = css`
   }
 `;
 
-export const serverDescStyle = css`
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
+export const serverDescStyle = (scrollTop: number) => css`
+  position: fixed;
+  left: 6.8rem;
+
+  transform: translateY(-${scrollTop}px);
 
   margin-left: 0.2rem;
   padding: 0.6rem 0.8rem;
@@ -116,6 +124,10 @@ export const serverDescStyle = css`
   border-radius: 0.6rem;
 
   background: rgba(63, 75, 93, 0.8);
+
+  display: none;
+
+  z-index: 1;
 `;
 
 export const bottomArrowIcon = css`
