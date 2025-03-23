@@ -1,19 +1,19 @@
 import { create } from "zustand";
 
 type UserStore = {
-  userId: number | null;
+  userId: number;
   actions: {
     setUserId: (id: number | null) => void;
   };
 };
 
 const useUserStore = create<UserStore>((set) => ({
-  userId: null,
+  userId: Number(localStorage.getItem("userId")),
 
   actions: {
     setUserId: (userId: number | null) =>
       set({
-        userId,
+        userId: userId ?? 0,
       }),
   },
 }));
