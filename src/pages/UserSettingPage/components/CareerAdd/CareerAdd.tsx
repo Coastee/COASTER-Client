@@ -6,14 +6,17 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
+import { usePostExperience } from "@/pages/UserSettingPage/hooks/usePostExperience";
 import { formatDateArray } from "@/utils/dateTime";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CareerAdd = () => {
   const [isTitleFocused, setIsTitleFocused] = useState(false);
 
   const navigate = useNavigate();
+
+  const { mutate: createCareer } = usePostExperience();
 
   const {
     careerData,
@@ -25,6 +28,21 @@ const CareerAdd = () => {
   } = useEditCareerForm();
 
   const { isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
+
+    const handleSubmit = (e: FormEvent) => {
+      e.preventDefault();
+
+      console.log('clcik')
+
+    createCareer({
+      title: careerData.title,
+      startDate: careerData.startDate,
+      endDate: careerData.endDate,
+      contentList: careerData.contentList,
+    });
+
+    navigate(PATH.CAREER_SETTING);
+  };
 
   return (
     <div css={s.pageStyle}>
@@ -115,7 +133,7 @@ const CareerAdd = () => {
         <Button size="medium" variant="tertiary" onClick={() => navigate(PATH.CAREER_SETTING)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={() => navigate(PATH.CAREER_SETTING)}>
+        <Button size="medium" onClick={handleSubmit}>
           추가 하기
         </Button>
       </div>
