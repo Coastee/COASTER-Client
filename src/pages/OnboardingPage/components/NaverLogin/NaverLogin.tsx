@@ -1,26 +1,37 @@
+import { PATH } from "@/constants/path";
+import { useInitializeServerId } from "@/hooks/useInitializeServerId";
 import { useNaverLogin } from "@/pages/OnboardingPage/hooks/useNaverLogin";
-import { useRedirectToServer } from "@/pages/OnboardingPage/hooks/useRedirectToServer";
 import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const NaverLogin = () => {
-  const code = new URL(window.location.href).searchParams.get("code") || "";
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get("code") || "";
 
   const { data, isSuccess } = useNaverLogin(code);
+  const serverId = useInitializeServerId();
 
-  const handleRedirect = useRedirectToServer();
-
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    if (isSuccess && data) {
-      localStorage.setItem("accessToken", data.result.accessToken);
-      localStorage.setItem("refreshToken", data.result.refreshToken);
+    if (!isSuccess || !data) return;
 
-      localStorage.setItem("userId", data.result.userId.toString());
+    const { accessToken, refreshToken, userId, newUser } = data.result;
 
-      handleRedirect();
+    if (!accessToken || !refreshToken || userId == null) return;
+
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("userId", userId.toString());
+
+    if (newUser) {
+      navigate(PATH.SIGNUP);
+    } else {
+      if (serverId) navigate(PATH.HOME.replace(":serverId", serverId.toString()));
     }
-  }, [data, isSuccess, handleRedirect]);
+  }, [data, isSuccess, serverId]);
 
-  return <div>로딩 중</div>;
+  return <div>로딩 중...</div>;
 };
 
 export default NaverLogin;
