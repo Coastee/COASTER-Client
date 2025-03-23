@@ -11,7 +11,7 @@ interface InfoStepProps {
 const InfoStep = ({ onNext }: InfoStepProps) => {
   const { handleInfoChange, form, isNickNameError } = useInfoForm();
 
-  const isButtonDisabled = !form.name || isNickNameError;
+  const isButtonDisabled = !form.nickname;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,15 +21,13 @@ const InfoStep = ({ onNext }: InfoStepProps) => {
   return (
     <form onSubmit={handleSubmit} css={{ zIndex: 1 }}>
       <AuthContainer title={TITLE.PROFILE} desc={DESC.BASIC_INFO}>
-        <Input placeholder={PLACEHOLDER.NAME} onChange={(e) => handleInfoChange(e, "name")} value={form.name} />
         <Input
-          placeholder={PLACEHOLDER.NICKNAME}
+          placeholder={PLACEHOLDER.NAME}
           onChange={(e) => handleInfoChange(e, "nickname")}
           value={form.nickname}
           isError={isNickNameError}
           supportingText={SUPPORTING_TEXT.NICKNAME}
         />
-
         <Button type="submit" disabled={isButtonDisabled} css={{ marginTop: "8.1rem" }}>
           다음
         </Button>
