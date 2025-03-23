@@ -40,6 +40,7 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
             onKeyDown={() => handleItemClick(globalServer)}
           >
             <globalServer.icon css={{ width: "100%", height: "100%" }} />
+            <div css={s.serverDescStyle}>{globalServer.title}</div>
           </div>
         )}
         <div
@@ -62,6 +63,9 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
                 onKeyDown={() => handleItemClick(option)}
               >
                 <option.icon css={s.iconStyle} />
+                <div css={[s.serverDescStyle, { display: "none" }]} className="server-desc">
+                  {option.title}
+                </div>
               </li>
             ))}
           </ul>

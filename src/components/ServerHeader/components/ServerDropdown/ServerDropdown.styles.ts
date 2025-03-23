@@ -38,6 +38,10 @@ export const currentIconStyle = css`
 
   width: 4rem;
   height: 3.6rem;
+
+  :hover {
+    scale: 1.05;
+  }
 `;
 
 export const currentIconBottomStyle = (dropdownOpen: boolean) => css`
@@ -70,6 +74,7 @@ export const listStyle = css`
 `;
 
 export const itemStyle = css`
+  position: relative;
   display: flex;
 
   justify-content: center;
@@ -79,6 +84,10 @@ export const itemStyle = css`
   height: 3.6rem;
 
   cursor: pointer;
+
+  &:hover .server-desc {
+    display: block;
+  }
 `;
 
 export const iconStyle = css`
@@ -88,6 +97,25 @@ export const iconStyle = css`
   :hover {
     scale: 1.05;
   }
+`;
+
+export const serverDescStyle = css`
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+
+  margin-left: 0.2rem;
+  padding: 0.6rem 0.8rem;
+
+  ${theme.font.body3}
+  font-weight: 400;
+  white-space: nowrap;
+
+  border: 1px solid ${theme.color.dark1};
+  border-radius: 0.6rem;
+
+  background: rgba(63, 75, 93, 0.8);
 `;
 
 export const bottomArrowIcon = css`
