@@ -1,6 +1,6 @@
 import { useNaverLogin } from "@/pages/OnboardingPage/hooks/useNaverLogin";
 import { useRedirectToServer } from "@/pages/OnboardingPage/hooks/useRedirectToServer";
-import { useUserId, useUserIdAction } from "@/stores/useUserId";
+import { useUserIdAction } from "@/stores/useUserId";
 import { useEffect } from "react";
 
 const NaverLogin = () => {
@@ -9,7 +9,6 @@ const NaverLogin = () => {
   const { data, isSuccess } = useNaverLogin(code);
 
   const { setUserId } = useUserIdAction();
-  const userId = useUserId();
 
   const handleRedirect = useRedirectToServer();
 
@@ -18,13 +17,13 @@ const NaverLogin = () => {
       localStorage.setItem("accessToken", data.result.accessToken);
       localStorage.setItem("refreshToken", data.result.refreshToken);
 
-      setUserId(data.result.userId);
-
-      console.log(userId);
+      if (data.result.userId) {
+        setUserId(data.result.userId);
+      }
 
       handleRedirect();
     }
-  }, [data, isSuccess, handleRedirect, setUserId, userId]);
+  }, [data, isSuccess, handleRedirect, setUserId]);
 
   return <div>로딩 중</div>;
 };
