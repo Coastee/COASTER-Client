@@ -18,22 +18,17 @@ const KakaoLogin = () => {
 
     const { accessToken, refreshToken, userId, newUser } = data.result;
 
-    if (!accessToken || !refreshToken || userId == null) return;
-
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
-    localStorage.setItem("userId", userId.toString());
 
-    console.log(newUser);
+    localStorage.setItem("userId", userId.toString());
 
     if (newUser) {
       navigate(PATH.SIGNUP);
     } else {
       if (serverId) {
-        console.log(serverId);
         navigate(PATH.HOME.replace(":serverId", serverId.toString()));
       }
-      console.log(serverId);
     }
   }, [data, isSuccess, serverId]);
 
