@@ -73,9 +73,8 @@ export const router = createBrowserRouter([
         path: "/mypage/setting-career",
         element: <CareerSettingList />,
       },
-
       {
-        path: "/mypage/setting-edit-career",
+        path: "/mypage/setting-edit-career/:experienceId",
         element: <CareerEdit />,
       },
       {

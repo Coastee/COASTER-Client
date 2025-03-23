@@ -1,13 +1,13 @@
 import PlusBlueIcon from "@/assets/svg/PlusBlueIcon";
 import { Button, CheckBox, Divider, Input } from "@/components";
 import { PATH } from "@/constants/path";
+import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
 import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChip/CareerDetailChip";
 import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.styles";
-import { careerDummyData } from "@/pages/UserSettingPage/constants/dummy";
 
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
-import { usePostExperience } from "@/pages/UserSettingPage/hooks/usePostExperience";
+import { useUpdateExperience } from "@/pages/UserSettingPage/hooks/useUpdateExperience";
 import { formatDateArray } from "@/utils/dateTime";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,10 @@ import { useNavigate } from "react-router-dom";
 const CareerEdit = () => {
   const navigate = useNavigate();
 
-  const { mutate: createCareer } = usePostExperience();
+  const userId = localStorage.getItem("userId");
+
+  const { data } = useFetchUserDetail(Number(userId));
+  const { mutate: updateCareer } = useUpdateExperience();
 
   const {
     careerData,
@@ -25,16 +28,19 @@ const CareerEdit = () => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     setIsCurrentJob,
-  } = useEditCareerForm(careerDummyData);
+  } = useEditCareerForm(data.experience.experienceList[0]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    createCareer({
-      title: careerData.title,
-      startDate: careerData.startDate,
-      endDate: careerData.endDate,
-      contentList: careerData.contentList,
+    updateCareer({
+      experienceId: data.experience.experienceList[0].id,
+      data: {
+        title: careerData.title,
+        startDate: careerData.startDate,
+        endDate: careerData.endDate,
+        contentList: careerData.contentList,
+      },
     });
 
     navigate(PATH.CAREER_SETTING);
