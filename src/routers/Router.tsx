@@ -29,11 +29,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: PATH.ONBOARDING,
-        element: <OnboardingPage />,
+        element: (
+          <Suspense>
+            <OnboardingPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.SIGNUP,
-        element: <SignupPage />,
+        element: (
+          <Suspense>
+            <SignupPage />
+          </Suspense>
+        ),
       },
       {
         path: PATH.KAKAO,
