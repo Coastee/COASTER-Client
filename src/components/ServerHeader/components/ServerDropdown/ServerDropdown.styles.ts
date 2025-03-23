@@ -29,17 +29,15 @@ export const dropdownTopStyle = (dropdownOpen: boolean) => css`
   cursor: pointer;
 `;
 
-export const currentIconStyle = (dropdownOpen: boolean) => css`
+export const currentIconStyle = css`
   display: flex;
   flex-shrink: 0;
 
   align-items: center;
   justify-content: center;
 
-  padding: 0.5rem;
-
   width: 4rem;
-  height: 4rem;
+  height: 3.6rem;
 `;
 
 export const currentIconBottomStyle = (dropdownOpen: boolean) => css`
@@ -64,9 +62,9 @@ export const listStyle = css`
   flex-direction: column;
   align-items: center;
 
-  gap: 1.2rem;
+  gap: 0.8rem;
 
-  padding: 0.7rem 0.5rem 0;
+  padding: 0.8rem 0.8rem 0;
 
   width: 100%;
 `;
@@ -77,10 +75,8 @@ export const itemStyle = css`
   justify-content: center;
   align-items: center;
 
-  padding: 0.5rem;
-
   width: 4rem;
-  height: 4rem;
+  height: 3.6rem;
 
   cursor: pointer;
 `;

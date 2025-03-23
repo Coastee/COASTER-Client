@@ -35,7 +35,7 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
       <div css={s.dropdownTopStyle(dropdownOpen)}>
         {globalServer && (
           <div
-            css={s.currentIconStyle(dropdownOpen)}
+            css={s.currentIconStyle}
             onClick={() => handleItemClick(globalServer)}
             onKeyDown={() => handleItemClick(globalServer)}
           >
