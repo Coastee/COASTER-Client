@@ -3,6 +3,7 @@ import { Divider } from "@/components";
 import DMItem from "@/pages/DMPage/components/DMItem/DMItem";
 import type { DmListProps } from "@/pages/DMPage/types/dmTypes";
 import { createDMClient } from "@/sockets/dmSocketClient";
+import { useUserId } from "@/stores/useUserId";
 import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import { useEffect, useState } from "react";
 const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
 
-  const userId = 19; // 내 userId - 추후 전역상태로 관리
+  const userId = useUserId();
 
   const handleItemClick = ({ roomId, userId }: { roomId: number; userId: number }) => {
     setRoomId(roomId);
@@ -21,6 +22,7 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
     setLatestDmList(dmList);
   }, [dmList]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const client = createDMClient(userId, (msg) => {
       setLatestDmList((list) => {

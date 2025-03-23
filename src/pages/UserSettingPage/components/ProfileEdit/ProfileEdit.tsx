@@ -11,6 +11,7 @@ import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditProfileForm } from "@/pages/UserSettingPage/hooks/useEditProfileForm";
 import { usePostUserProfile } from "@/pages/UserSettingPage/hooks/usePostUserProfile";
 import { useCloseModal, useOpenModal } from "@/stores/useModal";
+import { useUserId } from "@/stores/useUserId";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +24,7 @@ const ProfileEdit = () => {
   const closeModal = useCloseModal();
   const openModal = useOpenModal();
 
-  const userId = localStorage.getItem("userId");
+  const userId = useUserId();
   const { data: userData } = useFetchUserDetail(Number(userId));
   const { form, handleInfoChange } = useEditProfileForm(userData);
 

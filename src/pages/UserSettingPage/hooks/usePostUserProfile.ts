@@ -1,9 +1,11 @@
 import { postUserProfile } from "@/pages/UserSettingPage/apis/postUserProfile";
 import type { UserProfileTypes } from "@/pages/UserSettingPage/types/profile";
+import { useUserId } from "@/stores/useUserId";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const usePostUserProfile = () => {
-  const userId = localStorage.getItem("userId");
+  const userId = useUserId();
+
   const queryClient = useQueryClient();
 
   return useMutation({

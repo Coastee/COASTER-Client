@@ -10,6 +10,7 @@ import { useUpdateChatLogs } from "@/pages/GlobalChatPage/hooks/useUpdateChatLog
 import type { ChatTypes } from "@/pages/GlobalChatPage/types/globalChatTypes";
 import { globalChatFormatTime } from "@/pages/GlobalChatPage/utils/globalChatFormatTime";
 import { CHAT_NOTICE_DEFAULT } from "@/pages/HomePage/constants/noticeDummy";
+import { useUserId } from "@/stores/useUserId";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
@@ -22,8 +23,9 @@ const GlobalChatRoom = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const serverId = Number(pathname.split("/")[1]);
+
   const roomId = serverId;
-  const myId = Number(localStorage.getItem("userId"));
+  const myId = useUserId();
 
   const stompClient = useGlobalChatStompClient(roomId, setGlobalChatLogs);
   const scrollRef = useScrollToBottom();

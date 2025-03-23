@@ -11,6 +11,7 @@ import { useChatStompClient } from "@/pages/ChatPage/hooks/useGroupChatStompClie
 import { useUpdateChatLogs } from "@/pages/ChatPage/hooks/useUpdateChatLogs";
 import type { ChatTypes } from "@/pages/ChatPage/types/groupChatLogTypes";
 import { useMenuBarAction, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
+import { useUserId } from "@/stores/useUserId";
 import { chatFormatTime } from "@/utils/dateTime";
 import * as s from "@pages/ChatPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useState } from "react";
@@ -32,7 +33,8 @@ const ChatRoom = ({ menu, type, serverId, selectedRoomId, title }: ChatRoomProps
 
   const stompClient = useChatStompClient(selectedRoomId, setLogs);
   const scrollRef = useScrollToBottom();
-  const myId = Number(localStorage.getItem("userId")) || null;
+
+  const myId = useUserId();
 
   useUpdateChatLogs(serverId, type, selectedRoomId, setLogs);
   useChatScroll(scrollRef, logs);

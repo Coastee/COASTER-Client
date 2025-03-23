@@ -4,9 +4,11 @@ import CareerList from "@/pages/MyPage/components/CareerList/CareerList";
 import ProfileBox from "@/pages/MyPage/components/ProfileBox/ProfileBox";
 import RecommendedProfiles from "@/pages/MyPage/components/RecommendedProfiles/RecommendedProfiles";
 import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
+import { useUserId } from "@/stores/useUserId";
 
 const MyPage = () => {
-  const userId = localStorage.getItem("userId");
+  const userId = useUserId();
+
   const { data } = useFetchUserDetail(Number(userId));
 
   if (!userId) {
