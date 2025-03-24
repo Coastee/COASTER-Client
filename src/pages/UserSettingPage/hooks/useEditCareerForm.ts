@@ -1,4 +1,5 @@
-import type { CareerResponseTypes, ExperienceTypes } from "@/pages/UserSettingPage/types/career";
+import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
+import type { CareerContentTypes, CareerResponseTypes, ExperienceTypes } from "@/pages/UserSettingPage/types/career";
 import { formatDate, formatDateArrayToString } from "@/pages/UserSettingPage/utils/date";
 import { useCallback, useState } from "react";
 
@@ -10,22 +11,38 @@ export const useEditCareerForm = (data?: ExperienceTypes) => {
     endDate: data?.endDate ? formatDateArrayToString(data.endDate) : "",
   });
 
-  const handleInputChange = useCallback((key: keyof CareerResponseTypes, value: string) => {
-    setCareerData((prev) => ({ ...prev, [key]: value }));
+  const handleInputChange = useCallback((key: keyof CareerContentTypes, value: string | number[]) => {
+    const maxLength = MAX_LENGTH[key as keyof typeof MAX_LENGTH];
+
+    let slicedValue = value;
+
+    if (typeof value === "string" && value.length > maxLength) {
+      slicedValue = value.slice(0, maxLength - 1);
+    }
+
+    setCareerData((prev) => ({ ...prev, [key]: slicedValue }));
   }, []);
 
   const handleDetailChange = useCallback((index: number, value: string) => {
+    let slicedValue = value;
+
+    if (value.length > MAX_LENGTH.DETAIL) {
+      slicedValue = value.slice(0, MAX_LENGTH.DETAIL - 1);
+    }
+
     setCareerData((prev) => ({
       ...prev,
-      contentList: prev.contentList.map((detail, i) => (i === index ? value : detail)),
+      contentList: prev.contentList.map((detail, i) => (i === index ? slicedValue : detail)),
     }));
   }, []);
 
   const handleAddDetailInput = () => {
-    setCareerData((prev) => ({
-      ...prev,
-      contentList: [...prev.contentList, ""],
-    }));
+    if (careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT) {
+      setCareerData((prev) => ({
+        ...prev,
+        contentList: [...prev.contentList, ""],
+      }));
+    }
   };
 
   const handleDeleteDetailInput = (index: number) => {
