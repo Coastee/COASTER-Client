@@ -1,47 +1,31 @@
-import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
-import type { CareerContentTypes } from "@/pages/UserSettingPage/types/career";
+import type { CareerResponseTypes, ExperienceTypes } from "@/pages/UserSettingPage/types/career";
+import { formatDate } from "@/pages/UserSettingPage/utils/date";
 import { useCallback, useState } from "react";
 
-export const useEditCareerForm = (data?: CareerContentTypes) => {
-  const [careerData, setCareerData] = useState<CareerContentTypes>({
+export const useEditCareerForm = (data?: ExperienceTypes) => {
+  const [careerData, setCareerData] = useState<CareerResponseTypes>({
     title: data?.title ?? "",
     contentList: data?.contentList ?? [""],
-    startDate: data?.startDate ?? [0, 0, 0, 0, 0, 0, 0],
-    endDate: data?.endDate ?? null,
+    startDate: data?.startDate ? formatDate(data.startDate.join("")) : "",
+    endDate: data?.endDate ? formatDate(data.endDate.join("")) : "",
   });
 
-  const handleInputChange = useCallback((key: keyof CareerContentTypes, value: string | number[]) => {
-    const maxLength = MAX_LENGTH[key as keyof typeof MAX_LENGTH];
-
-    let slicedValue = value;
-
-    if (typeof value === "string" && value.length > maxLength) {
-      slicedValue = value.slice(0, maxLength - 1);
-    }
-
-    setCareerData((prev) => ({ ...prev, [key]: slicedValue }));
+  const handleInputChange = useCallback((key: keyof CareerResponseTypes, value: string) => {
+    setCareerData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
   const handleDetailChange = useCallback((index: number, value: string) => {
-    let slicedValue = value;
-
-    if (value.length > MAX_LENGTH.DETAIL) {
-      slicedValue = value.slice(0, MAX_LENGTH.DETAIL - 1);
-    }
-
     setCareerData((prev) => ({
       ...prev,
-      contentList: prev.contentList.map((detail, i) => (i === index ? slicedValue : detail)),
+      contentList: prev.contentList.map((detail, i) => (i === index ? value : detail)),
     }));
   }, []);
 
   const handleAddDetailInput = () => {
-    if (careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT) {
-      setCareerData((prev) => ({
-        ...prev,
-        contentList: [...prev.contentList, ""],
-      }));
-    }
+    setCareerData((prev) => ({
+      ...prev,
+      contentList: [...prev.contentList, ""],
+    }));
   };
 
   const handleDeleteDetailInput = (index: number) => {
@@ -54,9 +38,20 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
   const setIsCurrentJob = (isCurrent: boolean) => {
     setCareerData((prev) => ({
       ...prev,
-      endDate: isCurrent ? null : [0, 0, 0, 0, 0, 0, 0],
+      endDate: isCurrent ? "" : prev.endDate,
     }));
   };
+
+  const handleDateInput = useCallback((e: React.ChangeEvent<HTMLInputElement>, dateType: "startDate" | "endDate") => {
+    const value = e.target.value.replace(/\D/g, ""); // 숫자만 남기기
+    if (value === "") {
+      setCareerData((prev) => ({ ...prev, [dateType]: "" }));
+      return;
+    }
+
+    const formattedValue = formatDate(value);
+    setCareerData((prev) => ({ ...prev, [dateType]: formattedValue }));
+  }, []);
 
   return {
     careerData,
@@ -66,5 +61,6 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     setIsCurrentJob,
+    handleDateInput,
   };
 };

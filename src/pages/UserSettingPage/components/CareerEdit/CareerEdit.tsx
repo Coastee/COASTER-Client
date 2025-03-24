@@ -8,8 +8,8 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
 import { useUpdateExperience } from "@/pages/UserSettingPage/hooks/useUpdateExperience";
+import { formatDate, parseDateStringToArray } from "@/pages/UserSettingPage/utils/date";
 
-import { formatDateArray } from "@/utils/dateTime";
 import type { FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -30,6 +30,7 @@ const CareerEdit = () => {
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
+    handleDateInput,
     setIsCurrentJob,
   } = useEditCareerForm(selectedExperience);
 
@@ -40,8 +41,8 @@ const CareerEdit = () => {
       experienceId: Number(experienceId),
       data: {
         title: careerData.title,
-        startDate: careerData.startDate,
-        endDate: careerData.endDate,
+        startDate: parseDateStringToArray(careerData.startDate) || [],
+        endDate: careerData.endDate ? parseDateStringToArray(careerData.endDate) || [] : null,
         contentList: careerData.contentList,
       },
     });
@@ -77,13 +78,19 @@ const CareerEdit = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input
+              variant="secondary"
+              value={careerData.startDate ? formatDate(careerData.startDate) : ""}
+              onChange={(e) => handleDateInput(e, "startDate")}
+              placeholder="YYYY.MM.DD"
+            />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
-              value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
-              onChange={() => {}}
+              value={careerData.endDate ? formatDate(careerData.endDate) : ""}
+              onChange={(e) => handleDateInput(e, "endDate")}
               disabled={!careerData.endDate}
+              placeholder="YYYY.MM.DD"
             />
             <p>까지</p>
             <Divider direction="horizontal" />
