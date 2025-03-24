@@ -29,17 +29,19 @@ export const dropdownTopStyle = (dropdownOpen: boolean) => css`
   cursor: pointer;
 `;
 
-export const currentIconStyle = (dropdownOpen: boolean) => css`
+export const currentItemStyle = css`
   display: flex;
   flex-shrink: 0;
 
   align-items: center;
   justify-content: center;
 
-  padding: 0.5rem;
-
   width: 4rem;
-  height: 4rem;
+  height: 3.6rem;
+
+  &:hover .current-server-desc {
+    display: block;
+  }
 `;
 
 export const currentIconBottomStyle = (dropdownOpen: boolean) => css`
@@ -64,25 +66,36 @@ export const listStyle = css`
   flex-direction: column;
   align-items: center;
 
-  gap: 1.2rem;
+  gap: 0.8rem;
 
-  padding: 0.7rem 0.5rem 0;
+  padding: 0.8rem 0.8rem 0;
 
   width: 100%;
+  height: 31rem;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const itemStyle = css`
+  position: relative;
   display: flex;
 
   justify-content: center;
   align-items: center;
 
-  padding: 0.5rem;
-
   width: 4rem;
-  height: 4rem;
+  height: 3.6rem;
 
   cursor: pointer;
+
+  &:hover .servers-desc {
+    display: block;
+  }
 `;
 
 export const iconStyle = css`
@@ -92,6 +105,29 @@ export const iconStyle = css`
   :hover {
     scale: 1.05;
   }
+`;
+
+export const serverDescStyle = (scrollTop: number) => css`
+  position: fixed;
+  left: 6.8rem;
+
+  transform: translateY(-${scrollTop}px);
+
+  margin-left: 0.2rem;
+  padding: 0.6rem 0.8rem;
+
+  ${theme.font.body3}
+  font-weight: 400;
+  white-space: nowrap;
+
+  border: 1px solid ${theme.color.dark1};
+  border-radius: 0.6rem;
+
+  background: rgba(63, 75, 93, 0.8);
+
+  display: none;
+
+  z-index: 1;
 `;
 
 export const bottomArrowIcon = css`

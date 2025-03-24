@@ -1,4 +1,5 @@
 import { ReturnIcon } from "@/assets/svg";
+import { useScrollPosition } from "@/components/ServerHeader/hooks/useScollPosition";
 import type { ServerInfoTypes } from "@/constants/serverInfo";
 import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
 import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
@@ -19,6 +20,8 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
   const globalServer = useGlobalServer();
   const { setGlobalServer } = useGlobalServerAction();
 
+  const { scrollTop, listRef, handleScroll } = useScrollPosition();
+
   const handleItemClick = (item: ServerInfoTypes) => {
     resetGlobalMenu();
     setGlobalServer(item);
@@ -35,11 +38,14 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
       <div css={s.dropdownTopStyle(dropdownOpen)}>
         {globalServer && (
           <div
-            css={s.currentIconStyle(dropdownOpen)}
+            css={s.currentItemStyle}
             onClick={() => handleItemClick(globalServer)}
             onKeyDown={() => handleItemClick(globalServer)}
           >
-            <globalServer.icon css={{ width: "100%", height: "100%" }} />
+            <globalServer.icon css={s.iconStyle} />
+            <div css={s.serverDescStyle(0)} className="current-server-desc">
+              {globalServer.title}
+            </div>
           </div>
         )}
         <div
@@ -53,7 +59,7 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
 
       {dropdownOpen && (
         <>
-          <ul css={s.listStyle} {...props}>
+          <ul ref={listRef} css={s.listStyle} onScroll={handleScroll} {...props}>
             {options.map((option) => (
               <li
                 key={option.id}
@@ -62,6 +68,9 @@ const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange
                 onKeyDown={() => handleItemClick(option)}
               >
                 <option.icon css={s.iconStyle} />
+                <div css={s.serverDescStyle(scrollTop)} className="servers-desc">
+                  {option.title}
+                </div>
               </li>
             ))}
           </ul>
