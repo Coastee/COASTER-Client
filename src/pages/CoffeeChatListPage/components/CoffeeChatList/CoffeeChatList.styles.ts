@@ -9,7 +9,7 @@ export const listContainerStyle = (itemsCount = 0) => css`
 
   box-sizing: content-box;
 
-  border-radius: 2.5rem;
+  border-radius: 1rem;
 
   background: ${theme.color.dark3};
 
