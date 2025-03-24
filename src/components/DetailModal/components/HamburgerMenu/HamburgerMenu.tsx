@@ -1,6 +1,7 @@
 import { LeaveIcon } from "@/assets/svg";
 import { useEnterChatRoom } from "@/components/DetailModal/hooks/useEnterChatRoom";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
+import { useNavigate } from "react-router-dom";
 
 interface HamburgerMenuProps extends SideModalProps {
   serverId: number;
@@ -18,10 +19,13 @@ export const HamburgerMenu = ({
   setIsVisible,
 }: HamburgerMenuProps) => {
   const { mutate: enterRoom } = useEnterChatRoom();
+  const navigate = useNavigate();
+  const chatRoomPathName = chatRoomType === "meetings" ? "tea-time" : "group-chat";
 
   const handleIconClick = () => {
     console.log("서버 입장 시도");
     enterRoom({ serverId, chatRoomType, groupId: selectedItemId });
+    navigate(`/${serverId}/${chatRoomPathName}`, { state: { roomId: selectedItemId } });
     setIsVisible(!isVisible);
   };
 
