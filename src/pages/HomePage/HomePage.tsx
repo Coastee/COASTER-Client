@@ -5,7 +5,7 @@ import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/Gr
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
 import { useHomeSearch } from "@/pages/HomePage/hooks/useHomeSearch";
-import { useSelectedItem } from "@/pages/HomePage/hooks/useSelectedItem";
+import type { SelectedItemTypes } from "@/pages/HomePage/types/selectedItemTypes";
 import { getSelectedChat } from "@/pages/HomePage/utils/getSelectedChat";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -20,16 +20,20 @@ const HomePage = () => {
   const { data: homeData, isLoading } = useHomeData(serverId);
 
   const [queryParam, setQueryParam] = useState(INITIAL_QUERY_PARAM);
+  const [selectedItem, setSelectedItem] = useState<SelectedItemTypes>({ id: null, type: null });
 
   const { homeGroupRooms, homeMeetingRooms, isSearching } = useHomeSearch(serverId, queryParam, 500);
 
-  const { selectedItem, setSelectedItem, handleItemClick } = useSelectedItem();
   const selectedChat = getSelectedChat(selectedItem, homeGroupRooms, homeMeetingRooms);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
 
   const { hashTagList, notice, chat } = homeData;
+
+  const handleItemClick = (type: string, id: string) => {
+    setSelectedItem({ type: type, id: id });
+  };
 
   return (
     <>
