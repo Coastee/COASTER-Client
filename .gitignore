@@ -32,3 +32,6 @@ dist-ssr
 !.yarn/versions
 
 .env
+
+tsconfig.node.tsbuildinfo
+vite.config.js
