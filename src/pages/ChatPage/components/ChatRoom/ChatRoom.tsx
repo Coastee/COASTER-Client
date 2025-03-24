@@ -16,25 +16,26 @@ import * as s from "@pages/ChatPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useState } from "react";
 
 interface ChatRoomProps {
-  menu: string;
   type: "groups" | "meetings";
   serverId: number;
   selectedRoomId: number;
   title: string;
 }
 
-const ChatRoom = ({ menu, type, serverId, selectedRoomId, title }: ChatRoomProps) => {
+const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
   const [logs, setLogs] = useState<ChatTypes[]>([]);
   const [input, setInput] = useState("");
 
-  const { openMenuBar } = useMenuBarAction();
-  const isOpen = useMenuBarIsOpen();
-
-  const stompClient = useChatStompClient(selectedRoomId, setLogs);
-  const scrollRef = useScrollToBottom();
   const myId = Number(localStorage.getItem("userId")) || null;
 
+  const isOpen = useMenuBarIsOpen();
+  const { openMenuBar } = useMenuBarAction();
+
+  const stompClient = useChatStompClient(selectedRoomId, setLogs);
+
   useUpdateChatLogs(serverId, type, selectedRoomId, setLogs);
+
+  const scrollRef = useScrollToBottom();
   useChatScroll(scrollRef, logs);
 
   const { data } = useFetchChatLogs(serverId, type, selectedRoomId);
