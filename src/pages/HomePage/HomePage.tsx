@@ -1,77 +1,37 @@
 import { DetailModal, SearchLayout, TitleContainer } from "@/components";
-import { useSearch } from "@/components/SearchLayout/hooks/useSearch";
-import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
+import { INITIAL_QUERY_PARAM } from "@/components/SearchLayout/constants/searchInitial";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
-import { useEffect, useState } from "react";
+import { useHomeSearch } from "@/pages/HomePage/hooks/useHomeSearch";
+import { useSearchWithDebounce } from "@/pages/HomePage/hooks/useSearchWithDebounce";
+import { useSelectedItem } from "@/pages/HomePage/hooks/useSelectedItem";
+import { getSelectedChat } from "@/pages/HomePage/utils/getSelectedChat";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./HomePage.styles";
+
 const HomePage = () => {
   const navigate = useNavigate();
+
   const param = useParams();
-
-  const [isVisible, setIsVisible] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
-  
-  const [selectedItem, setSelectedItem] = useState<{ id: string | null; type: string | null }>({
-    id: null,
-    type: null,
-  });
-
-  const [queryParam, setQueryParam] = useState<QueryParamTypes>({
-    page: 0,
-    sort: "",
-    scope: "",
-    keyword: "",
-    tags: [],
-  });
-
   const serverId = Number(param.serverId);
+
   const { data: homeData, isLoading } = useHomeData(serverId);
-  const { data: groupsSearchResult } = useSearch({
-    serverId,
-    type: "groups",
-    queryParam,
-  });
 
-  const { data: meetingsSearchResult } = useSearch({
-    serverId,
-    type: "meetings",
-    queryParam,
-  });
+  const [queryParam, setQueryParam] = useState(INITIAL_QUERY_PARAM);
 
-  const homeGroupRooms = groupsSearchResult?.result.chatRoomList.slice(0, 3);
-  const homeMeetingRooms = meetingsSearchResult?.result.chatRoomList.slice(0, 3);
+  const { homeGroupRooms, homeMeetingRooms } = useHomeSearch(serverId, queryParam);
+  const isSearching = useSearchWithDebounce(INITIAL_QUERY_PARAM, 500);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsSearching(queryParam.keyword !== "" || queryParam.tags.length > 0);
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, [queryParam]);
+  const { selectedItem, setSelectedItem, handleItemClick } = useSelectedItem();
+  const selectedChat = getSelectedChat(selectedItem, homeGroupRooms, homeMeetingRooms);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
 
   const { hashTagList, notice, chat } = homeData;
-
-  const handleItemClick = (type: string, id: string) => {
-    setSelectedItem({ type: type, id: id });
-    setIsVisible(true);
-  };
-
-  const selectedChat = (() => {
-    if (selectedItem.type === "meetingChatRoom") {
-      return homeGroupRooms?.find((chat) => chat.id === Number(selectedItem.id));
-    }
-    if (selectedItem.type === "groupChatRoom") {
-      return homeMeetingRooms?.find((chat) => chat.id === Number(selectedItem.id));
-    }
-    return null;
-  })();
 
   return (
     <>
