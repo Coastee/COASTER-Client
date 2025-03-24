@@ -1,13 +1,13 @@
 import type { CareerResponseTypes, ExperienceTypes } from "@/pages/UserSettingPage/types/career";
-import { formatDate } from "@/pages/UserSettingPage/utils/date";
+import { formatDate, formatDateArrayToString } from "@/pages/UserSettingPage/utils/date";
 import { useCallback, useState } from "react";
 
 export const useEditCareerForm = (data?: ExperienceTypes) => {
   const [careerData, setCareerData] = useState<CareerResponseTypes>({
     title: data?.title ?? "",
     contentList: data?.contentList ?? [""],
-    startDate: data?.startDate ? formatDate(data.startDate.join("")) : "",
-    endDate: data?.endDate ? formatDate(data.endDate.join("")) : "",
+    startDate: data?.startDate ? formatDateArrayToString(data.startDate) : "",
+    endDate: data?.endDate ? formatDateArrayToString(data.endDate) : "",
   });
 
   const handleInputChange = useCallback((key: keyof CareerResponseTypes, value: string) => {
@@ -35,22 +35,15 @@ export const useEditCareerForm = (data?: ExperienceTypes) => {
     }));
   };
 
-  const setIsCurrentJob = (isCurrent: boolean) => {
+  const handleCheckBoxChange = () => {
     setCareerData((prev) => ({
       ...prev,
-      endDate: isCurrent ? "" : prev.endDate,
+      endDate: prev.endDate ? "" : formatDate(new Date().toISOString().slice(0, 10).replace(/-/g, ".")),
     }));
   };
 
   const handleDateInput = useCallback((e: React.ChangeEvent<HTMLInputElement>, dateType: "startDate" | "endDate") => {
-    const value = e.target.value.replace(/\D/g, ""); // 숫자만 남기기
-    if (value === "") {
-      setCareerData((prev) => ({ ...prev, [dateType]: "" }));
-      return;
-    }
-
-    const formattedValue = formatDate(value);
-    setCareerData((prev) => ({ ...prev, [dateType]: formattedValue }));
+    setCareerData((prev) => ({ ...prev, [dateType]: e.target.value }));
   }, []);
 
   return {
@@ -60,7 +53,7 @@ export const useEditCareerForm = (data?: ExperienceTypes) => {
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    setIsCurrentJob,
+    handleCheckBoxChange,
     handleDateInput,
   };
 };

@@ -31,7 +31,7 @@ const CareerEdit = () => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     handleDateInput,
-    setIsCurrentJob,
+    handleCheckBoxChange,
   } = useEditCareerForm(selectedExperience);
 
   const handleSubmit = (e: FormEvent) => {
@@ -41,8 +41,8 @@ const CareerEdit = () => {
       experienceId: Number(experienceId),
       data: {
         title: careerData.title,
-        startDate: parseDateStringToArray(careerData.startDate) || [],
-        endDate: careerData.endDate ? parseDateStringToArray(careerData.endDate) || [] : null,
+        startDate: parseDateStringToArray(formatDate(careerData.startDate)) || [],
+        endDate: careerData.endDate ? parseDateStringToArray(formatDate(careerData.endDate)) : null,
         contentList: careerData.contentList,
       },
     });
@@ -94,15 +94,15 @@ const CareerEdit = () => {
             />
             <p>까지</p>
             <Divider direction="horizontal" />
-            <div css={s.checkboxStyle}>
+            <div css={s.checkboxLayoutStyle}>
               <label htmlFor="current-job" css={s.labelStyle}>
                 현직
               </label>
               <CheckBox
                 id="current-job"
                 variant="round"
-                isChecked={careerData.endDate === null}
-                onChange={() => setIsCurrentJob(careerData.endDate !== null)}
+                isChecked={careerData.endDate === ""}
+                onChange={handleCheckBoxChange}
               />
             </div>
           </div>
