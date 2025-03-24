@@ -14,6 +14,6 @@ export const useSearch = ({ serverId, type, queryParam }: SearchParamTypes) => {
         type,
         queryParam: debouncedQueryParam,
       }),
-    enabled: !!serverId && !!type && !!debouncedQueryParam,
+    enabled: !!serverId && !!type && !!debouncedQueryParam && queryParam !== undefined,
   });
 };
