@@ -6,7 +6,6 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
-import { formatDateArray } from "@/utils/dateTime";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +20,7 @@ const CareerAdd = () => {
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    setIsCurrentJob,
+    handleCheckBoxChange,
   } = useEditCareerForm();
 
   const { isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
@@ -49,18 +48,18 @@ const CareerAdd = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            {/* <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} /> */}
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
-              value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
+              // value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
               onChange={() => {}}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
             <Divider direction="horizontal" />
-            <div css={s.checkboxStyle}>
+            <div css={s.checkboxLayoutStyle}>
               <label htmlFor="current-job" css={s.labelStyle}>
                 현직
               </label>
@@ -68,7 +67,7 @@ const CareerAdd = () => {
                 id="current-job"
                 variant="round"
                 isChecked={!careerData.endDate}
-                onChange={() => setIsCurrentJob(!careerData.endDate)}
+                onChange={handleCheckBoxChange}
               />
             </div>
           </div>
