@@ -5,7 +5,6 @@ import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/Gr
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
 import { useHomeSearch } from "@/pages/HomePage/hooks/useHomeSearch";
-import { useSearchWithDebounce } from "@/pages/HomePage/hooks/useSearchWithDebounce";
 import { useSelectedItem } from "@/pages/HomePage/hooks/useSelectedItem";
 import { getSelectedChat } from "@/pages/HomePage/utils/getSelectedChat";
 import { useState } from "react";
@@ -22,8 +21,7 @@ const HomePage = () => {
 
   const [queryParam, setQueryParam] = useState(INITIAL_QUERY_PARAM);
 
-  const { homeGroupRooms, homeMeetingRooms } = useHomeSearch(serverId, queryParam);
-  const isSearching = useSearchWithDebounce(INITIAL_QUERY_PARAM, 500);
+  const { homeGroupRooms, homeMeetingRooms, isSearching } = useHomeSearch(serverId, queryParam, 500);
 
   const { selectedItem, setSelectedItem, handleItemClick } = useSelectedItem();
   const selectedChat = getSelectedChat(selectedItem, homeGroupRooms, homeMeetingRooms);
