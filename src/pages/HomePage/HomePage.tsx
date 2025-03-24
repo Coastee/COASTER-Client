@@ -1,52 +1,39 @@
 import { DetailModal, SearchLayout, TitleContainer } from "@/components";
-import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
+import { INITIAL_QUERY_PARAM } from "@/components/SearchLayout/constants/searchInitial";
 import CoffeeChatList from "@/pages/CoffeeChatListPage/components/CoffeeChatList/CoffeeChatList";
 import GroupChatList from "@/pages/GroupChatListPage/components/GroupChatList/GroupChatList";
 import GlobalChatPreview from "@/pages/HomePage/components/GlobalChatPreview/GlobalChatPreview";
 import { useHomeData } from "@/pages/HomePage/hooks/useHomeData";
+import { useHomeSearch } from "@/pages/HomePage/hooks/useHomeSearch";
+import type { SelectedItemTypes } from "@/pages/HomePage/types/selectedItemTypes";
+import { getSelectedChat } from "@/pages/HomePage/utils/getSelectedChat";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./HomePage.styles";
+
 const HomePage = () => {
   const navigate = useNavigate();
+
   const param = useParams();
-
-  const [isVisible, setIsVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<{ id: string | null; type: string | null }>({
-    id: null,
-    type: null,
-  });
-
-  const [queryParam, setQueryParam] = useState<QueryParamTypes>({
-    page: 0,
-    sort: "",
-    scope: "",
-    keyword: "",
-    tags: [],
-  });
-
   const serverId = Number(param.serverId);
+
   const { data: homeData, isLoading } = useHomeData(serverId);
+
+  const [queryParam, setQueryParam] = useState(INITIAL_QUERY_PARAM);
+  const [selectedItem, setSelectedItem] = useState<SelectedItemTypes>({ id: null, type: null });
+
+  const { homeGroupRooms, homeMeetingRooms, isSearching } = useHomeSearch(serverId, queryParam, 500);
+
+  const selectedChat = getSelectedChat(selectedItem, homeGroupRooms, homeMeetingRooms);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (!homeData) return <div>데이터 없음</div>;
 
-  const { hashTagList, groupChatRoom, meetingChatRoom, notice, chat } = homeData;
+  const { hashTagList, notice, chat } = homeData;
 
   const handleItemClick = (type: string, id: string) => {
     setSelectedItem({ type: type, id: id });
-    setIsVisible(true);
   };
-
-  const selectedChat = (() => {
-    if (selectedItem.type === "meetingChatRoom") {
-      return meetingChatRoom.chatRoomList.find((chat) => chat.id === Number(selectedItem.id));
-    }
-    if (selectedItem.type === "groupChatRoom") {
-      return groupChatRoom.chatRoomList.find((chat) => chat.id === Number(selectedItem.id));
-    }
-    return null;
-  })();
 
   return (
     <>
@@ -60,7 +47,7 @@ const HomePage = () => {
       )}
 
       <div css={s.layoutStyle}>
-        <div css={s.leftLayoutStyle}>
+        <div css={s.leftLayoutStyle(isSearching)}>
           <SearchLayout queryParam={queryParam} setQueryParam={setQueryParam} hashTagData={hashTagList} />
           <TitleContainer
             title="그룹 채팅방"
@@ -69,7 +56,7 @@ const HomePage = () => {
               navigate("./group-chat-list", { state: { hashTagData: hashTagList } });
             }}
           >
-            <GroupChatList data={groupChatRoom} handleItemClick={handleItemClick} />
+            <GroupChatList data={homeGroupRooms} handleItemClick={handleItemClick} />
           </TitleContainer>
           <TitleContainer
             title="오프라인 커피챗"
@@ -79,19 +66,24 @@ const HomePage = () => {
             }}
             css={{ paddingBottom: "5rem" }}
           >
-            <CoffeeChatList data={meetingChatRoom} handleItemClick={handleItemClick} />
+            <CoffeeChatList data={homeMeetingRooms} handleItemClick={handleItemClick} />
           </TitleContainer>
         </div>
-        <TitleContainer
-          title="전체 채팅"
-          textButton="더보기"
-          handleTextButtonClick={() => {
-            navigate("../global-chat");
-          }}
-          css={{ paddingTop: "10rem" }}
-        >
-          <GlobalChatPreview chat={chat} notice={notice} />
-        </TitleContainer>
+
+        {isSearching ? (
+          <div css={s.emptyBoxStyle} />
+        ) : (
+          <TitleContainer
+            title="전체 채팅"
+            textButton="더보기"
+            handleTextButtonClick={() => {
+              navigate("../global-chat");
+            }}
+            css={{ paddingTop: "10rem" }}
+          >
+            <GlobalChatPreview chat={chat} notice={notice} />
+          </TitleContainer>
+        )}
       </div>
     </>
   );
