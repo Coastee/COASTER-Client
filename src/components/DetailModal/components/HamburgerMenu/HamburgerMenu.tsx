@@ -23,7 +23,6 @@ export const HamburgerMenu = ({
   const chatRoomPathName = chatRoomType === "meetings" ? "tea-time" : "group-chat";
 
   const handleIconClick = () => {
-    console.log("서버 입장 시도");
     enterRoom({ serverId, chatRoomType, groupId: selectedItemId });
     navigate(`/${serverId}/${chatRoomPathName}`, { state: { roomId: selectedItemId } });
     setIsVisible(!isVisible);
