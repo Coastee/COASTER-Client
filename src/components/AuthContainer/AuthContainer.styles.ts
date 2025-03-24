@@ -62,12 +62,13 @@ export const descStyle = css`
 
 export const childrenStyle = (size: "medium" | "large") => css`
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
   padding-top: ${size === "large" ? "3rem" : "7.1rem"};
 
-  flex-direction: column;
-  flex-grow: 1;
   align-items: flex-end;
+  justify-content: space-between;
 
   gap: 2rem;
 `;

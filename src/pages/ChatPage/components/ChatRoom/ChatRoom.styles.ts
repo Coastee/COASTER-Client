@@ -1,12 +1,12 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
-export const wrapperStyle = css`
+export const wrapperStyle = (isOpen: boolean) => css`
   display: flex;
 
   width: 100%;
 
-  padding: 5.3rem 17rem 4.2rem 5rem;
+  padding: ${isOpen ? "5.3rem 5.3rem 4.2rem 5rem" : "5.3rem 17rem 4.2rem 5rem"};
 
   flex-direction: column;
   justify-content: space-between;

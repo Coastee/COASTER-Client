@@ -1,9 +1,17 @@
 export interface ProfileEditTypes {
-  backgroundImg?: string;
-  profileImg?: string;
   nickname: string;
-  career: string;
-  careerYear: number;
-  oneLineIntro: string;
-  intro: string;
+  headline: string;
+  job: string;
+  expYears: number;
+  bio: string;
+  urlList: string[];
+}
+
+export interface UserProfileTypes {
+  nickname: string;
+  headline: string;
+  job: string;
+  expYears: number;
+  bio: string;
+  urlList: string[];
 }

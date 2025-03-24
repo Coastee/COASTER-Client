@@ -5,6 +5,8 @@ export const PATH = {
   NAVER: "/redirect-naver",
   GOOGLE: "/redirect-google",
 
+  SERVER_EDIT: "/server-edit",
+
   DM: "/dm",
   MYPAGE: "/mypage",
   PROFILE_EDIT: "/mypage/setting-profile",

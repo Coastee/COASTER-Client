@@ -1,4 +1,4 @@
-import { DmIcon, EditIcon } from "@/assets/svg";
+import { DmIcon, EditIcon, VerifyIcon } from "@/assets/svg";
 import { Button } from "@/components";
 import { PATH } from "@/constants/path";
 import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileBox = (data: UserDetailTypes) => {
   const navigate = useNavigate();
-  const userData = data.result;
+  const userData = data;
 
   return (
     <section css={s.wrapperStyle}>
@@ -27,6 +27,11 @@ const ProfileBox = (data: UserDetailTypes) => {
         }}
       />
       <div css={s.layoutStyle}>
+        {userData?.linkedInVerify && (
+          <div css={s.iconStyle}>
+            <VerifyIcon width={20} height={20} /> <p>LinkedIn 인증</p>
+          </div>
+        )}
         <div css={s.rowStyle}>
           <h1 css={s.nameStyle}>{userData?.nickname}</h1>
           <div css={s.jobLayoutStyle}>

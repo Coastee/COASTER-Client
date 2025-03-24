@@ -25,6 +25,18 @@ interface ExperienceData {
 }
 
 export interface UserDetailTypes {
+  id: number;
+  profileImage: string;
+  nickname: string;
+  linkedInVerify: boolean;
+  userIntro: UserIntro;
+  bio: string;
+  urlList: string[];
+  dmRoomId: number;
+  experience: ExperienceData;
+}
+
+export interface UserDetailResponseTypes {
   result: {
     id: number;
     profileImage: string;

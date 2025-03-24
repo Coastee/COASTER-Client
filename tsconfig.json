@@ -21,7 +21,8 @@
     "skipLibCheck": true,
     "module": "esnext",
     "lib": ["DOM", "ES2017"],
-    "target": "es6"
+    "target": "es6",
+    "outDir": "dist"
   },
   "include": ["src", "custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

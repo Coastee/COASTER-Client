@@ -34,6 +34,7 @@ export const tokenInstance = ky.create({
   },
 });
 
+// formData 전용 인스턴스 추가
 export const formDataInstance = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
   headers: {

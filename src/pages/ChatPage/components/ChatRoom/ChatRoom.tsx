@@ -10,6 +10,7 @@ import { useFetchChatLogs } from "@/pages/ChatPage/hooks/useFetchChatLogs";
 import { useChatStompClient } from "@/pages/ChatPage/hooks/useGroupChatStompClient";
 import { useUpdateChatLogs } from "@/pages/ChatPage/hooks/useUpdateChatLogs";
 import type { ChatTypes } from "@/pages/ChatPage/types/groupChatLogTypes";
+import { useMenuBarAction, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
 import { chatFormatTime } from "@/utils/dateTime";
 import * as s from "@pages/ChatPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useState } from "react";
@@ -25,6 +26,9 @@ interface ChatRoomProps {
 const ChatRoom = ({ menu, type, serverId, selectedRoomId, title }: ChatRoomProps) => {
   const [logs, setLogs] = useState<ChatTypes[]>([]);
   const [input, setInput] = useState("");
+
+  const { openMenuBar } = useMenuBarAction();
+  const isOpen = useMenuBarIsOpen();
 
   const stompClient = useChatStompClient(selectedRoomId, setLogs);
   const scrollRef = useScrollToBottom();
@@ -50,13 +54,13 @@ const ChatRoom = ({ menu, type, serverId, selectedRoomId, title }: ChatRoomProps
   }, [data]);
 
   return (
-    <section css={s.wrapperStyle}>
+    <section css={s.wrapperStyle(isOpen)}>
       <header css={s.headerLayoutStyle}>
         <div css={s.titleLayoutStyle}>
           <RotateLogoIcon width={25} height={22} />
           <h1 css={s.titleStyle}>{title}</h1>
         </div>
-        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={() => {}} />
+        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={() => openMenuBar([])} />
       </header>
       <div css={s.scrollStyle} ref={scrollRef}>
         {reversedChatLogs.map((chat, index) => {
