@@ -7,8 +7,9 @@ import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
 import { usePostExperience } from "@/pages/UserSettingPage/hooks/usePostExperience";
-import { formatDateArray } from "@/utils/dateTime";
-import { FormEvent, useState } from "react";
+import { serverDateFormat } from "@/utils/dateTime";
+import { type FormEvent, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const CareerAdd = () => {
@@ -21,6 +22,7 @@ const CareerAdd = () => {
   const {
     careerData,
     handleInputChange,
+    handleDateChange,
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
@@ -29,15 +31,13 @@ const CareerAdd = () => {
 
   const { isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
 
-    const handleSubmit = (e: FormEvent) => {
-      e.preventDefault();
-
-      console.log('clcik')
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
     createCareer({
       title: careerData.title,
-      startDate: careerData.startDate,
-      endDate: careerData.endDate,
+      startDate: serverDateFormat(careerData.startDate),
+      endDate: serverDateFormat(careerData.endDate),
       contentList: careerData.contentList,
     });
 
@@ -67,13 +67,20 @@ const CareerAdd = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input
+              variant="secondary"
+              onChange={(e) => handleDateChange("startDate", e.target.value)}
+              value={Array.isArray(careerData.startDate) ? careerData.startDate.join(".") : careerData.startDate || ""}
+              isError={isDateError}
+              placeholder="YYYY.MM.DD"
+            />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
-              value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
-              onChange={() => {}}
+              onChange={(e) => handleDateChange("endDate", e.target.value)}
+              value={Array.isArray(careerData.endDate) ? careerData.endDate.join(".") : careerData.endDate || ""}
+              isError={isDateError}
+              placeholder="YYYY.MM.DD"
               disabled={!careerData.endDate}
             />
             <p>까지</p>
@@ -85,7 +92,7 @@ const CareerAdd = () => {
               <CheckBox
                 id="current-job"
                 variant="round"
-                isChecked={!careerData.endDate}
+                isChecked={!Array.isArray(careerData.endDate)}
                 onChange={() => setIsCurrentJob(!careerData.endDate)}
               />
             </div>

@@ -58,7 +58,7 @@ export const parseDateArray = (dateArray: number[]) => {
 };
 
 export const requestFormatTime = (
-  dateTime: FormDateTimeTypes
+  dateTime: FormDateTimeTypes,
 ): {
   startDate: RequestDateType;
   endDate: RequestDateType;
@@ -120,4 +120,21 @@ export const timeAgo = (dateArray: number[]) => {
 export const chatFormatTime = (dateArray: number[]) => {
   const { hour, minute, meridiem } = parseDateArray(dateArray);
   return `${meridiem} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+};
+
+export const formatInputDate = (value: string) => {
+  const numbers = value.replace(/\D/g, "");
+
+  if (numbers.length >= 8) {
+    // YYYY.MM.DD 형식으로 포맷팅
+    return `${numbers.slice(0, 4)}.${numbers.slice(4, 6)}.${numbers.slice(6, 8)}`;
+  }
+  return numbers;
+};
+
+export const serverDateFormat = (dateArray: number[] | string): number[] => {
+  if (!Array.isArray(dateArray) || dateArray.length < 3) {
+    return [0, 0, 0, 0, 0, 0, 0]; // 기본값
+  }
+  return [...dateArray.slice(0, 3), 0, 0, 0, 0]; // [YYYY, MM, DD, 0, 0, 0, 0]
 };

@@ -1,18 +1,23 @@
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import type { CareerContentTypes } from "@/pages/UserSettingPage/types/career";
+import { formatInputDate } from "@/utils/dateTime";
 import { useCallback, useState } from "react";
 
 export const useEditCareerForm = (data?: CareerContentTypes) => {
   const [careerData, setCareerData] = useState<CareerContentTypes>({
     title: data?.title ?? "",
     contentList: data?.contentList ?? [""],
-    startDate: data?.startDate ?? [0, 0, 0, 0, 0, 0, 0],
-    endDate: data?.endDate ?? null,
+    startDate: data?.startDate ?? [],
+    endDate: data?.endDate ?? [0, 0, 0, 0, 0, 0, 0],
   });
 
   const handleInputChange = useCallback((key: keyof CareerContentTypes, value: string | number[]) => {
-    const maxLength = MAX_LENGTH[key as keyof typeof MAX_LENGTH];
+    if (key === "startDate" || key === "endDate") {
+      setCareerData((prev) => ({ ...prev, [key]: value }));
+      return;
+    }
 
+    const maxLength = MAX_LENGTH[key as keyof typeof MAX_LENGTH];
     let slicedValue = value;
 
     if (typeof value === "string" && value.length > maxLength) {
@@ -21,6 +26,16 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
 
     setCareerData((prev) => ({ ...prev, [key]: slicedValue }));
   }, []);
+
+  const handleDateChange = (type: "startDate" | "endDate", value: string) => {
+    const filteredValue = value.replace(/[^0-9.]/g, "");
+    const formattedValue = formatInputDate(filteredValue);
+
+    setCareerData((prev) => ({
+      ...prev,
+      [type]: formattedValue.length === 10 ? formattedValue.split(".").map(Number) : formattedValue,
+    }));
+  };
 
   const handleDetailChange = useCallback((index: number, value: string) => {
     let slicedValue = value;
@@ -54,7 +69,7 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
   const setIsCurrentJob = (isCurrent: boolean) => {
     setCareerData((prev) => ({
       ...prev,
-      endDate: isCurrent ? null : [0, 0, 0, 0, 0, 0, 0],
+      endDate: isCurrent ? [0, 0, 0, 0, 0, 0, 0] : prev.endDate,
     }));
   };
 
@@ -62,6 +77,7 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
     careerData,
     setCareerData,
     handleInputChange,
+    handleDateChange,
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
