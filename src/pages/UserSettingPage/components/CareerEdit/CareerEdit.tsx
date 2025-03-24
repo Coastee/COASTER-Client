@@ -1,17 +1,27 @@
 import PlusBlueIcon from "@/assets/svg/PlusBlueIcon";
 import { Button, CheckBox, Divider, Input } from "@/components";
 import { PATH } from "@/constants/path";
+import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
 import CareerDetailChip from "@/pages/UserSettingPage/components/CareerDetailChip/CareerDetailChip";
 import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.styles";
-import { careerDummyData } from "@/pages/UserSettingPage/constants/dummy";
 
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
+import { useUpdateExperience } from "@/pages/UserSettingPage/hooks/useUpdateExperience";
+
 import { formatDateArray } from "@/utils/dateTime";
-import { useNavigate } from "react-router-dom";
+import type { FormEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CareerEdit = () => {
   const navigate = useNavigate();
+  const { experienceId } = useParams();
+  const userId = localStorage.getItem("userId");
+
+  const { data } = useFetchUserDetail(Number(userId));
+  const { mutate: updateCareer } = useUpdateExperience();
+
+  const selectedExperience = data.experience.experienceList.find((exp) => exp.id === Number(experienceId));
 
   const {
     careerData,
@@ -21,7 +31,23 @@ const CareerEdit = () => {
     handleAddDetailInput,
     handleDeleteDetailInput,
     setIsCurrentJob,
-  } = useEditCareerForm(careerDummyData);
+  } = useEditCareerForm(selectedExperience);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    updateCareer({
+      experienceId: Number(experienceId),
+      data: {
+        title: careerData.title,
+        startDate: careerData.startDate,
+        endDate: careerData.endDate,
+        contentList: careerData.contentList,
+      },
+    });
+
+    navigate(PATH.CAREER_SETTING);
+  };
 
   return (
     <div css={s.pageStyle}>
@@ -38,7 +64,6 @@ const CareerEdit = () => {
             value={careerData.title}
             onChange={(e) => {
               const { value } = e.target;
-
               if (value.length > MAX_LENGTH.CAREER_DETAIL_TITLE) {
                 setCareerData((prev) => ({ ...prev, title: value.slice(0, MAX_LENGTH.CAREER_DETAIL_TITLE) }));
               } else {
@@ -47,7 +72,6 @@ const CareerEdit = () => {
             }}
           />
         </div>
-
         <div css={s.fieldStyle}>
           <label htmlFor="period" css={s.labelStyle}>
             기간
@@ -76,7 +100,6 @@ const CareerEdit = () => {
             </div>
           </div>
         </div>
-
         <div css={s.fieldStyle}>
           <div css={{ display: "flex", gap: "0.73rem" }}>
             <label htmlFor="detail" css={s.labelStyle}>
@@ -88,7 +111,6 @@ const CareerEdit = () => {
               <p css={s.labelStyle}>/{MAX_LENGTH.DETAIL_COUNT}</p>
             </span>
           </div>
-
           {careerData.contentList.map((detail, index) =>
             index === 0 ? (
               <Input
@@ -107,7 +129,6 @@ const CareerEdit = () => {
               />
             ),
           )}
-
           {careerData.contentList.length < MAX_LENGTH.DETAIL_COUNT && (
             <button type="button" css={s.iconStyle} onClick={handleAddDetailInput}>
               <PlusBlueIcon width={16} height={16} />
@@ -119,12 +140,11 @@ const CareerEdit = () => {
         <Button size="medium" variant="tertiary" onClick={() => navigate(PATH.CAREER_SETTING)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={() => navigate(PATH.CAREER_SETTING)}>
+        <Button size="medium" onClick={handleSubmit}>
           추가 하기
         </Button>
       </div>
     </div>
   );
 };
-
 export default CareerEdit;
