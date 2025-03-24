@@ -75,6 +75,10 @@ export const checkboxStyle = css`
 
   align-items: center;
   gap: 1.3rem;
+
+  & > div {
+    margin: 3rem 0 0 2rem;
+  }
 `;
 
 export const iconStyle = css`
