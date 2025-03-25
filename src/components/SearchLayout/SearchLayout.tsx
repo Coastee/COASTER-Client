@@ -7,7 +7,7 @@ import * as s from "./SearchLayout.styles";
 interface SearchLayoutProps<T extends QueryParamTypes | HomeQueryParamTypes> {
   queryParam: T;
   setQueryParam: (searchParam: T) => void;
-  hashTagData: HashtagTypes[];
+  hashTagData: HashtagTypes[] | [];
 }
 
 const SearchLayout = <T extends QueryParamTypes | HomeQueryParamTypes>({

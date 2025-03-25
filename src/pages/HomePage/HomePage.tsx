@@ -17,7 +17,6 @@ const HomePage = () => {
   const serverId = Number(param.serverId);
 
   const [homeQueryParam, setHomeQueryParam] = useState(HOME_QUERY_PARAM);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const { data, isSearching } = useHomeData(serverId, homeQueryParam);
   const { homeGroupRooms = [], homeMeetingRooms = [], hashTagList = [], notice = null, chat = null } = data || {};
@@ -50,7 +49,7 @@ const HomePage = () => {
             title="그룹 채팅방"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./group-chat-list", { state: { hashTagData: hashTagList } });
+              navigate("./group-chat-list", { state: { keyword: homeQueryParam.keyword, tags: homeQueryParam.tags } });
             }}
           >
             <GroupChatList data={homeGroupRooms} handleItemClick={handleItemClick} />
@@ -59,7 +58,7 @@ const HomePage = () => {
             title="오프라인 커피챗"
             textButton="전체보기"
             handleTextButtonClick={() => {
-              navigate("./tea-time-list", { state: { hashTagData: hashTagList } });
+              navigate("./tea-time-list", { state: { keyword: homeQueryParam.keyword, tags: homeQueryParam.tags } });
             }}
             css={{ paddingBottom: "5rem" }}
           >
