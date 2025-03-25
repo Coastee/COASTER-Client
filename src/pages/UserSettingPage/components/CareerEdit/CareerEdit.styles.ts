@@ -38,7 +38,6 @@ export const fieldStyle = css`
 
 export const labelStyle = css`
   display: flex;
-  align-items: center;
 
   color: ${theme.color.gray2};
   ${theme.font.body2};
@@ -68,13 +67,17 @@ export const datePickerStyle = css`
 }
 `;
 
-export const checkboxStyle = css`
+export const checkboxLayoutStyle = css`
   display: flex;
 
   margin-right: 12rem;
 
   align-items: center;
   gap: 1.3rem;
+
+  & > div {
+  margin: 3rem 0 0 2rem;
+  }
 `;
 
 export const iconStyle = css`

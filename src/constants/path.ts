@@ -11,7 +11,7 @@ export const PATH = {
   MYPAGE: "/mypage",
   PROFILE_EDIT: "/mypage/setting-profile",
   CAREER_SETTING: "/mypage/setting-career",
-  CAREER_EDIT: "/mypage/setting-edit-career",
+  CAREER_EDIT: "/mypage/setting-edit-career/:experienceId",
   CAREER_ADD: "/mypage/setting-add-career",
 
   HOME: "/:serverId/home",

@@ -1,13 +1,14 @@
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
-import type { CareerContentTypes } from "@/pages/UserSettingPage/types/career";
-import { useCallback, useState } from "react";
+import type { CareerContentTypes, CareerResponseTypes, ExperienceTypes } from "@/pages/UserSettingPage/types/career";
+import { formatDate, formatDateArrayToString } from "@/pages/UserSettingPage/utils/date";
+import { type ChangeEvent, useCallback, useState } from "react";
 
-export const useEditCareerForm = (data?: CareerContentTypes) => {
-  const [careerData, setCareerData] = useState<CareerContentTypes>({
+export const useEditCareerForm = (data?: ExperienceTypes) => {
+  const [careerData, setCareerData] = useState<CareerResponseTypes>({
     title: data?.title ?? "",
     contentList: data?.contentList ?? [""],
-    startDate: data?.startDate ?? [0, 0, 0, 0, 0, 0, 0],
-    endDate: data?.endDate ?? null,
+    startDate: data?.startDate ? formatDateArrayToString(data.startDate) : "",
+    endDate: data?.endDate ? formatDateArrayToString(data.endDate) : "",
   });
 
   const handleInputChange = useCallback((key: keyof CareerContentTypes, value: string | number[]) => {
@@ -51,12 +52,16 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
     }));
   };
 
-  const setIsCurrentJob = (isCurrent: boolean) => {
+  const handleCheckBoxChange = () => {
     setCareerData((prev) => ({
       ...prev,
-      endDate: isCurrent ? null : [0, 0, 0, 0, 0, 0, 0],
+      endDate: prev.endDate ? "" : formatDate(new Date().toISOString().slice(0, 10).replace(/-/g, ".")),
     }));
   };
+
+  const handleDateInput = useCallback((e: ChangeEvent<HTMLInputElement>, dateType: "startDate" | "endDate") => {
+    setCareerData((prev) => ({ ...prev, [dateType]: e.target.value }));
+  }, []);
 
   return {
     careerData,
@@ -65,6 +70,7 @@ export const useEditCareerForm = (data?: CareerContentTypes) => {
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    setIsCurrentJob,
+    handleCheckBoxChange,
+    handleDateInput,
   };
 };
