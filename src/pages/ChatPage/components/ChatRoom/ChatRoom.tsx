@@ -5,6 +5,7 @@ import TimeChip from "@/components/TimeChip/TimeChip";
 
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
+import { useFetchChatMembers } from "@/pages/ChatPage/hooks/useChatMembers";
 import { useChatScroll } from "@/pages/ChatPage/hooks/useChatScroll";
 import { useFetchChatLogs } from "@/pages/ChatPage/hooks/useFetchChatLogs";
 import { useChatStompClient } from "@/pages/ChatPage/hooks/useGroupChatStompClient";
@@ -39,6 +40,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
   useChatScroll(scrollRef, logs);
 
   const { data } = useFetchChatLogs(serverId, type, selectedRoomId);
+  const { data: members } = useFetchChatMembers(serverId, type, selectedRoomId);
 
   const handleSendMessage = () => {
     if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
@@ -55,9 +57,15 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
   }, [data]);
 
   const handleHamburgerClick = () => {
-    if (!data?.result.chatList) return;
+    if (!members?.result.userList) {
+      return;
+    }
 
-    openMenuBar(data.result.chatList);
+    const formattedMembers = members.result.userList.map((member) => ({
+      ...member,
+      user: member,
+    }));
+    openMenuBar(formattedMembers);
   };
 
   return (
