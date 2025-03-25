@@ -34,12 +34,20 @@ export const nameStyle = css`
 export const infoStyle = css`
   display: flex;
 
-  gap: 0.1rem;
-
-  ${theme.font.body3};
-  font-weight: 700;
+  align-items: center;
+  gap: 0.2rem;
 
   color: ${theme.color.gray1};
+
+  & > h2 {
+    ${theme.font.body3};
+    font-weight: 700;
+  }
+
+  & > p {
+    ${theme.font.body3};
+    font-weight: 700;
+  }
 `;
 
 export const infoLayoutStyle = css`
