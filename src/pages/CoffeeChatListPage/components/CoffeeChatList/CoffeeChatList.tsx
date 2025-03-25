@@ -1,20 +1,17 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
-
 import { NoDataContainer } from "@/components";
-import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
-
+import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
 import { parseDateArray } from "@/utils/dateTime";
-
 import * as s from "./CoffeeChatList.styles";
 
 interface CoffeeChatListProps {
-  data: HomeDataTypes["meetingChatRoom"];
+  data: ChatRoomTypes[] | undefined;
   handleItemClick: (type: string, id: string) => void;
 }
 
 const CoffeeChatList = ({ data, handleItemClick }: CoffeeChatListProps) => {
-  const items = data?.chatRoomList || [];
+  const items = data || [];
   const itemCount = items.length || 0;
 
   const formatParsedDate = (dateArray: number[]) => {

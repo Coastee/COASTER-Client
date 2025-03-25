@@ -15,12 +15,17 @@ export const layoutStyle = css`
   ${scrollDarkStyle}
 `;
 
-export const leftLayoutStyle = css`
+export const leftLayoutStyle = (isSearching: boolean) => css`
   display: flex;
   flex-direction: column;
 
   gap: 4rem;
 
+  width: ${isSearching ? "" : "100%"};
+  min-width: ${isSearching ? "76.8rem" : "50rem"};
+`;
+
+export const emptyBoxStyle = css`
   width: 100%;
-  min-width: 50rem;
+  min-width: 28rem;
 `;

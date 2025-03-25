@@ -1,8 +1,15 @@
 export interface CareerContentTypes {
   title: string;
   contentList: string[];
-  startDate: number[];
-  endDate: number[] | null;
+  startDate: string;
+  endDate: string | null;
+}
+
+export interface CareerResponseTypes {
+  title: string;
+  contentList: string[];
+  startDate: string;
+  endDate: string | null;
 }
 
 export interface ExperienceTypes {
