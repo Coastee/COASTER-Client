@@ -17,6 +17,10 @@ const SearchLayout = <T extends QueryParamTypes | HomeQueryParamTypes>({
 }: SearchLayoutProps<T>) => {
   const { updateField, updateTagList } = useUpdateSearchParam(queryParam, setQueryParam);
 
+  const selectedTags = queryParam.tags.map((tag, index) => ({ id: -index - 1, content: tag }));
+  const uniqueHashTagData = hashTagData.filter((tag) => !queryParam.tags.includes(tag.content));
+  const includeSelectedTags = [...selectedTags, ...uniqueHashTagData];
+
   return (
     <div css={s.searchLayoutStyle}>
       <Input
@@ -26,8 +30,8 @@ const SearchLayout = <T extends QueryParamTypes | HomeQueryParamTypes>({
         onChange={(e) => updateField("keyword", e.target.value as T["keyword"])}
       />
       <ul css={s.hashTagListStyle}>
-        {hashTagData.length > 0 ? (
-          hashTagData.map((tag) => {
+        {includeSelectedTags.length > 0 ? (
+          includeSelectedTags.map((tag) => {
             const isSelected = queryParam.tags.includes(tag.content);
             return (
               <li key={tag.id}>

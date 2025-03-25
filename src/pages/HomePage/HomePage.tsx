@@ -17,6 +17,7 @@ const HomePage = () => {
   const serverId = Number(param.serverId);
 
   const [homeQueryParam, setHomeQueryParam] = useState(HOME_QUERY_PARAM);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const { data, isSearching } = useHomeData(serverId, homeQueryParam);
   const { homeGroupRooms = [], homeMeetingRooms = [], hashTagList = [], notice = null, chat = null } = data || {};
@@ -75,7 +76,7 @@ const HomePage = () => {
             handleTextButtonClick={() => {
               navigate("../global-chat");
             }}
-            css={{ paddingTop: "10rem" }}
+            css={{ paddingTop: "13rem" }}
           >
             <GlobalChatPreview chat={chat} notice={notice} />
           </TitleContainer>
