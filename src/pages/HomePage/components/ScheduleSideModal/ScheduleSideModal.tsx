@@ -27,7 +27,7 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
       isVisible={isVisible}
       setIsVisible={setIsVisible}
     >
-      <div css={s.sortingStyle}>
+      {/* <div css={s.sortingStyle}>
         <Button variant="sorting" onClick={() => setDropdownOpen((prev) => !prev)}>
           <ArrowDownIcon
             width={10}
@@ -45,7 +45,7 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
             setDropdownOpen={setDropdownOpen}
           />
         )}
-      </div>
+      </div> */}
       <ul css={s.contentStyle}>
         {schedule?.map((schedule) => (
           <li key={schedule.id}>
