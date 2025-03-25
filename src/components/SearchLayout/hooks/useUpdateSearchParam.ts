@@ -1,7 +1,10 @@
-import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
+import type { HomeQueryParamTypes, QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
 
-export const useUpdateSearchParam = (param: QueryParamTypes, setParam: (param: QueryParamTypes) => void) => {
-  const updateField = (field: keyof QueryParamTypes, value: string | number | string[]) => {
+export const useUpdateSearchParam = <T extends QueryParamTypes | HomeQueryParamTypes>(
+  param: T,
+  setParam: (param: T) => void
+) => {
+  const updateField = (field: keyof T, value: T[keyof T]) => {
     setParam({
       ...param,
       [field]: value,
@@ -9,13 +12,14 @@ export const useUpdateSearchParam = (param: QueryParamTypes, setParam: (param: Q
   };
 
   const updateTagList = (tagContent: string) => {
-    const isTagExist = param.tags.includes(tagContent);
+    if (!param || !Array.isArray(param.tags)) return; 
 
+    const isTagExist = param.tags.includes(tagContent);
     const updatedTagList = isTagExist
       ? param.tags.filter((tagContentInList) => tagContentInList !== tagContent)
       : [...param.tags, tagContent];
 
-    updateField("tags", updatedTagList);
+    updateField("tags", updatedTagList as T[keyof T]);
   };
 
   return { updateField, updateTagList };
