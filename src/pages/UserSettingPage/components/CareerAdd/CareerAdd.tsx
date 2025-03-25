@@ -6,9 +6,11 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
+
 import { usePostExperience } from "@/pages/UserSettingPage/hooks/usePostExperience";
 import { formatDate, parseDateStringToArray } from "@/pages/UserSettingPage/utils/date";
 import { type FormEvent, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const CareerAdd = () => {
@@ -86,7 +88,7 @@ const CareerAdd = () => {
             />
             <p>까지</p>
             <Divider direction="horizontal" />
-            <div css={s.checkboxStyle}>
+            <div css={s.checkboxLayoutStyle}>
               <label htmlFor="current-job" css={s.labelStyle}>
                 현직
               </label>

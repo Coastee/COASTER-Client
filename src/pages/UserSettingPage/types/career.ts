@@ -5,6 +5,13 @@ export interface CareerContentTypes {
   endDate: string | null;
 }
 
+export interface CareerResponseTypes {
+  title: string;
+  contentList: string[];
+  startDate: string;
+  endDate: string | null;
+}
+
 export interface ExperienceTypes {
   title: string;
   contentList: string[];
