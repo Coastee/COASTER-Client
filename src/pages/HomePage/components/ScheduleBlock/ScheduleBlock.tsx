@@ -54,11 +54,13 @@ const ScheduleBlock = (schedule: ScheduleTypes) => {
             <FlagSquareIcon width={26} height={26} aria-hidden="true" />
             <div css={s.textStyle}>
               <p>
-                {year}. {month}. {day} {dayOfWeek}
+                {year}. {month}. {day} ({dayOfWeek})
               </p>
               <div css={s.circleStyle} />
               <p>
-                {meridiem} {formattedHour} : {minute} ~ {endMeridiem} {formattedEndHour} : {endMinute}
+                {meridiem} {formattedHour} : {minute.toString().padStart(2, "0")} ~{" "}
+                {endMeridiem !== meridiem && `${endMeridiem} `}
+                {formattedEndHour} : {endMinute.toString().padStart(2, "0")}
               </p>
             </div>
           </div>
