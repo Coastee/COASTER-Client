@@ -18,7 +18,7 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
   const [url, setUrl] = useState("");
 
   const title = modalType === "link" ? TITLE.LINK : TITLE.LINKEDIN;
-  const LINKEDIN_URL = `${import.meta.env.VITE_BASE_URL}/api/v1/connect/linkedin`;
+  // const LINKEDIN_URL = `${import.meta.env.VITE_BASE_URL}/api/v1/connect/linkedin`;
 
   const icon = getDomainIcon(url);
   const isPlusIcon = icon?.type === PlusIcon;
@@ -47,8 +47,7 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
       onAddLink(url);
     } else {
       // 링크드인 인증
-
-      window.open(LINKEDIN_URL, "_blank");
+      // window.open(LINKEDIN_URL, "_blank");
     }
     handleClose();
   };
