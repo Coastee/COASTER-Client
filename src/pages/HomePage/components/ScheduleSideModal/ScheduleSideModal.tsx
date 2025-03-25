@@ -3,15 +3,17 @@ import { Button, Dropdown, SideModal } from "@/components";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { SCHEDULE_FILTERING_OPTIONS } from "@/constants/dropdown";
 import ScheduleBlock from "@/pages/HomePage/components/ScheduleBlock/ScheduleBlock";
-import { SCHEDULES_DUMMY } from "@/pages/HomePage/constants/schedulesDummy";
+import { useFetchSchedule } from "@/pages/HomePage/hooks/useFetchSchedule";
 import { useState } from "react";
 import * as s from "./ScheduleSideModal.styles";
 
 const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [filteringOption, setFilteringOption] = useState(
-    SCHEDULE_FILTERING_OPTIONS[0]
-  );
+  const [filteringOption, setFilteringOption] = useState(SCHEDULE_FILTERING_OPTIONS[0]);
+
+  const { data } = useFetchSchedule();
+  const schedule = data?.result.scheduleList;
+
   return (
     <SideModal
       titleChildren={
@@ -26,10 +28,7 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
       setIsVisible={setIsVisible}
     >
       <div css={s.sortingStyle}>
-        <Button
-          variant="sorting"
-          onClick={() => setDropdownOpen((prev) => !prev)}
-        >
+        <Button variant="sorting" onClick={() => setDropdownOpen((prev) => !prev)}>
           <ArrowDownIcon
             width={10}
             css={{
@@ -48,17 +47,9 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
         )}
       </div>
       <ul css={s.contentStyle}>
-        {SCHEDULES_DUMMY.map((schedule) => (
+        {schedule?.map((schedule) => (
           <li key={schedule.id}>
-            <ScheduleBlock
-              id={schedule.id}
-              title={schedule.title}
-              location={schedule.location}
-              locationDetail={schedule.locationDetail}
-              date={schedule.date}
-              startTime={schedule.startTime}
-              endTime={schedule.endTime}
-            />
+            <ScheduleBlock {...schedule} />
           </li>
         ))}
       </ul>

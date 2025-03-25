@@ -1,23 +1,27 @@
 import { ArrowRightIcon, FlagSquareIcon, RotateLogoIcon } from "@/assets/svg";
-import type { ScheduleBlockProps } from "@/pages/HomePage/types/ScheduleTypes";
-import { simpleFormatDate } from "@/utils/dateTime";
+import type { ScheduleTypes } from "@/pages/HomePage/types/ScheduleTypes";
+import { parseDateArray } from "@/utils/dateTime";
 import * as s from "./ScheduleBlock.styles";
 
-const ScheduleBlock = ({
-  id,
-  title,
-  location,
-  locationDetail,
-  date,
-  startTime,
-  endTime,
-}: ScheduleBlockProps) => {
-  const { simpleDate, dayOfWeek } = simpleFormatDate(new Date(date));
+const ScheduleBlock = (schedule: ScheduleTypes) => {
+  const {
+    year,
+    month,
+    day,
+    hour: formattedHour,
+    minute,
+    dayOfWeek,
+    meridiem,
+  } = parseDateArray(schedule.period.startDate);
+
+  const { hour: formattedEndHour, minute: endMinute, meridiem: endMeridiem } = parseDateArray(schedule.period.endDate);
 
   return (
     <div css={s.layoutStyle}>
       <header css={s.headerStyle}>
-        <h1>{simpleDate}</h1>
+        <h1>
+          {month}. {day}
+        </h1>
         <p>{dayOfWeek}</p>
         <div css={s.statusStyle} aria-hidden="true">
           진행예정
@@ -32,7 +36,7 @@ const ScheduleBlock = ({
         <div css={s.contentStyle}>
           <div css={{ display: "flex", justifyContent: "start" }}>
             <div css={s.titleStyle}>
-              <h2>{title}</h2>
+              <h2>{schedule.title}</h2>
               <ArrowRightIcon width={6} height={12} />
             </div>
           </div>
@@ -40,19 +44,21 @@ const ScheduleBlock = ({
           <div css={[s.infoStyle, { paddingBottom: "0.8rem" }]}>
             <FlagSquareIcon width={26} height={26} aria-hidden="true" />
             <div css={s.textStyle}>
-              <p>{location}</p>
+              <p>{schedule.address.location}</p>
               <div css={s.circleStyle} />
-              <p>{locationDetail}</p>
+              <p>{schedule.address.details}</p>
             </div>
           </div>
 
           <div css={[s.infoStyle, { paddingBottom: "2.5rem" }]}>
             <FlagSquareIcon width={26} height={26} aria-hidden="true" />
             <div css={s.textStyle}>
-              <p>{date}</p>
+              <p>
+                {year}. {month}. {day} {dayOfWeek}
+              </p>
               <div css={s.circleStyle} />
               <p>
-                {startTime} ~ {endTime}
+                {meridiem} {formattedHour} : {minute} ~ {endMeridiem} {formattedEndHour} : {endMinute}
               </p>
             </div>
           </div>
