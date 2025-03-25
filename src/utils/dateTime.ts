@@ -79,8 +79,8 @@ export const requestFormatTime = (
   };
 
   return {
-    startDate: [year, month - 1, day, ...parseTime(dateTime.start), 0, 0],
-    endDate: [year, month - 1, day, ...parseTime(dateTime.end), 0, 0],
+    startDate: [year, month, day, ...parseTime(dateTime.start), 0, 0],
+    endDate: [year, month, day, ...parseTime(dateTime.end), 0, 0],
   };
 };
 
