@@ -33,5 +33,4 @@ dist-ssr
 
 .env
 
-tsconfig.node.tsbuildinfo
-vite.config.js
+
