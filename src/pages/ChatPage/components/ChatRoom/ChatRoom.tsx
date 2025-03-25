@@ -5,6 +5,7 @@ import TimeChip from "@/components/TimeChip/TimeChip";
 
 import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
+import { useFetchChatMembers } from "@/pages/ChatPage/hooks/useChatMembers";
 import { useChatScroll } from "@/pages/ChatPage/hooks/useChatScroll";
 import { useFetchChatLogs } from "@/pages/ChatPage/hooks/useFetchChatLogs";
 import { useChatStompClient } from "@/pages/ChatPage/hooks/useGroupChatStompClient";
@@ -39,6 +40,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
   useChatScroll(scrollRef, logs);
 
   const { data } = useFetchChatLogs(serverId, type, selectedRoomId);
+  const { data: members } = useFetchChatMembers(serverId, type, selectedRoomId);
 
   const handleSendMessage = () => {
     if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
@@ -54,6 +56,18 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
     }
   }, [data]);
 
+  const handleHamburgerClick = () => {
+    if (!members?.result.userList) {
+      return;
+    }
+
+    const formattedMembers = members.result.userList.map((member) => ({
+      ...member,
+      user: member,
+    }));
+    openMenuBar(formattedMembers);
+  };
+
   return (
     <section css={s.wrapperStyle(isOpen)}>
       <header css={s.headerLayoutStyle}>
@@ -61,7 +75,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
           <RotateLogoIcon width={25} height={22} />
           <h1 css={s.titleStyle}>{title}</h1>
         </div>
-        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={() => openMenuBar([])} />
+        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={handleHamburgerClick} />
       </header>
       <div css={s.scrollStyle} ref={scrollRef}>
         {reversedChatLogs.map((chat, index) => {

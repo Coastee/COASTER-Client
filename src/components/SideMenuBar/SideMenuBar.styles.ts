@@ -1,6 +1,8 @@
 import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
+import profileMenuBg from "@/assets/img/menuWrapperImg.png";
+
 export const layoutStyle = css`
   display: flex;
   flex-direction: column;
@@ -91,10 +93,11 @@ export const listStyle = css`
 
 export const itemWrapperStyle = css`
   display: flex;
+  position: relative;
 
   flex-direction: column;
 
-  padding: 0 0.7rem;
+  padding: 0 0.3rem;
 
   background-color: #404A58;
 `;
@@ -116,10 +119,23 @@ export const itemStyle = css`
 
   & > p {
     ${theme.font.body2};
+    font-weight: 400;
+
+    color: ${theme.color.white};
   }
 
   &:hover {
     background-color: ${theme.color.dark3};
+
+    transition: all 0.2s ease-in-out;
+
+    & > p {
+      font-weight: 700;
+    }
+  }
+
+  &:active {
+    background-color: ${theme.color.dark4};
 
     transition: all 0.1s ease-in-out;
   }
@@ -142,4 +158,21 @@ export const exitRoomWrapperStyle = css`
     ${theme.font.body3};
     font-weight: 400;
   }
+`;
+
+export const profileMenuWrapperStyle = css`
+  position: absolute;
+
+  right: 5%;
+  top: 80%;
+
+  width: 21.8rem;
+  height: 22.5rem;
+
+  background-image: url(${profileMenuBg});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 21.8rem 19.4rem;
+
+  border-radius: 1rem;
 `;

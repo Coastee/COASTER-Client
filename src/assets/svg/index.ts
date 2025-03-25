@@ -50,6 +50,7 @@ export { default as Logo3Icon } from "./Logo3Icon";
 export { default as Logo4Icon } from "./Logo4Icon";
 export { default as Logo4WhiteIcon } from "./Logo4WhiteIcon";
 export { default as ManufacturingServerIcon } from "./ManufacturingServerIcon";
+export { default as MenuWrapperIcon } from "./MenuWrapperIcon";
 export { default as MiddlePointIcon } from "./MiddlePointIcon";
 export { default as MobilityServerIcon } from "./MobilityServerIcon";
 export { default as NaverIcon } from "./NaverIcon";

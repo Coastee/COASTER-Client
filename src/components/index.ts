@@ -11,6 +11,7 @@ export { default as HashtagInput } from "./HashtagInput/HashtagInput";
 export { default as Input } from "./Input/Input";
 export { default as MenuHeader } from "./MenuHeader/MenuHeader";
 export { default as NoDataContainer } from "./NoDataContainer/NoDataContainer";
+export { default as ProfileMenu } from "./ProfileMenu/ProfileMenu";
 export { default as SearchLayout } from "./SearchLayout/SearchLayout";
 export { default as ServerHeader } from "./ServerHeader/ServerHeader";
 export { default as SideModal } from "./SideModal/SideModal";
