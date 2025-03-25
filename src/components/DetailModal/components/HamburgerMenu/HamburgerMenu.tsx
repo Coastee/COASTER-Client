@@ -1,4 +1,4 @@
-import { LeaveIcon } from "@/assets/svg";
+import { EnterRoomIcon } from "@/assets/svg";
 import { useEnterChatRoom } from "@/components/DetailModal/hooks/useEnterChatRoom";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,7 @@ export const HamburgerMenu = ({
 
   return (
     <>
-      <LeaveIcon width={33} height={23} onClick={handleIconClick} />
+      <EnterRoomIcon width={33} height={23} onClick={handleIconClick} />
       {/* {isVisible && (
         <div css={s.hamburgerLayoutStyle}>
           <div css={s.extendedMenuStyle}>
