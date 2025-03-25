@@ -105,6 +105,7 @@ export const useAddCoffeeChat = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["searchResult", globalServer?.id, "meetings"] });
+      queryClient.invalidateQueries({ queryKey: ["schedule"] });
       setIsVisible(false);
     },
     onError: (error) => {

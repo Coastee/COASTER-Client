@@ -11,6 +11,9 @@ export const useExitChatRoom = () => {
     onSuccess: (_, { serverId, chatRoomType }) => {
       const identifier = chatRoomType === "groups" ? "fetchSideGroupChatList" : "fetchSideCoffeeChatList";
       queryClient.invalidateQueries({ queryKey: [identifier, serverId].filter(Boolean) });
+      if (chatRoomType === "meetings") {
+        queryClient.invalidateQueries({ queryKey: ["schedule"] });
+      }
     },
     onError: (error) => {
       console.error("채팅방 나가기 실패:", error);
