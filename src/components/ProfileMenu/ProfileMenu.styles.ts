@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import profileMenuBg from "@/assets/images/profile-menu-bg.png";
+import profileMenuBg from "@/assets/img/menuWrapperImg.png";
 import { theme } from "@/styles/theme/theme";
 
 export const wrapperStyle = css`
