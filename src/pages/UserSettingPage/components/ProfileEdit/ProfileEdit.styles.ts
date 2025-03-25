@@ -174,12 +174,15 @@ export const labelStyle = css`
 
 export const plusBtnStyle = css`
   display: flex;
-  /* padding: 1rem; */
+  padding: 1rem;
 
   align-items: center;
   justify-content: center;
-  /* border: 1px dashed ${theme.color.dark2}; */
+  border: 1px dashed ${theme.color.dark2};
   border-radius: 0.7rem;
+
+  width: 3.3rem;
+  height: 3.3rem;
 `;
 
 export const textStyle = css`

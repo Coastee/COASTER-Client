@@ -1,5 +1,4 @@
 import {
-  EtcLinkIcon,
   FacebookIcon,
   GithubIcon,
   InstaIcon,
@@ -24,7 +23,6 @@ interface LinkModalProps {
   onAddLink: (url: string) => void;
 }
 
-// 도메인별 아이콘 매핑
 const domainIcons: Record<string, JSX.Element> = {
   "linkedin.com": <LinkedInIcon width={33} height={33} />,
   "github.com": <GithubIcon width={33} height={33} />,
@@ -39,28 +37,20 @@ const domainIcons: Record<string, JSX.Element> = {
 
 const getDomainIcon = (url: string) => {
   const matchedDomain = Object.keys(domainIcons).find((domain) => url.includes(domain));
-  return matchedDomain ? domainIcons[matchedDomain] : <EtcLinkIcon width={33} height={33} />;
+  return matchedDomain ? domainIcons[matchedDomain] : <PlusIcon width={33} height={33} />;
 };
 
 const LinkModal = ({ onAddLink }: LinkModalProps) => {
+  const [url, setUrl] = useState("");
+
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
   const modalType = useModalType();
 
-  const [url, setUrl] = useState("");
-
-  // URL이 유효한지 확인하는 함수
-  const isValidUrl = (urlString: string) => {
-    return !!new URL(urlString);
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setUrl("");
-    }
-  }, [isOpen]);
-
   const title = modalType === "link" ? TITLE.LINK : TITLE.LINKEDIN;
+
+  const icon = getDomainIcon(url);
+  const isPlusIcon = icon.type === PlusIcon;
 
   if (!isOpen) return null;
 
@@ -70,25 +60,29 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
   };
 
   const handleAddLink = () => {
-    if (!url.trim() || !isValidUrl(url)) {
-      alert("올바른 URL을 입력해주세요.");
+    const isValidUrl = !!new URL(url);
+
+    if (!url.trim() || !isValidUrl) {
       return;
     }
+
     onAddLink(url);
     setUrl("");
     closeModal();
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      setUrl("");
+    }
+  }, [isOpen]);
 
   return (
     <div css={s.backgroundStyle}>
       <div css={s.modalStyle}>
         <h1 css={s.titleStyle}>{title}</h1>
         <div css={s.linkInputLayoutStyle}>
-          {modalType === "link" && (
-            <div css={[plusBtnStyle, { width: "3.3rem", height: "3.3rem" }]}>
-              <PlusIcon width={33} height={33} />
-            </div>
-          )}
+          {modalType === "link" && <div css={isPlusIcon ? plusBtnStyle : s.otherIconStyle}>{icon}</div>}
           {modalType === "certification" && <LinkedInIcon width={33} height={33} />}
           <div css={s.inputWrapperStyle}>
             <input
