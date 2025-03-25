@@ -16,7 +16,7 @@ const CareerBoxChip = ({ id, ...career }: CareerBoxProps) => {
   const navigate = useNavigate();
 
   const startDate = career.startDate.slice(0, 3).join("-");
-  const endDate = career.endDate.slice(0, 3).join("-");
+  const endDate = career.endDate !== null ? career.endDate.slice(0, 3).join("-") : "";
   const period = `${startDate} ~ ${endDate}`;
 
   return (

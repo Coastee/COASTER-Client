@@ -28,7 +28,7 @@ const CareerAdd = () => {
     handleDateInput,
   } = useEditCareerForm();
   const { isContentError, isTitleError } = useCareerValidation(careerData);
-  const isDisabled = !careerData.title || careerData.startDate.length === 0;
+  const isDisabled = !careerData.title || careerData.startDate.length === 0 || careerData.contentList.length === 0;
 
   const { mutate: createCareer } = usePostExperience();
 
