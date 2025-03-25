@@ -15,3 +15,22 @@ export const btnLayoutStyle = css`
   gap: 2rem;
   margin-top: auto;
 `;
+
+export const inputWrapperStyle = css`
+  display: flex;
+
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const iconStyle = css`
+  display: flex;
+
+  width: 3.3rem;
+  height: 3.3rem;
+
+
+
+  align-items: center;
+  justify-content: center;
+`;
