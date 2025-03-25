@@ -4,9 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 export const useFetchSchedule = () => {
   return useQuery({
     queryKey: ["schedule"],
-    queryFn: async () => {
-      return fetchSchedule();
-    },
-    retry: false,
+    queryFn: fetchSchedule,
   });
 };
