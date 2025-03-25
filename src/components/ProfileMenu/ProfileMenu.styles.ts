@@ -1,18 +1,19 @@
 import { css } from "@emotion/react";
 
-import profileMenuBg from "@/assets/img/menuWrapperImg.png";
 import { theme } from "@/styles/theme/theme";
 
 export const wrapperStyle = css`
   display: flex;
 
-  flex-direction: column;
+  width: 21.8rem;
+  height: 22.5rem;
 
-  background-image: url(${profileMenuBg});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 21.8rem 22.5rem;
-  object-fit: cover;
+  padding: 2rem 1.3rem;
+
+  flex-direction: column;
+  gap: 1.1rem;
+
+  z-index: 1;
 `;
 
 export const layoutStyle = css`
@@ -32,11 +33,12 @@ export const nameStyle = css`
 export const infoStyle = css`
   display: flex;
 
-  ${theme.font.body3};
+  gap: 0.1rem;
 
+  ${theme.font.body3};
   font-weight: 700;
 
-  gap: 0.4rem;
+  color: ${theme.color.gray1};
 `;
 
 export const infoLayoutStyle = css`
@@ -44,7 +46,8 @@ export const infoLayoutStyle = css`
 
   flex-direction: column;
 
-  gap: 0.3rem;
+  gap: 0.4rem;
+
 `;
 
 export const verifyLayoutStyle = css`
@@ -52,4 +55,51 @@ export const verifyLayoutStyle = css`
 
   align-items: center;
   gap: 0.4rem;
+
+  color: #359AFF;
+  ${theme.font.body3};
+
+  font-weight: 700;
+`;
+
+export const buttonLayoutStyle = css`
+  display: flex;
+
+  flex-direction: column;
+
+  padding-top: 0.3rem;
+  gap: 0.8rem;
+
+  & > button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0.5rem;
+
+    padding: 0.6rem 6rem;
+
+    background-color: #404A58;
+    color: ${theme.color.white};
+
+    ${theme.font.body2};
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    &:last-of-type {
+      color: ${theme.color.primaryPink0}
+    }
+
+    &:hover {
+      background-color: ${theme.color.dark1};
+
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+
+
+
 `;

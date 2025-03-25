@@ -1,32 +1,34 @@
 import { CloseNavIcon, ExitRoomIcon, ProfileIcon } from "@/assets/svg";
 import { Divider } from "@/components";
+import ProfileMenu from "@/components/ProfileMenu/ProfileMenu";
 import * as s from "@/components/SideMenuBar/SideMenuBar.styles";
 import UserBox from "@/components/UserBox/UserBox";
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
+import { css } from "@emotion/react";
+import { type KeyboardEvent, type MouseEvent, useEffect, useState } from "react";
+
+import profileMenuBg from "@/assets/img/menuWrapperImg.png";
 
 const SideMenuBar = () => {
   const members = useMenuBarContent();
-
-  const MEMBER_LIST = [
-    {
-      name: "김철수",
-      image: "https://via.placeholder.com/150",
-      id: "1",
-    },
-    {
-      name: "이영희",
-      image: "https://via.placeholder.com/150",
-      id: "2",
-    },
-    {
-      name: "박영수",
-      image: "https://via.placeholder.com/150",
-      id: "3",
-    },
-  ];
-
+  const [selectedMember, setSelectedMember] = useState<{ id: number; rect: DOMRect } | null>(null);
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
+
+  const handleMemberInteraction = (
+    member: (typeof members)[0],
+    event: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>,
+  ) => {
+    const rect = (event.currentTarget as HTMLButtonElement).getBoundingClientRect();
+    setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id, rect }));
+  };
+
+  // 메뉴바가 닫힐 때 선택된 멤버 초기화
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedMember(null);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -44,13 +46,47 @@ const SideMenuBar = () => {
         </div>
         <div css={s.listWrapperStyle}>
           <ul css={s.listStyle}>
-            {MEMBER_LIST.map((member, index) => (
+            {members.map((member, index) => (
               <div key={member.id} css={s.itemWrapperStyle}>
-                <li css={s.itemStyle}>
-                  <UserBox name={member.name} size="small" variant="default" />
-                  <p>{member.name}</p>
-                </li>
-                {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285 " }} />}
+                <button
+                  type="button"
+                  css={s.itemStyle}
+                  onClick={(e) => handleMemberInteraction(member, e)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleMemberInteraction(member, e);
+                    }
+                  }}
+                >
+                  <UserBox name={member.user.nickname} size="small" variant="default" />
+                  <p>{member.user.nickname}</p>
+                </button>
+                {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
+                {selectedMember?.id === member.id && (
+                  <div
+                    css={css`
+                      position: fixed;
+                      left: ${selectedMember.rect.left + selectedMember.rect.width - 200}px;
+                      top: ${selectedMember.rect.top + 50}px;
+
+
+                      background-image: url(${profileMenuBg});
+                      background-position: center;
+                      background-repeat: no-repeat;
+                      background-size: 21.8rem 22.5rem;
+                      border-radius: 1rem;
+
+
+                    `}
+                  >
+                    <ProfileMenu
+                      name={member.user.nickname}
+                      expYears={member.user.userIntro.expYears}
+                      job={member.user.userIntro.job}
+                      linkedInVerify={member.user.linkedInVerify}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </ul>
