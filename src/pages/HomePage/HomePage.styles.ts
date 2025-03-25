@@ -23,6 +23,7 @@ export const leftLayoutStyle = (isSearching: boolean) => css`
 
   width: ${isSearching ? "" : "100%"};
   min-width: ${isSearching ? "76.8rem" : "50rem"};
+  z-index: 1;
 `;
 
 export const emptyBoxStyle = css`

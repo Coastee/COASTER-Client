@@ -34,11 +34,18 @@ const ChatPage = ({ type }: { type: "groups" | "meetings" }) => {
     <div css={{ width: "100%", display: "flex" }}>
       <ChatInfoList menu={menu} ownerList={ownerList} joinedList={joinedList} setSelectedRoom={setSelectedRoom} />
       {selectedRoom?.id ? (
-        <ChatRoom type={type} serverId={serverId} selectedRoomId={selectedRoom.id} title={selectedRoom.title} />
+        <>
+          <ChatRoom type={type} serverId={serverId} selectedRoomId={selectedRoom.id} title={selectedRoom.title} />
+          <SideMenuBar
+            serverId={serverId}
+            chatRoomType={type}
+            selectedItemId={selectedRoom.id}
+            setSelectedRoom={setSelectedRoom}
+          />
+        </>
       ) : (
         <ChatEmptyPanel />
       )}
-      <SideMenuBar />
     </div>
   );
 };

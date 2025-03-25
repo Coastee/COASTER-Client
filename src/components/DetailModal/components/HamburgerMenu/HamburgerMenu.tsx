@@ -1,7 +1,8 @@
-import { LeaveIcon } from "@/assets/svg";
+import { EnterRoomIcon } from "@/assets/svg";
 import { useEnterChatRoom } from "@/components/DetailModal/hooks/useEnterChatRoom";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
 import { useNavigate } from "react-router-dom";
+import * as s from "./HamburgerMenu.styles";
 
 interface HamburgerMenuProps extends SideModalProps {
   serverId: number;
@@ -30,7 +31,11 @@ export const HamburgerMenu = ({
 
   return (
     <>
-      <LeaveIcon width={33} height={23} onClick={handleIconClick} />
+      <div css={s.iconStyle}>
+        <EnterRoomIcon width={33} height={23} onClick={handleIconClick} />
+        <p>{chatRoomType === "meetings" ? "커피챗 신청" : "채팅방 입장"}</p>
+      </div>
+
       {/* {isVisible && (
         <div css={s.hamburgerLayoutStyle}>
           <div css={s.extendedMenuStyle}>

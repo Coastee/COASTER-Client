@@ -7,7 +7,7 @@ import * as s from "./CoffeeChatList.styles";
 
 interface CoffeeChatListProps {
   data: ChatRoomTypes[] | undefined;
-  handleItemClick: (type: string, id: string) => void;
+  handleItemClick: (id: number, type: string) => void;
 }
 
 const CoffeeChatList = ({ data, handleItemClick }: CoffeeChatListProps) => {
@@ -27,9 +27,9 @@ const CoffeeChatList = ({ data, handleItemClick }: CoffeeChatListProps) => {
         items.map((chat, idx) => (
           <li
             key={chat.id}
-            onClick={() => handleItemClick("meetingChatRoom", chat.id.toString())}
+            onClick={() => handleItemClick(chat.id, "meetingChatRoom")}
             onKeyDown={(e) => {
-              e.key === "Enter" && handleItemClick("meetingChatRoom", chat.id.toString());
+              e.key === "Enter" && handleItemClick(chat.id, "meetingChatRoom");
             }}
           >
             <article css={s.listItemStyle({ itemCount, idx })}>

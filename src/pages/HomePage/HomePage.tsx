@@ -27,8 +27,8 @@ const HomePage = () => {
 
   if (!homeGroupRooms && !homeMeetingRooms) return <div>데이터 없음</div>;
 
-  const handleItemClick = (type: string, id: string) => {
-    setSelectedItem({ type: type, id: id });
+  const handleItemClick = (id: number, type: string) => {
+    setSelectedItem({ id: id, type: type });
   };
 
   return (
@@ -38,6 +38,7 @@ const HomePage = () => {
           data={selectedChat}
           serverId={serverId}
           selectedItemId={Number(selectedItem.id)}
+          isCoffeeChat={selectedItem.type === "meetingChatRoom"}
           setIsVisible={() => setSelectedItem({ type: null, id: null })}
         />
       )}

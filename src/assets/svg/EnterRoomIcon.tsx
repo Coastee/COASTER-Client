@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgExitRoomIcon = (props: SVGProps<SVGSVGElement>) => (
+const SvgEnterRoomIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -15,8 +15,8 @@ const SvgExitRoomIcon = (props: SVGProps<SVGSVGElement>) => (
     />
     <path
       fill="#fff"
-      d="M15.936 13.647a.9.9 0 1 1 0 1.8zM1.13 15.183a.9.9 0 0 1 0-1.272l5.728-5.728A.9.9 0 0 1 8.13 9.456l-5.09 5.09 5.09 5.092a.9.9 0 0 1-1.272 1.273zm14.806.264H1.766v-1.8h14.17z"
+      d="M1.767 13.647a.9.9 0 1 0 0 1.8zm14.806 1.536a.9.9 0 0 0 0-1.272l-5.728-5.728a.9.9 0 0 0-1.273 1.273l5.091 5.09-5.09 5.092a.9.9 0 0 0 1.272 1.273zm-14.806.264h14.17v-1.8H1.766z"
     />
   </svg>
 );
-export default SvgExitRoomIcon;
+export default SvgEnterRoomIcon;
