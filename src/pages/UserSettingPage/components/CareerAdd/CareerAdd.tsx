@@ -27,8 +27,8 @@ const CareerAdd = () => {
     handleCheckBoxChange,
     handleDateInput,
   } = useEditCareerForm();
-
   const { isContentError, isTitleError } = useCareerValidation(careerData);
+  const isDisabled = !careerData.title || careerData.startDate.length === 0;
 
   const { mutate: createCareer } = usePostExperience();
 
@@ -143,7 +143,7 @@ const CareerAdd = () => {
         <Button size="medium" variant="tertiary" onClick={() => navigate(PATH.CAREER_SETTING)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={handleSubmit}>
+        <Button size="medium" onClick={handleSubmit} disabled={isDisabled}>
           추가 하기
         </Button>
       </div>
