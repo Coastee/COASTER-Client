@@ -2,8 +2,18 @@ import { VerifyIcon } from "@/assets/svg";
 import UserBox from "@/components/UserBox/UserBox";
 
 import * as s from "@/components/ProfileMenu/ProfileMenu.styles";
+import { PATH } from "@/constants/path";
+import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = ({ ...info }) => {
+  const navigate = useNavigate();
+
+  console.log(info);
+
+  const handleNavigate = () => {
+    navigate(`${PATH.MYPAGE}/${info.id}`);
+  };
+
   return (
     <article css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
@@ -17,15 +27,17 @@ const ProfileMenu = ({ ...info }) => {
           </div>
         </div>
       </div>
-      {/* {info.linkedInVerify && ( */}
-      <div css={s.verifyLayoutStyle}>
-        <VerifyIcon width={20} height={20} />
-        LinkedIn 인증
-      </div>
-      {/* )} */}
+      {info.linkedInVerify && (
+        <div css={s.verifyLayoutStyle}>
+          <VerifyIcon width={20} height={20} />
+          LinkedIn 인증
+        </div>
+      )}
       <div css={s.buttonLayoutStyle}>
         <button type="button">DM 보내기</button>
-        <button type="button">상세 프로필 보러가기</button>
+        <button type="button" onClick={handleNavigate}>
+          상세 프로필 보러가기
+        </button>
         <button type="button">강퇴하기</button>
       </div>
     </article>

@@ -11,6 +11,7 @@ export const wrapperStyle = css`
   padding: 2rem 1.3rem;
 
   flex-direction: column;
+  justify-content: space-between;
   gap: 1.1rem;
 
   z-index: 1;

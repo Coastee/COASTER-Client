@@ -62,6 +62,7 @@ const SideMenuBar = () => {
                 {selectedMember?.id === member.id && (
                   <div css={s.profileMenuWrapperStyle(selectedMember)}>
                     <ProfileMenu
+                      id={member.user.id}
                       name={member.user.nickname}
                       expYears={member.user.userIntro.expYears}
                       job={member.user.userIntro.job}
