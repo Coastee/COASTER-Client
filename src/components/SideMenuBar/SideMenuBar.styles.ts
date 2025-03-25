@@ -138,8 +138,6 @@ export const itemStyle = css`
     background-color: ${theme.color.dark4};
 
     transition: all 0.1s ease-in-out;
-
-
   }
 `;
 
@@ -168,10 +166,13 @@ export const profileMenuWrapperStyle = css`
   right: 5%;
   top: 80%;
 
+  width: 21.8rem;
+  height: 22.5rem;
+
   background-image: url(${profileMenuBg});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 21.8rem 22.5rem;
+  background-size: 21.8rem 19.4rem;
 
   border-radius: 1rem;
 `;

@@ -12,10 +12,11 @@ export const fetchChatMembers = async (
     const response: ChatMemberResponseTypes = await tokenInstance(
       `api/v1/servers/${serverId}/${type}/${roomId}/users`,
     ).json();
-    console.log(response);
+
     return response;
   } catch (error) {
     console.error("그룹챗 채팅 멤버 조회 실패:", error);
+
     throw error;
   }
 };

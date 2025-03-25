@@ -30,7 +30,6 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
     setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id }));
   };
 
-  // 메뉴바가 닫힐 때 선택된 멤버 초기화
   useEffect(() => {
     if (!isOpen) {
       setSelectedMember(null);
@@ -64,7 +63,7 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                 <button
                   type="button"
                   css={s.itemStyle}
-                  onClick={(e) => handleMemberInteraction(member)}
+                  onClick={() => handleMemberInteraction(member)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       handleMemberInteraction(member);

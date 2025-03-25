@@ -36,7 +36,6 @@ const ProfileMenu = ({ ...info }) => {
         <button type="button" onClick={handleNavigate}>
           상세 프로필 보러가기
         </button>
-        <button type="button">강퇴하기</button>
       </div>
     </article>
   );

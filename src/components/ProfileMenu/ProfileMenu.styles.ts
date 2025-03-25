@@ -5,10 +5,10 @@ import { theme } from "@/styles/theme/theme";
 export const wrapperStyle = css`
   display: flex;
 
-  width: 21.8rem;
-  height: 22.5rem;
+  width: 100%;
+  height: 100%;
 
-  padding: 2rem 1.3rem;
+  padding: 4rem 1.3rem 3rem 1.3rem;
 
   flex-direction: column;
   justify-content: space-between;
@@ -96,18 +96,10 @@ export const buttonLayoutStyle = css`
 
     white-space: nowrap;
 
-    &:last-of-type {
-      color: ${theme.color.primaryPink0}
-    }
-
     &:hover {
       background-color: ${theme.color.dark1};
 
       transition: all 0.2s ease-in-out;
     }
   }
-
-
-
-
 `;
