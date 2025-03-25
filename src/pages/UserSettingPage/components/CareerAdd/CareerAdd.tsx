@@ -48,15 +48,8 @@ const CareerAdd = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            {/* <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} /> */}
             <p css={{ marginRight: "1.3rem" }}>부터</p>
-            <Input
-              variant="secondary"
-              // value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
-              onChange={() => {}}
-              disabled={!careerData.endDate}
-            />
+            <Input variant="secondary" onChange={() => {}} disabled={!careerData.endDate} />
             <p>까지</p>
             <Divider direction="horizontal" />
             <div css={s.checkboxLayoutStyle}>

@@ -1,7 +1,7 @@
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import type { CareerContentTypes, CareerResponseTypes, ExperienceTypes } from "@/pages/UserSettingPage/types/career";
 import { formatDate, formatDateArrayToString } from "@/pages/UserSettingPage/utils/date";
-import { useCallback, useState } from "react";
+import { type ChangeEvent, useCallback, useState } from "react";
 
 export const useEditCareerForm = (data?: ExperienceTypes) => {
   const [careerData, setCareerData] = useState<CareerResponseTypes>({
@@ -59,7 +59,7 @@ export const useEditCareerForm = (data?: ExperienceTypes) => {
     }));
   };
 
-  const handleDateInput = useCallback((e: React.ChangeEvent<HTMLInputElement>, dateType: "startDate" | "endDate") => {
+  const handleDateInput = useCallback((e: ChangeEvent<HTMLInputElement>, dateType: "startDate" | "endDate") => {
     setCareerData((prev) => ({ ...prev, [dateType]: e.target.value }));
   }, []);
 
