@@ -1,34 +1,52 @@
 import { CloseNavIcon, ExitRoomIcon, ProfileIcon } from "@/assets/svg";
 import { Divider } from "@/components";
+import { useExitChatRoom } from "@/components/DetailModal/hooks/useExitChatRoom";
 import * as s from "@/components/SideMenuBar/SideMenuBar.styles";
 import UserBox from "@/components/UserBox/UserBox";
+import type { ChatRoomTypes } from "@/pages/ChatPage/types";
+
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
 
-const SideMenuBar = () => {
-  const members = useMenuBarContent();
+interface SideMenuBarProps {
+  serverId: number;
+  chatRoomType: string;
+  selectedItemId: number;
+  setSelectedRoom: (room: ChatRoomTypes | null) => void;
+}
 
-  const MEMBER_LIST = [
-    {
-      name: "김철수",
-      image: "https://via.placeholder.com/150",
-      id: "1",
-    },
-    {
-      name: "이영희",
-      image: "https://via.placeholder.com/150",
-      id: "2",
-    },
-    {
-      name: "박영수",
-      image: "https://via.placeholder.com/150",
-      id: "3",
-    },
-  ];
+const MEMBER_LIST = [
+  {
+    name: "김철수",
+    image: "https://via.placeholder.com/150",
+    id: "1",
+  },
+  {
+    name: "이영희",
+    image: "https://via.placeholder.com/150",
+    id: "2",
+  },
+  {
+    name: "박영수",
+    image: "https://via.placeholder.com/150",
+    id: "3",
+  },
+];
+
+const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }: SideMenuBarProps) => {
+  const { mutate: exitChatRoom } = useExitChatRoom();
+
+  const members = useMenuBarContent();
 
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
 
   if (!isOpen) return null;
+
+  const handleExitClick = () => {
+    exitChatRoom({ serverId, chatRoomType, groupId: selectedItemId });
+    setSelectedRoom(null);
+    closeMenuBar();
+  };
 
   return (
     <nav css={s.layoutStyle}>
@@ -55,7 +73,7 @@ const SideMenuBar = () => {
             ))}
           </ul>
         </div>
-        <div css={s.exitRoomWrapperStyle}>
+        <div css={s.exitRoomWrapperStyle} onClick={handleExitClick} onKeyDown={handleExitClick}>
           <ExitRoomIcon width={27} height={26} />
           <p>나가기</p>
         </div>
