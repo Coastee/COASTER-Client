@@ -51,11 +51,7 @@ const SearchLayout = <T extends QueryParamTypes | HomeQueryParamTypes>({
             );
           })
         ) : (
-          <li css={{ visibility: "hidden" }}>
-            <Button variant="hashtag" size="semiLarge">
-              Placeholder
-            </Button>
-          </li>
+          <div css={s.emptyHashtagBoxStyle} />
         )}
       </ul>
     </div>
