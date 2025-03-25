@@ -1,44 +1,15 @@
-import {
-  FacebookIcon,
-  GithubIcon,
-  InstaIcon,
-  LinkedInIcon,
-  MediumIcon,
-  NotionIcon,
-  PlusIcon,
-  TistoryIcon,
-  VelogIcon,
-  XIcon,
-} from "@/assets/svg";
-
+import { LinkedInIcon, PlusIcon } from "@/assets/svg";
 import * as s from "@/pages/UserSettingPage/components/LinkModal/LinkModal.style";
 import { plusBtnStyle } from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
 import { TITLE } from "@/pages/UserSettingPage/constants/modal";
 import { useCloseModal, useModalIsOpen, useModalType } from "@/stores/useModal";
+import { getDomainIcon } from "@/utils/icon";
 
-import type { JSX } from "@emotion/react/jsx-runtime";
 import { useEffect, useState } from "react";
 
 interface LinkModalProps {
   onAddLink: (url: string) => void;
 }
-
-const domainIcons: Record<string, JSX.Element> = {
-  "linkedin.com": <LinkedInIcon width={33} height={33} />,
-  "github.com": <GithubIcon width={33} height={33} />,
-  "x.com": <XIcon width={33} height={33} />,
-  "velog.io": <VelogIcon width={33} height={33} />,
-  "tistory.com": <TistoryIcon width={33} height={33} />,
-  "medium.com": <MediumIcon width={33} height={33} />,
-  "notion.so": <NotionIcon width={33} height={33} />,
-  "instagram.com": <InstaIcon width={33} height={33} />,
-  "facebook.com": <FacebookIcon width={33} height={33} />,
-};
-
-const getDomainIcon = (url: string) => {
-  const matchedDomain = Object.keys(domainIcons).find((domain) => url.includes(domain));
-  return matchedDomain ? domainIcons[matchedDomain] : <PlusIcon width={33} height={33} />;
-};
 
 const LinkModal = ({ onAddLink }: LinkModalProps) => {
   const [url, setUrl] = useState("");
