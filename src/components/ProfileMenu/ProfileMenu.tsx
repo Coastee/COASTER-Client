@@ -25,12 +25,12 @@ const ProfileMenu = ({ ...info }) => {
           </div>
         </div>
       </div>
-      {/* {info.linkedInVerify && ( */}
-      <div css={s.verifyLayoutStyle}>
-        <VerifyIcon width={20} height={20} />
-        LinkedIn 인증
-      </div>
-      {/* )} */}
+      {info.linkedInVerify && (
+        <div css={s.verifyLayoutStyle}>
+          <VerifyIcon width={20} height={20} />
+          LinkedIn 인증
+        </div>
+      )}
       <div css={s.buttonLayoutStyle}>
         <button type="button">DM 보내기</button>
         <button type="button" onClick={handleNavigate}>

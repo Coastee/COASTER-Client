@@ -93,6 +93,7 @@ export const listStyle = css`
 
 export const itemWrapperStyle = css`
   display: flex;
+  position: relative;
 
   flex-direction: column;
 
@@ -161,11 +162,11 @@ export const exitRoomWrapperStyle = css`
   }
 `;
 
-export const profileMenuWrapperStyle = (selectedMember: { rect: { left: number; width: number; top: number } }) => css`
-  position: fixed;
+export const profileMenuWrapperStyle = css`
+  position: absolute;
 
-  left: ${selectedMember.rect.left + selectedMember.rect.width - 200}px;
-  top: ${selectedMember.rect.top + 50}px;
+  right: 5%;
+  top: 80%;
 
   background-image: url(${profileMenuBg});
   background-position: center;

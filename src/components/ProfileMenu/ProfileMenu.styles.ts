@@ -41,12 +41,12 @@ export const infoStyle = css`
 
   & > h2 {
     ${theme.font.body3};
-    font-weight: 700;
+    font-weight: 500;
   }
 
   & > p {
     ${theme.font.body3};
-    font-weight: 700;
+    font-weight: 500;
   }
 `;
 
@@ -56,7 +56,6 @@ export const infoLayoutStyle = css`
   flex-direction: column;
 
   gap: 0.4rem;
-
 `;
 
 export const verifyLayoutStyle = css`

@@ -8,7 +8,7 @@ import UserBox from "@/components/UserBox/UserBox";
 import type { ChatRoomTypes } from "@/pages/ChatPage/types";
 
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
-import { type KeyboardEvent, type MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SideMenuBarProps {
   serverId: number;
@@ -18,20 +18,16 @@ interface SideMenuBarProps {
 }
 
 const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }: SideMenuBarProps) => {
-  const [selectedMember, setSelectedMember] = useState<{ id: number; rect: DOMRect } | null>(null);
-  
+  const [selectedMember, setSelectedMember] = useState<{ id: number } | null>(null);
+
   const { mutate: exitChatRoom } = useExitChatRoom();
   const members = useMenuBarContent();
 
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
 
-  const handleMemberInteraction = (
-    member: (typeof members)[0],
-    event: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>,
-  ) => {
-    const rect = (event.currentTarget as HTMLButtonElement).getBoundingClientRect();
-    setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id, rect }));
+  const handleMemberInteraction = (member: (typeof members)[0]) => {
+    setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id }));
   };
 
   // 메뉴바가 닫힐 때 선택된 멤버 초기화
@@ -68,10 +64,10 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                 <button
                   type="button"
                   css={s.itemStyle}
-                  onClick={(e) => handleMemberInteraction(member, e)}
+                  onClick={(e) => handleMemberInteraction(member)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
-                      handleMemberInteraction(member, e);
+                      handleMemberInteraction(member);
                     }
                   }}
                 >
@@ -80,7 +76,7 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                 </button>
                 {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
                 {selectedMember?.id === member.id && (
-                  <div css={s.profileMenuWrapperStyle(selectedMember)}>
+                  <div css={s.profileMenuWrapperStyle}>
                     <ProfileMenu
                       id={member.user.id}
                       name={member.user.nickname}
