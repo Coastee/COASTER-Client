@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 const ProfileMenu = ({ ...info }) => {
   const navigate = useNavigate();
 
-  console.log(info);
-
   const handleNavigate = () => {
     navigate(`${PATH.MYPAGE}/${info.id}`);
   };
