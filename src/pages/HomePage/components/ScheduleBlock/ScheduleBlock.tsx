@@ -24,7 +24,7 @@ const ScheduleBlock = (schedule: ScheduleTypes) => {
         </h1>
         <p>{dayOfWeek}</p>
         <div css={s.statusStyle} aria-hidden="true">
-          진행예정
+          진행 예정
         </div>
       </header>
       <div css={s.bodyStyle}>
@@ -43,16 +43,16 @@ const ScheduleBlock = (schedule: ScheduleTypes) => {
 
           <div css={[s.infoStyle, { paddingBottom: "0.8rem" }]}>
             <FlagSquareIcon width={26} height={26} aria-hidden="true" />
-            <div css={s.textStyle}>
+            <div css={s.textStyle(!!schedule.address.details)}>
               <p>{schedule.address.location}</p>
-              <div css={s.circleStyle} />
+              {schedule.address.details && <div css={s.circleStyle} />}
               <p>{schedule.address.details}</p>
             </div>
           </div>
 
           <div css={[s.infoStyle, { paddingBottom: "2.5rem" }]}>
             <FlagSquareIcon width={26} height={26} aria-hidden="true" />
-            <div css={s.textStyle}>
+            <div css={s.textStyle(true)}>
               <p>
                 {year}. {month}. {day} ({dayOfWeek})
               </p>
