@@ -1,14 +1,28 @@
 import { CloseNavIcon, ExitRoomIcon, ProfileIcon } from "@/assets/svg";
 import { Divider } from "@/components";
 import ProfileMenu from "@/components/ProfileMenu/ProfileMenu";
+
+import { useExitChatRoom } from "@/components/DetailModal/hooks/useExitChatRoom";
 import * as s from "@/components/SideMenuBar/SideMenuBar.styles";
 import UserBox from "@/components/UserBox/UserBox";
+import type { ChatRoomTypes } from "@/pages/ChatPage/types";
+
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
 import { type KeyboardEvent, type MouseEvent, useEffect, useState } from "react";
 
-const SideMenuBar = () => {
-  const members = useMenuBarContent();
+interface SideMenuBarProps {
+  serverId: number;
+  chatRoomType: string;
+  selectedItemId: number;
+  setSelectedRoom: (room: ChatRoomTypes | null) => void;
+}
+
+const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }: SideMenuBarProps) => {
   const [selectedMember, setSelectedMember] = useState<{ id: number; rect: DOMRect } | null>(null);
+  
+  const { mutate: exitChatRoom } = useExitChatRoom();
+  const members = useMenuBarContent();
+
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
 
@@ -28,6 +42,12 @@ const SideMenuBar = () => {
   }, [isOpen]);
 
   if (!isOpen) return null;
+
+  const handleExitClick = () => {
+    exitChatRoom({ serverId, chatRoomType, groupId: selectedItemId });
+    setSelectedRoom(null);
+    closeMenuBar();
+  };
 
   return (
     <nav css={s.layoutStyle}>
@@ -74,7 +94,7 @@ const SideMenuBar = () => {
             ))}
           </ul>
         </div>
-        <div css={s.exitRoomWrapperStyle}>
+        <div css={s.exitRoomWrapperStyle} onClick={handleExitClick} onKeyDown={handleExitClick}>
           <ExitRoomIcon width={27} height={26} />
           <p>나가기</p>
         </div>

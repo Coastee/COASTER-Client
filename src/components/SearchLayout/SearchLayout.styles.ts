@@ -18,3 +18,9 @@ export const hashTagListStyle = css`
 
   max-height: 3.1rem;
 `;
+
+export const emptyHashtagBoxStyle = css`
+  visibility: hidden;
+  
+  height: 3.1rem;
+`;

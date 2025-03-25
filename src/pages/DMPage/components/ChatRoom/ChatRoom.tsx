@@ -1,4 +1,4 @@
-import { ExitIcon, SendIcon } from "@/assets/svg";
+import { CloseIcon, SendIcon } from "@/assets/svg";
 import { Divider, Input, UserBox } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 
@@ -87,7 +87,7 @@ const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
             </div>
           </div>
         </div>
-        <ExitIcon
+        <CloseIcon
           width={23}
           height={23}
           css={s.iconStyle}

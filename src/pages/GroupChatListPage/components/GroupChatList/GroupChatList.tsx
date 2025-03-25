@@ -7,7 +7,7 @@ import * as s from "./GroupChatList.styles";
 
 type GroupChatListProps = {
   data: ChatRoomTypes[] | undefined;
-  handleItemClick: (type: string, id: string) => void;
+  handleItemClick: (id: number, type: string) => void;
 };
 
 const GroupChatList = ({ data, handleItemClick }: GroupChatListProps) => {
@@ -23,9 +23,9 @@ const GroupChatList = ({ data, handleItemClick }: GroupChatListProps) => {
           {items.map((chat, idx) => (
             <li
               key={chat.id}
-              onClick={() => handleItemClick("groupChatRoom", chat.id.toString())}
+              onClick={() => handleItemClick(chat.id, "groupChatRoom")}
               onKeyDown={(e) => {
-                e.key === "Enter" && handleItemClick("groupChatRoom", chat.id.toString());
+                e.key === "Enter" && handleItemClick(chat.id, "groupChatRoom");
               }}
             >
               <article css={s.listItemStyle}>

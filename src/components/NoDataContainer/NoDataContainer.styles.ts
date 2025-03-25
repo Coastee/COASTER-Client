@@ -16,7 +16,7 @@ export const sectionStyle = (image: string) => css`
 
   row-gap: 3.4rem;
 
-  border-radius: 2.5rem;
+  border-radius: 1rem;
 
   background-color: ${theme.color.dark3};
   background-image: url(${image});
