@@ -4,10 +4,7 @@ import ProfileMenu from "@/components/ProfileMenu/ProfileMenu";
 import * as s from "@/components/SideMenuBar/SideMenuBar.styles";
 import UserBox from "@/components/UserBox/UserBox";
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
-import { css } from "@emotion/react";
 import { type KeyboardEvent, type MouseEvent, useEffect, useState } from "react";
-
-import profileMenuBg from "@/assets/img/menuWrapperImg.png";
 
 const SideMenuBar = () => {
   const members = useMenuBarContent();
@@ -63,22 +60,7 @@ const SideMenuBar = () => {
                 </button>
                 {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
                 {selectedMember?.id === member.id && (
-                  <div
-                    css={css`
-                      position: fixed;
-                      left: ${selectedMember.rect.left + selectedMember.rect.width - 200}px;
-                      top: ${selectedMember.rect.top + 50}px;
-
-
-                      background-image: url(${profileMenuBg});
-                      background-position: center;
-                      background-repeat: no-repeat;
-                      background-size: 21.8rem 22.5rem;
-                      border-radius: 1rem;
-
-
-                    `}
-                  >
+                  <div css={s.profileMenuWrapperStyle(selectedMember)}>
                     <ProfileMenu
                       name={member.user.nickname}
                       expYears={member.user.userIntro.expYears}

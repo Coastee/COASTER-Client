@@ -1,8 +1,6 @@
 import { RotateLogoIcon, StarIcon } from "@/assets/svg";
 import { Divider } from "@/components";
 
-import { useMenuBarAction } from "@/stores/useMenuBarStore";
-
 import * as s from "@/pages/ChatPage/components/ChatListItem/ChatListItem.styles";
 
 import { theme } from "@/styles/theme/theme";
@@ -16,7 +14,6 @@ interface ChatListItemProps {
 
 const ChatListItem = ({ name, index, length }: ChatListItemProps) => {
   const [isMarked, setIsMarked] = useState(false);
-  const { openMenuBar } = useMenuBarAction();
 
   const toggle = () => {
     setIsMarked((prev) => !prev);
