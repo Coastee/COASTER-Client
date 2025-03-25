@@ -1,15 +1,13 @@
-import { ArrowDownIcon, RotateLogoIcon } from "@/assets/svg";
-import { Button, Dropdown, SideModal } from "@/components";
+import { RotateLogoIcon } from "@/assets/svg";
+import { SideModal } from "@/components";
 import type { SideModalProps } from "@/components/SideModal/types/sideModalTypes";
-import { SCHEDULE_FILTERING_OPTIONS } from "@/constants/dropdown";
 import ScheduleBlock from "@/pages/HomePage/components/ScheduleBlock/ScheduleBlock";
 import { useFetchSchedule } from "@/pages/HomePage/hooks/useFetchSchedule";
-import { useState } from "react";
 import * as s from "./ScheduleSideModal.styles";
 
 const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [filteringOption, setFilteringOption] = useState(SCHEDULE_FILTERING_OPTIONS[0]);
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const [filteringOption, setFilteringOption] = useState(SCHEDULE_FILTERING_OPTIONS[0]);
 
   const { data } = useFetchSchedule();
   const schedule = data?.result.scheduleList;
