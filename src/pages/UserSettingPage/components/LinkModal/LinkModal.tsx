@@ -4,24 +4,31 @@ import { plusBtnStyle } from "@/pages/UserSettingPage/components/ProfileEdit/Pro
 import { TITLE } from "@/pages/UserSettingPage/constants/modal";
 import { useCloseModal, useModalIsOpen, useModalType } from "@/stores/useModal";
 import { getDomainIcon } from "@/utils/icon";
-
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 interface LinkModalProps {
   onAddLink: (url: string) => void;
 }
 
 const LinkModal = ({ onAddLink }: LinkModalProps) => {
-  const [url, setUrl] = useState("");
-
   const isOpen = useModalIsOpen();
   const closeModal = useCloseModal();
   const modalType = useModalType();
 
+  const [url, setUrl] = useState("");
+
   const title = modalType === "link" ? TITLE.LINK : TITLE.LINKEDIN;
 
   const icon = getDomainIcon(url);
-  const isPlusIcon = icon.type === PlusIcon;
+  const isPlusIcon = icon?.type === PlusIcon;
+
+  const isValidUrl = useCallback(() => {
+    try {
+      return !!new URL(url);
+    } catch {
+      return false;
+    }
+  }, [url]);
 
   if (!isOpen) return null;
 
@@ -31,22 +38,17 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
   };
 
   const handleAddLink = () => {
-    const isValidUrl = !!new URL(url);
-
-    if (!url.trim() || !isValidUrl) {
+    if (!url.trim() || !isValidUrl()) {
       return;
     }
 
-    onAddLink(url);
-    setUrl("");
-    closeModal();
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setUrl("");
+    if (modalType === "link") {
+      onAddLink(url);
+    } else {
+      // 링크드인 인증
     }
-  }, [isOpen]);
+    handleClose();
+  };
 
   return (
     <div css={s.backgroundStyle}>
@@ -69,7 +71,7 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
           <button type="button" onClick={handleClose} css={s.cancelBtnStyle}>
             취소
           </button>
-          <button type="button" onClick={handleAddLink} css={s.addBtnStyle} disabled={!url.trim()}>
+          <button type="button" onClick={handleAddLink} css={s.addBtnStyle} disabled={!url.trim() || !isValidUrl()}>
             추가하기
           </button>
         </div>
