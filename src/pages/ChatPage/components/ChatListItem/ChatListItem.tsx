@@ -1,4 +1,4 @@
-import { RotateLogoIcon, StarIcon } from "@/assets/svg";
+import { RotateLogoIcon } from "@/assets/svg";
 import { Divider } from "@/components";
 
 import * as s from "@/pages/ChatPage/components/ChatListItem/ChatListItem.styles";
@@ -26,7 +26,7 @@ const ChatListItem = ({ name, index, length }: ChatListItemProps) => {
           <RotateLogoIcon width={14} height={12} css={{ flexShrink: "0" }} />
           {name}
         </span>
-        <StarIcon width={18} height={18} onClick={toggle} css={{ flexShrink: "0", cursor: "pointer" }} />
+        {/* <StarIcon width={18} height={18} onClick={toggle} css={{ flexShrink: "0", cursor: "pointer" }} /> */}
       </div>
       {length > 1 && index < length - 1 && <Divider css={{ backgroundColor: theme.color.dark5 }} />}
     </>
