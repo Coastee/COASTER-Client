@@ -87,13 +87,7 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                 {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
                 {selectedMember?.id === member.id && (
                   <div css={s.profileMenuWrapperStyle} ref={profileMenuRef}>
-                    <ProfileMenu
-                      id={member.user.id}
-                      name={member.user.nickname}
-                      expYears={member.user.userIntro.expYears}
-                      job={member.user.userIntro.job}
-                      linkedInVerify={member.user.linkedInVerify}
-                    />
+                    <ProfileMenu {...member.user} />
                   </div>
                 )}
               </div>
