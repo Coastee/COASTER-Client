@@ -14,7 +14,7 @@ export const wrapperStyle = css`
   justify-content: space-between;
   gap: 1.1rem;
 
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const layoutStyle = css`
