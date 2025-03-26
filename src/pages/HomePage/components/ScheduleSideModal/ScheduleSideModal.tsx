@@ -21,6 +21,7 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
           <span>나의 커피챗 스케줄과 타임라인을 확인해보세요</span>
         </div>
       }
+      css={{ zIndex: "4" }}
       modalStyle={{ width: "100%", maxWidth: "93rem" }}
       isVisible={isVisible}
       setIsVisible={setIsVisible}
