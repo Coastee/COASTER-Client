@@ -9,8 +9,9 @@ import { useEffect, useState } from "react";
 
 const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
+  console.log(latestDmList);
 
-  const userId = 19; // 내 userId - 추후 전역상태로 관리
+  const myId = Number(localStorage.getItem("userId"));
 
   const handleItemClick = ({ roomId, userId }: { roomId: number; userId: number }) => {
     setRoomId(roomId);
@@ -22,7 +23,7 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
   }, [dmList]);
 
   useEffect(() => {
-    const client = createDMClient(userId, (msg) => {
+    const client = createDMClient(myId, (msg) => {
       setLatestDmList((list) => {
         const idx = list.findIndex((room) => room.id === msg.id);
 
@@ -56,7 +57,7 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
       <ul css={[s.listStyle]}>
         {latestDmList.map((item, index) => (
           <li
-            key={`${item.user.nickname}-${index}`}
+            key={`${item.id}-${index}`}
             onClick={() => handleItemClick({ roomId: item.id, userId: item.user.id })}
             onKeyDown={() => handleItemClick({ roomId: item.id, userId: item.user.id })}
           >

@@ -3,11 +3,9 @@ import UserBox from "@/components/UserBox/UserBox";
 
 import * as s from "@/components/ProfileMenu/ProfileMenu.styles";
 import { PATH } from "@/constants/path";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = ({ ...info }) => {
-  const [isDMSelected, setIsDMSelected] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -15,13 +13,16 @@ const ProfileMenu = ({ ...info }) => {
   };
 
   const handleDM = async () => {
-    setIsDMSelected(true);
-
-    if (info.dmRoomId === null) {
-      console.log("디엠방이 없습니다.");
-    } else {
-      console.log("디엠방이 있습니다.");
-    }
+    navigate(`${PATH.DM}`, {
+      state: {
+        userId: info.id,
+        dmRoomId: info.dmRoomId,
+        nickname: info.name,
+        profileImage: info.profileImage,
+        expYears: info.expYears,
+        job: info.job,
+      },
+    });
   };
   return (
     <article css={s.wrapperStyle}>

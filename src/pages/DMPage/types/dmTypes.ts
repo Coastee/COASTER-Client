@@ -61,8 +61,13 @@ export interface DMLogResponseTypes {
 
 export interface ChatRoomProps {
   dmList: DMRoomTypes[];
+  userId: number | null;
   roomId: number | null;
   setRoomId: (id: number | null) => void;
+  nickname?: string;
+  expYears?: number;
+  job?: string;
+  profileImage: string;
 }
 
 export interface DmListProps {

@@ -87,6 +87,7 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                       job={member.user.userIntro.job}
                       linkedInVerify={member.user.linkedInVerify}
                       dmRoomId={dmRoomId}
+                      profileImage={member.user.profileImage}
                     />
                   </div>
                 )}
