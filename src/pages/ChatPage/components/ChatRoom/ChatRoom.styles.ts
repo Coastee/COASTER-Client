@@ -4,9 +4,11 @@ import { css } from "@emotion/react";
 export const wrapperStyle = (isOpen: boolean) => css`
   display: flex;
 
+  max-width: calc(144rem - 33.5rem);
   width: 100%;
+  height: 100vh;
 
-  padding: ${isOpen ? "5.3rem 5.3rem 4.2rem 5rem" : "5.3rem 17rem 4.2rem 5rem"};
+  padding: ${isOpen ? "5.3rem 5rem 4.2rem" : "5.3rem 5rem 4.2rem"};
 
   flex-direction: column;
   justify-content: space-between;
@@ -59,10 +61,10 @@ export const scrollStyle = css`
 `;
 
 export const layoutStyle = (isUser: boolean) => css`
- display: flex;
+  display: flex;
 
- justify-content: ${isUser ? "flex-end" : "flex-start"};
- gap: 1.3rem;
+  justify-content: ${isUser ? "flex-end" : "flex-start"};
+  gap: 1.3rem;
 `;
 
 export const nameBoxStyle = (isUser: boolean) => css`
