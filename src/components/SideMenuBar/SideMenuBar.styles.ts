@@ -175,4 +175,6 @@ export const profileMenuWrapperStyle = css`
   background-size: 21.8rem 19.4rem;
 
   border-radius: 1rem;
+
+  z-index: 999;
 `;
