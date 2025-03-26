@@ -17,7 +17,7 @@ export const wrapperStyle = css`
 
   border-radius: 2.5rem 0 0 2.5rem;
 
-  background-color: ${theme.color.dark3};
+  background-color: ${theme.color.dark4};
 `;
 
 export const headerStyle = css`
@@ -25,6 +25,8 @@ export const headerStyle = css`
 
   justify-content: space-between;
   align-items: center;
+
+  min-width: 35.5rem;
 `;
 
 export const titleStyle = css`
@@ -32,7 +34,7 @@ export const titleStyle = css`
 
   align-items: center;
 
-  gap: 1rem;
+  gap: 2rem;
 
   white-space: nowrap;
 
@@ -41,25 +43,29 @@ export const titleStyle = css`
 
     ${theme.font.title2};
   }
-
-  h2 {
-    padding-top: 0.8rem;
-
-    ${theme.font.body1};
-    font-weight: 400;
-    color: ${theme.color.gray2};
-  }
 `;
 
-export const noticeButtonStyle = (isNoticeOpened: boolean) => css`
-  position: absolute;
+export const serverNameStyle = css`
+  padding: 0.6rem 1.1rem;
+
+  width: fit-content;
+
+  border: 1px solid ${theme.color.dark2};
+  border-radius: 1rem;
+
+  ${theme.font.body2}
+  font-weight: 400;
+`;
+
+export const noticeButtonStyle = css`
+  position: relative;
 
   display: flex;
   flex-direction: column;
 
   gap: 0.8rem;
 
-  padding: ${isNoticeOpened ? "0.8rem 1.5rem 1.2rem 1.5rem " : "0.8rem 1.5rem"};
+  padding: 0.8rem 1.5rem;
 
   border-radius: 0.7rem;
 
@@ -92,20 +98,32 @@ export const noticeTitleStyle = css`
 `;
 
 export const noticeContentStyle = css`
+  position: absolute;
+  top: 9.6rem;
+  right: 4.5rem;
+
+  padding: 1.2rem 1.5rem;
+
+  width: 26rem;
+
   ${theme.font.body3}
   font-weight: 400;
-  width: 26rem;
+
+  border-radius: 0.7rem;
+
+  background-color: ${theme.color.primaryBlue2};
 `;
 
 export const scrollStyle = css`
   display: flex;
+  flex-direction: column;
 
-  height: 62rem;
+  gap: 2.5rem;
 
+  margin-bottom: 2rem;
   padding: 1.8rem 0 7rem 0;
 
-  flex-direction: column;
-  gap: 2.5rem;
+  height: calc(100vh - 13.8rem);
 
   overflow-y: scroll;
   scroll-behavior: smooth;
@@ -118,6 +136,7 @@ export const scrollStyle = css`
 export const layoutStyle = (isUser: boolean) => css`
   display: flex;
   flex-direction: column;
+
   align-items: ${isUser ? "flex-end" : "flex-start"};
 
   gap: 0.6rem;
