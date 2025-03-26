@@ -1,7 +1,6 @@
-import { ArrowDownIcon, CloseIcon, PinIcon, SendIcon } from "@/assets/svg";
+import { ArrowDownIcon, PinIcon, SendIcon } from "@/assets/svg";
 import { Divider, Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
-import { PATH } from "@/constants/path";
 import { useScrollToBottom } from "@/hooks/useScroll";
 
 import { useChatScroll } from "@/pages/GlobalChatPage/hooks/useChatScroll";
@@ -11,7 +10,7 @@ import type { ChatTypes } from "@/pages/GlobalChatPage/types/globalChatTypes";
 import { globalChatFormatTime } from "@/pages/GlobalChatPage/utils/globalChatFormatTime";
 import { CHAT_NOTICE_DEFAULT } from "@/pages/HomePage/constants/noticeDummy";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import * as s from "./GlobalChatRoom.styles";
 
 const GlobalChatRoom = () => {
@@ -19,7 +18,6 @@ const GlobalChatRoom = () => {
   const [input, setInput] = useState("");
   const [isNoticeOpened, setIsNoticeOpened] = useState(false);
 
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const serverId = Number(pathname.split("/")[1]);
   const roomId = serverId;
@@ -41,30 +39,28 @@ const GlobalChatRoom = () => {
 
   return (
     <section css={s.wrapperStyle}>
-      <header css={s.headerStyle}>
-        <div css={{ display: "flex", gap: "2rem" }}>
+      <div css={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <header css={s.headerStyle}>
           <div css={s.titleStyle}>
-            <h1>뷰티/케어</h1>
-            <h2>서버 전체 채팅</h2>
+            <h1>서버 전체 채팅</h1>
+            <div css={s.serverNameStyle}>{"모빌리티"}</div>
           </div>
-          <div css={{ position: "relative" }}>
-            <div css={s.noticeButtonStyle(isNoticeOpened)}>
-              <div
-                css={s.noticeTitleStyle}
-                onClick={() => setIsNoticeOpened(!isNoticeOpened)}
-                onKeyDown={() => setIsNoticeOpened(!isNoticeOpened)}
-              >
-                <PinIcon width={11} height={15} />
-                <p>공지</p>
-                <ArrowDownIcon width={14} height={7} />
-              </div>
-              {isNoticeOpened && <div css={s.noticeContentStyle}>{CHAT_NOTICE_DEFAULT}</div>}
+
+          <div css={s.noticeButtonStyle}>
+            <div
+              css={s.noticeTitleStyle}
+              onClick={() => setIsNoticeOpened(!isNoticeOpened)}
+              onKeyDown={() => setIsNoticeOpened(!isNoticeOpened)}
+            >
+              <PinIcon width={11} height={15} />
+              <p>공지</p>
+              <ArrowDownIcon width={14} height={7} css={{ transform: isNoticeOpened ? "rotate(180deg)" : "" }} />
             </div>
           </div>
-        </div>
-        <CloseIcon width={23} height={23} css={s.iconStyle} onClick={() => navigate(PATH.HOME_RELATIVE)} />
-      </header>
-      <Divider />
+          {isNoticeOpened && <div css={s.noticeContentStyle}>{CHAT_NOTICE_DEFAULT}</div>}
+        </header>
+        <Divider />
+      </div>
 
       <div css={s.scrollStyle} ref={scrollRef}>
         {reversedChatLogs.map((chat) => (

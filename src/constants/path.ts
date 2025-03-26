@@ -4,6 +4,7 @@ export const PATH = {
   KAKAO: "/redirect-kakao",
   NAVER: "/redirect-naver",
   GOOGLE: "/redirect-google",
+  LINKEDIN: "/redirect-linkedin",
 
   SERVER_EDIT: "/server-edit",
 

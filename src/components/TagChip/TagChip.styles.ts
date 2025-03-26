@@ -15,7 +15,7 @@ export const hashtagStyle = (variant: "hashTag" | "link") => css`
 
   gap: 0.8rem;
 
-  padding: ${variant === "hashTag" ? "0.8rem 1.7rem" : "1.2rem"};
+  padding: ${variant === "hashTag" ? "0.8rem 1.7rem" : "0rem"};
 
   border-radius: 1rem;
 

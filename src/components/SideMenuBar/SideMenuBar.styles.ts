@@ -76,7 +76,7 @@ export const listWrapperStyle = css`
 
   border-radius: 0.8rem;
 
-  background-color: #404A58;
+  background-color: #404a58;
 
   cursor: pointer;
 `;
@@ -85,8 +85,7 @@ export const listStyle = css`
   display: flex;
   flex-direction: column;
 
-
-  background-color: #404A58;
+  background-color: #404a58;
 
   border-radius: 0.8rem;
 `;
@@ -99,7 +98,7 @@ export const itemWrapperStyle = css`
 
   padding: 0 0.3rem;
 
-  background-color: #404A58;
+  background-color: #404a58;
 `;
 
 export const itemStyle = css`
@@ -113,7 +112,7 @@ export const itemStyle = css`
 
   border-radius: 0.8rem;
 
-  background-color: #404A58;
+  background-color: #404a58;
 
   white-space: nowrap;
 
@@ -175,6 +174,5 @@ export const profileMenuWrapperStyle = css`
   background-size: 21.8rem 19.4rem;
 
   border-radius: 1rem;
-
-  z-index: 999;
+  z-index: 2;
 `;

@@ -51,8 +51,6 @@ export const linkLayoutStyle = css`
 `;
 
 export const linkStyle = css`
-  width: 3.3rem;
-  height: 3.3rem;
 
   border-radius: 0.8rem;
 

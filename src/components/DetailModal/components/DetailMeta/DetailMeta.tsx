@@ -26,9 +26,9 @@ const DetailMeta = ({ location, details, startDate, endDate }: DetailMetaProps) 
         <Button variant="primary" size="medium" aria-hidden="true" css={s.noHoverStyle}>
           진행 장소
         </Button>
-        <div css={s.textStyle}>
+        <div css={s.textStyle(!!details)}>
           <p>{location}</p>
-          <div css={s.circleStyle} />
+          {details && <div css={s.circleStyle} />}
           <p>{details}</p>
         </div>
       </div>
@@ -38,7 +38,7 @@ const DetailMeta = ({ location, details, startDate, endDate }: DetailMetaProps) 
           진행 날짜
         </Button>
         {startDate && endDate && (
-          <div css={s.textStyle}>
+          <div css={s.textStyle()}>
             <p> {dateFormat(startDate).basicDate}</p>
             <div css={s.circleStyle} />
             <p>{`${dateFormat(startDate).time} ~ ${dateFormat(endDate).time}`}</p>

@@ -21,7 +21,7 @@ const DMItem = ({ user, dm }: DMItemProps) => {
           </div>
         </div>
       </div>
-      {!isRead && <div css={s.blueCircleStyle} />}
+      {/* {!isRead && <div css={s.blueCircleStyle} />} */}
     </div>
   );
 };

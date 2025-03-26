@@ -8,6 +8,6 @@ export const createCoffeeChat = async (serverId: number, formData: FormData) => 
     });
     return response.json();
   } catch (error) {
-    console.error("커피챗 생성 실패:", error);
+    console.error("티타임 생성 실패:", error);
   }
 };

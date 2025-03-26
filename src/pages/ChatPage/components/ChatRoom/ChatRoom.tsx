@@ -107,6 +107,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
           if (e.key === "Enter") handleSendMessage();
         }}
         rightIcon={<SendIcon width={14} height={14} />}
+        css={{minWidth: "28rem"}}
       />
     </section>
   );
