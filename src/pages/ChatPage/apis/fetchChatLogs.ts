@@ -5,7 +5,7 @@ import type { ChatListResponseTypes } from "@/pages/ChatPage/types/groupChatLogT
 export const fetchChatLogs = async (
   serverId: number,
   type: "groups" | "meetings",
-  roomId: number
+  roomId: number,
 ): Promise<ChatListResponseTypes> => {
   try {
     const response: ChatListResponseTypes = await tokenInstance(`api/v1/servers/${serverId}/${type}/${roomId}`).json();

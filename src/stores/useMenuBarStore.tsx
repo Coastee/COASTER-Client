@@ -1,9 +1,18 @@
 import { create } from "zustand";
 
 export type Member = {
-  name: string;
-  image: string;
-  id: string;
+  id: number;
+  user: {
+    id: number;
+    profileImage: string;
+    nickname: string;
+    linkedInVerify: boolean;
+    userIntro: {
+      headline: string;
+      job: string;
+      expYears: number;
+    };
+  };
 };
 
 interface DrawerStore {

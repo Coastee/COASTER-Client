@@ -1,4 +1,4 @@
 export interface SelectedItemTypes {
-  id: string | null;
+  id: number | null;
   type: string | null;
 }

@@ -79,6 +79,10 @@ export const router = createBrowserRouter([
         element: <MyPage />,
       },
       {
+        path: `${PATH.MYPAGE}/:userId`,
+        element: <MyPage />,
+      },
+      {
         path: PATH.PROFILE_EDIT,
         element: <ProfileEdit />,
       },

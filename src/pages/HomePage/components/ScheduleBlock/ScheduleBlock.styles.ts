@@ -92,11 +92,11 @@ export const infoStyle = css`
   gap: 0.6rem;
 `;
 
-export const textStyle = css`
+export const textStyle = (isDetail: boolean) => css`
   display: flex;
 
   align-items: center;
-  gap: 0.6rem;
+  gap: ${isDetail ? "0.6rem" : "0"};
 
   padding: 0.5rem 1rem;
 

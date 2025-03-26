@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ExitIcon, PinIcon, SendIcon } from "@/assets/svg";
+import { ArrowDownIcon, CloseIcon, PinIcon, SendIcon } from "@/assets/svg";
 import { Divider, Input } from "@/components";
 import ChatPanel from "@/components/ChatPanel/ChatPanel";
 import { PATH } from "@/constants/path";
@@ -62,7 +62,7 @@ const GlobalChatRoom = () => {
             </div>
           </div>
         </div>
-        <ExitIcon width={23} height={23} css={s.iconStyle} onClick={() => navigate(PATH.HOME_RELATIVE)} />
+        <CloseIcon width={23} height={23} css={s.iconStyle} onClick={() => navigate(PATH.HOME_RELATIVE)} />
       </header>
       <Divider />
 
