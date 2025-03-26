@@ -74,6 +74,7 @@ export interface DmListProps {
   dmList: DMRoomTypes[];
   setRoomId: (id: number) => void;
   setUserId: (id: number) => void;
+  nickname: string;
 }
 
 export interface StompClientStateTypes {

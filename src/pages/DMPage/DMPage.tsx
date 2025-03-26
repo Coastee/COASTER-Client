@@ -20,7 +20,7 @@ const DMPage = () => {
 
   return (
     <>
-      <DMList dmList={dmList} setRoomId={setRoomId} setUserId={setUserId} />
+      <DMList dmList={dmList} setRoomId={setRoomId} setUserId={setUserId} nickname={nickname} />
       {roomId === null ? (
         <EmptyPanel onClick={() => setRoomId(dmList[0]?.id || null)} />
       ) : (

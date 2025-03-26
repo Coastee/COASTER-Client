@@ -7,7 +7,7 @@ import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";
 
-const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
+const DMList = ({ dmList, setRoomId, setUserId, nickname }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
   console.log(latestDmList);
 
@@ -37,7 +37,14 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
           return updated;
         }
 
-        const updated = [{ ...msg }, ...list];
+        const updated = [
+          {
+            ...msg,
+            user: { ...msg.user, nickname: msg.user.id === myId ? nickname : msg.user.nickname },
+          },
+          ...list,
+        ];
+
         return updated;
       });
     });
@@ -45,7 +52,7 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
     return () => {
       client.deactivate();
     };
-  }, []);
+  }, [myId]);
 
   return (
     <section css={s.sectionStyle}>
