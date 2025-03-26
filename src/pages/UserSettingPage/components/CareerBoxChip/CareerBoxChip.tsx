@@ -10,9 +10,10 @@ interface CareerBoxProps {
   startDate: number[];
   endDate: number[];
   contentList?: string[];
+  onDelete: (id: number) => void;
 }
 
-const CareerBoxChip = ({ id, ...career }: CareerBoxProps) => {
+const CareerBoxChip = ({ id, onDelete, ...career }: CareerBoxProps) => {
   const navigate = useNavigate();
 
   const startDate = career.startDate.slice(0, 3).join(".");
@@ -22,7 +23,7 @@ const CareerBoxChip = ({ id, ...career }: CareerBoxProps) => {
   return (
     <li>
       <section css={s.wrapperStyle}>
-        <button type="button" css={deleteStyle} onClick={() => {}}>
+        <button type="button" css={deleteStyle} onClick={() => onDelete(id)}>
           <CloseCircleIcon width={26} />
         </button>
         <header css={s.layoutStyle}>
