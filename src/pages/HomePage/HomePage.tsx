@@ -56,7 +56,7 @@ const HomePage = () => {
             <GroupChatList data={homeGroupRooms} handleItemClick={handleItemClick} />
           </TitleContainer>
           <TitleContainer
-            title="오프라인 커피챗"
+            title="티타임"
             textButton="전체보기"
             handleTextButtonClick={() => {
               navigate("./tea-time-list", { state: { keyword: homeQueryParam.keyword, tags: homeQueryParam.tags } });

@@ -33,7 +33,7 @@ export const MENUS: MenuTypes[] = [
   },
   {
     id: "tea-time",
-    name: "커피챗",
+    name: "티타임",
     icon: CoffeeIcon,
     activeIcon: CoffeeIcon,
   },

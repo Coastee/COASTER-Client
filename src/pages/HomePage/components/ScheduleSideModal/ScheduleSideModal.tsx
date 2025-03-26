@@ -18,7 +18,7 @@ const ScheduleSideModal = ({ isVisible, setIsVisible }: SideModalProps) => {
         <div css={s.titleChildrenStyle}>
           <RotateLogoIcon width={27} height={30} />
           <h1>일정 등록하기</h1>
-          <span>나의 커피챗 스케줄과 타임라인을 확인해보세요</span>
+          <span>나의 티타임 스케줄과 타임라인을 확인해보세요</span>
         </div>
       }
       css={{ zIndex: "4" }}
