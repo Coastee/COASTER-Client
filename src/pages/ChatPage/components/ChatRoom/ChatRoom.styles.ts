@@ -24,6 +24,7 @@ export const headerLayoutStyle = css`
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  padding-bottom: 2rem;
 `;
 
 export const titleLayoutStyle = css`
