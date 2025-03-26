@@ -27,6 +27,7 @@ const ServerHeader = () => {
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
+  const { closeMenuBar } = useMenuBarAction();
   const { data: myServerInfo } = useMyServerList();
   const myServerIdTitleList = myServerInfo?.result.serverList || [];
 
@@ -49,8 +50,6 @@ const ServerHeader = () => {
   const exceptCurrentServer = globalServer
     ? myServerList.filter((server) => server.id !== globalServer.id)
     : myServerList;
-
-  const { closeMenuBar } = useMenuBarAction();
 
   const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);
