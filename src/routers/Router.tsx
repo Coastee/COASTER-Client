@@ -117,6 +117,10 @@ export const router = createBrowserRouter([
         path: PATH.TEA_TIME_LIST,
         element: <CoffeeChatListPage />,
       },
+      {
+        path: PATH.GLOBAL_CHAT,
+        element: <GlobalChatPage />,
+      },
     ],
   },
   {
@@ -138,10 +142,6 @@ export const router = createBrowserRouter([
             <ChatPage type="meetings" />
           </Suspense>
         ),
-      },
-      {
-        path: PATH.GLOBAL_CHAT,
-        element: <GlobalChatPage />,
       },
     ],
   },

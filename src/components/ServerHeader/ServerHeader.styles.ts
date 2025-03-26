@@ -16,6 +16,11 @@ export const containerStyle = css`
   border-radius: 0rem 2.5rem 2.5rem 0rem;
 
   background: ${theme.color.dark2};
+
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const topMenuStyle = css`

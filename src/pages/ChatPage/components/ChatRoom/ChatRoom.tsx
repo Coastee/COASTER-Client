@@ -75,7 +75,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
           <RotateLogoIcon width={25} height={22} />
           <h1 css={s.titleStyle}>{title}</h1>
         </div>
-        <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={handleHamburgerClick} />
+        {!isOpen && <HamburgerIcon width={23} height={15} css={s.iconStyle} onClick={handleHamburgerClick} />}
       </header>
       <div css={s.scrollStyle} ref={scrollRef}>
         {reversedChatLogs.map((chat, index) => {
@@ -107,6 +107,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
           if (e.key === "Enter") handleSendMessage();
         }}
         rightIcon={<SendIcon width={14} height={14} />}
+        css={{minWidth: "28rem"}}
       />
     </section>
   );

@@ -4,15 +4,22 @@ import { css } from "@emotion/react";
 
 export const sectionStyle = css`
   display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  align-items: center;
+
+  padding: 4.2rem 3.3rem;
+
+  gap: 1rem;
 
   width: 24.8rem;
   height: 100vh;
 
-  padding: 4.2rem 3.3rem;
-
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const nameStyle = css`

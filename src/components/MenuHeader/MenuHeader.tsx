@@ -31,7 +31,7 @@ const MenuHeader = ({ iconOnly = false }: MenuHeaderProps) => {
   return (
     <header css={s.containerStyle(iconOnly)}>
       {iconOnly ? (
-        <RotateLogoIcon width={55} height={53} css={{ padding: "1rem", cursor: "pointer" }} />
+        <RotateLogoIcon width={55} height={53} css={{ padding: "1rem", cursor: "pointer", flexShrink: "0" }} />
       ) : (
         <Logo4Icon />
       )}

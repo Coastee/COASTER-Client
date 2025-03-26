@@ -45,7 +45,7 @@ const CoffeeChatListPage = () => {
       <AddButton setIsModalVisible={setIsModalVisible} />
       <SearchLayout queryParam={queryParam} setQueryParam={setQueryParam} hashTagData={hashtagData} />
       <TitleContainer
-        title="오프라인 커피챗"
+        title="티타임 모집"
         sortingOptions={MEETING_SORTING_OPTIONS}
         sortingOption={MEETING_SORTING_OPTIONS.find((option) => option.id === queryParam.sort)}
         setSortingOption={(newOpt) => setQueryParam((prev) => ({ ...prev, sort: newOpt.id }))}

@@ -11,12 +11,12 @@ export const MAX_LENGTH = {
 
 export const CHAT_FORM_FIELDS = {
   title: {
-    headerTxt: "오프라인 커피챗 제목",
-    placeholder: "오프라인 커피챗 제목을 입력해주세요.",
+    headerTxt: "티타임 제목",
+    placeholder: "티타임 제목을 입력해주세요.",
   },
   content: {
-    headerTxt: "오프라인 커피챗 상세 설명",
-    placeholder: "오프라인 커피챗 상세 설명을 입력하세요.",
+    headerTxt: "티타임 상세 설명",
+    placeholder: "티타임 상세 설명을 입력하세요.",
   },
   hashtags: {
     headerTxt: "해시태그",

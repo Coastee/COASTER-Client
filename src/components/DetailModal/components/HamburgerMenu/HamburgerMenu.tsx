@@ -33,7 +33,7 @@ export const HamburgerMenu = ({
     <>
       <div css={s.iconStyle}>
         <EnterRoomIcon width={33} height={23} onClick={handleIconClick} />
-        <p>{chatRoomType === "meetings" ? "커피챗 신청" : "채팅방 입장"}</p>
+        <p>{chatRoomType === "meetings" ? "티타임 신청" : "채팅방 입장"}</p>
       </div>
 
       {/* {isVisible && (

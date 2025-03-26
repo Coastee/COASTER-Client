@@ -6,6 +6,7 @@ import { useFetchSideChatList } from "@/pages/ChatPage/hooks/useSideChatList";
 import type { ChatRoomTypes } from "@/pages/ChatPage/types";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import * as s from "./ChatPage.styles";
 
 const ChatPage = ({ type }: { type: "groups" | "meetings" }) => {
   const { state, pathname } = useLocation();
@@ -31,10 +32,10 @@ const ChatPage = ({ type }: { type: "groups" | "meetings" }) => {
   const menu = pathname.split("/")[2];
 
   return (
-    <div css={{ width: "100%", display: "flex" }}>
+    <div css={s.layoutStyle}>
       <ChatInfoList menu={menu} ownerList={ownerList} joinedList={joinedList} setSelectedRoom={setSelectedRoom} />
       {selectedRoom?.id ? (
-        <>
+        <div css={s.backgroundStyle}>
           <ChatRoom type={type} serverId={serverId} selectedRoomId={selectedRoom.id} title={selectedRoom.title} />
           <SideMenuBar
             serverId={serverId}
@@ -42,7 +43,7 @@ const ChatPage = ({ type }: { type: "groups" | "meetings" }) => {
             selectedItemId={selectedRoom.id}
             setSelectedRoom={setSelectedRoom}
           />
-        </>
+        </div>
       ) : (
         <ChatEmptyPanel />
       )}
