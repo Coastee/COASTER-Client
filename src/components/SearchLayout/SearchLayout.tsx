@@ -41,7 +41,7 @@ const SearchLayout = <T extends QueryParamTypes | HomeQueryParamTypes>({
                   onClick={() => updateTagList(tag.content)}
                   css={{
                     color: isSelected ? "white" : "",
-                    backgroundColor: isSelected ? "#3f4b5d;" : "",
+                    backgroundColor: isSelected ? "#6B8AFD;" : "",
                     fontWeight: isSelected ? "500;" : "",
                   }}
                 >
