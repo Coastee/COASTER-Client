@@ -151,11 +151,11 @@ export const statusStyle = css`
   color: ${theme.color.white};
 `;
 
-export const textStyle = css`
+export const textStyle = (hasDetails?: boolean) => css`
   display: flex;
 
   align-items: center;
-  gap: 0.6rem;
+  gap: ${hasDetails ? "0.6rem" : "0"};
 
   padding: 0.5rem 1rem;
 
