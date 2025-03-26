@@ -1,14 +1,12 @@
-import { instance } from "@/apis/instance";
+import ky from "ky";
 
 export const getLinkedInVerify = async (code: string) => {
   const accessToken = localStorage.getItem("accessToken");
 
-  const response = await instance
-    .get(`api/v1/connect/linkedin?code=${code}&redirect_uri=${import.meta.env.VITE_LINKEDIN_REDIRECT_URL}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+  const response = await ky
+    .get(
+      `${import.meta.env.VITE_BASE_URL}api/v1/login/linkedin-callback?code=${code}&redirect_uri=${import.meta.env.VITE_LINKEDIN_REDIRECT_URL}`,
+    )
     .json();
 
   console.log(response);
