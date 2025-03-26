@@ -3,15 +3,26 @@ import UserBox from "@/components/UserBox/UserBox";
 
 import * as s from "@/components/ProfileMenu/ProfileMenu.styles";
 import { PATH } from "@/constants/path";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = ({ ...info }) => {
+  const [isDMSelected, setIsDMSelected] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
     navigate(`${PATH.MYPAGE}/${info.id}`);
   };
 
+  const handleDM = async () => {
+    setIsDMSelected(true);
+
+    if (info.dmRoomId === null) {
+      console.log("디엠방이 없습니다.");
+    } else {
+      console.log("디엠방이 있습니다.");
+    }
+  };
   return (
     <article css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
@@ -32,7 +43,9 @@ const ProfileMenu = ({ ...info }) => {
         </div>
       )}
       <div css={s.buttonLayoutStyle}>
-        <button type="button">DM 보내기</button>
+        <button type="button" onClick={handleDM}>
+          DM 보내기
+        </button>
         <button type="button" onClick={handleNavigate}>
           상세 프로필 보러가기
         </button>
