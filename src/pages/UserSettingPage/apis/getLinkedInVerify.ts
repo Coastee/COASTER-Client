@@ -5,7 +5,7 @@ export const getLinkedInVerify = async (code: string) => {
 
   try {
     const response = await ky.get(
-      `${import.meta.env.VITE_BASE_URL}api/v1/login/linkedin-callback?code=${code}&redirect_uri=${import.meta.env.VITE_LINKEDIN_REDIRECT_URL}`,
+      `${import.meta.env.VITE_BASE_URL}/api/v1/login/linkedin-callback?code=${code}&redirect_uri=${import.meta.env.VITE_LINKEDIN_REDIRECT_URL}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
