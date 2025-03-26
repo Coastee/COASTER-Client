@@ -10,19 +10,20 @@ interface CareerBoxProps {
   startDate: number[];
   endDate: number[];
   contentList?: string[];
+  onDelete: (id: number) => void;
 }
 
-const CareerBoxChip = ({ id, ...career }: CareerBoxProps) => {
+const CareerBoxChip = ({ id, onDelete, ...career }: CareerBoxProps) => {
   const navigate = useNavigate();
 
-  const startDate = career.startDate.slice(0, 3).join("-");
-  const endDate = career.endDate.slice(0, 3).join("-");
+  const startDate = career.startDate.slice(0, 3).join(".");
+  const endDate = career.endDate !== null ? career.endDate.slice(0, 3).join(".") : "현재";
   const period = `${startDate} ~ ${endDate}`;
 
   return (
     <li>
       <section css={s.wrapperStyle}>
-        <button type="button" css={deleteStyle} onClick={() => {}}>
+        <button type="button" css={deleteStyle} onClick={() => onDelete(id)}>
           <CloseCircleIcon width={26} />
         </button>
         <header css={s.layoutStyle}>
