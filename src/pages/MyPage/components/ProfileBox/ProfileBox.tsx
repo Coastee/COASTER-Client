@@ -5,6 +5,7 @@ import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import { IMAGE_PLACEHOLDER } from "@/pages/MyPage/constants/image";
 import type { UserDetailTypes } from "@/pages/MyPage/types";
+import { getProfileDomainIcon } from "@/utils/icon";
 import { useNavigate } from "react-router-dom";
 
 const ProfileBox = (data: UserDetailTypes) => {
@@ -47,7 +48,7 @@ const ProfileBox = (data: UserDetailTypes) => {
             {userData?.urlList.map((url) => (
               <li key={url}>
                 <a href={url} target="_blank" rel="noreferrer">
-                  <div aria-label={`route to ${url}`} css={s.linkStyle} />
+                  {getProfileDomainIcon(url)}
                 </a>
               </li>
             ))}

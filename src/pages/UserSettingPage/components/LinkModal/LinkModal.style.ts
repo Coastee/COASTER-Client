@@ -111,3 +111,10 @@ export const cancelBtnStyle = css`
 export const addBtnStyle = css`
   color: ${theme.color.primaryBlue1};
 `;
+
+export const otherIconStyle = css`
+  color: ${theme.color.gray2};
+
+  width: 3.3rem;
+  height: 3.3rem;
+`;

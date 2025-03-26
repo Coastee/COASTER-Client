@@ -11,6 +11,7 @@ import ServerEditPage from "@/pages/ServerEditPage/ServerEditPage";
 import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
+import LinkedInVerify from "@/pages/UserSettingPage/components/LinkedInVerify/LinkedInVerify";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
 import { Suspense } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: PATH.GOOGLE,
         element: <GoogleLogin />,
+      },
+      {
+        path: PATH.LINKEDIN,
+        element: <LinkedInVerify />,
       },
       {
         path: PATH.SERVER_EDIT,

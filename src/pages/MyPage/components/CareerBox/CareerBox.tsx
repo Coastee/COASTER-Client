@@ -7,7 +7,7 @@ interface CareerBoxProps {
   id: number;
   title: string;
   startDate: number[];
-  endDate: number[];
+  endDate: number[] | null;
   contentList?: string[];
 }
 
@@ -21,9 +21,7 @@ const CareerBox = ({ ...career }: CareerBoxProps) => {
             <h1 css={s.titleStyle}>{career.title}&nbsp;&nbsp;&nbsp;·</h1>
           </div>
           <div css={s.periodStyle}>
-            {career.endDate
-              ? `${formatDateRange(career.startDate, career.endDate)}`
-              : formatDateRange(career.startDate, career.startDate)}
+            {career.startDate ? formatDateRange(career.startDate, career.endDate || career.startDate) : ""}
           </div>
         </div>
         <Divider />
