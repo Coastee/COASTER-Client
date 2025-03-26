@@ -2,6 +2,7 @@ import { LinkedInIcon, PlusIcon } from "@/assets/svg";
 import * as s from "@/pages/UserSettingPage/components/LinkModal/LinkModal.style";
 import { plusBtnStyle } from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit.styles";
 import { TITLE } from "@/pages/UserSettingPage/constants/modal";
+import { LINKEDIN_URL } from "@/pages/UserSettingPage/constants/url";
 import { useCloseModal, useModalIsOpen, useModalType } from "@/stores/useModal";
 import { getDomainIcon } from "@/utils/icon";
 import { useCallback, useState } from "react";
@@ -17,10 +18,9 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
 
   const [url, setUrl] = useState("");
 
-  const title = modalType === "link" ? TITLE.LINK : TITLE.LINKEDIN;
-  // const LINKEDIN_URL = `${import.meta.env.VITE_BASE_URL}/api/v1/connect/linkedin`;
-
   const icon = getDomainIcon(url);
+
+  const title = modalType === "link" ? TITLE.LINK : TITLE.LINKEDIN;
   const isPlusIcon = icon?.type === PlusIcon;
 
   const isValidUrl = useCallback(() => {
@@ -39,16 +39,12 @@ const LinkModal = ({ onAddLink }: LinkModalProps) => {
   };
 
   const handleAddLink = () => {
-    if (!url.trim() || !isValidUrl()) {
-      return;
-    }
-
     if (modalType === "link") {
       onAddLink(url);
     } else {
-      // 링크드인 인증
-      // window.open(LINKEDIN_URL, "_blank");
+      window.location.href = LINKEDIN_URL;
     }
+
     handleClose();
   };
 

@@ -1,0 +1,1 @@
+export const LINKEDIN_URL = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${import.meta.env.VITE_LINKEDIN_CLIENT_ID}&redirect_uri={client redirect uri}&state=STATE_STRING&scope=profile%20email%20openid`;
