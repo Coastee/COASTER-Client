@@ -5,12 +5,13 @@ interface DetailUserInfoProps {
   nickname: string;
   expYears: number;
   job: string;
+  profileImage?: string;
 }
 
-const DetailUserInfo = ({ nickname, expYears, job }: DetailUserInfoProps) => {
+const DetailUserInfo = ({ nickname, expYears, job, profileImage }: DetailUserInfoProps) => {
   return (
     <div css={s.userStyle}>
-      <UserBox name={nickname} />
+      <UserBox name={nickname} profileImage={profileImage} />
       <div css={{ display: "flex", flexDirection: "column", gap: "0.34rem" }}>
         <div css={s.userInfoTopStyle}>
           <h1>{nickname}</h1>

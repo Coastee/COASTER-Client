@@ -70,7 +70,12 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                     }
                   }}
                 >
-                  <UserBox name={member.user.nickname} size="small" variant="default" />
+                  <UserBox
+                    name={member.user.nickname}
+                    size="small"
+                    variant="default"
+                    profileImage={member.user.profileImage}
+                  />
                   <p>{member.user.nickname}</p>
                 </button>
                 {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}

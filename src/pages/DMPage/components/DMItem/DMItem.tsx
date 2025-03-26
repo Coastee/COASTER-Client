@@ -11,7 +11,7 @@ const DMItem = ({ user, dm }: DMItemProps) => {
   return (
     <div css={s.itemWrapperStyle}>
       <div css={s.layoutStyle}>
-        <UserBox name={user.nickname} />
+        <UserBox name={user.nickname} profileImage={user.profileImage} />
         <div css={s.infoStyle}>
           <h2>{user.nickname}</h2>
           <div css={s.contentStyle}>

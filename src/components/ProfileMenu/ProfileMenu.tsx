@@ -15,7 +15,7 @@ const ProfileMenu = ({ ...info }) => {
   return (
     <article css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
-        <UserBox name={info.name} size="medium" />
+        <UserBox name={info.name} size="medium" profileImage={info.profileImage} />
         <div css={s.infoLayoutStyle}>
           <h1 css={s.nameStyle}>{info.name}</h1>
           <div css={s.infoStyle}>

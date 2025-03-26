@@ -41,6 +41,7 @@ const DetailModal = ({ data, serverId, selectedItemId, isCoffeeChat = false, set
           nickname={data.user.nickname}
           expYears={data.user.userIntro.expYears}
           job={data.user.userIntro.job}
+          profileImage={data.user.profileImage}
         />
         {isCoffeeChat && (
           <DetailMeta
