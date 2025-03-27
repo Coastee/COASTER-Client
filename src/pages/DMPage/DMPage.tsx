@@ -31,6 +31,7 @@ const DMPage = () => {
         setNewDmRoomId={setNewDmRoomId}
         setUserId={setUserId}
         nickname={nickname}
+        profileImage={profileImage}
       />
       {roomId === null ? (
         <EmptyPanel onClick={() => setRoomId(dmList[0]?.id || null)} />

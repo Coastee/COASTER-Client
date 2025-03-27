@@ -7,7 +7,7 @@ import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";
 
-const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmListProps) => {
+const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname, profileImage }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
 
   const myId = Number(localStorage.getItem("userId"));
@@ -40,7 +40,7 @@ const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmLi
         const updated = [
           {
             ...msg,
-            user: { ...msg.user, nickname: msg.user.id === myId ? nickname : msg.user.nickname },
+            user: { ...msg.user, nickname: msg.user.id === myId ? nickname : msg.user.nickname, profileImage },
           },
           ...list,
         ];
