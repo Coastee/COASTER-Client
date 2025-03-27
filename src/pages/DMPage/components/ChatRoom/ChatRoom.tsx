@@ -82,7 +82,7 @@ const ChatRoom = ({ dmList, userId, roomId, setRoomId, nickname, expYears, job, 
     <section css={s.wrapperStyle}>
       <header css={s.headerStyle}>
         <div css={s.titleLayoutStyle}>
-          <UserBox name={userInfo?.nickname || nickname || "사용자 없음"} profileImage={profileImage} />
+          <UserBox name={userInfo?.nickname || nickname || "사용자 없음"} profileImage={userInfo?.profileImage || profileImage} />
           <div css={s.infoLayoutStyle}>
             <h1>{userInfo?.nickname || nickname || "사용자 없음"}</h1>
             <div css={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
