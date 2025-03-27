@@ -82,7 +82,7 @@ const ChatRoom = ({ dmList, userId, roomId, setRoomId, nickname, expYears, job, 
     <section css={s.wrapperStyle}>
       <header css={s.headerStyle}>
         <div css={s.titleLayoutStyle}>
-          <UserBox name={userInfo?.nickname || nickname || "사용자 없음"} profileImage={userInfo?.profileImage} />
+          <UserBox name={userInfo?.nickname || nickname || "사용자 없음"} profileImage={userInfo?.profileImage || profileImage} />
           <div css={s.infoLayoutStyle}>
             <h1>{userInfo?.nickname || nickname || "사용자 없음"}</h1>
             <div css={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
@@ -106,7 +106,7 @@ const ChatRoom = ({ dmList, userId, roomId, setRoomId, nickname, expYears, job, 
       <div css={s.scrollStyle} ref={scrollRef}>
         {[...dmLogs].reverse().map((chat, index) => (
           <div key={`${index}-${chat.id}`} css={s.layoutStyle(chat.user.id === myId)}>
-            {chat.user.id !== myId && <UserBox name={chat.user.nickname} size="medium" />}
+            {chat.user.id !== myId && <UserBox name={chat.user.nickname} size="medium" profileImage={chat.user.profileImage} />}
             <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
               <ChatPanel
                 isUser={chat.user.id === myId}

@@ -12,6 +12,19 @@ const ProfileBox = (data: UserDetailTypes) => {
   const navigate = useNavigate();
   const userData = data;
 
+  const handleDMClick = () => {
+    navigate(`${PATH.DM}`, {
+      state: {
+        userId: userData.id,
+        dmRoomId: userData.dmRoomId,
+        nickname: userData.nickname,
+        profileImage: userData.profileImage,
+        expYears: userData.userIntro.expYears,
+        job: userData.userIntro.job,
+      },
+    });
+  };
+
   return (
     <section css={s.wrapperStyle}>
       <img src={DUMMY_PROFILE.backgroundImg} alt="프로필 배경" css={s.backgroundImgStyle} />
@@ -40,7 +53,7 @@ const ProfileBox = (data: UserDetailTypes) => {
             <p>·</p>
             <p>{userData?.userIntro?.expYears}년차</p>
           </div>
-          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }} onClick={() => navigate(PATH.DM)}>
+          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }} onClick={handleDMClick}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
           </Button>

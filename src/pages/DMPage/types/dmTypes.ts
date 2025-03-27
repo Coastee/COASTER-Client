@@ -76,6 +76,7 @@ export interface DmListProps {
   setNewDmRoomId: (id: number) => void;
   setUserId: (id: number) => void;
   nickname: string;
+  profileImage: string;
 }
 
 export interface StompClientStateTypes {

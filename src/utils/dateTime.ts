@@ -50,6 +50,7 @@ export const parseDateArray = (dateArray: number[]) => {
     year,
     month,
     day,
+    defaultHour: hour,
     hour: formattedHour,
     minute,
     dayOfWeek,

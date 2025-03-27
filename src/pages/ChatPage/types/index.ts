@@ -1,6 +1,6 @@
 interface Period {
-  startDate: string | null;
-  endDate: string | null;
+  startDate: number[] | null;
+  endDate: number[] | null;
 }
 
 export interface ChatRoomTypes {

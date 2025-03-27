@@ -11,7 +11,6 @@ export const wrapperStyle = (isOpen: boolean) => css`
   padding: ${isOpen ? "5.3rem 5rem 4.2rem" : "5.3rem 5rem 4.2rem"};
 
   flex-direction: column;
-  justify-content: space-between;
 
   z-index: 1;
 
@@ -25,8 +24,10 @@ export const headerLayoutStyle = css`
 
   justify-content: space-between;
   align-items: center;
+
   gap: 1rem;
-  padding-bottom: 2rem;
+
+  margin-bottom: 2rem;
 `;
 
 export const titleLayoutStyle = css`
@@ -42,13 +43,69 @@ export const titleStyle = css`
   ${theme.font.title2};
 `;
 
-export const scrollStyle = css`
+export const timeStyle = css`
   display: flex;
 
-  height: 62rem;
+  justify-content: center;
+  align-items: center;
 
+  padding: 0.6rem 1.4rem;
+
+  border: 1px solid #3f4b5d;
+  border-radius: 0.6rem;
+
+  ${theme.font.body1};
+  font-weight: 400;
+  color: ${theme.color.gray1};
+`;
+
+export const timeNoticeStyle = (bgImg: string) => css`
+  display: flex;
+
+  align-items: center;
+
+  gap: 1.8rem;
+
+  padding: 3rem;
+  margin-bottom: 1rem;
+
+  width: 100%;
+  height: 9rem;
+
+  border-radius: 1rem;
+
+  background-image: url("${bgImg}");
+  background-size: cover;
+  background-position: center;
+`;
+
+export const timeNoticeTextStyle = css`
+  display: flex;
   flex-direction: column;
+
+  gap: 0.3rem;
+
+  h1,
+  p {
+    ${theme.font.body1};
+    font-weight: 400;
+    white-space: nowrap;
+
+    & span {
+      ${theme.font.body1};
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  }
+`;
+
+export const scrollStyle = css`
+  display: flex;
+  flex-direction: column;
+
   gap: 2.5rem;
+
+  height: calc(100vh - 22rem);
 
   overflow-y: scroll;
   scroll-behavior: smooth;

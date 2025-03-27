@@ -69,6 +69,7 @@ export { default as ProfileMenuIcon } from "./ProfileMenuIcon";
 export { default as RealEstateServerIcon } from "./RealEstateServerIcon";
 export { default as ReturnIcon } from "./ReturnIcon";
 export { default as RotateLogoIcon } from "./RotateLogoIcon";
+export { default as RotateWhiteLogoIcon } from "./RotateWhiteLogoIcon";
 export { default as SendIcon } from "./SendIcon";
 export { default as ShadowPlusIcon } from "./ShadowPlusIcon";
 export { default as SocialMediaIServercon } from "./SocialMediaIServercon";
