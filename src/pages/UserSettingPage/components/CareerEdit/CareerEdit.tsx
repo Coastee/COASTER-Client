@@ -21,7 +21,7 @@ const CareerEdit = () => {
   const { data } = useFetchUserDetail(Number(userId));
   const { mutate: updateCareer } = useUpdateExperience();
 
-  const selectedExperience = data.experience.experienceList.find((exp) => exp.id === Number(experienceId));
+  const selectedExperience = data?.experience.experienceList.find((exp) => exp.id === Number(experienceId));
 
   const {
     careerData,

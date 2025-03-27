@@ -26,7 +26,7 @@ const ProfileEdit = () => {
 
   const userId = localStorage.getItem("userId");
   const { data: userData } = useFetchUserDetail(Number(userId));
-  const { form, handleInfoChange } = useEditProfileForm(userData);
+  const { form, handleInfoChange } = useEditProfileForm(userData || null);
 
   const { mutate } = usePostUserProfile();
 

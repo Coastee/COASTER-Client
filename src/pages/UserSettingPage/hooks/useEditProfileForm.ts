@@ -3,15 +3,17 @@ import { MAX_LENGTH, MIN_LENGTH } from "@/pages/UserSettingPage/constants/maxLen
 import type { ProfileEditTypes, UserProfileTypes } from "@/pages/UserSettingPage/types/profile";
 import { useCallback, useState } from "react";
 
-export const useEditProfileForm = ({ ...data }: UserDetailTypes) => {
-  const [form, setForm] = useState<UserProfileTypes>({
-    nickname: data.nickname,
-    headline: data.userIntro.headline,
-    job: data.userIntro.job,
-    expYears: data.userIntro.expYears,
-    bio: data.bio,
-    urlList: data.urlList || [],
-  });
+export const useEditProfileForm = ({ ...data }: UserDetailTypes | null) => {
+  const initialData: UserProfileTypes = {
+    nickname: data?.nickname || "",
+    headline: data?.userIntro?.headline || "",
+    job: data?.userIntro?.job || "",
+    expYears: data?.userIntro?.expYears || 0,
+    bio: data?.bio || "",
+    urlList: data?.urlList || [],
+  };
+
+  const [form, setForm] = useState<UserProfileTypes>(initialData);
 
   const isNickNameError = form.nickname.length < MIN_LENGTH.NICKNAME || form.nickname.length > MAX_LENGTH.NICKNAME;
   const isCareerError = form.job.length < MIN_LENGTH.CAREER || form.job.length > MAX_LENGTH.CAREER;
@@ -22,7 +24,7 @@ export const useEditProfileForm = ({ ...data }: UserDetailTypes) => {
   const handleInfoChange = useCallback(
     (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { value: string | string[] } },
-      key: keyof ProfileEditTypes,
+      key: keyof ProfileEditTypes
     ) => {
       let { value } = e.target;
       if (typeof value === "string") {
@@ -37,7 +39,7 @@ export const useEditProfileForm = ({ ...data }: UserDetailTypes) => {
         [key]: value,
       }));
     },
-    [],
+    []
   );
 
   return {
