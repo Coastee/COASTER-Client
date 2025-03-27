@@ -2,14 +2,12 @@ import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
 export const wrapperStyle = css`
-  position: sticky;
   display: flex;
 
   top: 4rem;
 
   flex-direction: column;
   gap: 1.3rem;
-
 `;
 
 export const titleStyle = css`
@@ -39,3 +37,4 @@ export const listStyle = css`
 
   overflow-y: scroll;
 `;
+
