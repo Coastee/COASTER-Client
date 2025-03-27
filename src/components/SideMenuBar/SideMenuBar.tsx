@@ -5,11 +5,11 @@ import ProfileMenu from "@/components/ProfileMenu/ProfileMenu";
 import { useExitChatRoom } from "@/components/DetailModal/hooks/useExitChatRoom";
 import * as s from "@/components/SideMenuBar/SideMenuBar.styles";
 import UserBox from "@/components/UserBox/UserBox";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 import type { ChatRoomTypes } from "@/pages/ChatPage/types";
-
 import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 
 interface SideMenuBarProps {
   serverId: number;
@@ -27,7 +27,11 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
   const { closeMenuBar } = useMenuBarAction();
   const isOpen = useMenuBarIsOpen();
 
-  const handleMemberInteraction = (member: (typeof members)[0]) => {
+  const menuBarRef = useOutsideClick<HTMLElement>(closeMenuBar);
+  const profileMenuRef = useOutsideClick<HTMLDivElement>(() => setSelectedMember(null));
+
+  const handleMemberInteraction = (member: (typeof members)[0], e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id }));
   };
 
@@ -49,7 +53,7 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
   };
 
   return (
-    <nav css={s.layoutStyle}>
+    <nav css={s.layoutStyle} ref={menuBarRef}>
       <div css={s.wrapperStyle(isOpen)}>
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <div css={s.closeNavIconWrapperStyle} onClick={closeMenuBar}>
@@ -67,19 +71,25 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                 <button
                   type="button"
                   css={s.itemStyle}
-                  onClick={() => handleMemberInteraction(member)}
+                  onClick={(e) => handleMemberInteraction(member, e)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
-                      handleMemberInteraction(member);
+                      e.preventDefault();
+                      handleMemberInteraction(member, e as unknown as MouseEvent<HTMLButtonElement>);
                     }
                   }}
                 >
-                  <UserBox name={member.user.nickname} size="small" variant="default" />
+                  <UserBox
+                    name={member.user.nickname}
+                    size="small"
+                    variant="default"
+                    profileImage={member.user.profileImage}
+                  />
                   <p>{member.user.nickname}</p>
                 </button>
                 {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
                 {selectedMember?.id === member.id && (
-                  <div css={s.profileMenuWrapperStyle}>
+                  <div css={s.profileMenuWrapperStyle} ref={profileMenuRef}>
                     <ProfileMenu
                       id={member.user.id}
                       name={member.user.nickname}

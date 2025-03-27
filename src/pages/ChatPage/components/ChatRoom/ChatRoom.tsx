@@ -82,7 +82,7 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title }: ChatRoomProps) => {
           const isUser = chat.user.id === myId;
           return (
             <div key={`${index}-${chat.id}`} css={s.layoutStyle(isUser)}>
-              {!isUser && <UserBox name={chat.user.nickname} />}
+              {!isUser && <UserBox name={chat.user.nickname} profileImage={chat.user.profileImage} />}
               <div css={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
                 <div css={s.nameBoxStyle(isUser)}>
                   {chat.user.nickname}

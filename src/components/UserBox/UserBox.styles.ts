@@ -20,3 +20,11 @@ export const wrapperStyle = (size: "small" | "medium" | "large", variant: "defau
   ${size === "large" ? theme.font.title2 : size === "medium" ? theme.font.title4 : theme.font.body2};
   font-weight: 400;
 `;
+
+export const imageStyle = css`
+  width: inherit;
+  height: inherit;
+
+  object-fit: cover;
+  border-radius: inherit;
+`;

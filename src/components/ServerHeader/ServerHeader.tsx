@@ -2,14 +2,15 @@ import { HomeIcon, PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
 import { useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
+import { PATH } from "@/constants/path";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useGlobalMenu, useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
 import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
+import { useMenuBarAction } from "@/stores/useMenuBarStore";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
-import { PATH } from "@/constants/path";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const ServerHeader = () => {
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
+  const { closeMenuBar } = useMenuBarAction();
   const { data: myServerInfo } = useMyServerList();
   const myServerIdTitleList = myServerInfo?.result.serverList || [];
 
@@ -41,8 +43,8 @@ const ServerHeader = () => {
             icon: serverInfo?.icon || HomeIcon,
           },
         ];
-      })
-    ).values()
+      }),
+    ).values(),
   );
 
   const exceptCurrentServer = globalServer
@@ -57,6 +59,7 @@ const ServerHeader = () => {
 
   const handleServerChange = (server: ServerInfoTypes) => {
     setGlobalServer(server);
+    closeMenuBar();
   };
 
   useEffect(() => {
