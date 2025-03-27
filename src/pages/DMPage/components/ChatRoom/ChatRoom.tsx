@@ -13,7 +13,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 
 const ChatRoom = ({ dmList, userId, roomId, setRoomId, nickname, expYears, job, profileImage }: ChatRoomProps) => {
   const scrollRef = useScrollToBottom();
-  const { data } = roomId !== -1 ? useDmLogs(roomId) : { data: null };
+  const { data } = useDmLogs(roomId);
 
   const myId = Number(localStorage.getItem("userId"));
 
