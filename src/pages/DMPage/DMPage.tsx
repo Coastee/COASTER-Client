@@ -17,8 +17,6 @@ const DMPage = () => {
   const { data } = useDmList();
   const dmList = data?.result.dmRoomList || [];
 
-  console.log("roomId", roomId);
-
   useEffect(() => {
     if (newDmRoomId !== null) {
       setRoomId(newDmRoomId);

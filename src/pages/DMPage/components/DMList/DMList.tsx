@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 
 const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
-  console.log(latestDmList);
 
   const myId = Number(localStorage.getItem("userId"));
 
@@ -22,6 +21,7 @@ const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmLi
     setLatestDmList(dmList);
   }, [dmList]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
   useEffect(() => {
     const client = createDMClient(myId, (msg) => {
       setLatestDmList((list) => {
@@ -46,8 +46,9 @@ const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmLi
         ];
 
         if (!list.some((room) => room.id === msg.id)) {
-          console.log("setNewDmRoomId: ", msg.id);
-          setNewDmRoomId(msg.id);
+          setTimeout(() => {
+            setNewDmRoomId(msg.id);
+          }, 0);
         }
 
         return updated;
