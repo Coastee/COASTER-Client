@@ -33,20 +33,27 @@ export const getInitials = (name: string): string => {
       .join("");
   }
 
-  // 공백이 없는 경우
-  return name
-    .slice(1)
-    .split("")
-    .map((char) => {
-      const code = char.charCodeAt(0);
-      if (code >= 0xac00 && code <= 0xd7a3) {
-        const initialIndex = Math.floor((code - 0xac00) / 588);
-        const initials = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
-        const initial = initials[initialIndex];
+  // 한글인 경우
+  const firstChar = name.charAt(0);
+  const code = firstChar.charCodeAt(0);
+  if (code >= 0xac00 && code <= 0xd7a3) {
+    return name
+      .slice(1)  // 성을 제외하고
+      .split("")
+      .map((char) => {
+        const code = char.charCodeAt(0);
+        if (code >= 0xac00 && code <= 0xd7a3) {
+          const initialIndex = Math.floor((code - 0xac00) / 588);
+          const initials = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+          const initial = initials[initialIndex];
+          return consonantMap[initial] || "";
+        }
+        return "";
+      })
+      .join("")
+      .substring(0, 2);  // 첫 두 글자만 반환
+  }
 
-        return consonantMap[initial] || "";
-      }
-      return "";
-    })
-    .join("");
+  // 영어인 경우
+  return name.substring(0, 2).toUpperCase();
 };

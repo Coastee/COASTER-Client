@@ -12,7 +12,7 @@ interface UserBoxProps extends ComponentPropsWithoutRef<"div"> {
 const UserBox = ({ name, size = "large", variant = "outline", profileImage }: UserBoxProps) => {
   return (
     <div css={s.wrapperStyle(size, variant)}>
-      {profileImage ? <img src={profileImage} alt={`${name} 프로필`} css={s.imageStyle} /> : getInitials(name)}
+      {profileImage !== null ? <img src={profileImage} alt={`${name} 프로필`} css={s.imageStyle} /> : getInitials(name)}
     </div>
   );
 };
