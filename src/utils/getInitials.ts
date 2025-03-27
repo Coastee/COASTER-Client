@@ -38,7 +38,7 @@ export const getInitials = (name: string): string => {
   const code = firstChar.charCodeAt(0);
   if (code >= 0xac00 && code <= 0xd7a3) {
     return name
-      .slice(1)  // 성을 제외하고
+      .slice(1)
       .split("")
       .map((char) => {
         const code = char.charCodeAt(0);
@@ -51,7 +51,7 @@ export const getInitials = (name: string): string => {
         return "";
       })
       .join("")
-      .substring(0, 2);  // 첫 두 글자만 반환
+      .substring(0, 2);
   }
 
   // 영어인 경우

@@ -3,7 +3,6 @@ import UserBox from "@/components/UserBox/UserBox";
 
 import * as s from "@/components/ProfileMenu/ProfileMenu.styles";
 import { PATH } from "@/constants/path";
-import { getInitials } from "@/utils/getInitials";
 import { useNavigate } from "react-router-dom";
 
 const ProfileMenu = ({ ...info }) => {
@@ -12,9 +11,6 @@ const ProfileMenu = ({ ...info }) => {
   const handleNavigate = () => {
     navigate(`${PATH.MYPAGE}/${info.id}`);
   };
-
-  console.log(info);
-  console.log(getInitials(info.nickname));
 
   return (
     <article css={s.wrapperStyle}>
