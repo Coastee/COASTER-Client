@@ -36,7 +36,13 @@ const ChatPage = ({ type }: { type: "groups" | "meetings" }) => {
       <ChatInfoList menu={menu} ownerList={ownerList} joinedList={joinedList} setSelectedRoom={setSelectedRoom} />
       {selectedRoom?.id ? (
         <div css={s.backgroundStyle}>
-          <ChatRoom type={type} serverId={serverId} selectedRoomId={selectedRoom.id} title={selectedRoom.title} />
+          <ChatRoom
+            type={type}
+            serverId={serverId}
+            selectedRoomId={selectedRoom.id}
+            title={selectedRoom.title}
+            startDate={selectedRoom.period.startDate}
+          />
           <SideMenuBar
             serverId={serverId}
             chatRoomType={type}
