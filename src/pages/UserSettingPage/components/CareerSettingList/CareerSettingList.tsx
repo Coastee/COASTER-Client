@@ -13,7 +13,7 @@ const CareerSettingList = () => {
   const userId = localStorage.getItem("userId");
   const { data } = useFetchUserDetail(Number(userId));
 
-  const experienceData = data.experience.experienceList;
+  const experienceData = data?.experience.experienceList;
 
   const { mutate: deleteExperience } = useDeleteExperience();
 
@@ -32,7 +32,7 @@ const CareerSettingList = () => {
         </button>
       </div>
       <ul css={s.listStyle}>
-        {experienceData.map((career, index) => (
+        {experienceData?.map((career, index) => (
           <CareerBoxChip
             key={`${career.title}-${index}`}
             {...career}

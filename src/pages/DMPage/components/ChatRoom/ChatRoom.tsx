@@ -6,16 +6,16 @@ import { PLACEHOLDER } from "@/constants/placeholder";
 import { useScrollToBottom } from "@/hooks/useScroll";
 import { useDmLogs } from "@/pages/DMPage/hooks/useDm";
 import type { ChatRoomProps, DMTypes, StompClientStateTypes } from "@/pages/DMPage/types/dmTypes";
-import { createStompClient } from "@/sockets/dmSocketClient";
+import { createStompClient, sendMessage } from "@/sockets/dmSocketClient";
 import { chatFormatTime } from "@/utils/dateTime";
 import * as s from "@pages/DMPage/components/ChatRoom/ChatRoom.styles";
 import { useEffect, useLayoutEffect, useState } from "react";
 
-const myId = 19; // 추후 전역상태로 받아올 예정
-
-const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
+const ChatRoom = ({ dmList, userId, roomId, setRoomId, nickname, expYears, job, profileImage }: ChatRoomProps) => {
   const scrollRef = useScrollToBottom();
   const { data } = useDmLogs(roomId);
+
+  const myId = Number(localStorage.getItem("userId"));
 
   const [input, setInput] = useState("");
   const [dmLogs, setDmLogs] = useState<DMTypes[]>([]);
@@ -24,16 +24,23 @@ const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
   const userInfo = dmList.find((item) => item.id === roomId)?.user;
 
   const handleSendMessage = () => {
-    if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
+    if (roomId === -1) {
+      if (input.trim() !== "") {
+        sendMessage(null, userId, input);
+        setInput("");
+      }
+    } else {
+      if (!stompClient || !stompClient.sendMessage || input.trim() === "") return;
 
-    stompClient.sendMessage(input);
-    setInput("");
+      stompClient.sendMessage(input);
+      setInput("");
+    }
   };
 
   // STOMP 클라이언트 연결 및 구독 설정
   // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
   useEffect(() => {
-    if (roomId) {
+    if (roomId !== null && roomId !== -1) {
       const stomp = createStompClient(roomId, (messageContent: string) => {
         const messageData = JSON.parse(messageContent);
 
@@ -71,22 +78,21 @@ const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
     }
   }, [dmLogs]);
 
-  if (!data) return <p>Loading...</p>;
-
   return (
     <section css={s.wrapperStyle}>
       <header css={s.headerStyle}>
         <div css={s.titleLayoutStyle}>
-          <UserBox name={userInfo?.nickname ?? ""} profileImage={userInfo?.profileImage} />
+          <UserBox name={userInfo?.nickname || nickname || "사용자 없음"} profileImage={userInfo?.profileImage} />
           <div css={s.infoLayoutStyle}>
-            <h1>{userInfo?.nickname ?? "사용자 없음"}</h1>
+            <h1>{userInfo?.nickname || nickname || "사용자 없음"}</h1>
             <div css={{ display: "flex", gap: "0.8rem", alignItems: "center" }}>
-              <p css={s.infoStyle}>{userInfo?.userIntro?.expYears ?? "경력 미제공"}년차</p>
+              <p css={s.infoStyle}>{userInfo?.userIntro?.expYears || expYears || "N"}년차</p>
               <div css={s.circleStyle} />
-              <p css={s.infoStyle}>{userInfo?.userIntro?.job ?? "직무 미제공"}</p>
+              <p css={s.infoStyle}>{userInfo?.userIntro?.job || job || "직무 미제공"}</p>
             </div>
           </div>
         </div>
+
         <CloseIcon
           width={23}
           height={23}
@@ -114,7 +120,7 @@ const ChatRoom = ({ dmList, roomId, setRoomId }: ChatRoomProps) => {
       </div>
       <div>
         <Input
-          placeholder={PLACEHOLDER.CHAT}
+          placeholder={roomId === -1 ? "상대에게 첫 DM을 보내보세요!" : PLACEHOLDER.CHAT}
           rightIcon={<SendIcon width={14} height={14} />}
           value={input}
           onChange={(e) => setInput(e.target.value)}

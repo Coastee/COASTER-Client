@@ -5,9 +5,9 @@ import ProfileMenu from "@/components/ProfileMenu/ProfileMenu";
 import { useExitChatRoom } from "@/components/DetailModal/hooks/useExitChatRoom";
 import * as s from "@/components/SideMenuBar/SideMenuBar.styles";
 import UserBox from "@/components/UserBox/UserBox";
-import type { ChatRoomTypes } from "@/pages/ChatPage/types";
-
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import type { ChatRoomTypes } from "@/pages/ChatPage/types";
+import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
 import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
 import { type MouseEvent, useEffect, useState } from "react";
 
@@ -34,6 +34,9 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
     e.stopPropagation();
     setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id }));
   };
+
+  const { data } = useFetchUserDetail(selectedMember?.id ?? null);
+  const dmRoomId = data?.dmRoomId ?? null;
 
   useEffect(() => {
     if (!isOpen) {
@@ -87,7 +90,15 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                 {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
                 {selectedMember?.id === member.id && (
                   <div css={s.profileMenuWrapperStyle} ref={profileMenuRef}>
-                    <ProfileMenu {...member.user} />
+                    <ProfileMenu
+                      id={member.user.id}
+                      name={member.user.nickname}
+                      expYears={member.user.userIntro.expYears}
+                      job={member.user.userIntro.job}
+                      linkedInVerify={member.user.linkedInVerify}
+                      dmRoomId={dmRoomId}
+                      profileImage={member.user.profileImage}
+                    />
                   </div>
                 )}
               </div>
