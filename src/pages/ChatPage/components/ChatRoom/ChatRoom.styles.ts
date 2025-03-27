@@ -11,7 +11,6 @@ export const wrapperStyle = (isOpen: boolean) => css`
   padding: ${isOpen ? "5.3rem 5rem 4.2rem" : "5.3rem 5rem 4.2rem"};
 
   flex-direction: column;
-  justify-content: space-between;
 
   z-index: 1;
 
@@ -25,7 +24,10 @@ export const headerLayoutStyle = css`
 
   justify-content: space-between;
   align-items: center;
+
   gap: 1rem;
+
+  margin-bottom: 2rem;
 `;
 
 export const titleLayoutStyle = css`
@@ -99,11 +101,11 @@ export const timeNoticeTextStyle = css`
 
 export const scrollStyle = css`
   display: flex;
-
-  height: 62rem;
-
   flex-direction: column;
+
   gap: 2.5rem;
+
+  height: calc(100vh - 22rem);
 
   overflow-y: scroll;
   scroll-behavior: smooth;

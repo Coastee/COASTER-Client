@@ -102,7 +102,6 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title, startDate }: ChatRoom
             </div>
           </div>
         )}
-
         {reversedChatLogs.map((chat, index) => {
           const isUser = chat.user.id === myId;
           return (
@@ -124,16 +123,18 @@ const ChatRoom = ({ type, serverId, selectedRoomId, title, startDate }: ChatRoom
           );
         })}
       </div>
-      <Input
-        placeholder={PLACEHOLDER.CHAT}
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyUp={(e) => {
-          if (e.key === "Enter") handleSendMessage();
-        }}
-        rightIcon={<SendIcon width={14} height={14} />}
-        css={{ minWidth: "28rem" }}
-      />
+      <div css={{ marginTop: "auto" }}>
+        <Input
+          placeholder={PLACEHOLDER.CHAT}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") handleSendMessage();
+          }}
+          rightIcon={<SendIcon width={14} height={14} />}
+          css={{ minWidth: "28rem" }}
+        />
+      </div>
     </section>
   );
 };
