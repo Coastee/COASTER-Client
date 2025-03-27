@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 export const containerStyle = css`
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 
   align-items: center;
   justify-content: space-between;

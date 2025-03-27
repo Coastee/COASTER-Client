@@ -12,6 +12,18 @@ const ProfileMenu = ({ ...info }) => {
     navigate(`${PATH.MYPAGE}/${info.id}`);
   };
 
+  const handleDM = async () => {
+    navigate(`${PATH.DM}`, {
+      state: {
+        userId: info.id,
+        dmRoomId: info.dmRoomId,
+        nickname: info.name,
+        profileImage: info.profileImage,
+        expYears: info.expYears,
+        job: info.job,
+      },
+    });
+  };
   return (
     <article css={s.wrapperStyle}>
       <div css={s.layoutStyle}>
@@ -32,7 +44,9 @@ const ProfileMenu = ({ ...info }) => {
         </div>
       )}
       <div css={s.buttonLayoutStyle}>
-        <button type="button">DM 보내기</button>
+        <button type="button" onClick={handleDM}>
+          DM 보내기
+        </button>
         <button type="button" onClick={handleNavigate}>
           상세 프로필 보러가기
         </button>

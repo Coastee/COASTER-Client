@@ -13,7 +13,6 @@ import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
 import LinkedInVerify from "@/pages/UserSettingPage/components/LinkedInVerify/LinkedInVerify";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
-import { Suspense } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
@@ -129,19 +128,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: PATH.GROUP_CHAT,
-        element: (
-          <Suspense>
-            <ChatPage type="groups" />
-          </Suspense>
-        ),
+        element: <ChatPage type="groups" />,
       },
       {
         path: PATH.TEA_TIME,
-        element: (
-          <Suspense>
-            <ChatPage type="meetings" />
-          </Suspense>
-        ),
+        element: <ChatPage type="meetings" />,
       },
     ],
   },

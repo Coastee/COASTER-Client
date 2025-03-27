@@ -7,10 +7,10 @@ import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";
 
-const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
+const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
 
-  const userId = 19; // 내 userId - 추후 전역상태로 관리
+  const myId = Number(localStorage.getItem("userId"));
 
   const handleItemClick = ({ roomId, userId }: { roomId: number; userId: number }) => {
     setRoomId(roomId);
@@ -21,8 +21,9 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
     setLatestDmList(dmList);
   }, [dmList]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore unnecessary dependency warning
   useEffect(() => {
-    const client = createDMClient(userId, (msg) => {
+    const client = createDMClient(myId, (msg) => {
       setLatestDmList((list) => {
         const idx = list.findIndex((room) => room.id === msg.id);
 
@@ -36,7 +37,20 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
           return updated;
         }
 
-        const updated = [{ ...msg }, ...list];
+        const updated = [
+          {
+            ...msg,
+            user: { ...msg.user, nickname: msg.user.id === myId ? nickname : msg.user.nickname },
+          },
+          ...list,
+        ];
+
+        if (!list.some((room) => room.id === msg.id)) {
+          setTimeout(() => {
+            setNewDmRoomId(msg.id);
+          }, 0);
+        }
+
         return updated;
       });
     });
@@ -44,7 +58,7 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
     return () => {
       client.deactivate();
     };
-  }, []);
+  }, [myId]);
 
   return (
     <section css={s.sectionStyle}>
@@ -56,7 +70,7 @@ const DMList = ({ dmList, setRoomId, setUserId }: DmListProps) => {
       <ul css={[s.listStyle]}>
         {latestDmList.map((item, index) => (
           <li
-            key={`${item.user.nickname}-${index}`}
+            key={`${item.id}-${index}`}
             onClick={() => handleItemClick({ roomId: item.id, userId: item.user.id })}
             onKeyDown={() => handleItemClick({ roomId: item.id, userId: item.user.id })}
           >
