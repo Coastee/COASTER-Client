@@ -7,7 +7,7 @@ import { theme } from "@/styles/theme/theme";
 import * as s from "@pages/DMPage/components/DMList/DMList.styles";
 import { useEffect, useState } from "react";
 
-const DMList = ({ dmList, setRoomId, setUserId, nickname }: DmListProps) => {
+const DMList = ({ dmList, setRoomId, setNewDmRoomId, setUserId, nickname }: DmListProps) => {
   const [latestDmList, setLatestDmList] = useState(dmList);
   console.log(latestDmList);
 
@@ -44,6 +44,11 @@ const DMList = ({ dmList, setRoomId, setUserId, nickname }: DmListProps) => {
           },
           ...list,
         ];
+
+        if (!list.some((room) => room.id === msg.id)) {
+          console.log("setNewDmRoomId: ", msg.id);
+          setNewDmRoomId(msg.id);
+        }
 
         return updated;
       });

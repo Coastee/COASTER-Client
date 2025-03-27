@@ -73,6 +73,7 @@ export interface ChatRoomProps {
 export interface DmListProps {
   dmList: DMRoomTypes[];
   setRoomId: (id: number) => void;
+  setNewDmRoomId: (id: number) => void;
   setUserId: (id: number) => void;
   nickname: string;
 }

@@ -2,7 +2,7 @@ import ChatRoom from "@/pages/DMPage/components/ChatRoom/ChatRoom";
 import DMList from "@/pages/DMPage/components/DMList/DMList";
 import EmptyPanel from "@/pages/DMPage/components/EmptyPanel/EmptyPanel";
 import { useDmList } from "@/pages/DMPage/hooks/useDm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const DMPage = () => {
@@ -11,6 +11,7 @@ const DMPage = () => {
   const receivedRoomId = state ? dmRoomId ?? -1 : null;
 
   const [roomId, setRoomId] = useState<number | null>(receivedRoomId);
+  const [newDmRoomId, setNewDmRoomId] = useState<number | null>(null);
   const [userId, setUserId] = useState<number | null>(memberUserId);
 
   const { data } = useDmList();
@@ -18,9 +19,21 @@ const DMPage = () => {
 
   console.log("roomId", roomId);
 
+  useEffect(() => {
+    if (newDmRoomId !== null) {
+      setRoomId(newDmRoomId);
+    }
+  }, [newDmRoomId]);
+
   return (
     <>
-      <DMList dmList={dmList} setRoomId={setRoomId} setUserId={setUserId} nickname={nickname} />
+      <DMList
+        dmList={dmList}
+        setRoomId={setRoomId}
+        setNewDmRoomId={setNewDmRoomId}
+        setUserId={setUserId}
+        nickname={nickname}
+      />
       {roomId === null ? (
         <EmptyPanel onClick={() => setRoomId(dmList[0]?.id || null)} />
       ) : (
