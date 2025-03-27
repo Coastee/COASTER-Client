@@ -1,20 +1,17 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
-
 import { NoDataContainer } from "@/components";
-import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
-
+import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
 import { parseDateArray } from "@/utils/dateTime";
-
 import * as s from "./CoffeeChatList.styles";
 
 interface CoffeeChatListProps {
-  data: HomeDataTypes["meetingChatRoom"];
-  handleItemClick: (type: string, id: string) => void;
+  data: ChatRoomTypes[] | undefined;
+  handleItemClick: (id: number, type: string) => void;
 }
 
 const CoffeeChatList = ({ data, handleItemClick }: CoffeeChatListProps) => {
-  const items = data?.chatRoomList || [];
+  const items = data || [];
   const itemCount = items.length || 0;
 
   const formatParsedDate = (dateArray: number[]) => {
@@ -30,9 +27,9 @@ const CoffeeChatList = ({ data, handleItemClick }: CoffeeChatListProps) => {
         items.map((chat, idx) => (
           <li
             key={chat.id}
-            onClick={() => handleItemClick("meetingChatRoom", chat.id.toString())}
+            onClick={() => handleItemClick(chat.id, "meetingChatRoom")}
             onKeyDown={(e) => {
-              e.key === "Enter" && handleItemClick("meetingChatRoom", chat.id.toString());
+              e.key === "Enter" && handleItemClick(chat.id, "meetingChatRoom");
             }}
           >
             <article css={s.listItemStyle({ itemCount, idx })}>

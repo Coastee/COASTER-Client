@@ -2,28 +2,32 @@ import { HomeIcon, PlusIcon } from "@/assets/svg";
 import ServerDropdown from "@/components/ServerHeader/components/ServerDropdown/ServerDropdown";
 import { useMyServerList } from "@/components/ServerHeader/hooks/useServerList";
 import { GLOBAL_MENUS, type MenuTypes } from "@/constants/menu";
+import { PATH } from "@/constants/path";
 import { SERVERINFO, type ServerInfoTypes } from "@/constants/serverInfo";
 import ScheduleSideModal from "@/pages/HomePage/components/ScheduleSideModal/ScheduleSideModal";
 import { useGlobalMenu, useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
-import { useGlobalServerAction } from "@/stores/useGlobalServerStore";
+import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
+import { useMenuBarAction } from "@/stores/useMenuBarStore";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerHeader.styles";
 
 const ServerHeader = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const globalMenu = useGlobalMenu();
+  const globalServer = useGlobalServer();
 
   const { setGlobalMenu } = useGlobalMenuAction();
   const { setGlobalServer } = useGlobalServerAction();
 
-  const [currentServer, setCurrentServer] = useState<ServerInfoTypes | undefined>(undefined);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScheduleVisible, setIsScheduleVisible] = useState(false);
   const [hoveredGlobalMenuId, setHoveredGlobalMenuId] = useState<string | null>(null);
   const [previousMenu, setPreviousMenu] = useState<MenuTypes | null>(globalMenu);
 
+  const { closeMenuBar } = useMenuBarAction();
   const { data: myServerInfo } = useMyServerList();
   const myServerIdTitleList = myServerInfo?.result.serverList || [];
 
@@ -39,20 +43,13 @@ const ServerHeader = () => {
             icon: serverInfo?.icon || HomeIcon,
           },
         ];
-      })
-    ).values()
+      }),
+    ).values(),
   );
 
-  const exceptCurrentServer = currentServer
-    ? myServerList.filter((server) => server.id !== currentServer.id)
+  const exceptCurrentServer = globalServer
+    ? myServerList.filter((server) => server.id !== globalServer.id)
     : myServerList;
-
-  useEffect(() => {
-    if (myServerList.length > 0 && !currentServer) {
-      setCurrentServer(myServerList[0]);
-      setGlobalServer(myServerList[0]);
-    }
-  }, [myServerList, currentServer, setGlobalServer]);
 
   const handleGlobalMenuClick = (menu: MenuTypes) => {
     setPreviousMenu(globalMenu);
@@ -62,8 +59,16 @@ const ServerHeader = () => {
 
   const handleServerChange = (server: ServerInfoTypes) => {
     setGlobalServer(server);
-    setCurrentServer(server);
+    closeMenuBar();
   };
+
+  useEffect(() => {
+    if (!globalServer) {
+      const serverId = pathname.split("/")[1];
+      const server = myServerList.find((my) => my.id === Number(serverId)) || myServerList[0] || null;
+      setGlobalServer(server);
+    }
+  }, [myServerList, globalServer, pathname, setGlobalServer]);
 
   useEffect(() => {
     !isScheduleVisible && globalMenu?.id === "schedule" && setGlobalMenu(previousMenu);
@@ -74,13 +79,17 @@ const ServerHeader = () => {
       <div css={s.topMenuStyle}>
         <ServerDropdown
           options={exceptCurrentServer}
-          currentServer={currentServer}
-          setCurrentServer={setCurrentServer}
           dropdownOpen={dropdownOpen}
           setDropdownOpen={setDropdownOpen}
           onServerChange={handleServerChange}
         />
-        <button type="button" css={s.plusButtonStyle}>
+        <button
+          type="button"
+          css={s.plusButtonStyle}
+          onClick={() => {
+            navigate(PATH.SERVER_EDIT);
+          }}
+        >
           <PlusIcon />
         </button>
       </div>

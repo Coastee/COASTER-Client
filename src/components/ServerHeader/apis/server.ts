@@ -21,29 +21,26 @@ export const fetchMyServers = async (): Promise<ServerResponseTypes> => {
   }
 };
 
-export const fetchServerHome = async (serverId: number) => {
+export const fetchServerHome = async (serverId: number, queryParam?: { keyword: string; tags: string[] }) => {
+  const { keyword, tags } = queryParam || {};
+
+  const queryParams = new URLSearchParams();
+
+  if (keyword) queryParams.append("keyword", keyword);
+  if (tags && tags.length > 0) {
+    for (const tag of tags) {
+      queryParams.append("tags", tag);
+    }
+  }
+
   try {
-    const response = await tokenInstance(`api/v1/servers/${serverId}`).json<HomeResponseTypes>();
+    const response: HomeResponseTypes = await tokenInstance
+      .get(`api/v1/servers/${serverId}?${queryParams.toString()}`)
+      .json();
+
     return response.result;
   } catch (error) {
     console.error(`홈 정보 받아오기 실패 (${serverId}번 서버):`, error);
-  }
-};
-
-export const enterServer = async (serverId: number) => {
-  try {
-    const response = await tokenInstance.post(`api/v1/servers/${serverId}`).json();
-    return response;
-  } catch (error) {
-    console.error(`${serverId}번 서버 입장 실패:`, error);
-  }
-};
-
-export const exitServer = async (serverId: number) => {
-  try {
-    const response = await tokenInstance.delete(`api/v1/servers/${serverId}`).json();
-    return response;
-  } catch (error) {
-    console.error(`${serverId}번 서버 나가기 실패:`, error);
+    throw error;
   }
 };

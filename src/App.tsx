@@ -19,11 +19,12 @@ export default App;
 
 export const layoutStyle = css`
   display: flex;
-  overflow: hidden;
+  overflow: scroll;
 `;
 
 export const headerStyle = css`
   display: flex;
   border-radius: 0 2.5rem 2.5rem 0;
   background-color: ${theme.color.dark3};
+  height: 100%;
 `;

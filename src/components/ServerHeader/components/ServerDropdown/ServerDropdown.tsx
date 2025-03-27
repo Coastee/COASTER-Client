@@ -1,38 +1,33 @@
 import { ReturnIcon } from "@/assets/svg";
+import { useScrollPosition } from "@/components/ServerHeader/hooks/useScollPosition";
 import type { ServerInfoTypes } from "@/constants/serverInfo";
 import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
+import { useGlobalServer, useGlobalServerAction } from "@/stores/useGlobalServerStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./ServerDropdown.styles";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLUListElement> {
   options: ServerInfoTypes[];
-  currentServer?: ServerInfoTypes | undefined;
-  setCurrentServer: (item: ServerInfoTypes) => void;
   dropdownOpen: boolean;
   setDropdownOpen: (open: boolean) => void;
   onServerChange: (server: ServerInfoTypes) => void;
 }
 
-const ServerDropdown = ({
-  options,
-  currentServer,
-  setCurrentServer,
-  dropdownOpen,
-  setDropdownOpen,
-  onServerChange,
-  ...props
-}: DropdownProps) => {
+const ServerDropdown = ({ options, dropdownOpen, setDropdownOpen, onServerChange, ...props }: DropdownProps) => {
   const { resetGlobalMenu } = useGlobalMenuAction();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const globalServer = useGlobalServer();
+  const { setGlobalServer } = useGlobalServerAction();
+
+  const { scrollTop, listRef, handleScroll } = useScrollPosition();
 
   const handleItemClick = (item: ServerInfoTypes) => {
     resetGlobalMenu();
-    setCurrentServer(item);
+    setGlobalServer(item);
     onServerChange(item);
 
     const menu = pathname.split("/")[2] || "home";
-
     navigate(`/${item.id}/${menu}`);
 
     setDropdownOpen(false);
@@ -41,13 +36,16 @@ const ServerDropdown = ({
   return (
     <div css={s.serverDropdownStyle}>
       <div css={s.dropdownTopStyle(dropdownOpen)}>
-        {currentServer && (
+        {globalServer && (
           <div
-            css={s.currentIconStyle(dropdownOpen)}
-            onClick={() => handleItemClick(currentServer)}
-            onKeyDown={() => handleItemClick(currentServer)}
+            css={s.currentItemStyle}
+            onClick={() => handleItemClick(globalServer)}
+            onKeyDown={() => handleItemClick(globalServer)}
           >
-            <currentServer.icon css={{ width: "100%", height: "100%" }} />
+            <globalServer.icon css={s.iconStyle} />
+            <div css={s.serverDescStyle(0)} className="current-server-desc">
+              {globalServer.title}
+            </div>
           </div>
         )}
         <div
@@ -61,7 +59,7 @@ const ServerDropdown = ({
 
       {dropdownOpen && (
         <>
-          <ul css={s.listStyle} {...props}>
+          <ul ref={listRef} css={s.listStyle} onScroll={handleScroll} {...props}>
             {options.map((option) => (
               <li
                 key={option.id}
@@ -70,6 +68,9 @@ const ServerDropdown = ({
                 onKeyDown={() => handleItemClick(option)}
               >
                 <option.icon css={s.iconStyle} />
+                <div css={s.serverDescStyle(scrollTop)} className="servers-desc">
+                  {option.title}
+                </div>
               </li>
             ))}
           </ul>

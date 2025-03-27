@@ -5,7 +5,7 @@ import type {
   UseAddCoffeeChatProps,
 } from "@/pages/CoffeeChatListPage/types/coffeeChatTypes";
 import { requestFormatTime } from "@/utils/dateTime";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 const DEFAULT_MAX_LENGTH = 20;
@@ -21,6 +21,7 @@ export const useAddCoffeeChat = ({
   image,
 }: UseAddCoffeeChatProps) => {
   const [focusedField, setFocusedField] = useState<Record<string, { hasBeenFocused: boolean; isFocused: boolean }>>({});
+  const queryClient = useQueryClient();
 
   const handleFocus = (field: string) => {
     setFocusedField((prev) => ({
@@ -103,6 +104,8 @@ export const useAddCoffeeChat = ({
       return createCoffeeChat(serverId, formData);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["searchResult", globalServer?.id, "meetings"] });
+      queryClient.invalidateQueries({ queryKey: ["schedule"] });
       setIsVisible(false);
     },
     onError: (error) => {

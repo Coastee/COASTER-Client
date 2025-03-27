@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 export const containerStyle = css`
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 
   align-items: center;
   justify-content: space-between;
@@ -16,6 +17,11 @@ export const containerStyle = css`
   border-radius: 0rem 2.5rem 2.5rem 0rem;
 
   background: ${theme.color.dark2};
+
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const topMenuStyle = css`

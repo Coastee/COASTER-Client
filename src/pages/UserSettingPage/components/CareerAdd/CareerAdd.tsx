@@ -6,8 +6,11 @@ import * as s from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit.sty
 import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useCareerValidation } from "@/pages/UserSettingPage/hooks/useCareerValidation";
 import { useEditCareerForm } from "@/pages/UserSettingPage/hooks/useEditCareerForm";
-import { formatDateArray } from "@/utils/dateTime";
-import { useState } from "react";
+
+import { usePostExperience } from "@/pages/UserSettingPage/hooks/usePostExperience";
+import { formatDate, parseDateStringToArray } from "@/pages/UserSettingPage/utils/date";
+import { type FormEvent, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const CareerAdd = () => {
@@ -21,10 +24,26 @@ const CareerAdd = () => {
     handleDetailChange,
     handleAddDetailInput,
     handleDeleteDetailInput,
-    setIsCurrentJob,
+    handleCheckBoxChange,
+    handleDateInput,
   } = useEditCareerForm();
+  const { isContentError, isTitleError } = useCareerValidation(careerData);
+  const isDisabled = !careerData.title || careerData.startDate.length === 0 || careerData.contentList.length === 0;
 
-  const { isContentError, isDateError, isTitleError } = useCareerValidation(careerData);
+  const { mutate: createCareer } = usePostExperience();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    createCareer({
+      title: careerData.title,
+      startDate: parseDateStringToArray(formatDate(careerData.startDate)) ?? [],
+      endDate: careerData.endDate ? parseDateStringToArray(formatDate(careerData.endDate)) : null,
+      contentList: careerData.contentList,
+    });
+
+    navigate(PATH.CAREER_SETTING);
+  };
 
   return (
     <div css={s.pageStyle}>
@@ -49,18 +68,27 @@ const CareerAdd = () => {
             기간
           </label>
           <div css={s.datePickerStyle}>
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
-            <Input variant="secondary" value={formatDateArray(careerData.startDate)} onChange={() => {}} />
+            <Input
+              variant="secondary"
+              value={formatDate(careerData.startDate)}
+              placeholder="YYYY.MM.DD"
+              onChange={(e) => {
+                handleDateInput(e, "startDate");
+              }}
+            />
             <p css={{ marginRight: "1.3rem" }}>부터</p>
             <Input
               variant="secondary"
-              value={careerData.endDate ? formatDateArray(careerData.endDate) : ""}
-              onChange={() => {}}
+              value={careerData.endDate ? formatDate(careerData.endDate) : ""}
+              placeholder="YYYY.MM.DD"
+              onChange={(e) => {
+                handleDateInput(e, "endDate");
+              }}
               disabled={!careerData.endDate}
             />
             <p>까지</p>
             <Divider direction="horizontal" />
-            <div css={s.checkboxStyle}>
+            <div css={s.checkboxLayoutStyle}>
               <label htmlFor="current-job" css={s.labelStyle}>
                 현직
               </label>
@@ -68,7 +96,7 @@ const CareerAdd = () => {
                 id="current-job"
                 variant="round"
                 isChecked={!careerData.endDate}
-                onChange={() => setIsCurrentJob(!careerData.endDate)}
+                onChange={handleCheckBoxChange}
               />
             </div>
           </div>
@@ -115,7 +143,7 @@ const CareerAdd = () => {
         <Button size="medium" variant="tertiary" onClick={() => navigate(PATH.CAREER_SETTING)}>
           뒤로 가기
         </Button>
-        <Button size="medium" onClick={() => navigate(PATH.CAREER_SETTING)}>
+        <Button size="medium" onClick={handleSubmit} disabled={isDisabled}>
           추가 하기
         </Button>
       </div>

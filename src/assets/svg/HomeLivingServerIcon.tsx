@@ -4,58 +4,70 @@ const SvgHomeLivingServerIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    viewBox="0 0 28 16"
+    viewBox="0 0 41 37"
     {...props}
   >
-    <g fill="#fff">
-      <rect
-        width={19.871}
-        height={10.244}
-        x={4.283}
-        y={1.48}
-        stroke="#fff"
-        rx={0.5}
-      />
-      <rect
-        width={10.371}
-        height={4.036}
-        x={3.783}
-        y={8.188}
-        stroke="#6B8AFD"
-        rx={1}
-      />
-      <rect
-        width={10.371}
-        height={4.036}
-        x={14.283}
-        y={8.188}
-        stroke="#6B8AFD"
-        rx={1}
-      />
-      <path
-        stroke="#6B8AFD"
-        strokeLinecap="round"
-        d="M3.443 6.103h-.818a1.5 1.5 0 0 0-1.5 1.5v6.033a1.5 1.5 0 0 0 1.5 1.5h23a1.5 1.5 0 0 0 1.5-1.5V7.603a1.5 1.5 0 0 0-1.5-1.5h-.727a1.5 1.5 0 0 0-1.5 1.5v2.476a.5.5 0 0 1-.5.5H5.443a.5.5 0 0 1-.5-.5V7.603a1.5 1.5 0 0 0-1.5-1.5Z"
-      />
-      <rect
-        width={0.532}
-        height={0.812}
-        x={4.049}
-        y={14.902}
-        stroke="#fff"
-        strokeWidth={0.532}
-        rx={0.266}
-      />
-      <rect
-        width={0.532}
-        height={0.812}
-        x={23.855}
-        y={14.902}
-        stroke="#fff"
-        strokeWidth={0.532}
-        rx={0.266}
-      />
-    </g>
+    <mask id="homeLivingServerIcon_svg__a" fill="#fff">
+      <rect width={23.375} height={16.491} x={8.447} y={7.825} rx={1} />
+    </mask>
+    <rect
+      width={23.375}
+      height={16.491}
+      x={8.447}
+      y={7.825}
+      fill="#fff"
+      stroke="#fff"
+      strokeWidth={3}
+      mask="url(#homeLivingServerIcon_svg__a)"
+      rx={1}
+    />
+    <rect
+      width={11.616}
+      height={5.919}
+      x={8.447}
+      y={18.397}
+      fill="#fff"
+      stroke="#6B8AFD"
+      strokeWidth={1.5}
+      rx={1}
+    />
+    <rect
+      width={11.616}
+      height={5.919}
+      x={20.207}
+      y={18.397}
+      fill="#fff"
+      stroke="#6B8AFD"
+      strokeWidth={1.5}
+      rx={1}
+    />
+    <path
+      fill="#fff"
+      stroke="#6B8AFD"
+      strokeLinecap="round"
+      strokeWidth={1.5}
+      d="M8.186 15.32H7.029a1.75 1.75 0 0 0-1.75 1.75v9.783c0 .966.784 1.75 1.75 1.75h26a1.75 1.75 0 0 0 1.75-1.75V17.07a1.75 1.75 0 0 0-1.75-1.75h-1.054a1.75 1.75 0 0 0-1.75 1.75v4.565a.25.25 0 0 1-.25.25h-19.79a.25.25 0 0 1-.25-.25V17.07a1.75 1.75 0 0 0-1.75-1.75Z"
+    />
+    <rect
+      width={0.596}
+      height={1.375}
+      x={8.745}
+      y={28.151}
+      fill="#fff"
+      stroke="#fff"
+      strokeWidth={0.596}
+      rx={0.298}
+    />
+    <rect
+      width={0.596}
+      height={1.375}
+      x={30.925}
+      y={28.151}
+      fill="#fff"
+      stroke="#fff"
+      strokeWidth={0.596}
+      rx={0.298}
+    />
   </svg>
 );
 export default SvgHomeLivingServerIcon;

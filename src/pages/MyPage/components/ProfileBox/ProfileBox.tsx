@@ -5,11 +5,25 @@ import * as s from "@/pages/MyPage/components/ProfileBox/ProfileBox.styles";
 import { DUMMY_PROFILE } from "@/pages/MyPage/constants/dummy";
 import { IMAGE_PLACEHOLDER } from "@/pages/MyPage/constants/image";
 import type { UserDetailTypes } from "@/pages/MyPage/types";
+import { getProfileDomainIcon } from "@/utils/icon";
 import { useNavigate } from "react-router-dom";
 
 const ProfileBox = (data: UserDetailTypes) => {
   const navigate = useNavigate();
   const userData = data;
+
+  const handleDMClick = () => {
+    navigate(`${PATH.DM}`, {
+      state: {
+        userId: userData.id,
+        dmRoomId: userData.dmRoomId,
+        nickname: userData.nickname,
+        profileImage: userData.profileImage,
+        expYears: userData.userIntro.expYears,
+        job: userData.userIntro.job,
+      },
+    });
+  };
 
   return (
     <section css={s.wrapperStyle}>
@@ -39,7 +53,7 @@ const ProfileBox = (data: UserDetailTypes) => {
             <p>·</p>
             <p>{userData?.userIntro?.expYears}년차</p>
           </div>
-          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }} onClick={() => navigate(PATH.DM)}>
+          <Button css={{ padding: "0.6rem 1rem", fontSize: "1.4rem" }} onClick={handleDMClick}>
             <DmIcon width={12} height={12} css={{ flexShrink: "0" }} />
             DM
           </Button>
@@ -47,7 +61,7 @@ const ProfileBox = (data: UserDetailTypes) => {
             {userData?.urlList.map((url) => (
               <li key={url}>
                 <a href={url} target="_blank" rel="noreferrer">
-                  <div aria-label={`route to ${url}`} css={s.linkStyle} />
+                  {getProfileDomainIcon(url)}
                 </a>
               </li>
             ))}

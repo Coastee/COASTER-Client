@@ -1,5 +1,5 @@
 import { createGroupChat } from "@/pages/GroupChatListPage/apis/addGroupChat";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 interface AddGroupChatTypes {
@@ -17,8 +17,16 @@ interface UseAddGroupChatProps {
   image: File | null;
 }
 
-export const useAddGroupChat = ({ request, setRequest, maxLengths, setIsVisible, globalServer, image }: UseAddGroupChatProps) => {
+export const useAddGroupChat = ({
+  request,
+  setRequest,
+  maxLengths,
+  setIsVisible,
+  globalServer,
+  image,
+}: UseAddGroupChatProps) => {
   const [focusedField, setFocusedField] = useState<Record<string, { hasBeenFocused: boolean; isFocused: boolean }>>({});
+  const queryClient = useQueryClient();
 
   const handleFocus = (field: string) => {
     setFocusedField((prev) => ({
@@ -48,7 +56,11 @@ export const useAddGroupChat = ({ request, setRequest, maxLengths, setIsVisible,
     }));
   };
 
-  const { mutate: uploadGroupChat, isError, error } = useMutation({
+  const {
+    mutate: uploadGroupChat,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: async ({ serverId, file }: { serverId: number; file: File | null }) => {
       if (!serverId) throw new Error("서버 정보가 없습니다.");
 
@@ -65,9 +77,12 @@ export const useAddGroupChat = ({ request, setRequest, maxLengths, setIsVisible,
 
       return createGroupChat(serverId, formData);
     },
+
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["searchResult", globalServer?.id, "groups"] });
       setIsVisible(false);
     },
+
     onError: (error) => {
       console.error("그룹챗 생성 실패:", error);
     },

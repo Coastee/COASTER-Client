@@ -50,6 +50,7 @@ export const parseDateArray = (dateArray: number[]) => {
     year,
     month,
     day,
+    defaultHour: hour,
     hour: formattedHour,
     minute,
     dayOfWeek,
@@ -58,7 +59,7 @@ export const parseDateArray = (dateArray: number[]) => {
 };
 
 export const requestFormatTime = (
-  dateTime: FormDateTimeTypes
+  dateTime: FormDateTimeTypes,
 ): {
   startDate: RequestDateType;
   endDate: RequestDateType;
@@ -79,8 +80,8 @@ export const requestFormatTime = (
   };
 
   return {
-    startDate: [year, month - 1, day, ...parseTime(dateTime.start), 0, 0],
-    endDate: [year, month - 1, day, ...parseTime(dateTime.end), 0, 0],
+    startDate: [year, month, day, ...parseTime(dateTime.start), 0, 0],
+    endDate: [year, month, day, ...parseTime(dateTime.end), 0, 0],
   };
 };
 
@@ -91,7 +92,7 @@ export const formatDateArray = (dateArray: number[]): string => {
   return `${year}. ${month}. ${day}`;
 };
 
-export const formatDateRange = (startDate: number[], endDate?: number[]): string => {
+export const formatDateRange = (startDate: number[], endDate?: number[] | null): string => {
   const format = (dateArray: number[]) => `${dateArray[0]}.${dateArray[1]}.${dateArray[2]}`;
 
   return endDate ? `${format(startDate)} ~ ${format(endDate)}` : format(startDate);

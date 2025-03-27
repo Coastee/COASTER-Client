@@ -1,4 +1,5 @@
 import { AddButton, SearchLayout, TitleContainer } from "@/components";
+import { useHashtagSearch } from "@/components/SearchLayout/hooks/useHashtagSearch";
 import { useSearch } from "@/components/SearchLayout/hooks/useSearch";
 import type { QueryParamTypes } from "@/components/SearchLayout/types/searchTypes";
 import { GROUP_SORTING_OPTIONS } from "@/constants/dropdown";
@@ -15,14 +16,15 @@ const GroupChatListPage = () => {
   const serverId = Number(param);
 
   const location = useLocation();
-  const hashTagData = location.state?.hashTagData || [];
+  const prevKeyword = location.state?.keyword || "";
+  const prevTags = location.state?.tags || [];
 
   const [queryParam, setQueryParam] = useState<QueryParamTypes>({
     page: 0,
     sort: GROUP_SORTING_OPTIONS[0].id,
     scope: "",
-    keyword: "",
-    tags: [],
+    keyword: prevKeyword,
+    tags: prevTags,
   });
 
   const { data } = useSearch({
@@ -31,11 +33,17 @@ const GroupChatListPage = () => {
     queryParam,
   });
 
+  const { data: hashtagData = [] } = useHashtagSearch({
+    serverId,
+    keyword: queryParam.keyword,
+    tags: queryParam.tags,
+  });
+
   return (
     <div css={s.layoutStyle}>
       <AddGroupChatModal isVisible={isVisible} setIsVisible={setIsVisible} />
       <AddButton setIsModalVisible={setIsVisible} />
-      <SearchLayout queryParam={queryParam} setQueryParam={setQueryParam} hashTagData={hashTagData} />
+      <SearchLayout queryParam={queryParam} setQueryParam={setQueryParam} hashTagData={hashtagData} />
 
       <TitleContainer
         title="그룹 채팅방"

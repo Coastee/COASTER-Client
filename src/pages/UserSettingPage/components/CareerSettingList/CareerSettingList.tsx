@@ -1,13 +1,21 @@
 import { PlusIcon } from "@/assets/svg";
 import { Button } from "@/components";
 import { PATH } from "@/constants/path";
-import { careerData } from "@/pages/MyPage/constants/dummy";
+import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
 import CareerBoxChip from "@/pages/UserSettingPage/components/CareerBoxChip/CareerBoxChip";
 import * as s from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList.styles";
+import { useDeleteExperience } from "@/pages/UserSettingPage/hooks/useDeleteExperience";
 import { useNavigate } from "react-router-dom";
 
 const CareerSettingList = () => {
   const navigate = useNavigate();
+
+  const userId = localStorage.getItem("userId");
+  const { data } = useFetchUserDetail(Number(userId));
+
+  const experienceData = data?.experience.experienceList;
+
+  const { mutate: deleteExperience } = useDeleteExperience();
 
   return (
     <div css={s.pageStyle}>
@@ -24,8 +32,13 @@ const CareerSettingList = () => {
         </button>
       </div>
       <ul css={s.listStyle}>
-        {careerData.map((career, index) => (
-          <CareerBoxChip key={`${career.title}-${index}`} {...career} css={{ position: "relative" }} />
+        {experienceData?.map((career, index) => (
+          <CareerBoxChip
+            key={`${career.title}-${index}`}
+            {...career}
+            css={{ position: "relative" }}
+            onDelete={() => deleteExperience(career.id)}
+          />
         ))}
       </ul>
       <div css={s.buttonLayoutStyle}>

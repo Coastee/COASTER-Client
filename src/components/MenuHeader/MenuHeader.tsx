@@ -1,7 +1,7 @@
 import { Logo4Icon, RotateLogoIcon } from "@/assets/svg";
 import { MENUS, type MenuTypes } from "@/constants/menu";
 import { useGlobalMenuAction } from "@/stores/useGlobalMenuStore";
-import { useGlobalServer } from "@/stores/useGlobalServerStore"; // Import the global server state hook
+import { useGlobalServer } from "@/stores/useGlobalServerStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as s from "./MenuHeader.styles";
 
@@ -31,7 +31,7 @@ const MenuHeader = ({ iconOnly = false }: MenuHeaderProps) => {
   return (
     <header css={s.containerStyle(iconOnly)}>
       {iconOnly ? (
-        <RotateLogoIcon width={55} height={53} css={{ padding: "1rem", cursor: "pointer" }} />
+        <RotateLogoIcon width={55} height={53} css={{ padding: "1rem", cursor: "pointer", flexShrink: "0" }} />
       ) : (
         <Logo4Icon />
       )}

@@ -4,13 +4,15 @@ import { PATH } from "@/constants/path";
 import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
 import ChatPage from "@/pages/ChatPage/ChatPage";
 import GlobalChatPage from "@/pages/GlobalChatPage/GlobalChatPage";
+import GoogleLogin from "@/pages/OnboardingPage/components/GoogleLogin/GoogleLogin";
 import KakaoLogin from "@/pages/OnboardingPage/components/KakaoLogin/KakaoLogin";
 import NaverLogin from "@/pages/OnboardingPage/components/NaverLogin/NaverLogin";
+import ServerEditPage from "@/pages/ServerEditPage/ServerEditPage";
 import CareerAdd from "@/pages/UserSettingPage/components/CareerAdd/CareerAdd";
 import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit";
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
+import LinkedInVerify from "@/pages/UserSettingPage/components/LinkedInVerify/LinkedInVerify";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
-import { Suspense } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
@@ -43,6 +45,18 @@ export const router = createBrowserRouter([
         path: PATH.NAVER,
         element: <NaverLogin />,
       },
+      {
+        path: PATH.GOOGLE,
+        element: <GoogleLogin />,
+      },
+      {
+        path: PATH.LINKEDIN,
+        element: <LinkedInVerify />,
+      },
+      {
+        path: PATH.SERVER_EDIT,
+        element: <ServerEditPage />,
+      },
     ],
   },
   {
@@ -61,6 +75,10 @@ export const router = createBrowserRouter([
     children: [
       {
         path: PATH.MYPAGE,
+        element: <MyPage />,
+      },
+      {
+        path: `${PATH.MYPAGE}/:userId`,
         element: <MyPage />,
       },
       {
@@ -98,6 +116,10 @@ export const router = createBrowserRouter([
         path: PATH.TEA_TIME_LIST,
         element: <CoffeeChatListPage />,
       },
+      {
+        path: PATH.GLOBAL_CHAT,
+        element: <GlobalChatPage />,
+      },
     ],
   },
   {
@@ -106,23 +128,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: PATH.GROUP_CHAT,
-        element: (
-          <Suspense>
-            <ChatPage type="groups" />
-          </Suspense>
-        ),
+        element: <ChatPage type="groups" />,
       },
       {
         path: PATH.TEA_TIME,
-        element: (
-          <Suspense>
-            <ChatPage type="meetings" />
-          </Suspense>
-        ),
-      },
-      {
-        path: PATH.GLOBAL_CHAT,
-        element: <GlobalChatPage />,
+        element: <ChatPage type="meetings" />,
       },
     ],
   },

@@ -15,6 +15,11 @@ export const containerStyle = (iconOnly: boolean) => css`
   border-radius: 0 2.5rem 2.5rem 0;
 
   background-color: ${theme.color.dark3};
+
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const menuListStyle = css`

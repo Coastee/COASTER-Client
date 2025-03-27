@@ -1,3 +1,4 @@
+import { theme } from "@/styles/theme/theme";
 import { css } from "@emotion/react";
 
 export const hamburgerLayoutStyle = css`
@@ -30,5 +31,22 @@ export const rectangleStyle = css`
   svg:hover {
     scale: 1.05;
     transition: all 0.5s ease;
+  }
+`;
+
+export const iconStyle = css`
+  position: relative;
+
+  display: flex;
+
+  & > p {
+    position: absolute;
+    top: 3.2rem;
+    left: 50%;
+    transform: translateX(-42%);
+
+    ${theme.font.body3};
+    font-weight: 400;
+    white-space: nowrap;
   }
 `;

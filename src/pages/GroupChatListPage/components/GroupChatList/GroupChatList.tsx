@@ -1,17 +1,17 @@
 import rotateLogoImg from "@/assets/img/rotateLogoImg.png";
 import { RotateLogoIcon } from "@/assets/svg";
 import { NoDataContainer } from "@/components";
+import type { ChatRoomTypes } from "@/components/DetailModal/types/chatRoomTypes";
 import Divider from "@/components/Divider/Divider";
-import type { HomeDataTypes } from "@/pages/HomePage/types/homeDataTypes";
 import * as s from "./GroupChatList.styles";
 
 type GroupChatListProps = {
-  data: HomeDataTypes["groupChatRoom"];
-  handleItemClick: (type: string, id: string) => void;
+  data: ChatRoomTypes[] | undefined;
+  handleItemClick: (id: number, type: string) => void;
 };
 
 const GroupChatList = ({ data, handleItemClick }: GroupChatListProps) => {
-  const items = data?.chatRoomList || [];
+  const items = data || [];
   const itemCount = items.length || 0;
 
   return (
@@ -23,9 +23,9 @@ const GroupChatList = ({ data, handleItemClick }: GroupChatListProps) => {
           {items.map((chat, idx) => (
             <li
               key={chat.id}
-              onClick={() => handleItemClick("groupChatRoom", chat.id.toString())}
+              onClick={() => handleItemClick(chat.id, "groupChatRoom")}
               onKeyDown={(e) => {
-                e.key === "Enter" && handleItemClick("groupChatRoom", chat.id.toString());
+                e.key === "Enter" && handleItemClick(chat.id, "groupChatRoom");
               }}
             >
               <article css={s.listItemStyle}>

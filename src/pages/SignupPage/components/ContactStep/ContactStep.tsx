@@ -5,6 +5,7 @@ import { DESC, TITLE } from "@/constants/signup";
 
 import * as s from "@/pages/SignupPage/components/ContactStep/ContactStep.styles";
 import { useUrlForm } from "@/pages/SignupPage/hooks/useUrlForm";
+import { getProfileDomainIcon } from "@/utils/icon";
 
 interface ContactStepProps {
   onPrev: () => void;
@@ -25,12 +26,14 @@ const ContactStep = ({ onPrev, onNext }: ContactStepProps) => {
       <AuthContainer title={TITLE.PROFILE} desc={DESC.BASIC_INFO}>
         <div css={s.urlLayoutStyle}>
           {urls?.map((url, index) => (
-            <Input
-              key={index}
-              placeholder={PLACEHOLDER.URL}
-              value={url}
-              onChange={(e) => handleChange(index, e.target.value)}
-            />
+            <div key={index} css={s.inputWrapperStyle}>
+              <Input
+                placeholder={PLACEHOLDER.URL}
+                value={url}
+                onChange={(e) => handleChange(index, e.target.value)}
+                leftIcon={getProfileDomainIcon(url)}
+              />
+            </div>
           ))}
         </div>
         <PlusIcon width={16} height={16} css={{ cursor: "pointer", flexShrink: "0" }} onClick={handleAddInput} />

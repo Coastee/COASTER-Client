@@ -11,7 +11,7 @@ export const useDmList = () => {
 export const useDmLogs = (roomId: number | null) => {
   return useQuery({
     queryKey: ["dmLogs", roomId],
-    queryFn: () => roomId !== null ? fetchDmLogs(roomId) : Promise.reject("roomId is null"),
-    enabled: !!roomId
+    queryFn: () => fetchDmLogs(roomId),
+    enabled: !!roomId && roomId !== -1,
   });
 };

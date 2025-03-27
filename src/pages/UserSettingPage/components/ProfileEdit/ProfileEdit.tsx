@@ -11,6 +11,7 @@ import { MAX_LENGTH } from "@/pages/UserSettingPage/constants/maxLength";
 import { useEditProfileForm } from "@/pages/UserSettingPage/hooks/useEditProfileForm";
 import { usePostUserProfile } from "@/pages/UserSettingPage/hooks/usePostUserProfile";
 import { useCloseModal, useOpenModal } from "@/stores/useModal";
+import { getProfileDomainIcon } from "@/utils/icon";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +26,7 @@ const ProfileEdit = () => {
 
   const userId = localStorage.getItem("userId");
   const { data: userData } = useFetchUserDetail(Number(userId));
-  const { form, handleInfoChange } = useEditProfileForm(userData);
+  const { form, handleInfoChange } = useEditProfileForm(userData || null);
 
   const { mutate } = usePostUserProfile();
 
@@ -106,7 +107,7 @@ const ProfileEdit = () => {
                       <TagChip
                         id={index}
                         variant="link"
-                        content={<PlusIcon width={14} height={14} />}
+                        content={getProfileDomainIcon(url)}
                         removeHashtag={() => handleRemoveLink(index)}
                       />
                     </li>

@@ -14,7 +14,7 @@ export const fetchAllDms = async (): Promise<DMResponseTypes> => {
 };
 
 // [GET] DM 로그 조회
-export const fetchDmLogs = async (roomId: number): Promise<DMLogResponseTypes> => {
+export const fetchDmLogs = async (roomId: number | null): Promise<DMLogResponseTypes> => {
   try {
     const response: DMLogResponseTypes = await tokenInstance(`api/v1/dms/${roomId}`).json();
     return response;
