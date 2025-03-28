@@ -1,9 +1,9 @@
 import { fetchAllServers, fetchMyServers } from "@/components/ServerHeader/apis/server";
 import type { ServerResponseTypes } from "@/components/ServerHeader/types/serverTypes";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 export const useMyServerList = () => {
-  return useQuery<ServerResponseTypes>({
+  return useSuspenseQuery<ServerResponseTypes>({
     queryKey: ["myServerInfo"],
     queryFn: fetchMyServers as () => Promise<ServerResponseTypes>,
   });
