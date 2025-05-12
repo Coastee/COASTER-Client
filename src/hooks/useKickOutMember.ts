@@ -16,12 +16,6 @@ export const useKickoutMember = ({
   userId,
 }: UseKickoutMember) => {
   const queryClient = useQueryClient();
-  const identifier =
-    chatRoomType === "groups"
-      ? "fetchSideGroupChatList"
-      : chatRoomType === "meetings"
-      ? "fetchSideCoffeeChatList"
-      : undefined;
 
   return useMutation({
     mutationFn: () => kickOutMember(serverId, chatRoomType, groupId, userId),
