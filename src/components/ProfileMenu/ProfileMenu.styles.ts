@@ -2,13 +2,33 @@ import { css } from "@emotion/react";
 
 import { theme } from "@/styles/theme/theme";
 
+import profileMenuBg from "@/assets/img/menuWrapperImg.png";
+
+export const backgroundStyle = css`
+  position: absolute;
+
+  right: 5%;
+  top: 80%;
+
+  width: 21.8rem;
+  height: 22.5rem;
+
+  background-image: url(${profileMenuBg});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 21.8rem 22.5rem;
+
+  border-radius: 1rem;
+  z-index: 2;
+`;
+
 export const wrapperStyle = css`
   display: flex;
 
   width: 100%;
   height: 100%;
 
-  padding: 4rem 1.3rem 3rem 1.3rem;
+  padding: 2rem 1.3rem 1.8rem 1.3rem;
 
   flex-direction: column;
   justify-content: space-between;
@@ -22,7 +42,6 @@ export const layoutStyle = css`
 
   align-items: center;
   gap: 1rem;
-
 `;
 
 export const nameStyle = css`
@@ -64,7 +83,7 @@ export const verifyLayoutStyle = css`
   align-items: center;
   gap: 0.4rem;
 
-  color: #359AFF;
+  color: #359aff;
   ${theme.font.body3};
 
   font-weight: 700;
@@ -88,13 +107,17 @@ export const buttonLayoutStyle = css`
 
     padding: 0.6rem 6rem;
 
-    background-color: #404A58;
+    background-color: #404a58;
     color: ${theme.color.white};
 
     ${theme.font.body2};
     font-weight: 700;
 
     white-space: nowrap;
+
+    :last-of-type {
+      color: ${theme.color.primaryPink0};
+    }
 
     &:hover {
       background-color: ${theme.color.dark1};
