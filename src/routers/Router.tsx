@@ -1,7 +1,15 @@
 import App, { layoutStyle } from "@/App";
 import { ServerHeader } from "@/components";
 import { PATH } from "@/constants/path";
-import { CoffeeChatListPage, DMPage, GroupChatListPage, HomePage, MyPage, OnboardingPage, SignupPage } from "@/pages";
+import {
+  CoffeeChatListPage,
+  DMPage,
+  GroupChatListPage,
+  HomePage,
+  MyPage,
+  OnboardingPage,
+  SignupPage,
+} from "@/pages";
 import ChatPage from "@/pages/ChatPage/ChatPage";
 import GlobalChatPage from "@/pages/GlobalChatPage/GlobalChatPage";
 import GoogleLogin from "@/pages/OnboardingPage/components/GoogleLogin/GoogleLogin";
@@ -13,6 +21,7 @@ import CareerEdit from "@/pages/UserSettingPage/components/CareerEdit/CareerEdit
 import CareerSettingList from "@/pages/UserSettingPage/components/CareerSettingList/CareerSettingList";
 import LinkedInVerify from "@/pages/UserSettingPage/components/LinkedInVerify/LinkedInVerify";
 import ProfileEdit from "@/pages/UserSettingPage/components/ProfileEdit/ProfileEdit";
+import { Suspense } from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 export const Layout = () => {
