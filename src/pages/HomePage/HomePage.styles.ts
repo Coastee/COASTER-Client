@@ -21,12 +21,11 @@ export const leftLayoutStyle = (isSearching: boolean) => css`
 
   gap: 4rem;
 
-  width: ${isSearching ? "" : "100%"};
-  min-width: ${isSearching ? "76.8rem" : "50rem"};
+  width: 100%;
   z-index: 1;
 `;
 
 export const emptyBoxStyle = css`
-  width: 100%;
-  min-width: 28rem;
+  width: 28rem;
+  flex-shrink: 0;
 `;
