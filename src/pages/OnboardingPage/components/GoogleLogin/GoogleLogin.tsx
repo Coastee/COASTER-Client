@@ -1,5 +1,5 @@
 import { useGoogleLogin } from "@/pages/OnboardingPage/hooks/useGoogleLogin";
-import { useRedirectToServer } from "@/pages/OnboardingPage/hooks/useRedirectToServer";
+import { useRedirectToFirstServer } from "@/pages/OnboardingPage/hooks/useRedirectToFirstServer";
 import { useEffect } from "react";
 
 const GoogleLogin = () => {
@@ -7,7 +7,7 @@ const GoogleLogin = () => {
 
   const { data, isSuccess } = useGoogleLogin(code);
 
-  const handleRedirect = useRedirectToServer();
+  const handleRedirect = useRedirectToFirstServer();
 
   useEffect(() => {
     if (isSuccess && data) {

@@ -3,7 +3,7 @@ import { PATH } from "@/constants/path";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const useRedirectToServer = () => {
+export const useRedirectToFirstServer = () => {
   const navigate = useNavigate();
 
   const handleRedirect = useCallback(async () => {
