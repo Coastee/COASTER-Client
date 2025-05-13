@@ -1,34 +1,24 @@
-import { PATH } from "@/constants/path";
-import { useInitializeServerId } from "@/hooks/useInitializeServerId";
 import { useNaverLogin } from "@/pages/OnboardingPage/hooks/useNaverLogin";
 import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useRedirectToFirstServer } from "@/pages/OnboardingPage/hooks/useRedirectToFirstServer";
 
 const NaverLogin = () => {
-  const [searchParams] = useSearchParams();
-  const code = searchParams.get("code") || "";
-
-  const navigate = useNavigate();
+  const code = new URL(window.location.href).searchParams.get("code") || "";
 
   const { data, isSuccess } = useNaverLogin(code);
-  const serverId = useInitializeServerId();
+  const handleRedirect = useRedirectToFirstServer();
 
   useEffect(() => {
-    if (!isSuccess && !data) return;
+    if (isSuccess && data) {
+      localStorage.setItem("accessToken", data.result.accessToken);
+      localStorage.setItem("refreshToken", data.result.refreshToken);
 
-    const { accessToken, refreshToken, userId, newUser } = data.result;
+      localStorage.setItem("userId", data.result.userId.toString());
 
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-
-    localStorage.setItem("userId", userId.toString());
-
-    if (newUser) {
-      navigate(PATH.SIGNUP);
-    } else {
-      navigate(PATH.HOME.replace(":serverId", serverId.toString()));
+      handleRedirect();
     }
-  }, [data, isSuccess, navigate, serverId]);
+  }, [data, isSuccess, handleRedirect]);
+
 
   return <div>로딩 중</div>;
 };

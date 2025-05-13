@@ -1,36 +1,24 @@
-import { PATH } from "@/constants/path";
-import { useInitializeServerId } from "@/hooks/useInitializeServerId";
 import { useKakaoLogin } from "@/pages/OnboardingPage/hooks/useKakaoLogin";
 import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useRedirectToFirstServer } from "@/pages/OnboardingPage/hooks/useRedirectToFirstServer";
 
 const KakaoLogin = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const code = searchParams.get("code") || "";
+  const code = new URL(window.location.href).searchParams.get("code") || "";
 
   const { data, isSuccess } = useKakaoLogin(code);
-  const serverId = useInitializeServerId();
+  const handleRedirect = useRedirectToFirstServer();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    if (!isSuccess || !data) return;
+    if (isSuccess && data) {
+      localStorage.setItem("accessToken", data.result.accessToken);
+      localStorage.setItem("refreshToken", data.result.refreshToken);
 
-    const { accessToken, refreshToken, userId, newUser } = data.result;
+      localStorage.setItem("userId", data.result.userId.toString());
 
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-
-    localStorage.setItem("userId", userId.toString());
-
-    if (newUser) {
-      navigate(PATH.SIGNUP);
-    } else {
-      if (serverId) {
-        navigate(PATH.HOME.replace(":serverId", serverId.toString()));
-      }
+      handleRedirect();
     }
-  }, [data, isSuccess, serverId]);
+  }, [data, isSuccess, handleRedirect]);
+
 
   return <div>로딩 중</div>;
 };
