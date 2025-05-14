@@ -1,13 +1,12 @@
 import { useNaverLogin } from "@/pages/OnboardingPage/hooks/useNaverLogin";
-import { useRedirectToServer } from "@/pages/OnboardingPage/hooks/useRedirectToServer";
 import { useEffect } from "react";
+import { useRedirectToFirstServer } from "@/pages/OnboardingPage/hooks/useRedirectToFirstServer";
 
 const NaverLogin = () => {
   const code = new URL(window.location.href).searchParams.get("code") || "";
 
   const { data, isSuccess } = useNaverLogin(code);
-
-  const handleRedirect = useRedirectToServer();
+  const handleRedirect = useRedirectToFirstServer();
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -19,6 +18,7 @@ const NaverLogin = () => {
       handleRedirect();
     }
   }, [data, isSuccess, handleRedirect]);
+
 
   return <div>로딩 중</div>;
 };

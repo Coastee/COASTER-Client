@@ -8,18 +8,30 @@ import UserBox from "@/components/UserBox/UserBox";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import type { ChatRoomTypes } from "@/pages/ChatPage/types";
 import { useFetchUserDetail } from "@/pages/MyPage/hooks/useFetchUserDetail";
-import { useMenuBarAction, useMenuBarContent, useMenuBarIsOpen } from "@/stores/useMenuBarStore";
+import {
+  useMenuBarAction,
+  useMenuBarContent,
+  useMenuBarIsOpen,
+} from "@/stores/useMenuBarStore";
+import type { ChatRoom } from "@/types";
 import { type MouseEvent, useEffect, useState } from "react";
 
 interface SideMenuBarProps {
   serverId: number;
-  chatRoomType: string;
+  chatRoomType: ChatRoom;
   selectedItemId: number;
   setSelectedRoom: (room: ChatRoomTypes | null) => void;
 }
 
-const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }: SideMenuBarProps) => {
-  const [selectedMember, setSelectedMember] = useState<{ id: number } | null>(null);
+const SideMenuBar = ({
+  serverId,
+  chatRoomType,
+  selectedItemId,
+  setSelectedRoom,
+}: SideMenuBarProps) => {
+  const [selectedMember, setSelectedMember] = useState<{ id: number } | null>(
+    null
+  );
 
   const { mutate: exitChatRoom } = useExitChatRoom();
   const members = useMenuBarContent();
@@ -28,11 +40,18 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
   const isOpen = useMenuBarIsOpen();
 
   const menuBarRef = useOutsideClick<HTMLElement>(closeMenuBar);
-  const profileMenuRef = useOutsideClick<HTMLDivElement>(() => setSelectedMember(null));
+  const profileMenuRef = useOutsideClick<HTMLDivElement>(() =>
+    setSelectedMember(null)
+  );
 
-  const handleMemberInteraction = (member: (typeof members)[0], e: MouseEvent<HTMLButtonElement>) => {
+  const handleMemberInteraction = (
+    member: (typeof members)[0],
+    e: MouseEvent<HTMLButtonElement>
+  ) => {
     e.stopPropagation();
-    setSelectedMember((prev) => (prev?.id === member.id ? null : { id: member.id }));
+    setSelectedMember((prev) =>
+      prev?.id === member.id ? null : { id: member.id }
+    );
   };
 
   const { data } = useFetchUserDetail(selectedMember?.id ?? null);
@@ -75,7 +94,10 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      handleMemberInteraction(member, e as unknown as MouseEvent<HTMLButtonElement>);
+                      handleMemberInteraction(
+                        member,
+                        e as unknown as MouseEvent<HTMLButtonElement>
+                      );
                     }
                   }}
                 >
@@ -87,25 +109,29 @@ const SideMenuBar = ({ serverId, chatRoomType, selectedItemId, setSelectedRoom }
                   />
                   <p>{member.user.nickname}</p>
                 </button>
-                {members.length > 1 && index < members.length - 1 && <Divider css={{ backgroundColor: "#4A6285" }} />}
+                {members.length > 1 && index < members.length - 1 && (
+                  <Divider css={{ backgroundColor: "#4A6285" }} />
+                )}
                 {selectedMember?.id === member.id && (
-                  <div css={s.profileMenuWrapperStyle} ref={profileMenuRef}>
-                    <ProfileMenu
-                      id={member.user.id}
-                      name={member.user.nickname}
-                      expYears={member.user.userIntro.expYears}
-                      job={member.user.userIntro.job}
-                      linkedInVerify={member.user.linkedInVerify}
-                      dmRoomId={dmRoomId}
-                      profileImage={member.user.profileImage}
-                    />
-                  </div>
+                  <ProfileMenu
+                    ref={profileMenuRef}
+                    dmRoomId={dmRoomId}
+                    member={member}
+                    chatRoomType={chatRoomType}
+                    serverId={serverId}
+                    groupId={selectedItemId}
+                    onSideBarClose={() => setSelectedMember(null)}
+                  />
                 )}
               </div>
             ))}
           </ul>
         </div>
-        <div css={s.exitRoomWrapperStyle} onClick={handleExitClick} onKeyDown={handleExitClick}>
+        <div
+          css={s.exitRoomWrapperStyle}
+          onClick={handleExitClick}
+          onKeyDown={handleExitClick}
+        >
           <ExitRoomIcon width={27} height={26} />
           <p>나가기</p>
         </div>
