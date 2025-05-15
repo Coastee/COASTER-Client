@@ -8,7 +8,6 @@ export const globalStyle = css`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    overflow: auto;
 
     font-size: 62.5%;
     font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
