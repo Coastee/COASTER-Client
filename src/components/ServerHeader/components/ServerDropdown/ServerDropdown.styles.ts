@@ -68,10 +68,10 @@ export const listStyle = css`
 
   gap: 0.8rem;
 
-  padding: 0.8rem 0.8rem 0;
+  padding: 0.8rem 0.8rem 0.4rem;
 
   width: 100%;
-  height: 31rem;
+  max-height: 31rem;
 
   overflow-x: hidden;
   overflow-y: auto;
